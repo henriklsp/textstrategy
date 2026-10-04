@@ -93,6 +93,15 @@ interface TaskAssignment {
     taskType: TaskType;
 }
 
+export interface SerializedDataModel {
+    numericData: [string, number][];
+    booleanData: string[];
+    cast: ReturnType<Person['toJSON']>[];
+    taskAssignments: TaskAssignment[];
+    buildingsUnderConstruction: BuildingConstruction[];
+    completedBuildings: BuildingType[];
+}
+
 export class DataModel {
     private numericData: Map<string, number>;
     private booleanData: Set<string>;
@@ -478,5 +487,41 @@ export class DataModel {
     // Check if debug mode is enabled
     public static isDebugMode(): boolean {
         return DEBUG_MODE;
+    }
+
+    // Serializable representation of the full data model state
+    public toJSON(): SerializedDataModel {
+        return {
+            numericData: Array.from(this.numericData.entries()),
+            booleanData: Array.from(this.booleanData),
+            cast: this.castOfCharacters.map(p => p.toJSON()),
+            taskAssignments: this.taskAssignments.map(a => ({ ...a })),
+            buildingsUnderConstruction: this.buildingsUnderConstruction.map(b => ({ ...b })),
+            completedBuildings: Array.from(this.completedBuildings)
+        };
+    }
+
+    // Restore state from its serialized form. Replaces all current content.
+    public static fromJSON(data: SerializedDataModel): DataModel {
+        const model = new DataModel();
+        for (const [name, value] of data.numericData) {
+            model.numericData.set(name, value);
+        }
+        for (const name of data.booleanData) {
+            model.booleanData.add(name);
+        }
+        for (const personData of data.cast) {
+            model.castOfCharacters.push(Person.fromJSON(personData));
+        }
+        for (const assignment of data.taskAssignments) {
+            model.taskAssignments.push({ ...assignment });
+        }
+        for (const building of data.buildingsUnderConstruction) {
+            model.buildingsUnderConstruction.push({ ...building });
+        }
+        for (const buildingType of data.completedBuildings) {
+            model.completedBuildings.add(buildingType);
+        }
+        return model;
     }
 }
