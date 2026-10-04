@@ -1,0 +1,177 @@
+Game Design Document
+Working Title "Text Strategy"
+Genre:
+Text Adventure combined with Strategy.
+
+Philosphy:
+This game seeks to blend video game strategy with storytelling and interesting characters. It seeks to introduce a non linear structure, which resembles strategy games more than text adventure games. It looks like a book but behind the minimalist feel of a text adventure lie deep strategy mechanics.
+
+Feature Set:
+Economy and resource management system which allows the player to control vital statistics, construct buildings and recruit units.
+A connected story dialog graph. The game can progress through this graph to produce sequences of text and choices.
+A core loop, which allows the player to manage central strategy elements.
+Complex character personalities. Each character has a list of traits, which determine their skills and how they react to events and to interactions with the player.
+Alternative text system. Swap out bits of text for similar text to provide variety and prevent the player from reading the exact same passages of text repeatedly.
+Data driven text insertion: Data-to-story system to present information in fiction novel style text.
+Military units with different stats.
+Battle data to text conversion.
+Map. Presented in prose form. Different locations to explore and exploit.
+
+Game World:
+The game takes place around the shores of a fictional land similar to our own, but more dramatic - steep cliffs, deadly reefs, bountiful forests, ore-rich mountains, treacherous swamps, etc… 
+Light fantasy. Mostly ordinary animals, but often dangerous, and many will seem mysterious to the characters. Magic exists, but is subtle. Gods play a significant role in society, but do not act directly. 
+The setting is loosely inspired by the short-lived viking settlement of North America. 
+Society and technology should have a Dark Age-feel, a mix of iron age and middle age.
+The game does not have a visual map like most strategy games, but still keeps track of terrain, locations, and factions to be presented in prose form. 
+Development:
+The game is mainly browser based, but should be easily ported to other platforms.
+
+Visuals:
+The game is entirely text based and should look like a book. White background with a subtle paper-like texture and text in a black serif font. The font must look old-style and be easy to read.
+
+The overall aesthetics of the game are very simple. They must support a slow and contemplative mood for the player, inviting them to reflect on events, descriptions and dialog, imagining how people and places look just as one would with a good novel.
+Mechanics:
+Mechanics, as seen from the player's point of view, are extremely simple. The player is presented with text in story form followed by a list of choices. Each choice leads to more text and new choices. This is how the player interacts with people, gains information, issues orders, and makes decisions.
+
+Data model
+The underlying mechanics are more complex than what is immediately visible to the player. The game tracks the following data:
+Current year and date
+How much money the player has. Measured in silver coins.
+How much food and other resources are stored.
+Lands under the player's control.
+Total resources generated.
+Buildings constructed in each land
+Military units currently employed
+Weapons currently stored
+Non-player character personality traits
+Skill development
+Attitudes of each non-player character and faction towards the player.
+Enmities and friendships between characters.
+Upcoming events caused by previous decisions
+Characters appointed to responsibilities and bonuses provided by them
+Other factions
+Seasons 
+
+Core Game Loop:
+Review Status -> Allocate People and resources to tasks -> gain resources and upgrades
+
+Spend resources -> Construct Buildings -> New and improved tasks available for allocation. 
+
+The player needs to gain a steady supply of resources to survive, build, grow, recruit, equip and trade. 
+An economy focused on a few different types of resources is more efficient than trying to get everything, but more susceptible to shortages.  
+Appointing people to tasks and roles is important to get things done. 
+Character skills are crucial to efficiency. Skills are increased gradually. 
+A recurring council event lets the player consult their appointees, review status, order construction, recruit, and give orders.
+Many other events let the player make decisions. 
+The game advances by one or more days at a time. Some events, when triggered, are set to resolve after a set number of days. Other events are triggered when their prerequisites are met - possibly randomly when there are too few events. 
+Each named character can be assigned to tasks. New buildings may open new tasks.
+
+Detailed Core Loop:
+- Next Day (+1)
+- Work: Each person assigned to a task triggers the task effect
+- Consume food
+- Get event for current day, if any.
+ - Resolve dialog for event
+- Every tenth day, run recurring council event:
+ - Select council characters, minimum three
+ - Dialog: set the scene, introduce characters present
+ - 1st council member reports amount of resources in storage and production/consumption trends
+ - 2nd member reports military status
+ - 3rd member reports on construction. Ongoing? Finished?
+ - any member(s) report on recent events
+ - if no construction is ongoing, player may order construction of new building
+ - player may order new tasks
+  - Show list of tasks with vacant slots (in prose)
+  - Player selects a task.
+  - If people already assigned to this task, tell who
+  - Show list of people best suited for this task 
+  - Player selects person from the list
+  - Person is assigned to the task.
+- End day.
+
+Economy:
+Worker placement.
+The economy system should be focused more on making hard decisions in tough situations than on maxing the numbers. The only numbers the player should be worried about are numbers of current inventory. There are also numbers for how quickly those resources are generated,  but all the player needs to know is "We are producing less X than we spent, but we produce a lot of Y due to so and so".
+
+Resources:
+ Food can come from scavenging, hunting, fishing, farming and trade. 
+ Wood is obtained from forests. Needed for almost all construction. 
+ Copper requires an initial investment in exploration, prospecting, mining and construction. Used to make tools and for construction. 
+ Iron. Harder to obtain than copper, but can also be used for weapons.
+ Silver: standard currency. Can be gained from trade or raids.
+ Gold: Very rare. Used for gifts. 
+ Weapons. Needed to equip warriors.
+
+Tasks:
+Scavenging: food. Always available. Unlimited number of people. No buildings can improve scavenging. Diminishing returns.
+Hunting: food. In forests.
+Fishing: food. Needs boats and specialized buildings. 
+Farming: food. Grassland. Long term. Needs specialized buildings.
+Woodcutting: wood
+Building. Available when a building is under construction. Progresses construction.
+Craft: Creates tools from wood and copper to improve other tasks
+Mining: Copper or iron. Needs building(s).
+Storage: Reduces resource loss over time. Needs building(s).
+...and other tasks. healing? repairing? teaching? raiding? exploring? worshipping? guarding? attacking? training?
+
+Buildings:
+Different types of buildings provide different bonuses and have different construction times,  resource costs, and prerequisites. Assume can only be built in specific terrain. 
+
+Combat system:
+UI looks just like the test of the game - like a book with choices. Not controlled by a dialog tree, but by the combat loop. 
+(Inspired by "Darkest Dungeon")
+Each unit occupies one position: vanguard, main, rear, reserve.
+Each unit is led by one named character. A units stats, strengths and weaknesses are determined by training and equipment. 
+Units act by initiative. On its turn, a player controlled unit will show its status in prose form and at least two choices of what to do.  Possible actions depend on the character leading the unit, position, equipment and training. 
+The player (or AI for enemy units) chooses an action. The game resolves the effects and shows the result in prose form. 
+Fights are won by clever combinations of status effects,  buffs and debuffs, rather than by numbers (because numbers are not easily turned into prose).
+
+Controls:
+The game is played using mouse on PC/Mac or by touch on mobile devices.
+The main player input is clicking on or touching the buttons representing choices.
+The player can scroll or swipe vertically to scroll text up and down.
+There is no keyboard input.
+There are no two-finger controls on mobile devices.
+Challenges:
+Resource management
+Appointing people to responsibilities
+Optimizing synergies
+Long term planning
+In combat, exploiting own strengths and enemies weaknesses.
+
+
+Player Experience:
+All aspects of the game must support a relaxed playstyle. There is no time limit on anything allowing the player to take their time making decisions. Controls are simple and easy to learn. Difficulty level is relatively low. Visuals are extremely simple and will never have multiple elements competing for attention.
+Target group:
+Calm introverts. People who enjoy reading fiction books. Mostly casual gamers.
+
+Story:
+Plot
+A small group of settlers and adventurers arrive on the coast of a foreign land. The player soon comes to lead a family, later a clan, maybe some day a kingdom. But first they must survive the many dangers with limited resources. 
+Settlers will be tested by natural hazards, beasts, deaths, personal rivalries, new arrivals, hostile local tribes and a distant empire intent on conquest.
+
+
+
+Characters
+Randomly generated. As interactive fiction, character development is important. All will have complex traits, skills, goals, flaws, and relations to the player.
+Characters will grow over time, increase their skills and sometimes pursue their own goals.
+
+Society
+Dark age themed, society revolves around families and clans. Unusually open-minded with a place for everyone and for different lifestyles. 
+Every adult is expected to dedicate themselves to a single god, which defines their lifestyle, ideals and role in society. It also shapes their skill development.
+
+Pantheon
+There are 12 deities. Each one represents one of four deific aspects while opposing one other: 
+Divinity: power, dominance, ambition, excellence
+Magic: complexity, intellect, mystery
+Life: fertility, light, health, nature
+Harmony: order, peace, society, cooperation
+Followers of each god gain small benefits according to their god's aspects.
+See appendix for details of each.
+
+Magic
+Followers of the three gods of magic dabble in magic and occultism.
+Magic is generally subtle rather than flashy. Straddling the line between magic and technology, chemistry, psychology and luck.
+
+
+

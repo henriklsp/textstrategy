@@ -1,0 +1,19 @@
+- Scavenge task produces food. Gradually depleted and replenished. 
+- Error handling, show errors in UI
+- Write basic introduction text with characters
+- Dialog: variable subsection based on selected person, they may say different things depending on traits.
+- Person gender and dialog replace <he> or <she> with "he" or "she". <He> <him> <Him> <his> <His>
+- Person skill and skill progression and natural aptitude
+- Event queue is ordered by due date.
+- Persistence: use browser localstorage for datamodel, eventqueue and current position in dialog
+- Data model: Buildings
+- Data model daily update - production, consumption, building effects, growth, seasons
+- Recurring event "Council" allows status, construction, recruitment, storage summary, economy, exploration, personnel change
+- Combat system
+- Put random events on event queue if prerequisites are met
+- dialog event: log text to be reported at the next council event.
+
+To run:
+- Powershell textstrategy root folder
+- npm run serve
+- browser localhost:8080/src/

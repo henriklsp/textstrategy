@@ -1,0 +1,57 @@
+*A: divinity, -magic
+*B: life
+*C: -life, magic
+
+§1
+[var food 1]
+This is the temporary introduction placeholder text.
+You are on a boat. You have been rowing for days, heading towards unknown lands, hoping for brighter future. 
+<?It is raining.; The sail was destroyed in a storm.>
+Your friends are proud and determied <A>, strong and healthy <B>, and clever <C>.
+Who is sitting next to you?
+#2 <A>
+#3 <B>
+#4 <C>
+
+§2
+<A> keeps rowing. Insert introduction here.
+"Bla bla", says <A>.
+#5 "Yes"
+
+§3
+<B> is strong and has no trouble rowing.
+"Bla bla, says <B>.
+#5 "Yes"
+
+§4
+<C> is struggling with the oar, but eager to chat.
+"Bla bla, says <C>.
+#5 "Yes"
+
+§5
+You set out on the journey with only few things. What did you bring?
+#6 Food
+#7 Some coins
+#8 Your axe
+
+§6
+[var food 2]
+Food will be useful, because so and so.
+#9 Continue
+
+§7
+[var silver 2]
+Some silver coins. Hopefully useful for trade. Will there be something to buy where you end up?
+#9 Continue
+
+§8
+[var weapons 2]
+[bool broughtweapons true]
+You brought your axe. Your friends are also armed. Weapons may be useful.
+#9 Continue
+
+§9
+Landfall! Big drama, but this is just the temporary text.
+You have <food> sack<food 2?s;> of food left.
+These lands could be dangerous. <broughtweapons?Fortunately you brought weapons;>
+#999 End

@@ -1,0 +1,23 @@
+{
+    "name": "text-strategy-game",
+    "version": "1.0.0",
+    "description": "A cross between text adventure and strategy game",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "build:browser": "npx esbuild src/browser.ts --bundle --outfile=dist/browser.js --format=esm --platform=browser",
+        "start": "npm run build && node dist/index.js",
+        "serve": "npm run build:browser && live-server --open=src",
+        "test": "jest",
+        "test:watch": "jest --watch"
+    },
+    "devDependencies": {
+        "@types/jest": "^30.0.0",
+        "@types/node": "^20.0.0",
+        "esbuild": "^0.23.0",
+        "jest": "^30.4.2",
+        "live-server": "^1.2.0",
+        "ts-jest": "^29.4.11",
+        "typescript": "^5.9.3"
+    }
+}

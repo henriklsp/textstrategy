@@ -1,0 +1,22 @@
+§1
+Text 1 here. <?variable subsection A.; variable subsection B.>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+#2 Go to number 2
+#3 Go to number 3
+
+§2
+[var silver +1]
+[event tempevent 1]
+Text 2 here.
+Increase silver. Trigger tempevent.
+#4 Continue
+
+§3
+[bool hasDoneIt true]
+Text 3 here
+Set hasDoneIt. 
+#4 Continue
+
+§4
+Text 4 here. We have <silver?> silver<hasDoneIt? and we have done it.; , but we have not done it.>
+#999 End

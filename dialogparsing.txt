@@ -1,0 +1,35 @@
+// comment : Line is ignored by parser
+*A: Trait : Select person with positive trait for dialog role A
+*A: -Trait : Select person with negative trait for dialog role A
+*A: Trait, Trait2 : Select person with both traits for dialog role A
+*A: scavenge : Select person best suited for task (scavenge, build, hunting, fishing, farming, woodcutting, mining, craft, storage)
+
+§1 : begin section 1
+
+#2 abc : dialog choice with text abc, go to section 2
+#2 (x?) abc : dialog choice visible only if boolean x is set
+#2 (gold>5?) abc : dialog choice visible only if gold > 5 (also >=, <, <=, ==, !=)
+#2 (gold 5?) abc : dialog choice visible only if gold >= 5
+#2 (can fish) abc : visible if fish task is assignable
+#n pointing to a section that does not exist ends the dialog.
+A section with no visible choices is the end of the dialog (the UI shows "Continue").
+
+Blank line : new paragraph (laid out by the UI)
+
+<> variable subsection text to be replaced run-time. Can be nested. Options are trimmed.
+   Unknown tags are shown as-is.
+<?abc;def> : randomly pick abc or def (picked once per visit to the section)
+<x?abc;def> : if x is true (flag set or number not 0), pick abc, else def
+<x?abc> :  abc if x is true, else nothing
+<food> : show current integer value of food
+<food 2?a;b> : if food >= 2, show a, else b
+<A> : name of person A
+<person>: temporary variable previously set with [set person=choice]
+
+[bool x true] : bool effect; set variable x to true
+[var x +1] : var effect; increase variable x by 1
+[event x 1] : event effect; trigger event x (text/x.txt) in 1 day
+[task A scavenge] : assign the person in role A to a task (scavenge, build, hunting, fishing, farming, woodcutting, mining, craft, storage)
+[build farm] : start building a farm (completion time depends on workers assigned to build task)
+[set person=choice] : set temporary variable 'person' to next user choice
+[set task=choice]

@@ -1,0 +1,13 @@
+*A: magic, -divinity
+*B: -magic, life
+
+§1
+Lorem ipsum dolor sit amet.
+<A> says 'Hi'.
+'Hello', replies <B>.
+#2 Go to number 2
+#3 Go to number 3
+
+§2
+Abcdefg.
+#3 end

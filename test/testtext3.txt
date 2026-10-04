@@ -1,0 +1,40 @@
+//Test task assignment through dialog
+//The complete end-to-end test must define characters
+§1
+// Select roles based on task fit
+*A: scavenge
+*B: build
+*C: harmony
+// Start construction of shelter
+[build shelter]
+// Assign roles to their respective tasks
+[task A scavenge]
+[task B build]
+This section will assign people to tasks.
+The complete end-to-end text will validate task assignment.
+#2 continue
+
+§2
+Select task to assign.
+[set task=choice]
+#5 (wood 5) Build
+#5 (can fish) Fish
+#5 (can mine) Mine
+#3 Hunt
+
+§3
+Select person to assign
+[set person=choice]
+#4 <C>
+
+§4
+// Assign selected Person to selected Task
+[task <person> <task>]
+//Verify that C is assigned to Hunt
+<person> will <task> now.
+#999 End 
+
+§5
+This section should only be reached if
+section 2 fails to pick the right task
+#999

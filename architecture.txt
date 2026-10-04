@@ -1,0 +1,276 @@
+# TEXT STRATEGY GAME - ARCHITECTURE SUMMARY
+
+## OVERVIEW
+TypeScript text adventure/strategy game. Browser-based (index.html) with Node.js tooling.
+Code written by Mistral Vibe is code reviewed by Claude Code
+Code written by Claude Code is code reviewed by Mistral Vibe
+Both are subject to human review.
+
+Game blends text adventure storytelling with strategy game mechanics. Core loop involves
+resource management, character assignment, building construction, and event-driven
+narrative progression. Entirely text-based UI presented in a book-like format.
+
+## ENTRY POINT
+src/browser.ts (browser) or src/index.ts (Node)
+  -> Main.initialize() -> sets starting resources (day 1, population 5, food 10, wood 5) -> loads text/intro.txt -> GameLoop.next()
+
+## CORE CLASSES (src/classes/)
+
+### Game Flow
+- **Main.ts**: Shared entry point. Creates GameLoop via GameLoop.create(), initializes DataModel with
+  starting resources (currentDay, population, food, wood), loads intro.txt event, starts game loop.
+- **GameLoop.ts**: Core game loop. Manages event queue with scheduled days. Advances days (with daily
+  resource updates via DataModel.updateDailyResources()) until the next event is due. Handles both
+  immediate Event objects and named event references. Named events ([event x n]) are loaded from
+  text/<name>.txt files via EventParser or registered with registerEvent().
+  - Event queue is kept sorted by day; same-day events maintain insertion order
+  - Async loading of event files in browser environment
+  - Daily updates: resource production from tasks, resource consumption, building construction progress
+  - Building completion time scales with number of workers assigned to build task
+- **UI.ts**: All presentation decisions. Paragraph layout (blank line = new paragraph, single line
+  breaks become spaces), "Continue" option for sections without choices, output to index.html
+  (window.updateStory callback) or console. Implements IGameUI interface for decoupling from GameLoop.
+  Debug mode displays errors in red text.
+
+### Event & Dialog System (Text Parsing)
+- **EventParser.ts**: Parses structured text files into Event objects. Preserves original text
+  formatting (no layout decisions). Reports problems (unknown effects, duplicate sections,
+  unbalanced tags, ignored lines) with line numbers via getIssues().
+  - Syntax support:
+    - `// comment` -> ignored
+    - `*A: trait` -> PersonSelection (role A requires positive trait)
+    - `*A: -trait` -> PersonSelection (role A requires negative trait)
+    - `*A: trait1, trait2` -> PersonSelection (role A requires both traits)
+    - `*A: taskType` -> PersonSelection (role A selects person best suited for task)
+    - `§1 text` -> Section 1 with text content
+    - `[var name value]` -> VarEffect (adjust numeric variable by value)
+    - `[bool name true/false]` -> BoolEffect (set boolean flag)
+    - `[event name delay]` -> EventEffect (schedule named event after delay days)
+    - `[task role|<variable> taskType|<variable>]` -> AssignTaskEffect (assign person to task)
+    - `[build buildingType]` -> StartConstructionEffect (start building construction)
+    - `[set variableName=choice]` -> SetChoiceEffect (capture next choice as variable)
+    - `#2 text` -> Choice to Section 2
+    - `#2 (condition?) text` -> Conditional Choice (visible only if condition met)
+    - `<A>` -> text substitution: name of person in role A
+    - `<variable>` -> text substitution: value of numeric variable
+    - `<variable?>` -> text substitution: display value of variable
+    - `<variable op value?a;b>` -> text substitution: conditional (e.g., `<food 2?a;b>`)
+    - `<?a;b;c>` -> text substitution: random pick
+    - `<condition?a;b>` -> text substitution: conditional based on truthy value
+- **EventLoader.ts**: Handles environment detection (browser vs Node.js) and file loading.
+  Uses fetch() in browser, fs.readFileSync in Node. Returns null on errors.
+- **Event.ts**: Container for game narrative. Holds Section[] array and startingSection reference.
+  Starting section defaults to first section if not specified.
+- **Dialog.ts**: Runs one Event. Manages:
+  - Navigation through Section graph via player choices
+  - Role assignment using RoleAssigner.findBestAssignment() (best total score; throws if more
+    roles than available characters)
+  - Effect application on section entry via Effect.takeEffect()
+  - Text substitution via TextSubstitution
+  - Choice variable capture ([set person=choice] -> stores choice text for use in effects/text)
+  Implements EffectContext interface to provide role resolution and event scheduling to effects.
+- **TextSubstitution.ts**: Replaces <...> variable subsections with current values.
+  Supports nested tags (e.g., `<x?<?a;b>;c>`). Handles:
+  - Role references: `<A>`, `<B>` -> person name
+  - Numeric variables: `<food>` -> current value as string
+  - Boolean checks: `<hasDoneIt?>` -> "true"/"false"
+  - Conditional logic: `<food 2?a;b>` -> a if food >= 2, else b
+  - Random selection: `<?a;b;c>` -> randomly pick one option (once per section visit)
+  - Truthy checks: `<x?a;b>` -> a if x is set/non-zero, else b
+  - Choice variables: `<person>`, `<task>` -> captured choice values
+  Unknown tags are left as-is for visibility during development.
+
+### Sections & Choices
+- **Section.ts**: Narrative unit. Contains:
+  - sectionNumber (nullable for non-numbered sections)
+  - text (preserved as written)
+  - effects: Effect[] (applied on section entry)
+  - personSelections: PersonSelection[] (role requirements for this section)
+  - choices: Choice[] (player options, can be modified after construction)
+- **Choice.ts**: Player option. Contains text, Prerequisite[] array, and target Section reference.
+  Choices without target sections end the dialog. arePrerequisitesMet(dataModel) filters
+  available options based on game state.
+
+### Effects System (Implement `Effect` interface)
+All effects implement the Effect interface with takeEffect(dataModel, context?) method.
+Context (EffectContext) provides role resolution, choice variable access, and event scheduling.
+
+- **Effect.ts**: Base interface. Defines Effect interface and EffectContext interface.
+  EffectContext provides: getPersonForRole(), scheduleEvent(), setPendingChoiceCapture(), getChoiceVariable()
+- **VarEffect.ts**: Modifies numeric variables. adjust() method changes variable by delta.
+  Clamps resource variables to non-negative values.
+- **BoolEffect.ts**: Sets boolean flags. Uses DataModel.set() to store boolean values.
+- **EventEffect.ts**: Schedules named events. Uses context.scheduleEvent() to queue event
+  after specified delay in days.
+- **AssignTaskEffect.ts**: Assigns person to task. Resolves person reference from:
+  - Role name (A, B, C...) via context.getPersonForRole()
+  - Choice variable reference (<person>) via context.getChoiceVariable()
+  Resolves task reference from:
+  - Literal task type (hunting, fishing, etc.)
+  - Choice variable reference (<task>) via normalizeTaskName()
+  Uses DataModel.assignPersonToTask() to update assignments.
+- **StartConstructionEffect.ts**: Starts building construction. Calls DataModel.startBuildingConstruction()
+  which pays resource costs and adds to construction queue. Building must not already be
+  completed or under construction, and resources must be available.
+- **SetChoiceEffect.ts**: Captures next player choice. Uses context.setPendingChoiceCapture()
+  to set up capture, Dialog stores choice text in choiceVariables map.
+- **EffectFactory.ts**: Central factory for parsing effect strings into Effect objects.
+  Supports all effect types. Collects ParseIssue[] for error reporting with line numbers.
+
+### Requirements & Prerequisites
+- **PersonSelection.ts**: Defines role requirements for dialog. Parsed from `*A: ...` lines.
+  Supports trait-based and task-based selection:
+  - Trait-based: *A: magic, *B: -magic, *C: magic, life
+  - Task-based: *A: scavenge, *B: build
+  Scoring system for matching Persons to roles:
+  - Perfect match (positive->positive or negative->negative): +10 points
+  - Positive role to tertiary person: +4 points
+  - Negative role to tertiary person: -3 points
+  - Mismatch (positive->negative or negative->positive): -9 points
+  - Missing trait: 0 points
+  Task-based scoring uses trait bonuses (e.g., life trait helps hunting/fishing/farming)
+- **Prerequisite.ts**: Generic condition wrapper. Base class for all prerequisites.
+  Implements isMet(dataModel) method.
+- **VariablePrerequisite.ts**: Prerequisite checking variable values.
+  Supports boolean checks (x?), numeric comparisons (gold>5?, gold>=5? etc.),
+  and shorthand form (gold 5? = gold >= 5).
+  Parsing from text format like `(x?)` or `(gold>5?)` with display text extraction.
+
+### Data Model
+- **DataModel.ts**: Global state container. Uses separate Maps/Sets for numbers and booleans.
+  A name is exclusively either a number or a boolean flag.
+  - Known variables (RESOURCES, currentDay) default to 0 if not set
+  - Resource variables are clamped to non-negative values
+  - Tracks: numericData, booleanData, castOfCharacters, taskAssignments,
+    buildingsUnderConstruction, completedBuildings
+  
+  Key functionality:
+  - Resource management: get(), set(), adjust(), clamp()
+  - Task assignments: assignPersonToTask(), getTaskForPerson(), getPersonsForTask()
+  - Building construction: startBuildingConstruction(), completeBuilding(), isBuildingCompleted()
+  - Daily updates: updateDailyResources() handles:
+    - Building construction progress (scaled by builders)
+    - Resource production from tasks (based on task type)
+    - Resource consumption (population eats food)
+    - Resource decay (without storage building)
+  - Task requirements: canPerformTask() checks if required buildings are completed
+  - Default task assignment: assignUnassignedToDefaultTask() assigns to 'scavenge'
+  
+  Resource types: food, gold, silver, weapons, population, iron, copper, wood
+  Task types: scavenge, hunting, fishing, farming, woodcutting, mining, build, craft, storage
+  
+- **BuildingDefinitions.ts**: Central registry of all building types with definitions:
+  - Costs: wood, copper, iron requirements
+  - daysToBuild: base construction time
+  - effects: string array of effects (future expansion)
+  - Provides: get(), getTypes(), isValidBuildingType(), getDaysToBuild(), getCosts(), canAfford()
+  - Building types: shelter, hall, workshop, farm, mine, dock, storage
+
+### Characters & Roles
+- **Person.ts**: Represents a game character with personality traits.
+  Each Person has three trait categories: positiveTraits, negativeTraits, tertiaryTraits.
+  Provides methods: getName(), getTraitType(), hasTrait(), hasPositiveTrait(), etc.
+  getTraitType() returns "positive", "negative", "tertiary", or null.
+- **DefaultCharacters.ts**: Factory function createDefaultCharacters() creates 5 starting
+  characters (Bearn, Arik, Eya, Agnar, Elrid) with predefined trait combinations based on
+  the four deific aspects: divinity, magic, life, harmony.
+- **RoleAssigner.ts**: Finds optimal assignment of Persons to roles.
+  Uses brute-force search (factorial complexity: O(cast!/(cast-roles)!)).
+  Throws if more roles than available characters.
+  Preserves existing role assignments unless role reappears in section.
+
+### Utility Classes
+- **DebugFormatter.ts**: Formats DataModel state for display.
+  Shows: known variables with values, boolean flags (true only), task assignments,
+  buildings under construction (with days left), completed buildings.
+  Only outputs in debug mode (always enabled during development).
+
+## KEY MECHANICS
+1. **Text Parsing**: EventParser reads structured text files -> builds Event with Section graph.
+   Supports role assignments, effects, choices, conditional branching, and text substitution.
+2. **State Management**: DataModel stores all game state (resources, flags, characters, tasks, buildings).
+   Effects modify DataModel via takeEffect(dataModel). All changes are immediate and permanent.
+3. **Execution Flow**: GameLoop processes event queue -> creates Dialog instances -> applies effects
+   to DataModel -> renders Section text + Choice options via UI. Events can schedule more events.
+4. **Branching**: Choice checks Prerequisite[] to filter available options. Conditional choices
+   use VariablePrerequisite for game state checks.
+5. **Role Resolution**: Dialog resolves PersonSelections to actual Persons using RoleAssigner,
+   scoring each Person against role requirements and finding optimal assignment.
+6. **Resource Flow**: Daily updates produce resources based on task assignments and consume
+   resources based on population. Buildings enable new tasks and provide bonuses.
+7. **Construction**: Buildings require resources, take time to build, and enable new capabilities.
+   Construction time scales inversely with number of workers on build task.
+
+## ARCHITECTURAL WEAKNESSES
+
+### Performance Issues
+- **Brute-force role assignment**: RoleAssigner.findBestAssignment() uses factorial-time exhaustive
+  search (O(n!/(n-k)!)) where n = cast size and k = roles. With current small character counts this is
+  acceptable, but will not scale. A Hungarian algorithm implementation would provide O(n^3) instead.
+
+### Code Quality & Maintainability
+- **Tight coupling**: Many classes are directly coupled (e.g., Effect implementations directly
+  import DataModel, Dialog directly uses DataModel, RoleAssigner, TextSubstitution). No dependency
+  injection makes testing and modification difficult.
+- **Magic strings**: Task types, building types, trait names, and variable names are strings throughout.
+  While BuildingType and TaskType provide some type safety, trait names and variable names have no
+  compile-time validation. Typo in a trait name (e.g., "divinty" instead of "divinity") silently fails.
+- **Minimal error handling**: Many operations throw exceptions or log warnings without graceful
+  degradation. Production code should handle edge cases more gracefully.
+- **No input validation**: Limited validation for game state changes. Methods like DataModel.set()
+  and adjust() assume valid inputs. Invalid building types or task types cause runtime errors.
+
+### Architecture & Design
+- **No dependency injection**: Classes create their own dependencies (e.g., GameLoop creates
+  EventParser, DataModel creates Person objects). Makes testing difficult and violates
+  Dependency Inversion Principle.
+- **Hardcoded default characters**: DefaultCharacters.ts creates a fixed set of 5 characters.
+  Game design calls for randomly generated characters with complex traits. Current implementation
+  is a placeholder that doesn't match the design document's requirements.
+- **Monolithic DataModel**: DataModel handles too many responsibilities: variable storage, character
+  management, task assignments, building construction, daily resource updates. Violates
+  Single Responsibility Principle. Should be split into separate managers.
+- **Limited event system**: Event queue lacks prioritization. Events are processed in FIFO order
+  within the same day, with no way to specify event priority or interruptibility.
+- **Tight coupling between dialog and effects**: Effects depend on EffectContext for role
+  resolution and event scheduling. This creates a circular dependency: Dialog creates context,
+  effects need context, but effects are created during parsing (before Dialog exists).
+  SetChoiceEffect works around this by setting pending capture in context.
+
+### Missing Features & Gaps
+- **No save/load system**: No serialization or persistence of game state. Player cannot save
+  progress. Game design implies this is needed for a strategy game with long-term planning.
+- **Limited UI abstraction**: UI class has minimal interface. Browser-specific code (window.updateStory)
+  is directly referenced. No separation between game logic and presentation beyond basic text/choices.
+- **No combat system**: Game design describes a combat system inspired by Darkest Dungeon, but
+  no combat-related code exists in the current implementation.
+- **No map/terrain system**: Game design calls for tracking terrain, locations, and factions
+  in prose form, but current implementation has no map or location tracking.
+- **No council event**: Game design describes a recurring council event every 10 days with
+  reports from council members, but this is not implemented. Only basic event scheduling exists.
+- **Incomplete building effects**: BuildingDefinitions.effects is a string array placeholder.
+  Buildings like farm ("enables_farming") and mine ("enables_mining") have effects defined as
+  strings but no actual effect implementation. DataModel.canPerformTask() checks these strings,
+  but the connection is fragile (string matching).
+
+### Testing & Development
+- **No unit tests**: No test files exist in the codebase. Complex logic (RoleAssigner,
+  TextSubstitution, EventParser) lacks automated test coverage.
+- **Debug mode always on**: DEBUG_MODE is hardcoded to true. No production mode with
+  debug output disabled.
+- **Error reporting is basic**: Parse issues are logged to console but don't prevent
+  game continuation. Errors in event processing are caught and recorded but may leave
+  game in inconsistent state.
+
+### Technical Debt
+- **Async loading complexity**: Browser environment requires async loading of event files.
+  GameLoop handles this with Promise tracking, but it adds significant complexity.
+  The loadingEvents Map and ensureEventLoaded() method are fragile.
+- **Environment detection scattered**: Both EventParser and EventLoader detect browser
+  vs Node environment. This should be centralized.
+- **Deprecated code**: DefaultCharacters.ts exports a deprecated singleton
+  defaultCharacters array. Remove once all code uses createDefaultCharacters().
+- **TextSubstitution nesting limit**: While nesting is supported, deeply nested tags
+  could cause performance issues. No documented limit or protection against infinite recursion.
+
+

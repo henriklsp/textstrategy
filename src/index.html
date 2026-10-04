@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Adventure Strategy Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #faf9f6;
+            font-family: "Times New Roman", Times, serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            color: #1a1a1a;
+        }
+
+        .book-container {
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 750px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .text-area {
+            flex: 1;
+            padding: 2.5rem;
+            font-size: 1.25rem;
+            line-height: 1.7;
+            text-align: justify;
+            overflow-y: auto;
+        }
+
+        .text-area p {
+            margin-bottom: 1.4rem;
+        }
+
+        .text-area p:first-child {
+            text-indent: 2em;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
+            padding: 0 2.5rem 2.5rem;
+        }
+
+        .choice-button {
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 1.25rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: left;
+            color: #1a1a1a;
+            transition: all 0.15s ease;
+            position: relative;
+        }
+
+        .choice-button:hover {
+            color: #0066cc;
+            text-decoration: underline;
+        }
+
+        .choice-button:active {
+            color: #004499;
+        }
+
+        .choice-button::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background: #ccc;
+            transition: background 0.15s ease;
+        }
+
+        .choice-button:hover::after {
+            background: #0066cc;
+        }
+
+        /* Book-like styling */
+        .book-container::before,
+        .book-container::after {
+            content: '';
+            height: 1px;
+            background: linear-gradient(to right, transparent, #ccc, transparent);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .text-area {
+                padding: 1.5rem;
+            }
+            .buttons-container {
+                padding: 0 1.5rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="book-container">
+        <div class="text-area" id="story-text">
+        </div>
+        <div class="buttons-container" id="choices-container">
+        </div>
+    </div>
+
+    <script>
+        // Global reference to updateStory for the game code
+        const storyText = document.getElementById('story-text');
+        const choicesContainer = document.getElementById('choices-container');
+
+        // Called by UI.ts to update the page
+        // paragraphs: string[] (plain text, one per paragraph)
+        // choices: {text: string, onSelect: function}[]
+        // debugInfo is an optional string to display when in debug mode
+        window.updateStory = function(paragraphs, choices, debugInfo) {
+            storyText.replaceChildren();
+            paragraphs.forEach((paragraph) => {
+                const p = document.createElement('p');
+                p.textContent = paragraph;
+                storyText.appendChild(p);
+            });
+            
+            // Display debug info if provided
+            if (debugInfo) {
+                const debugDiv = document.createElement('div');
+                debugDiv.style.padding = '0.5rem';
+                debugDiv.style.fontSize = '0.9rem';
+                debugDiv.style.color = '#666';
+                debugDiv.style.borderTop = '1px solid #ccc';
+                debugDiv.style.marginTop = '0.5rem';
+                debugDiv.textContent = 'DEBUG: ' + debugInfo;
+                storyText.appendChild(debugDiv);
+            }
+            
+            choicesContainer.replaceChildren();
+            choices.forEach((choice) => {
+                const button = document.createElement('button');
+                button.className = 'choice-button';
+                button.textContent = choice.text;
+                button.onclick = () => choice.onSelect();
+                choicesContainer.appendChild(button);
+            });
+            window.scrollTo(0, 0);
+        };
+    </script>
+
+    <!-- Load the bundled game code -->
+    <script type="module">
+        import './../dist/browser.js';
+    </script>
+</body>
+</html>
