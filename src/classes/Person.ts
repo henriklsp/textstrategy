@@ -95,4 +95,20 @@ export class Person {
         }
         return allTraits;
     }
+
+    // Serializable representation of this person
+    public toJSON(): { name: string; traits: { trait: string; type: 'positive' | 'negative' | 'tertiary' }[] } {
+        return { name: this.name, traits: this.getAllTraits() };
+    }
+
+    // Restore a person from its serialized form
+    public static fromJSON(data: { name: string; traits: { trait: string; type: 'positive' | 'negative' | 'tertiary' }[] }): Person {
+        const person = new Person(data.name);
+        for (const { trait, type } of data.traits) {
+            if (type === 'positive') person.addPositiveTrait(trait);
+            else if (type === 'negative') person.addNegativeTrait(trait);
+            else person.addTertiaryTrait(trait);
+        }
+        return person;
+    }
 }
