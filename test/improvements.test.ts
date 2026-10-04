@@ -92,16 +92,24 @@ describe('Role assignment', () => {
         }
     });
 
-    test('throws if a section has more roles than characters', () => {
+    test('a section with more roles than characters reports an error and ends the dialog', () => {
+        const errors: (string | Error)[] = [];
+        const callback = { onDialogEnd: jest.fn(), onDialogUpdated: () => {}, onError: (e: string | Error) => errors.push(e) };
         const dataModel = new DataModel();
         dataModel.addPerson(new Person('Only', 'magic', 'life', 'harmony'));
         const event = new EventParser().parseText('*A: magic\n*B: life\n§1\n<A> and <B>');
-        expect(() => new Dialog(event, dataModel, noop).start()).toThrow(/2 roles \(A, B\).*1 character/);
+        new Dialog(event, dataModel, callback).start();
+        expect((errors[0] as Error).message).toMatch(/2 roles \(A, B\).*1 character/);
+        expect(callback.onDialogEnd).toHaveBeenCalled();
     });
 
-    test('throws if there are roles but no characters', () => {
+    test('a section with roles but no characters reports an error and ends the dialog', () => {
+        const errors: (string | Error)[] = [];
+        const callback = { onDialogEnd: jest.fn(), onDialogUpdated: () => {}, onError: (e: string | Error) => errors.push(e) };
         const event = new EventParser().parseText('*A: magic\n§1\n<A>');
-        expect(() => new Dialog(event, new DataModel(), noop).start()).toThrow(/roles/);
+        new Dialog(event, new DataModel(), callback).start();
+        expect((errors[0] as Error).message).toMatch(/roles/);
+        expect(callback.onDialogEnd).toHaveBeenCalled();
     });
 });
 
@@ -130,8 +138,8 @@ describe('Text rendering', () => {
         expect(render('<silver?some;none>', dm)).toBe('none');
     });
 
-    test('unknown tags are left visible', () => {
-        expect(render('Hello <nobody> and <what is this>')).toBe('Hello <nobody> and <what is this>');
+    test('unknown tags are replaced by a visible error indicator', () => {
+        expect(render('Hello <nobody> and <what is this>')).toBe('Hello <ERROR: nobody not found> and <what is this>');
     });
 
     test('an unclosed tag is kept as text', () => {
@@ -275,10 +283,10 @@ describe('DataModel rules', () => {
     test('a name cannot be both a number and a flag', () => {
         const dm = new DataModel();
         dm.set('reputation', 3);
-        expect(() => dm.set('reputation', true)).toThrow(/Cannot set integer variable/);
+        expect(() => dm.set('reputation', true)).toThrow(/Cannot set numeric variable/);
         dm.set('metKing', true);
-        expect(() => dm.set('metKing', 1)).toThrow(/Cannot set boolean variable/);
-        expect(() => dm.adjust('metKing', 1)).toThrow(/Cannot set boolean variable/);
+        expect(() => dm.set('metKing', 1)).toThrow(/Cannot set boolean flag/);
+        expect(() => dm.adjust('metKing', 1)).toThrow(/Cannot set boolean flag/);
     });
 
     test('debug info is on', () => {

@@ -25,7 +25,7 @@ describe('BoolEffect', () => {
 
     test.each(RESOURCES)('cannot set resource %s to boolean', (resource) => {
         const effect = new BoolEffect(resource, true);
-        expect(() => effect.takeEffect(dataModel)).toThrow(/Cannot set integer variable/);
+        expect(() => effect.takeEffect(dataModel)).toThrow(/Cannot set known numeric variable/);
     });
 
     test('can set multiple different boolean variables', () => {

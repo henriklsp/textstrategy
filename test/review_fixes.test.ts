@@ -71,9 +71,9 @@ describe('AssignTaskEffect assigns the person who has the role', () => {
         expect(dm.getPersonsForTask('fishing')).toEqual(['Fisher']);
     });
 
-    test('unresolved role assigns nothing', () => {
+    test('unresolved role throws and assigns nothing', () => {
         const dm = new DataModel();
-        new AssignTaskEffect('Z', 'mining').takeEffect(dm);
+        expect(() => new AssignTaskEffect('Z', 'mining').takeEffect(dm)).toThrow(/No person assigned to role 'Z'/);
         expect(dm.getTaskAssignments()).toEqual([]);
     });
 });
