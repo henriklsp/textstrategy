@@ -23,7 +23,9 @@ Blank line : new paragraph (laid out by the UI)
 <x?abc> :  abc if x is true, else nothing
 <food> : show current integer value of food
 <food 2?a;b> : if food >= 2, show a, else b
-<A> : name of person A
+<A> : name of person A (also sets current role to A)
+<A He> : 'He' / 'She' depending on gender. Also <A he> <A him> <A Him> <A his> <A Hers> <A himself>
+<he> : pronoun for current role (e.g., after <A>, <he> becomes 'he'/'she'). Works with: he, him, his, hers, himself
 <person>: temporary variable previously set with [set person=choice]
 
 [bool x true] : bool effect; set variable x to true

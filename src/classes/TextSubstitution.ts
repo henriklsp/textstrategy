@@ -16,8 +16,9 @@ export interface TextSubstitutionContext {
 // Only resolves <...> tags; the rest of the text (including line breaks) is returned unchanged.
 // Tags can be nested, e.g. <x?<?a;b>;c>.
 //
-//   <A>             name of the person in role A
-//   <A he>          pronoun: he/she depending on gender of person in role A
+//   <A>             name of the person in role A (also sets current role to A)
+//   <A he>          pronoun: he/she depending on gender of person in role A (sets current role to A)
+//   <he>            pronoun for current role (uses most recent role from <A>, <B>, etc.)
 //   <food>          current value of numeric variable food
 //   <food?>         value of food (numeric), or true/false for a boolean flag
 //   <?a;b;c>        random pick of one option
@@ -26,6 +27,7 @@ export interface TextSubstitutionContext {
 //   <food 2?a;b>    a if food >= 2, else b
 //
 // Supported pronouns: he, him, his, hers, himself (case-sensitive for capitalization)
+// The current role is reset at the start of each text substitution.
 // Options are trimmed. Unknown tags are left as-is (visible) so mistakes are easy to spot.
 export class TextSubstitution {
     // Pronoun mappings: base pronoun -> { male: string, female: string }
@@ -37,12 +39,14 @@ export class TextSubstitution {
         'himself': { male: 'himself', female: 'herself' },
     };
     private readonly context: TextSubstitutionContext;
+    private currentRole: string | null = null;
 
     constructor(context: TextSubstitutionContext) {
         this.context = context;
     }
 
     public substitute(text: string): string {
+        this.currentRole = null; // Reset current role at the start of each substitution
         let output = '';
         let i = 0;
         while (i < text.length) {
@@ -67,9 +71,10 @@ export class TextSubstitution {
         const questionMark = TextSubstitution.indexOfTopLevel(inner, '?');
 
         if (questionMark === -1) {
-            // Check for pronoun syntax: <Role pronoun>
             const trimmed = inner.trim();
             const spaceIndex = trimmed.indexOf(' ');
+            
+            // Check for pronoun syntax: <Role pronoun> (e.g., <A he>)
             if (spaceIndex > 0) {
                 const roleName = trimmed.substring(0, spaceIndex).trim();
                 const pronounText = trimmed.substring(spaceIndex + 1).trim();
@@ -77,16 +82,30 @@ export class TextSubstitution {
                 // Check if this is a valid pronoun tag
                 const pronounResult = this.handlePronounTag(roleName, pronounText);
                 if (pronounResult !== null) {
+                    this.currentRole = roleName; // Update current role
                     return pronounResult;
                 }
             }
             
-            // <A> or <food> or <task> (choice variable)
+            // <A> or <food> or <task> (choice variable) or standalone pronoun
             const name = trimmed;
             if (/^\w+$/.test(name)) {
+                // Check for standalone pronoun: <he>, <him>, <his>, etc. (uses current role)
+                if (this.isPronoun(name)) {
+                    if (this.currentRole) {
+                        const result = this.handlePronounTag(this.currentRole, name);
+                        if (result !== null) return result;
+                    }
+                    // No current role - return the tag as-is (visible so author can see the mistake)
+                    return `<${name}>`;
+                }
+                
                 // Try role first (A, B, C, ...)
                 const person = this.context.getPersonForRole(name);
-                if (person) return person.getName();
+                if (person) {
+                    this.currentRole = name; // Update current role
+                    return person.getName();
+                }
 
                 // Try choice variable (task, person, etc.)
                 const choiceVar = this.context.getChoiceVariable(name);
@@ -174,6 +193,12 @@ export class TextSubstitution {
             else if (text[k] === ch && depth === 0) return k;
         }
         return -1;
+    }
+
+    // Check if a word is a recognized pronoun
+    private isPronoun(text: string): boolean {
+        const base = text.toLowerCase();
+        return base in TextSubstitution.PRONOUN_MAP;
     }
 
     // Handle pronoun tags like <A he>, <B Him>, etc.
