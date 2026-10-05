@@ -1,5 +1,5 @@
 import { DataModel } from './DataModel';
-import { Person } from './Person';
+import { Person, Gender } from './Person';
 
 // What the substitution needs from the Dialog
 export interface TextSubstitutionContext {
@@ -17,6 +17,7 @@ export interface TextSubstitutionContext {
 // Tags can be nested, e.g. <x?<?a;b>;c>.
 //
 //   <A>             name of the person in role A
+//   <A he>          pronoun: he/she depending on gender of person in role A
 //   <food>          current value of numeric variable food
 //   <food?>         value of food (numeric), or true/false for a boolean flag
 //   <?a;b;c>        random pick of one option
@@ -24,8 +25,17 @@ export interface TextSubstitutionContext {
 //   <x?a>           a if x is truthy, else nothing
 //   <food 2?a;b>    a if food >= 2, else b
 //
+// Supported pronouns: he, him, his, hers, himself (case-sensitive for capitalization)
 // Options are trimmed. Unknown tags are left as-is (visible) so mistakes are easy to spot.
 export class TextSubstitution {
+    // Pronoun mappings: base pronoun -> { male: string, female: string }
+    private static readonly PRONOUN_MAP: Record<string, { male: string; female: string }> = {
+        'he': { male: 'he', female: 'she' },
+        'him': { male: 'him', female: 'her' },
+        'his': { male: 'his', female: 'her' },
+        'hers': { male: 'his', female: 'hers' },
+        'himself': { male: 'himself', female: 'herself' },
+    };
     private readonly context: TextSubstitutionContext;
 
     constructor(context: TextSubstitutionContext) {
@@ -57,8 +67,22 @@ export class TextSubstitution {
         const questionMark = TextSubstitution.indexOfTopLevel(inner, '?');
 
         if (questionMark === -1) {
+            // Check for pronoun syntax: <Role pronoun>
+            const trimmed = inner.trim();
+            const spaceIndex = trimmed.indexOf(' ');
+            if (spaceIndex > 0) {
+                const roleName = trimmed.substring(0, spaceIndex).trim();
+                const pronounText = trimmed.substring(spaceIndex + 1).trim();
+                
+                // Check if this is a valid pronoun tag
+                const pronounResult = this.handlePronounTag(roleName, pronounText);
+                if (pronounResult !== null) {
+                    return pronounResult;
+                }
+            }
+            
             // <A> or <food> or <task> (choice variable)
-            const name = inner.trim();
+            const name = trimmed;
             if (/^\w+$/.test(name)) {
                 // Try role first (A, B, C, ...)
                 const person = this.context.getPersonForRole(name);
@@ -150,6 +174,37 @@ export class TextSubstitution {
             else if (text[k] === ch && depth === 0) return k;
         }
         return -1;
+    }
+
+    // Handle pronoun tags like <A he>, <B Him>, etc.
+    // Returns the substituted pronoun, or null if not a valid pronoun tag
+    private handlePronounTag(roleName: string, pronounText: string): string | null {
+        // Get the base pronoun (lowercase) to look up in the map
+        const basePronoun = pronounText.toLowerCase();
+        
+        // Check if this is a recognized pronoun
+        const pronounMapping = TextSubstitution.PRONOUN_MAP[basePronoun];
+        if (!pronounMapping) {
+            return null;
+        }
+        
+        // Get the person for this role
+        const person = this.context.getPersonForRole(roleName);
+        if (!person) {
+            return null;
+        }
+        
+        // Get the gender and select the appropriate pronoun
+        const gender = person.getGender();
+        let resultPronoun = gender === 'male' ? pronounMapping.male : pronounMapping.female;
+        
+        // Apply capitalization: if the original pronoun was capitalized, capitalize the result
+        if (pronounText.length > 0 && pronounText[0] === pronounText[0].toUpperCase()) {
+            // Capitalize first letter only (e.g., "He" not "HE")
+            resultPronoun = resultPronoun.charAt(0).toUpperCase() + resultPronoun.slice(1).toLowerCase();
+        }
+        
+        return resultPronoun;
     }
 
     // Split on separator, ignoring separators inside nested <...>

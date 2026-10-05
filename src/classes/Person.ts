@@ -1,10 +1,13 @@
 // Represents a character with personality traits.
 // Each Person has at least 3 traits: at least one positive, one negative, one tertiary.
+export type Gender = 'male' | 'female';
+
 export class Person {
     private name: string;
     private positiveTraits: Set<string>;
     private negativeTraits: Set<string>;
     private tertiaryTraits: Set<string>;
+    private gender: Gender;
     
     // Constructor with just a name
     constructor(name: string);
@@ -12,17 +15,29 @@ export class Person {
     // Constructor with name and three traits (positive, negative, tertiary)
     constructor(name: string, positiveTrait: string, negativeTrait: string, tertiaryTrait: string);
     
-    constructor(name: string, positiveTrait?: string, negativeTrait?: string, tertiaryTrait?: string) {
+    // Constructor with name, traits, and gender
+    constructor(name: string, positiveTrait: string, negativeTrait: string, tertiaryTrait: string, gender: Gender);
+    
+    constructor(name: string, positiveTrait?: string, negativeTrait?: string, tertiaryTrait?: string, gender: Gender = 'male') {
         this.name = name;
         this.positiveTraits = new Set<string>();
         this.negativeTraits = new Set<string>();
         this.tertiaryTraits = new Set<string>();
+        this.gender = gender;
         
         if (positiveTrait !== undefined && negativeTrait !== undefined && tertiaryTrait !== undefined) {
             this.positiveTraits.add(positiveTrait);
             this.negativeTraits.add(negativeTrait);
             this.tertiaryTraits.add(tertiaryTrait);
         }
+    }
+    
+    public getGender(): Gender {
+        return this.gender;
+    }
+    
+    public setGender(gender: Gender): void {
+        this.gender = gender;
     }
     
     public getName(): string {
