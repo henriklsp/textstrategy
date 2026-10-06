@@ -16,15 +16,16 @@ export interface TextSubstitutionContext {
 // Only resolves <...> tags; the rest of the text (including line breaks) is returned unchanged.
 // Tags can be nested, e.g. <x?<?a;b>;c>.
 //
-//   <A>             name of the person in role A (also sets current role to A)
-//   <A he>          pronoun: he/she depending on gender of person in role A (sets current role to A)
-//   <he>            pronoun for current role (uses most recent role from <A>, <B>, etc.)
-//   <food>          current value of numeric variable food
-//   <food?>         value of food (numeric), or true/false for a boolean flag
-//   <?a;b;c>        random pick of one option
-//   <x?a;b>         a if x is "truthy" (flag set, or number not 0), else b
-//   <x?a>           a if x is truthy, else nothing
-//   <food 2?a;b>    a if food >= 2, else b
+//   <A>                 name of the person in role A (also sets current role to A)
+//   <A he>              pronoun: he/she depending on gender of person in role A (sets current role to A)
+//   <he>                pronoun for current role (uses most recent role from <A>, <B>, etc.)
+//   <food>              current value of numeric variable food
+//   <currentconstruction> name of the building currently under construction (empty if none)
+//   <food?>             value of food (numeric), or true/false for a boolean flag
+//   <?a;b;c>            random pick of one option
+//   <x?a;b>             a if x is "truthy" (flag set, or number not 0), else b
+//   <x?a>               a if x is truthy, else nothing
+//   <food 2?a;b>        a if food >= 2, else b
 //
 // Supported pronouns: he, him, his, hers, himself (case-sensitive for capitalization)
 // The current role is reset at the start of each text substitution.
@@ -115,6 +116,10 @@ export class TextSubstitution {
                 const value = this.numericValue(name);
                 if (value !== undefined) return Math.round(value).toString();
                 
+                // Try text variable (like currentconstruction)
+                const textValue = this.textValue(name);
+                if (textValue !== undefined) return textValue;
+                
                 // Variable not found - return error indicator that will be visible
                 return `<ERROR: ${name} not found>`;
             }
@@ -167,6 +172,19 @@ export class TextSubstitution {
             return this.context.dataModel.has(name) ? this.context.dataModel.get(name) : undefined;
         } catch (e) {
             // Variable access failed - return undefined so error tag is shown
+            return undefined;
+        }
+    }
+
+    // Text value for special text variables (like currentconstruction), or undefined
+    private textValue(name: string): string | undefined {
+        try {
+            // Handle special text variables
+            if (name === 'currentconstruction') {
+                return this.context.dataModel.getCurrentConstruction();
+            }
+            return undefined;
+        } catch (e) {
             return undefined;
         }
     }

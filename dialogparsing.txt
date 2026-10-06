@@ -21,12 +21,14 @@ Blank line : new paragraph (laid out by the UI)
 <?abc;def> : randomly pick abc or def (picked once per visit to the section)
 <x?abc;def> : if x is true (flag set or number not 0), pick abc, else def
 <x?abc> :  abc if x is true, else nothing
-<food> : show current integer value of food
+<currentDay>: current day
+<food>: show current integer value of food
 <food 2?a;b> : if food >= 2, show a, else b
-<A> : name of person A (also sets current role to A)
-<A He> : 'He' / 'She' depending on gender. Also <A he> <A him> <A Him> <A his> <A Hers> <A himself>
-<he> : pronoun for current role (e.g., after <A>, <he> becomes 'he'/'she'). Works with: he, him, his, hers, himself
+<A> : name of person A
+<A He> : 'He' / 'She' depending on gender. Also <A he> <A him> <A Him> <A his> <A hers> <A himself>
+<He> <him> <his> <hers> <himself>. Replace for last role
 <person>: temporary variable previously set with [set person=choice]
+<currentconstruction>: name of the building currently under construction (empty if none)
 
 [bool x true] : bool effect; set variable x to true
 [var x +1] : var effect; increase variable x by 1
@@ -35,3 +37,5 @@ Blank line : new paragraph (laid out by the UI)
 [build farm] : start building a farm (completion time depends on workers assigned to build task)
 [set person=choice] : set temporary variable 'person' to next user choice
 [set task=choice]
+
+Note: (can build) is true only if there is a building under construction.

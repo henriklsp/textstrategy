@@ -133,10 +133,10 @@ export class DataModel {
     public set(name: string, value: number | boolean): void {
         if (typeof value === 'boolean') {
             if (KNOWN_VARIABLES.has(name)) {
-                throw new Error(`Cannot set known numeric variable '${name}' to boolean`);
+                throw new Error(`Cannot set integer variable '${name}' to boolean`);
             }
             if (this.numericData.has(name)) {
-                throw new Error(`Cannot set numeric variable '${name}' to boolean`);
+                throw new Error(`Cannot set integer variable '${name}' to boolean`);
             }
             if (value) {
                 this.booleanData.add(name);
@@ -353,9 +353,20 @@ export class DataModel {
 
     // True if the task needs no building, or a completed building enables it
     public canPerformTask(taskType: TaskType): boolean {
+        if (taskType === 'build') {
+            return this.buildingsUnderConstruction.length > 0;
+        }
         const required = TASK_REQUIRES[taskType];
         if (!required) return true;
         return this.getCompletedBuildings().some(b => BuildingDefinitions.get(b).effects.includes(required));
+    }
+
+    // Get the name of the building currently under construction (or empty string if none)
+    public getCurrentConstruction(): string {
+        if (this.buildingsUnderConstruction.length === 0) {
+            return '';
+        }
+        return this.buildingsUnderConstruction[0].buildingType;
     }
 
     // Get daily production rates for each task type
