@@ -4,36 +4,74 @@
 *D: harmony
 
 §1
-[wood 2]
-Everyone has come ashore.
-Insert description of surroundings here. 
-The boat was badly damaged, but at least some planks can be salvaged for building materials. 
-Other families have started setting up camp along the shore. 
-What to do now?
-<A> <B> <C> <D> discuss. 
-<A> talks about destiny to one day rule these lands.
-<C> insist on the need right now to find food and resources.
-<B> wants to plan ahead.
-<D> tries to get them all to work together. But they do not agree and look to player.
-#2 Plan for the long term
-#3 Focus on immediate needs
+<A> <B> <C> <D> gather for council meeting. 
+<D> reports. <D He> says "We have <food> baskets of food and <wood> stacks of wood."
+<A> gives <his> report on military status. TODO...
+<B> explains <currentconstruction?current construction of <currentconstruction>;no ongoing construction>.
+<C> reports recent events. TODO...
+<D> explains how many people are working on each task. TODO...
+Which task should we assign people to do?
+[set task=choice]
+#2 (can fish) Fishing
+#3 (can woodcut) Woodcutting
+#4 (can build) Building
+#5 Scavenging
+#6 Nothing. All is good.
 
 §2
-Everyone except <C> agree on the need to plan ahead.
-We need to start building.
-#4 What to build?
+*E: fish
+*F: fish
+*G: fish
+Fishing provides food. Who should we assign to go fishing?
+<D> suggests <himself>, because <he> likes fishing.
+[set person=choice]
+#7 <E>
+#7 <F>
+#7 <G>
+#7 <D>
 
 §3
-<C> and <D> agree with you on the need to find a source of food quickly.
-<A> and <B> reluctancly accept.
-<C> and <D> volunteer to start scavenging the immediate area.
-#4 continue
+*E: woodcut
+*F: woodcut
+*G: woodcut
+Woodcutting provides wood. Who should we assign to cut wood?
+<A> wants to be in charge of woodcutting, because the best axe is <hers>.
+[set person=choice]
+#7 <A>
+#7 <E>
+#7 <F>
+#7 <G>
 
 §4
-What to build?
-Shelter to protect from the elements and have a place to sleep? 
-Fence for protection from animals? And maybe thieves. 
-Raft for fishing?
+*E: build
+*F: build
+*G: build
+We are currently building <currentconstruction?<currentconstruction>;nothing>. Who should we assign to build it?
+<B> says that constructing needs careful planning. <He> claims that <he> is the best suited for the task.
+[set person=choice]
+#7 <B>
+#7 <E>
+#7 <F>
+#7 <G>
 
-What tasks to do?
-Build, scavenge
+§5
+*E: scavenge
+*F: scavenge
+*G: scavenge
+Scavenging provides food. <bounty 4?We can easily find something to eat.;We will need to roam far to find anything edible.> 
+Who should we assign to go foraging for food?
+<C> enjoys nature and suggests <himself> for the task.
+[set person=choice]
+#7 <E>
+#7 <F>
+#7 <G>
+#7 <C>
+
+§6
+That is all for now.
+#99 Council adjourned.
+
+§7
+[task <person> <task>]
+<person> will <task> now.
+#99 Council adjourned.
