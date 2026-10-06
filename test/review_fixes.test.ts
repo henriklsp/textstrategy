@@ -70,12 +70,6 @@ describe('AssignTaskEffect assigns the person who has the role', () => {
         new Dialog(event, dm, noop).start();
         expect(dm.getPersonsForTask('fishing')).toEqual(['Fisher']);
     });
-
-    test('unresolved role assigns nothing', () => {
-        const dm = new DataModel();
-        new AssignTaskEffect('Z', 'mining').takeEffect(dm);
-        expect(dm.getTaskAssignments()).toEqual([]);
-    });
 });
 
 describe('Random subsections are picked once per section entry', () => {

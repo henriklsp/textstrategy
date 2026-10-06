@@ -151,7 +151,7 @@ export class DataModel {
 
     private assertNotFlag(name: string): void {
         if (this.booleanData.has(name)) {
-            throw new Error(`Cannot set boolean flag '${name}' as numeric variable`);
+            throw new Error(`Cannot set boolean variable '${name}' to numeric`);
         }
     }
 
