@@ -159,11 +159,13 @@ export class TextSubstitution {
         return `<${inner}>`;
     }
 
-    // A flag that is set, or a numeric variable that is not 0
+    // A flag that is set, a numeric variable that is not 0, or a text variable that is not empty
     private isTruthy(name: string): boolean {
         if (this.context.dataModel.isSet(name)) return true;
         const value = this.numericValue(name);
-        return value !== undefined && value !== 0;
+        if (value !== undefined && value !== 0) return true;
+        const textValue = this.textValue(name);
+        return textValue !== undefined && textValue !== '';
     }
 
     // Numeric value, or undefined if the variable does not exist
