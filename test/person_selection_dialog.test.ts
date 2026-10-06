@@ -6,7 +6,7 @@ import { PersonSelection } from '../src/classes/PersonSelection';
 import { DataModel } from '../src/classes/DataModel';
 import { Dialog, DialogCallback } from '../src/classes/Dialog';
 
-describe('texttest2 - Person Selection in Dialog', () => {
+describe('Person Selection in Dialog', () => {
     let parser: EventParser;
     let event: Event;
     let dataModel: DataModel;
@@ -20,7 +20,7 @@ describe('texttest2 - Person Selection in Dialog', () => {
     beforeAll(() => {
         parser = new EventParser();
         const fs = require('fs');
-        const fileContent = fs.readFileSync('test/texttest2.txt', 'utf-8');
+        const fileContent = fs.readFileSync('test/person_selection_dialog.txt', 'utf-8');
         event = parser.parseText(fileContent);
     });
 
@@ -31,7 +31,7 @@ describe('texttest2 - Person Selection in Dialog', () => {
         callback = { onDialogEnd, onDialogUpdated };
     });
 
-    test('should parse texttest2.txt and create sections with person selections', () => {
+    test('should parse person_selection_dialog.txt and create sections with person selections', () => {
         expect(event).toBeInstanceOf(Event);
         const sections = event.getSections();
         expect(sections.length).toBe(2);
@@ -411,7 +411,7 @@ End
 
         dialog.dialogChoiceSelected(goToSection2!);
 
-        // Verify we reached section 2 (the final section in texttest2.txt)
+        // Verify we reached section 2 (the final section in person_selection_dialog.txt)
         expect(dialog.getCurrentText()).toBe('Abcdefg.');
         expect(callback.onDialogEnd).not.toHaveBeenCalled(); // Dialog not ended yet
     });

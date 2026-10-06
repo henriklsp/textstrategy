@@ -4,7 +4,7 @@ import { DataModel } from '../src/classes/DataModel';
 import { Dialog } from '../src/classes/Dialog';
 import { Person } from '../src/classes/Person';
 
-describe('testtext3 - Task Assignment and Construction', () => {
+describe('Task Assignment and Construction', () => {
     let parser: EventParser;
     let gameLoop: GameLoop;
     let dataModel: DataModel;
@@ -14,9 +14,9 @@ describe('testtext3 - Task Assignment and Construction', () => {
         gameLoop = new GameLoop();
         dataModel = gameLoop.getDataModel();
 
-        // Load testtext3.txt
+        // Load task_assignment_and_construction.txt
         const fs = require('fs');
-        const fileContent = fs.readFileSync('test/testtext3.txt', 'utf-8');
+        const fileContent = fs.readFileSync('test/task_assignment_and_construction.txt', 'utf-8');
         const event = parser.parseText(fileContent);
 
         // Add event to queue for day 0
@@ -34,7 +34,7 @@ describe('testtext3 - Task Assignment and Construction', () => {
         dataModel.addPerson(cia);
     });
 
-    test('should parse testtext3.txt and apply effects', () => {
+    test('should parse task_assignment_and_construction.txt and apply effects', () => {
         // Event should be in queue
         expect(gameLoop.getEventQueue().length).toBe(1);
 
@@ -100,7 +100,7 @@ describe('testtext3 - Task Assignment and Construction', () => {
     test('should handle choice capture end-to-end (Hunt task assignment)', () => {
         // Load the event and start dialog
         const fs = require('fs');
-        const fileContent = fs.readFileSync('test/testtext3.txt', 'utf-8');
+        const fileContent = fs.readFileSync('test/task_assignment_and_construction.txt', 'utf-8');
         const event = parser.parseText(fileContent);
 
         let lastUIText = '';
