@@ -18,25 +18,19 @@ export class CanDoTaskPrerequisite extends Prerequisite {
         return this.taskType;
     }
 
-    // Parse a prerequisite from text like "can fish" or "can mine" (without outer parentheses)
-    // Returns the extracted display text and CanDoTaskPrerequisite, or null if no match
-    public static parse(expression: string): { displayText: string; prerequisite: CanDoTaskPrerequisite } | null {
+    // Parse a condition expression (without outer parentheses) like
+    // "can fish" or "can mine". Returns the prerequisite, or null if no match.
+    public static parseCondition(condition: string): CanDoTaskPrerequisite | null {
         // Match: can taskname
-        const match = expression.match(/^can\s+(\w+)\s*(.*)$/);
+        const match = condition.match(/^can\s+([a-zA-Z_][a-zA-Z0-9_]*)$/);
         if (!match) {
             return null;
         }
 
-        const taskName = match[1].trim();
-        const displayText = match[2].trim();
-
         // Try to normalize the task name
         try {
-            const taskType = normalizeTaskName(taskName);
-            return {
-                displayText,
-                prerequisite: new CanDoTaskPrerequisite(taskType)
-            };
+            const taskType = normalizeTaskName(match[1]);
+            return new CanDoTaskPrerequisite(taskType);
         } catch (e) {
             return null;
         }

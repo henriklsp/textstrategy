@@ -2,14 +2,16 @@ import { DataModel } from './DataModel';
 import { Prerequisite } from './Prerequisite';
 
 // Supported comparison operators for variable prerequisites
-type ComparisonOperator = '>' | '>=' | '<' | '<=' | '==' | '!=' | null;
+type ComparisonOperator = '>' | '>=' | '<' | '<=' | '==' | '!=';
 
-// A prerequisite that checks a variable's value in the DataModel
-// Supports: (x?) - boolean is set, (gold>5?) - numeric comparison,
-//           (gold 5?) - gold >= 5 (same form as the <gold 5?a;b> text conditional)
+// A prerequisite that checks a variable's value in the DataModel.
+// Parsed from condition expressions (see Prerequisite.parseCondition):
+//   hasDoneIt    - truthy: boolean flag set, or numeric variable not 0
+//   gold>5       - numeric comparison
+//   gold 5       - gold >= 5 (same form as the <gold 5?a;b> text conditional)
 export class VariablePrerequisite extends Prerequisite {
     private readonly varName: string;
-    private readonly operator: ComparisonOperator;
+    private readonly operator: ComparisonOperator | null;
     private readonly compareValue: number | null;
 
     // Private constructor - use factory methods
@@ -20,7 +22,7 @@ export class VariablePrerequisite extends Prerequisite {
         this.compareValue = compareValue;
     }
 
-    // Factory method for boolean prerequisite (x?)
+    // Factory method for truthy prerequisite (x?)
     public static createBoolean(varName: string): VariablePrerequisite {
         return new VariablePrerequisite(varName, null, null);
     }
@@ -30,12 +32,14 @@ export class VariablePrerequisite extends Prerequisite {
         return new VariablePrerequisite(varName, operator, value);
     }
 
-    // Check if this prerequisite is met using the given DataModel
+    // Truthy check: a boolean flag that is set, or a numeric variable that is not 0.
+    // Used by both choice prerequisites (hasDoneIt?) and text conditionals (<x?a;b>).
     public isMet(dataModel: DataModel): boolean {
         try {
-            if (this.operator === null && this.compareValue === null) {
-                // Boolean check: variable must be set (true)
-                return dataModel.isSet(this.varName);
+            if (this.operator === null) {
+                // Truthy check
+                if (dataModel.isSet(this.varName)) return true;
+                return dataModel.has(this.varName) && dataModel.get(this.varName) !== 0;
             } else {
                 // Numeric comparison
                 const varValue = dataModel.get(this.varName);
@@ -59,42 +63,18 @@ export class VariablePrerequisite extends Prerequisite {
         }
     }
 
-    // Parse a prerequisite expression from text like "(x?)" or "(gold>5?)"
-    // Returns the extracted display text and VariablePrerequisite, or null if no prerequisite
-    public static parse(expression: string): { displayText: string; prerequisite: VariablePrerequisite } | null {
-        // First, extract the part inside parentheses
-        // Match: (content) rest
-        const outerMatch = expression.match(/^\(([^)]+)\)\s*(.*)$/);
-        if (!outerMatch) {
-            return null;
-        }
-
-        const innerContent = outerMatch[1]; // e.g., "hasDoneIt?" or "gold>5?" or "wood 5"
-        const displayText = outerMatch[2].trim();
-
-        // The inner content should end with ? for most formats
-        // But for space-separated format like "wood 5", the ? is optional
-        
-        let contentWithoutQuestion = innerContent;
-        let hasQuestionMark = false;
-        
-        if (innerContent.endsWith('?')) {
-            contentWithoutQuestion = innerContent.substring(0, innerContent.length - 1);
-            hasQuestionMark = true;
-        }
-
-        // Now parse the content
-        // Match: varName or varName>5 or varName>=5 etc.
-        // Also: "gold 5" -> gold >= 5 (with or without trailing ?)
-        const spaceMatch = contentWithoutQuestion.match(/^([a-zA-Z_][a-zA-Z0-9_]*)\s+(-?\d+)$/);
+    // Parse a condition expression (without outer parentheses; trailing '?'
+    // already stripped by Prerequisite.parseCondition) like "x", "gold>5",
+    // "gold>=5" or "gold 5". Returns the prerequisite, or null if no match.
+    public static parseCondition(condition: string): VariablePrerequisite | null {
+        // "gold 5" -> gold >= 5 (space-separated threshold)
+        const spaceMatch = condition.match(/^([a-zA-Z_][a-zA-Z0-9_]*)\s+(-?\d+)$/);
         if (spaceMatch) {
-            return {
-                displayText,
-                prerequisite: VariablePrerequisite.createNumeric(spaceMatch[1], '>=', parseInt(spaceMatch[2], 10))
-            };
+            return VariablePrerequisite.createNumeric(spaceMatch[1], '>=', parseInt(spaceMatch[2], 10));
         }
-        const innerMatch = contentWithoutQuestion.match(/^([a-zA-Z_][a-zA-Z0-9_]*)([><=!]=?)?(\d*)$/);
-        
+
+        // "x", "x>5", "x>=5", "x<5", ...
+        const innerMatch = condition.match(/^([a-zA-Z_][a-zA-Z0-9_]*)([><=!]=?)?(-?\d*)$/);
         if (!innerMatch) {
             return null;
         }
@@ -103,31 +83,23 @@ export class VariablePrerequisite extends Prerequisite {
         const operatorStr = innerMatch[2] || null;
         const valueStr = innerMatch[3];
 
-        // Map operator string to our type
         const operatorMap: Record<string, ComparisonOperator> = {
             '>': '>',
-            '>=': '>=' as ComparisonOperator,
+            '>=': '>=',
             '<': '<',
-            '<=': '<=' as ComparisonOperator,
-            '==': '==' as ComparisonOperator,
-            '!=': '!=' as ComparisonOperator,
+            '<=': '<=',
+            '==': '==',
+            '!=': '!=',
         };
 
         const operator: ComparisonOperator | null = operatorStr ? (operatorStr in operatorMap ? operatorMap[operatorStr] : null) : null;
 
-        if (operator === null && (valueStr === '' || valueStr === '0')) {
-            // Boolean check: (x?)
-            return {
-                displayText,
-                prerequisite: VariablePrerequisite.createBoolean(varName)
-            };
+        if (operator === null && valueStr === '') {
+            // Truthy check: (x?)
+            return VariablePrerequisite.createBoolean(varName);
         } else if (operator !== null && valueStr !== '') {
             // Numeric comparison: (gold>5?)
-            const value = parseInt(valueStr, 10);
-            return {
-                displayText,
-                prerequisite: VariablePrerequisite.createNumeric(varName, operator, value)
-            };
+            return VariablePrerequisite.createNumeric(varName, operator, parseInt(valueStr, 10));
         }
 
         return null;
