@@ -1,5 +1,4 @@
-import { DataModel } from './DataModel';
-import { Prerequisite } from './Prerequisite';
+import { Prerequisite, PrerequisiteContext } from './Prerequisite';
 
 // Supported comparison operators for variable prerequisites
 type ComparisonOperator = '>' | '>=' | '<' | '<=' | '==' | '!=';
@@ -34,7 +33,8 @@ export class VariablePrerequisite extends Prerequisite {
 
     // Truthy check: a boolean flag that is set, or a numeric variable that is not 0.
     // Used by both choice prerequisites (hasDoneIt?) and text conditionals (<x?a;b>).
-    public isMet(dataModel: DataModel): boolean {
+    public isMet(context: PrerequisiteContext): boolean {
+        const dataModel = context.dataModel;
         try {
             if (this.operator === null) {
                 // Truthy check

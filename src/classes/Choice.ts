@@ -1,6 +1,5 @@
 import { Section } from './Section';
-import { Prerequisite } from './Prerequisite';
-import { DataModel } from './DataModel';
+import { Prerequisite, PrerequisiteContext } from './Prerequisite';
 
 // Player option. Links to target Section with Prerequisite[] checks via arePrerequisitesMet().
 // A Choice without a target section ends the dialog.
@@ -27,7 +26,7 @@ export class Choice {
         return this.section;
     }
 
-    public arePrerequisitesMet(dataModel: DataModel): boolean {
-        return this.prerequisites.every(prerequisite => prerequisite.isMet(dataModel));
+    public arePrerequisitesMet(context: PrerequisiteContext): boolean {
+        return this.prerequisites.every(prerequisite => prerequisite.isMet(context));
     }
 }

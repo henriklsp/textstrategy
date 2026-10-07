@@ -1,5 +1,5 @@
 import { DataModel, TaskType, isTaskType, normalizeTaskName } from './DataModel';
-import { Prerequisite } from './Prerequisite';
+import { Prerequisite, PrerequisiteContext } from './Prerequisite';
 
 // Prerequisite that checks if a task can be performed (building requirements met)
 export class CanDoTaskPrerequisite extends Prerequisite {
@@ -10,8 +10,8 @@ export class CanDoTaskPrerequisite extends Prerequisite {
         this.taskType = taskType;
     }
 
-    public isMet(dataModel: DataModel): boolean {
-        return dataModel.canPerformTask(this.taskType);
+    public isMet(context: PrerequisiteContext): boolean {
+        return context.dataModel.canPerformTask(this.taskType);
     }
 
     public getTaskType(): TaskType {
