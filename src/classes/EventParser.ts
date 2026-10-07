@@ -3,9 +3,8 @@ import { Section } from './Section';
 import { PersonSelection } from './PersonSelection';
 import { Effect } from './Effect';
 import { Choice } from './Choice';
-import { VariablePrerequisite } from './VariablePrerequisite';
-import { CanDoTaskPrerequisite } from './CanDoTaskPrerequisite';
 import { Prerequisite } from './Prerequisite';
+import { PrerequisiteParser } from './PrerequisiteParser';
 import { EventLoader } from './EventLoader';
 import { EffectFactory, ParseIssue } from './EffectFactory';
 
@@ -177,25 +176,18 @@ export class EventParser {
                 let prerequisite: Prerequisite | null = null;
 
                 // Optional prerequisite at the start: (var?) or (var>num?) or (can task)
+                // Uses the same PrerequisiteParser.parseCondition as text substitution conditionals,
+                // so every prerequisite type works in both places.
                 const prerequisiteMatch = choiceText.match(/^\(([^)]+)\)\s*(.*)$/);
                 if (prerequisiteMatch) {
                     const innerContent = prerequisiteMatch[1];
                     const displayText = prerequisiteMatch[2].trim();
-                    
-                    // Try VariablePrerequisite first (handles (x?), (gold>5?), (gold 5?))
-                    const varParsed = VariablePrerequisite.parse(`(${innerContent})`);
-                    if (varParsed) {
-                        prerequisite = varParsed.prerequisite;
+
+                    prerequisite = PrerequisiteParser.parseCondition(innerContent);
+                    if (prerequisite) {
                         choiceText = displayText;
                     } else {
-                        // Try CanDoTaskPrerequisite (handles (can fish), (can mine))
-                        const taskParsed = CanDoTaskPrerequisite.parse(innerContent);
-                        if (taskParsed) {
-                            prerequisite = taskParsed.prerequisite;
-                            choiceText = displayText;
-                        } else {
-                            this.addIssue(lineNumber, `Invalid choice condition '(${innerContent})'`);
-                        }
+                        this.addIssue(lineNumber, `Invalid choice condition '(${innerContent})'`);
                     }
                 }
                 section.choiceConfigs.push({ line: lineNumber, targetSectionNumber, choiceText, prerequisite });
