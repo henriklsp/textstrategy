@@ -1,5 +1,6 @@
 import { DataModel } from './DataModel';
 import { Person, Gender } from './Person';
+import { PrerequisiteParser } from './PrerequisiteParser';
 
 // What the substitution needs from the Dialog
 export interface TextSubstitutionContext {
@@ -26,6 +27,7 @@ export interface TextSubstitutionContext {
 //   <x?a;b>             a if x is "truthy" (flag set, or number not 0), else b
 //   <x?a>               a if x is truthy, else nothing
 //   <food 2?a;b>        a if food >= 2, else b
+//   <can fish?a;b>      a if fishing can be performed, else b (any prerequisite type works)
 //
 // Supported pronouns: he, him, his, hers, himself (case-sensitive for capitalization)
 // The current role is reset at the start of each text substitution.
@@ -137,35 +139,23 @@ export class TextSubstitution {
             return this.substitute(options[this.context.pickRandom(options.length)]);
         }
 
-        // <food 2?a;b> numeric threshold (>=)
-        const threshold = condition.match(/^(\w+)\s+(-?\d+)$/);
-        if (threshold) {
-            const value = this.numericValue(threshold[1]);
-            const met = value !== undefined && value >= parseInt(threshold[2], 10);
-            return this.substitute(met ? trueText : falseText);
+        // <food?> display value (rounded to whole number), or true/false for a flag
+        if (rest.trim() === '' && /^\w+$/.test(condition)) {
+            const value = this.numericValue(condition);
+            if (value !== undefined) return Math.round(value).toString();
+            return this.context.dataModel.isSet(condition) ? 'true' : 'false';
         }
 
-        if (/^\w+$/.test(condition)) {
-            // <food?> display value (rounded to whole number)
-            if (rest.trim() === '') {
-                const value = this.numericValue(condition);
-                if (value !== undefined) return Math.round(value).toString();
-                return this.context.dataModel.isSet(condition) ? 'true' : 'false';
-            }
-            // <x?a;b> truthy check
-            return this.substitute(this.isTruthy(condition) ? trueText : falseText);
+        // Conditional subsection: <cond?a;b>
+        // Uses the same PrerequisiteParser.parseCondition as choice prerequisites
+        // (PrerequisiteParser.ts), so every prerequisite type works in both places:
+        // <hasDoneIt?a;b>, <food 2?a;b>, <can scavenge?a;b>, ...
+        const prerequisite = PrerequisiteParser.parseCondition(condition);
+        if (prerequisite) {
+            return this.substitute(prerequisite.isMet(this.context.dataModel) ? trueText : falseText);
         }
 
         return `<${inner}>`;
-    }
-
-    // A flag that is set, a numeric variable that is not 0, or a text variable that is not empty
-    private isTruthy(name: string): boolean {
-        if (this.context.dataModel.isSet(name)) return true;
-        const value = this.numericValue(name);
-        if (value !== undefined && value !== 0) return true;
-        const textValue = this.textValue(name);
-        return textValue !== undefined && textValue !== '';
     }
 
     // Numeric value, or undefined if the variable does not exist
