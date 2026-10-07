@@ -1,0 +1,109 @@
+// workinprogress/foraging.txt
+// A first foraging and exploring trip for two, shortly after arriving in a new land.
+// The player ("you") and one companion (role A, selected as the best scavenger) leave
+// camp, discover local plants and wildlife, and find signs that the land is inhabited.
+// Depending on choices the player may gain food, wood or abandoned weapons.
+// Event name: workinprogress/foraging - trigger with [event workinprogress/foraging 1].
+// Syntax showcase (see dialogparsing.txt): task-based role selection, section text on
+// the section line, choice prerequisites (person trait, numeric, can task), effects
+// (var, bool, event, set task=choice, task with <task>), text substitution (random,
+// truthy, numeric, person trait conditionals, pronouns, nesting).
+// The story text is placeholder quality - we will polish it later.
+
+*A: scavenge
+
+§1
+Early on day <currentDay>, you and <A> set out from camp to see what this new land offers.
+<?A thin drizzle follows you out past the boats;The morning sun burns the mist off the grass.>
+The camp has <food> food. <food 3?That should last a little while;It will not last long.>
+<A He> squints at the treeline. "New land," <he> says. "Watch what you eat, and watch what eats you."
+Where do you go first?
+#2 Follow the stream inland
+#3 Head into the forest
+#4 Take the overgrown path up the hill
+
+§2 The stream
+The stream narrows between mossy stones, and small fish dart in the shallows.
+Further along, the water pools behind a low wall of woven branches. A weir, old but well made.
+<A -magic?<A> keeps <his> distance. "Things made by other hands keep their purposes," <he> mutters;<A> wades in without a second thought. "Just fish and sticks.">
+Someone lived here once, and perhaps still does.
+#5 (A life?) Try to catch fish by hand
+#5 Gather edible roots along the bank
+#7 (A -magic?) Search the old weir
+#8 Follow the stream further upstream
+
+§3 The forest
+Berry bushes grow thick between the trees, and dry deadfall lies scattered under the old pines.
+<A life?<A> kneels by a bush, sniffs a berry and nods. "Good ones. I ate these as a child.";<A> sniffs a berry, makes a face and drops it. "If it burns, spit it out fast.">
+A game trail leads deeper in, marked with broken twigs. Not all of them were broken by the wind.
+#5 Gather the berries
+#6 Gather the deadfall wood
+#8 Follow the game trail deeper into the forest
+
+§4 The hill path
+The overgrown path climbs past wind-bent trees to a ridge of grey stone.
+At the top stand the remains of a small cairn shrine, its markers toppled, and a fire pit with old, cold ashes.
+<A> circles the cairn. "Gods of someone else's making," <A he> says quietly.
+<A -magic?"Best to leave them be.";"Best to know them, then. Fear is a poor guide.">
+#7 Search the ruins
+#8 Push on along the ridge
+
+§5
+[var food 2]
+[bool foundfood true]
+<?You work until your arms ache;You fill every basket and pouch you brought;The land gives willingly enough, for now.>
+<A> grins and shoulders the load. "Now this is a land with something in it."
+<A life?<A> keeps an eye out for more while you work;You keep your distance from anything you cannot name.>
+#9 Head back to camp
+#8 Explore a little further
+
+§6
+[var wood 2]
+[bool foundwood true]
+The deadfall is old and dry, ideal for the fire and for the building to come.
+<A> breaks the branches <himself> and ties them into bundles you can both carry.
+"There is more here than we can carry," <A> says. "The trees give willingly. For now."
+#9 Head back to camp
+#8 Explore a little further
+
+§7
+[var weapons 1]
+[bool foundweapons true]
+<?Half buried in the mud you find an old fishing spear, its dark wood still hard and true;Under the toppled stones you find a short blade of dark iron, pitted but keen;Wrapped in rotten hide you find a stone-headed axe, its haft still sound.>
+Someone made these. Someone kept them. Someone lost them.
+<broughtweapons?You bundle them with your own weapons;You are glad to have something better than sharpened sticks.>
+<A -magic?<A> handles the find gingerly and says nothing;<A> hefts the weapon and nods with quiet satisfaction,>
+#9 Head back to camp
+#8 Explore a little further
+
+§8
+[bool foundsigns true]
+Wherever you walked today, the same signs keep turning up.
+Branches cut with an edge, not bitten off. A snare of woven gut under the bushes.
+<?The tracks in the mud are broad and barefoot, like a person's;The tracks in the mud are narrow, with long claws at the toe;There are no tracks, only the faint smell of old smoke.>
+<A life?<A> reads the ground like a page. "One person. Light step. Recent.";<A> shifts from foot to foot. "Someone is watching us. Or something.">
+This land is inhabited.
+#9 (weapons 1?) Follow the tracks a short way
+#9 Keep your distance and head back to camp
+
+§9
+[set task=choice]
+The light grows long, and you and <A> turn back toward camp.
+<foundfood?<A> carries the food <himself> and refuses to let you help;You found nothing to eat today, and your stomach reminds you.>
+<foundwood?<A> staggers proudly under the stacked wood;You carry nothing but your own thoughts.>
+<foundweapons?The old weapons travel home with you;>
+<foundsigns?You keep the news of the tracks for the camp fire;You saw no one, but the land did not feel empty.>
+Before you part, <A> asks what to make of tomorrow.
+What should <A> do tomorrow?
+#10 Scavenge
+#10 Woodcutting
+#10 Hunting
+#10 (can fish) Fishing
+
+§10
+[task A <task>]
+[event workinprogress/council 3]
+<A> will <task> tomorrow, and you both agree to tell the others what you saw, and what to watch for.
+<?The forest keeps its secrets, for now;The new land watches you back, and you do not yet know what watches.>
+TODO: camp reactions to what you found, bounty changes, follow-up event with the inhabitants.
+#999 End
