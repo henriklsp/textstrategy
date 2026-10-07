@@ -7,6 +7,7 @@ import { Person } from './Person';
 import { PersonSelection } from './PersonSelection';
 import { TextSubstitution, TextSubstitutionContext } from './TextSubstitution';
 import { RoleAssigner } from './RoleAssigner';
+import { PrerequisiteContext } from './Prerequisite';
 
 // Callback interface for dialog events
 export interface DialogCallback {
@@ -23,7 +24,7 @@ export type EffectScheduler = (eventName: string, delayDays: number) => void;
 // A choice that points to a non-existent section ends the dialog.
 // A section without (visible) choices is the end of the dialog: the UI decides how
 // to let the player move on, and calls endDialog().
-export class Dialog implements EffectContext, TextSubstitutionContext {
+export class Dialog implements EffectContext, TextSubstitutionContext, PrerequisiteContext {
     public readonly dataModel: DataModel;
     private event: Event;
     private currentSection: Section | null = null;
@@ -188,9 +189,10 @@ export class Dialog implements EffectContext, TextSubstitutionContext {
         this.callback.onDialogEnd();
     }
 
-    // Choices whose prerequisites are met
+    // Choices whose prerequisites are met (checked against this Dialog, so
+    // prerequisites can use the DataModel and the current role assignments)
     private getVisibleChoices(section: Section): Choice[] {
-        return section.getChoices().filter(choice => choice.arePrerequisitesMet(this.dataModel));
+        return section.getChoices().filter(choice => choice.arePrerequisitesMet(this));
     }
 
     // Enter a section: reset random picks, resolve roles, then apply effects

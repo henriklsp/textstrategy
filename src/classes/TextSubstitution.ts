@@ -1,11 +1,10 @@
-import { DataModel } from './DataModel';
 import { Person, Gender } from './Person';
+import { PrerequisiteContext } from './Prerequisite';
 import { PrerequisiteParser } from './PrerequisiteParser';
 
-// What the substitution needs from the Dialog
-export interface TextSubstitutionContext {
-    readonly dataModel: DataModel;
-    getPersonForRole(roleName: string): Person | undefined;
+// What the substitution needs from the Dialog: game state, role assignments,
+// random picks, and captured choice variables.
+export interface TextSubstitutionContext extends PrerequisiteContext {
     // Pick an option index in [0, count) for the next random subsection (<?a;b>).
     // Called once per random subsection, in the order they appear in the text.
     pickRandom(count: number): number;
@@ -24,10 +23,12 @@ export interface TextSubstitutionContext {
 //   <currentconstruction> name of the building currently under construction (empty if none)
 //   <food?>             value of food (numeric), or true/false for a boolean flag
 //   <?a;b;c>            random pick of one option
-//   <x?a;b>             a if x is "truthy" (flag set, or number not 0), else b
+//   <x?a;b>             a if x is \"truthy\" (flag set, or number not 0), else b
 //   <x?a>               a if x is truthy, else nothing
 //   <food 2?a;b>        a if food >= 2, else b
 //   <can fish?a;b>      a if fishing can be performed, else b (any prerequisite type works)
+//   <A life?a;b>        a if the person in role A has positive trait life, else b
+//   <A -magic?a;b>      a if the person in role A has negative trait magic (also ~ for tertiary)
 //
 // Supported pronouns: he, him, his, hers, himself (case-sensitive for capitalization)
 // The current role is reset at the start of each text substitution.
@@ -152,7 +153,7 @@ export class TextSubstitution {
         // <hasDoneIt?a;b>, <food 2?a;b>, <can scavenge?a;b>, ...
         const prerequisite = PrerequisiteParser.parseCondition(condition);
         if (prerequisite) {
-            return this.substitute(prerequisite.isMet(this.context.dataModel) ? trueText : falseText);
+            return this.substitute(prerequisite.isMet(this.context) ? trueText : falseText);
         }
 
         return `<${inner}>`;
@@ -235,7 +236,7 @@ export class TextSubstitution {
         
         // Apply capitalization: if the original pronoun was capitalized, capitalize the result
         if (pronounText.length > 0 && pronounText[0] === pronounText[0].toUpperCase()) {
-            // Capitalize first letter only (e.g., "He" not "HE")
+            // Capitalize first letter only (e.g., \"He\" not \"HE\")
             resultPronoun = resultPronoun.charAt(0).toUpperCase() + resultPronoun.slice(1).toLowerCase();
         }
         
