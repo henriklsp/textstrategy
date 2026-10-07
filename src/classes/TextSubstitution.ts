@@ -23,7 +23,7 @@ export interface TextSubstitutionContext extends PrerequisiteContext {
 //   <currentconstruction> name of the building currently under construction (empty if none)
 //   <food?>             value of food (numeric), or true/false for a boolean flag
 //   <?a;b;c>            random pick of one option
-//   <x?a;b>             a if x is \"truthy\" (flag set, or number not 0), else b
+//   <x?a;b>             a if x is "truthy" (flag set, or number not 0), else b
 //   <x?a>               a if x is truthy, else nothing
 //   <food 2?a;b>        a if food >= 2, else b
 //   <can fish?a;b>      a if fishing can be performed, else b (any prerequisite type works)
@@ -236,7 +236,7 @@ export class TextSubstitution {
         
         // Apply capitalization: if the original pronoun was capitalized, capitalize the result
         if (pronounText.length > 0 && pronounText[0] === pronounText[0].toUpperCase()) {
-            // Capitalize first letter only (e.g., \"He\" not \"HE\")
+            // Capitalize first letter only (e.g., "He" not "HE")
             resultPronoun = resultPronoun.charAt(0).toUpperCase() + resultPronoun.slice(1).toLowerCase();
         }
         

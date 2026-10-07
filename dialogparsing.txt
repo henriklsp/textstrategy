@@ -14,7 +14,7 @@
 #2 (A life?) abc : visible if the person in dialog role A has positive trait life
 #2 (B -magic?) abc : visible if the person in dialog role B has negative trait magic
 #n pointing to a section that does not exist ends the dialog.
-A section with no visible choices is the end of the dialog (the UI shows \"Continue\").
+A section with no visible choices is the end of the dialog (the UI shows "Continue").
 
 Blank line : new paragraph (laid out by the UI)
 

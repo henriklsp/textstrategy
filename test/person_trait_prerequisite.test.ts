@@ -28,7 +28,7 @@ describe('Person trait prerequisites', () => {
     }
 
     describe('parseCondition', () => {
-        test('should parse \"A life\" as positive trait condition', () => {
+        test('should parse "A life" as positive trait condition', () => {
             const prereq = PrerequisiteParser.parseCondition('A life?');
             expect(prereq).toBeInstanceOf(PersonTraitPrerequisite);
             const trait = prereq as PersonTraitPrerequisite;
@@ -37,7 +37,7 @@ describe('Person trait prerequisites', () => {
             expect(trait.getSign()).toBe('positive');
         });
 
-        test('should parse \"B -magic\" as negative trait condition', () => {
+        test('should parse "B -magic" as negative trait condition', () => {
             const prereq = PrerequisiteParser.parseCondition('B -magic?');
             expect(prereq).toBeInstanceOf(PersonTraitPrerequisite);
             const trait = prereq as PersonTraitPrerequisite;
@@ -46,7 +46,7 @@ describe('Person trait prerequisites', () => {
             expect(trait.getSign()).toBe('negative');
         });
 
-        test('should parse \"A ~divinity\" as tertiary trait condition', () => {
+        test('should parse "A ~divinity" as tertiary trait condition', () => {
             const trait = PrerequisiteParser.parseCondition('A ~divinity?') as PersonTraitPrerequisite;
             expect(trait.getSign()).toBe('tertiary');
         });
