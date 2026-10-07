@@ -7,7 +7,7 @@
 §1 : begin section 1
 
 #2 abc : dialog choice with text abc, go to section 2
-#2 (x?) abc : dialog choice visible only if boolean x is set
+#2 (x?) abc : dialog choice visible only if x is truthy (boolean flag set, or number not 0)
 #2 (gold>5?) abc : dialog choice visible only if gold > 5 (also >=, <, <=, ==, !=)
 #2 (gold 5?) abc : dialog choice visible only if gold >= 5
 #2 (can fish) abc : visible if fish task is assignable
@@ -19,11 +19,12 @@ Blank line : new paragraph (laid out by the UI)
 <> variable subsection text to be replaced run-time. Can be nested. Options are trimmed.
    Unknown tags are shown as-is.
 <?abc;def> : randomly pick abc or def (picked once per visit to the section)
-<x?abc;def> : if x is true (flag set or number not 0), pick abc, else def
-<x?abc> :  abc if x is true, else nothing
+<x?abc;def> : if x is truthy (flag set or number not 0), pick abc, else def
+<x?abc> :  abc if x is truthy, else nothing
 <currentDay>: current day
 <food>: show current integer value of food
 <food 2?a;b> : if food >= 2, show a, else b
+<can scavenge?a;b> : if scavenge task is assignable, show a, else b (also can fish, can build, etc.)
 <A> : name of person A
 <A He> : 'He' / 'She' depending on gender. Also <A he> <A him> <A Him> <A his> <A hers> <A himself>
 <He> <him> <his> <hers> <himself>. Replace for last role
@@ -39,3 +40,9 @@ Blank line : new paragraph (laid out by the UI)
 [set task=choice]
 
 Note: (can build) is true only if there is a building under construction.
+
+Conditions: choice prerequisites ((x?), (gold>5?), (gold 5?), (can fish)) and text
+substitution conditionals (<x?a;b>, <food 2?a;b>, <can scavenge?a;b>) use the same
+prerequisite logic (PrerequisiteParser in src/classes/PrerequisiteParser.ts).
+Adding a new prerequisite type there makes it available for dialog choices, text
+substitution, and future event triggers alike.
