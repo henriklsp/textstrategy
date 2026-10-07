@@ -1,10 +1,12 @@
 // comment : Line is ignored by parser
 *A: Trait : Select person with positive trait for dialog role A
 *A: -Trait : Select person with negative trait for dialog role A
-*A: Trait, Trait2 : Select person with both traits for dialog role A
+*A: Trait, Trait2 : Select person with both traits for dialog role A (max two)
 *A: scavenge : Select person best suited for task (scavenge, build, hunting, fishing, farming, woodcutting, mining, craft, storage)
+*Role lines before the first § belong to the first section.
 
 §1 : begin section 1
+§1 text : begin section 1, with text as its first text line
 
 #2 abc : dialog choice with text abc, go to section 2
 #2 (x?) abc : dialog choice visible only if x is truthy (boolean flag set, or number not 0)
@@ -15,17 +17,21 @@
 #2 (B -magic?) abc : visible if the person in dialog role B has negative trait magic
 #n pointing to a section that does not exist ends the dialog.
 A section with no visible choices is the end of the dialog (the UI shows "Continue").
+Role tags in choice text (<A>, <B>, ...) are replaced with the person's name.
+Other variable types are not processed in choices.
 
 Blank line : new paragraph (laid out by the UI)
 
 <> variable subsection text to be replaced run-time. Can be nested. Options are trimmed.
-   Unknown tags are shown as-is.
+   Unknown value tags become a visible <ERROR: name not found>.
+   Conditionals that no prerequisite type recognizes are shown as-is.
 <?abc;def> : randomly pick abc or def (picked once per visit to the section)
 <x?abc;def> : if x is truthy (flag set or number not 0), pick abc, else def
 <x?abc> :  abc if x is truthy, else nothing
 <currentDay>: current day
 <food>: show current integer value of food
 <food 2?a;b> : if food >= 2, show a, else b
+<gold>5?a;b> : comparison operators work here too (>=, <, <=, ==, !=)
 <can scavenge?a;b> : if scavenge task is assignable, show a, else b (also can fish, can build, etc.)
 <A life?a;b> : a if the person in role A has positive trait life, else b
 <A -magic?a;b> : a if the person in role A has negative trait magic
@@ -36,14 +42,20 @@ Blank line : new paragraph (laid out by the UI)
 <currentconstruction>: name of the building currently under construction (empty if none)
 
 [bool x true] : bool effect; set variable x to true
-[var x +1] : var effect; increase variable x by 1
-[event x 1] : event effect; trigger event x (text/x.txt) in 1 day
+[var x +1] : var effect; adjust variable x by the given number (may be negative or decimal)
+[event x 1] : event effect; trigger event x (text/x.txt) after 1 day (delay may be omitted: 0)
 [task A scavenge] : assign the person in role A to a task (scavenge, build, hunting, fishing, farming, woodcutting, mining, craft, storage)
+[task <person> hunting] : assign the person captured with [set person=choice] to hunting
+[task A <task>] : assign the person in role A to the task captured with [set task=choice]
 [build farm] : start building a farm (completion time depends on workers assigned to build task)
-[set person=choice] : set temporary variable 'person' to next user choice
-[set task=choice]
+               building types: shelter, hall, workshop, farm, mine, dock, storage
+[set person=choice] : set temporary variable 'person' to the text of the next choice the player picks
+[set task=choice] : same, for temporary variable 'task'
 
 Note: (can build) is true only if there is a building under construction.
+(can farm), (can fish), (can mine) and (can craft) are true only if the matching
+building has been completed (farm, dock, mine, workshop).
+(can scavenge), (can hunting), (can woodcutting) and (can storage) always work.
 
 Person trait conditions: A life / A -magic check the trait of the person
 assigned to dialog role A (single-letter role). Not met if the role has no person.
@@ -57,3 +69,6 @@ Conditions: choice prerequisites ((x?), (gold>5?), (gold 5?), (can fish), (A lif
 in src/classes/PrerequisiteParser.ts).
 Adding a new prerequisite type there makes it available for dialog choices, text
 substitution, and future event triggers alike.
+
+Parse problems (unknown effects, invalid conditions, duplicate section numbers,
+unbalanced < >) are logged as warnings and available from parser.getIssues().
