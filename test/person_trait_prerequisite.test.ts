@@ -7,7 +7,8 @@ import { PersonTraitPrerequisite } from '../src/classes/PersonTraitPrerequisite'
 
 // Person-dependent prerequisites: (A life?) and <A life?a;b> check the trait
 // of the Person assigned to dialog role A. Signs: none = positive trait,
-// '-' = negative trait, '~' = tertiary trait (same convention as *A: magic).
+// '-' = negative trait (same convention as *A: magic).
+// Tertiary traits (~) are only for role selection tiebreaks, not prerequisites.
 describe('Person trait prerequisites', () => {
     let parser: EventParser;
     let dataModel: DataModel;
@@ -46,9 +47,8 @@ describe('Person trait prerequisites', () => {
             expect(trait.getSign()).toBe('negative');
         });
 
-        test('should parse "A ~divinity" as tertiary trait condition', () => {
-            const trait = PrerequisiteParser.parseCondition('A ~divinity?') as PersonTraitPrerequisite;
-            expect(trait.getSign()).toBe('tertiary');
+        test('should not parse tertiary trait conditions (tiebreak-only syntax)', () => {
+            expect(PrerequisiteParser.parseCondition('A ~divinity?')).toBeNull();
         });
 
         test('should not parse multi-word conditions that are not role + trait', () => {
@@ -102,7 +102,7 @@ describe('Person trait prerequisites', () => {
             expect(text).toContain('Pos: has magic');
             expect(text).toContain('NegPos: no positive life');   // life is a negative trait
             expect(text).toContain('Neg: has negative life');
-            expect(text).toContain('Tert: has tertiary divinity');
+            expect(text).toContain('Tert: <A ~divinity?has tertiary divinity;no tertiary divinity>'); // not a condition: shown as-is
             expect(text).toContain('Unassigned: B not assigned'); // role B has no person
 
             const choices = dialog.getCurrentChoices().map(choice => choice.getText());

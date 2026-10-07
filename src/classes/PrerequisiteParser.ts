@@ -25,7 +25,7 @@ export class PrerequisiteParser {
 
     // Parse a condition expression (without parentheses or trailing '?')
     // into a Prerequisite, e.g. "hasDoneIt", "gold>5", "gold 5", "can fish",
-    // "A life", "B -magic", "A ~divine" (person trait conditions).
+    // "A life", "B -magic" (person trait conditions).
     // The expression may end with an optional '?' (so choice content like
     // "hasDoneIt?" or "gold 5?" parses unchanged).
     // Returns null if no prerequisite type recognizes the expression.

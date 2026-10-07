@@ -28,7 +28,7 @@ export interface TextSubstitutionContext extends PrerequisiteContext {
 //   <food 2?a;b>        a if food >= 2, else b
 //   <can fish?a;b>      a if fishing can be performed, else b (any prerequisite type works)
 //   <A life?a;b>        a if the person in role A has positive trait life, else b
-//   <A -magic?a;b>      a if the person in role A has negative trait magic (also ~ for tertiary)
+//   <A -magic?a;b>      a if the person in role A has negative trait magic
 //
 // Supported pronouns: he, him, his, hers, himself (case-sensitive for capitalization)
 // The current role is reset at the start of each text substitution.

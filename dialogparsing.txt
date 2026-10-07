@@ -28,7 +28,7 @@ Blank line : new paragraph (laid out by the UI)
 <food 2?a;b> : if food >= 2, show a, else b
 <can scavenge?a;b> : if scavenge task is assignable, show a, else b (also can fish, can build, etc.)
 <A life?a;b> : a if the person in role A has positive trait life, else b
-<A -magic?a;b> : a if the person in role A has negative trait magic (also ~ for tertiary, e.g. <A ~magic?a;b>)
+<A -magic?a;b> : a if the person in role A has negative trait magic
 <A> : name of person A
 <A He> : 'He' / 'She' depending on gender. Also <A he> <A him> <A Him> <A his> <A hers> <A himself>
 <He> <him> <his> <hers> <himself>. Replace for last role
@@ -45,9 +45,11 @@ Blank line : new paragraph (laid out by the UI)
 
 Note: (can build) is true only if there is a building under construction.
 
-Person trait conditions: A life / A -magic / A ~magic check the trait of the person
+Person trait conditions: A life / A -magic check the trait of the person
 assigned to dialog role A (single-letter role). Not met if the role has no person.
 Same sign convention as role selection (*A: magic, *B: -magic).
+Tertiary traits (~) are only for role selection tiebreaks and cannot be used
+in trait conditions.
 
 Conditions: choice prerequisites ((x?), (gold>5?), (gold 5?), (can fish), (A life?),
 (B -magic?)) and text substitution conditionals (<x?a;b>, <food 2?a;b>,
