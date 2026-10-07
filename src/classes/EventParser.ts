@@ -165,7 +165,7 @@ export class EventParser {
             }
 
             if (trimmedLine.startsWith('#')) {
-                // Choice. Syntax: #2 text OR #2 (x?) text OR #2 (gold>5?) text
+                // Choice. Syntax: #2 text OR #2 (x?) text OR #2 (gold 5?) text
                 const choiceMatch = trimmedLine.match(/^#(\d+)\s*(.*)$/);
                 if (!choiceMatch) {
                     this.addIssue(lineNumber, `Invalid choice '${trimmedLine}'`);

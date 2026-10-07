@@ -443,7 +443,7 @@ End
             const event = parser.parseText(`
 §1
 Start
-#2 (gold>5?) Spend gold
+#2 (gold 6?) Spend gold
 #999 End
 
 §2
@@ -470,7 +470,7 @@ End
             const event = parser.parseText(`
 §1
 Start
-#2 (gold>5?) Spend gold
+#2 (gold 6?) Spend gold
 #999 End
 
 §2
@@ -489,7 +489,7 @@ End
             expect(choices.some(c => c.getText() === 'Spend gold')).toBe(true);
         });
 
-        test('should handle different comparison operators', () => {
+        test('should handle numeric prerequisites with space syntax', () => {
             const localDataModel = new DataModel();
             localDataModel.adjust('silver', 5);
             
@@ -497,10 +497,8 @@ End
             const event = parser.parseText(`
 §1
 Start
-#2 (silver<10?) Less than 10
-#2 (silver>=5?) At least 5
-#2 (silver==5?) Exactly 5
-#2 (silver!=0?) Not zero
+#2 (silver 5?) At least 5
+#2 (silver?) Not zero
 #999 End
 
 §2
@@ -518,9 +516,7 @@ End
             const choices = dialog.getCurrentChoices();
             const choiceTexts = choices.map(c => c.getText());
             
-            expect(choiceTexts).toContain('Less than 10');
             expect(choiceTexts).toContain('At least 5');
-            expect(choiceTexts).toContain('Exactly 5');
             expect(choiceTexts).toContain('Not zero');
         });
 

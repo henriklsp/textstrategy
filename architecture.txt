@@ -132,9 +132,9 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
 - **Prerequisite.ts**: Generic condition wrapper. Base class for all prerequisites.
   Implements isMet(dataModel) method.
 - **VariablePrerequisite.ts**: Prerequisite checking variable values.
-  Supports boolean checks (x?), numeric comparisons (gold>5?, gold>=5? etc.),
-  and shorthand form (gold 5? = gold >= 5).
-  Parsing from text format like `(x?)` or `(gold>5?)` with display text extraction.
+  Supports boolean checks (x?) and space syntax for >= (gold 5? = gold >= 5).
+  Parsing from text format like `(x?)` or `(gold 5?)` with display text extraction.
+  Note: Comparison operators (>, >=, <, <=, ==, !=) removed from syntax to avoid conflict with < and > tag characters.
 
 ### Data Model
 - **DataModel.ts**: Global state container. Uses separate Maps/Sets for numbers and booleans.
