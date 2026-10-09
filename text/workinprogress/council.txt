@@ -1,3 +1,10 @@
+// text/workinprogress/council.txt
+// Recurring council meeting: reports, construction orders and task assignment.
+// Scheduled at the end of the first exploration trip (workinprogress/foraging.txt)
+// and re-scheduled by itself every time it adjourns, so it recurs indefinitely.
+// With the default cast of five characters, task sections use one free candidate
+// role (E) next to the council members themselves.
+
 *A: divinity
 *B: magic
 *C: life
@@ -7,7 +14,7 @@
 <A> <B> <C> <D> gather for council meeting. 
 <D> reports. <D He> says "We have <food> baskets of food and <wood> stacks of wood."
 <A> gives <his> report on military status. TODO...
-<B> explains <currentconstruction?current construction of <currentconstruction>;no ongoing construction>.
+<B> explains <currentconstruction?current construction of the <currentconstruction>;no ongoing construction>.
 <C> reports recent events. TODO...
 <D> explains how many people are working on each task. TODO...
 Which task should we assign people to do?
@@ -16,62 +23,67 @@ Which task should we assign people to do?
 #3 (can woodcut) Woodcutting
 #4 (can build) Building
 #5 Scavenging
+#8 Order construction of a building
 #6 Nothing. All is good.
 
 §2
 *E: fish
-*F: fish
-*G: fish
 Fishing provides food. Who should we assign to go fishing?
 <D> suggests <himself>, because <he> likes fishing.
 [set person=choice]
 #7 <E>
-#7 <F>
-#7 <G>
 #7 <D>
 
 §3
 *E: woodcut
-*F: woodcut
-*G: woodcut
 Woodcutting provides wood. Who should we assign to cut wood?
 <A> wants to be in charge of woodcutting, because the best axe is <hers>.
 [set person=choice]
 #7 <A>
 #7 <E>
-#7 <F>
-#7 <G>
 
 §4
 *E: build
-*F: build
-*G: build
 We are currently building <currentconstruction?<currentconstruction>;nothing>. Who should we assign to build it?
 <B> says that constructing needs careful planning. <He> claims that <he> is the best suited for the task.
 [set person=choice]
 #7 <B>
 #7 <E>
-#7 <F>
-#7 <G>
 
 §5
 *E: scavenge
-*F: scavenge
-*G: scavenge
 Scavenging provides food. <bounty 4?We can easily find something to eat.;We will need to roam far to find anything edible.> 
 Who should we assign to go foraging for food?
 <C> enjoys nature and suggests <himself> for the task.
 [set person=choice]
 #7 <E>
-#7 <F>
-#7 <G>
 #7 <C>
 
 §6
-That is all for now.
+[event workinprogress/council 10]
+That is all for now. The council will meet again in ten days.
 #99 Council adjourned.
 
 §7
 [task <person> <task>]
-<person> will <task> now.
+[event workinprogress/council 10]
+<person> will <task> now. The council will meet again in ten days.
 #99 Council adjourned.
+
+§8
+[set building=choice]
+We have <wood> stacks of wood. What should we build?
+#9 (wood 1?) Shelter
+#9 Hall
+#9 Workshop
+#9 (wood 5?) Farm
+#9 (wood 8?) Storage
+#9 (wood 10?) Mine
+#9 (wood 15?) Dock
+#1 Nothing for now.
+
+§9
+[build <building>]
+Construction of the <building> begins at once. The work will go faster the more hands we set on the build task.
+The council turns back to the tasks of the day.
+#1 Back to business

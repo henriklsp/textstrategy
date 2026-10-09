@@ -54,4 +54,5 @@ You brought your axe. Your friends are also armed. Weapons may be useful.
 Landfall! Big drama, but this is just the temporary text.
 You have <food> sack<food 2?s;> of food left.
 These lands could be dangerous. <broughtweapons?Fortunately you brought weapons;>
+[event firstday 0]
 #999 End

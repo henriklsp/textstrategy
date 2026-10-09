@@ -1,0 +1,83 @@
+// text/firstday.txt
+// The first day ashore: the player decides what to build and who does what,
+// and schedules the first exploration trip (workinprogress/foraging, next day).
+// Triggered at the end of text/intro.txt with [event firstday 0].
+// The story text is placeholder quality - we will polish it later.
+
+*A: divinity
+*B: magic
+*C: life
+*D: harmony
+
+§1
+[var wood 2]
+Everyone has come ashore.
+Insert description of surroundings here.
+The boat was badly damaged, but at least some planks can be salvaged for building materials.
+Other families have started setting up camp along the shore.
+What to do now?
+<A> <B> <C> <D> discuss.
+<A> talks about destiny to one day rule these lands.
+<C> insists on the need right now to find food and resources.
+<B> wants to plan ahead.
+<D> tries to get them all to work together. But they do not agree and look to you.
+#2 Plan for the long term
+#3 Focus on immediate needs
+
+§2
+Everyone except <C> agrees on the need to plan ahead.
+We need to start building.
+#4 What should we build?
+
+§3
+[task C scavenge]
+[task D scavenge]
+<C> and <D> agree with you on the need to find a source of food quickly.
+<A> and <B> reluctantly accept.
+<C> and <D> volunteer to start scavenging the immediate area.
+#4 And what should we build?
+
+§4
+[set building=choice]
+The salvaged planks give us <wood> stacks of wood to build with. What should we build first?
+#5 (wood 1?) Shelter
+#5 Hall
+#5 Workshop
+#5 (wood 5?) Farm
+#5 (wood 8?) Storage
+#5 (wood 10?) Mine
+#5 (wood 15?) Dock
+#7 Build nothing yet. There is much else to do.
+
+§5
+[build <building>]
+[set person=choice]
+Construction of the <building> begins at once. The work will go faster the more hands we set on the build task.
+Who should take charge of the work?
+#6 <A>
+#6 <B>
+#6 <C>
+#6 <D>
+
+§6
+[task <person> build]
+[event workinprogress/foraging 1]
+<person> will take charge of the construction.
+Tomorrow you will take a closer look at this new land. The others will manage the camp.
+#999 End
+
+§7
+There is much else to do before we spend wood on building.
+[set person=choice]
+Who should scour the surroundings for food and materials tomorrow?
+#8 <A>
+#8 <B>
+#8 <C>
+#8 <D>
+
+§8
+[task <person> scavenge]
+[event workinprogress/foraging 1]
+<person> will search the surroundings for food and materials.
+Tomorrow you will take a closer look at this new land. The others will manage the camp.
+#999 End

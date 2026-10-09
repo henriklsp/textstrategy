@@ -47,7 +47,7 @@ src/browser.ts (browser) or src/index.ts (Node)
     - `[bool name true/false]` -> BoolEffect (set boolean flag)
     - `[event name delay]` -> EventEffect (schedule named event after delay days)
     - `[task role|<variable> taskType|<variable>]` -> AssignTaskEffect (assign person to task)
-    - `[build buildingType]` -> StartConstructionEffect (start building construction)
+    - `[build buildingType|<variable>]` -> StartConstructionEffect (start building construction)
     - `[set variableName=choice]` -> SetChoiceEffect (capture next choice as variable)
     - `#2 text` -> Choice to Section 2
     - `#2 (condition?) text` -> Conditional Choice (visible only if condition met)
@@ -111,7 +111,9 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   Uses DataModel.assignPersonToTask() to update assignments.
 - **StartConstructionEffect.ts**: Starts building construction. Calls DataModel.startBuildingConstruction()
   which pays resource costs and adds to construction queue. Building must not already be
-  completed or under construction, and resources must be available.
+  completed or under construction, and resources must be available. Resolves building reference from:
+  - Literal building type (shelter, hall, workshop, farm, mine, dock, storage)
+  - Choice variable reference (<building>) via context.getChoiceVariable(), case-insensitive
 - **SetChoiceEffect.ts**: Captures next player choice. Uses context.setPendingChoiceCapture()
   to set up capture, Dialog stores choice text in choiceVariables map.
 - **EffectFactory.ts**: Central factory for parsing effect strings into Effect objects.
@@ -172,8 +174,8 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   Provides methods: getName(), getTraitType(), hasTrait(), hasPositiveTrait(), etc.
   getTraitType() returns "positive", "negative", "tertiary", or null.
 - **DefaultCharacters.ts**: Factory function createDefaultCharacters() creates 5 starting
-  characters (Bearn, Arik, Eya, Agnar, Elrid) with predefined trait combinations based on
-  the four deific aspects: divinity, magic, life, harmony.
+  characters (Bearn, Arik, Eya, Agnar, Elrid) with predefined trait combinations based
+  on the four deific aspects: divinity, magic, life, harmony.
 - **RoleAssigner.ts**: Finds optimal assignment of Persons to roles.
   Uses brute-force search (factorial complexity: O(cast!/(cast-roles)!)).
   Throws if more roles than available characters.
@@ -200,6 +202,18 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
    resources based on population. Buildings enable new tasks and provide bonuses.
 7. **Construction**: Buildings require resources, take time to build, and enable new capabilities.
    Construction time scales inversely with number of workers on build task.
+
+## CORE LOOP WIRING
+The core loop is wired through the event files:
+- text/intro.txt ends with [event firstday 0] -> the first day ashore plays on day 1
+- text/firstday.txt: the player orders construction, assigns a builder or scavenger,
+  and schedules [event workinprogress/foraging 1] -> the exploration trip on day 2
+- text/workinprogress/foraging.txt ends with [event workinprogress/council 3] -> first council
+- text/workinprogress/council.txt: reports, construction orders ([build <building>]) and task
+  assignment ([task <person> <task>]); every adjournment schedules
+  [event workinprogress/council 10] -> the council recurs every 10 days
+- Between events, GameLoop advances day by day, running the economy
+  (production, consumption, construction progress) for every day that passes
 
 ## ARCHITECTURAL WEAKNESSES
 
@@ -245,9 +259,13 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
 - **No combat system**: Game design describes a combat system inspired by Darkest Dungeon, but
   no combat-related code exists in the current implementation.
 - **No map/terrain system**: Game design calls for tracking terrain, locations, and factions
-  in prose form, but current implementation has no map or location tracking.
-- **No council event**: Game design describes a recurring council event every 10 days with
-  reports from council members, but this is not implemented. Only basic event scheduling exists.
+  in prose form, but the current implementation has no map or location tracking.
+- **Council event is a first draft**: text/workinprogress/council.txt recurs every 10 days and
+  supports construction orders and task assignment, but military status, recent events and
+  worker-count reports are still TODO, and ordering an already-built building shows an error.
+- **No random/prerequisite-triggered events**: the design calls for events to be triggered when
+  their prerequisites are met (possibly randomly when the queue runs low); currently an empty
+  event queue stops the game.
 - **Incomplete building effects**: BuildingDefinitions.effects is a string array placeholder.
   Buildings like farm ("enables_farming") and mine ("enables_mining") have effects defined as
   strings but no actual effect implementation. DataModel.canPerformTask() checks these strings,
@@ -272,5 +290,3 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   defaultCharacters array. Remove once all code uses createDefaultCharacters().
 - **TextSubstitution nesting limit**: While nesting is supported, deeply nested tags
   could cause performance issues. No documented limit or protection against infinite recursion.
-
-
