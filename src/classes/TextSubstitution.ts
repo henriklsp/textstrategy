@@ -147,6 +147,11 @@ export class TextSubstitution {
             return this.context.dataModel.isSet(condition) ? 'true' : 'false';
         }
 
+        // <currentconstruction?a;b>: truthy if something is under construction
+        if (condition === 'currentconstruction') {
+            return this.substitute((this.textValue('currentconstruction') ?? '') !== '' ? trueText : falseText);
+        }
+
         // Conditional subsection: <cond?a;b>
         // Uses the same PrerequisiteParser.parseCondition as choice prerequisites
         // (PrerequisiteParser.ts), so every prerequisite type works in both places:

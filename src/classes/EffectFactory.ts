@@ -71,11 +71,14 @@ export class EffectFactory {
                 return new AssignTaskEffect(personRef, taskRef);
             }
             case 'build': {
-                if (parts.length < 2) return fail('Expected [build buildingtype]');
-                if (!BuildingDefinitions.isValidBuildingType(textField)) {
-                    return fail(`Unknown building type (expected one of ${BuildingDefinitions.getTypes().join(', ')})`);
+                if (parts.length < 2) return fail('Expected [build buildingtype] or [build <variable>]');
+                // Allow either literal building types or variable references like <building>
+                const buildingRef = textField;
+                const isBuildingVar = buildingRef.startsWith('<') && buildingRef.endsWith('>');
+                if (!isBuildingVar && !BuildingDefinitions.isValidBuildingType(buildingRef)) {
+                    return fail(`Unknown building type (expected one of ${BuildingDefinitions.getTypes().join(', ')} or a <variable>)`);
                 }
-                return new StartConstructionEffect(textField);
+                return new StartConstructionEffect(buildingRef);
             }
             default:
                 return fail('Unknown effect');

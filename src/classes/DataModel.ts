@@ -51,9 +51,11 @@ export function normalizeTaskName(input: string): TaskType {
         'mine': 'mining',
         'miner': 'mining',
         'build': 'build',
+        'building': 'build',
         'craft': 'craft',
         'scav': 'scavenge',
         'scavenge': 'scavenge',
+        'scavenging': 'scavenge',
         'storage': 'storage',
     };
 
