@@ -8,6 +8,9 @@ export class Person {
     private negativeTraits: Set<string>;
     private tertiaryTraits: Set<string>;
     private gender: Gender;
+    private health: number;
+    private maxHealth: number;
+    private attitude: number;
     
     // Constructor with just a name
     constructor(name: string);
@@ -24,6 +27,9 @@ export class Person {
         this.negativeTraits = new Set<string>();
         this.tertiaryTraits = new Set<string>();
         this.gender = gender;
+        this.maxHealth = 100;
+        this.health = this.maxHealth;
+        this.attitude = 50;
         
         if (positiveTrait !== undefined && negativeTrait !== undefined && tertiaryTrait !== undefined) {
             this.positiveTraits.add(positiveTrait);
@@ -42,6 +48,36 @@ export class Person {
     
     public getName(): string {
         return this.name;
+    }
+
+    // Health: clamped between 0 and maxHealth. 0 means the character is out of action
+    // (death is intentionally not implemented yet). Rest restores health, starvation drains it.
+    public getHealth(): number {
+        return this.health;
+    }
+
+    public getMaxHealth(): number {
+        return this.maxHealth;
+    }
+
+    // Set health, clamped between 0 and maxHealth
+    public setHealth(value: number): void {
+        this.health = Math.max(0, Math.min(this.maxHealth, value));
+    }
+
+    // Health as a fraction of maxHealth (0 to 1)
+    public getHealthFraction(): number {
+        return this.health / this.maxHealth;
+    }
+
+    // Attitude towards the player: 0 (hostile) to 100 (devoted). Starvation reduces it.
+    public getAttitude(): number {
+        return this.attitude;
+    }
+
+    // Adjust attitude, clamped between 0 and 100
+    public adjustAttitude(delta: number): void {
+        this.attitude = Math.max(0, Math.min(100, this.attitude + delta));
     }
 
     // Add a positive trait to this person
