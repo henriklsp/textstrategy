@@ -107,7 +107,8 @@ export class PersonSelection {
             mining: ['magic'],
             build: ['divinity'],
             craft: ['magic'],
-            storage: ['harmony']
+            storage: ['harmony'],
+            rest: ['life']
         };
 
         const relevantTraits = traitBonuses[this.taskType!] || [];
