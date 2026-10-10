@@ -152,8 +152,10 @@ describe('Starvation, health and rest', () => {
 
         // Healthy builder: efficiency 1 -> 4 days to build
         builder.setHealth(100);
-        dm.nextDay();
-        dm.updateDailyResources(); // day 1: 4/4 days elapsed -> complete
+        for (let i = 0; i < 4; i++) {
+            dm.nextDay();
+            dm.updateDailyResources();
+        }
         expect(dm.isBuildingCompleted('shelter')).toBe(true);
 
         // Same setup, but the builder is weak (0.4 health -> 0.8 efficiency -> 4/0.8 = 5 days)
