@@ -143,6 +143,48 @@ describe('Starvation, health and rest', () => {
         expect(dm.canPersonPerformTask('A', 'rest')).toBe(true);
     });
 
+    test('low health reduces construction speed', () => {
+        const builder = new Person('Mason', 'life', 'magic', 'harmony');
+        const dm = makeModel([builder], 10);
+        dm.set('wood', 20);
+        dm.startBuildingConstruction('shelter', 4); // 4 base days
+        dm.assignPersonToTask('Mason', 'build');
+
+        // Healthy builder: efficiency 1 -> 4 days to build
+        builder.setHealth(100);
+        dm.nextDay();
+        dm.updateDailyResources(); // day 1: 4/4 days elapsed -> complete
+        expect(dm.isBuildingCompleted('shelter')).toBe(true);
+
+        // Same setup, but the builder is weak (0.4 health -> 0.8 efficiency -> 4/0.8 = 5 days)
+        const dm2 = makeModel([builder], 10);
+        dm2.set('wood', 20);
+        dm2.startBuildingConstruction('workshop', 4);
+        dm2.assignPersonToTask('Mason', 'build');
+        builder.setHealth(40);
+        for (let i = 0; i < 4; i++) {
+            dm2.nextDay();
+            dm2.updateDailyResources();
+        }
+        expect(dm2.isBuildingCompleted('workshop')).toBe(false);
+        dm2.nextDay();
+        dm2.updateDailyResources(); // day 5
+        expect(dm2.isBuildingCompleted('workshop')).toBe(true);
+    });
+
+    test('an exhausted builder builds at the 0.1 efficiency floor', () => {
+        const builder = new Person('Mason', 'life', 'magic', 'harmony');
+        const dm = makeModel([builder], 10);
+        dm.set('wood', 20);
+        dm.startBuildingConstruction('shelter', 4);
+        dm.assignPersonToTask('Mason', 'build');
+        builder.setHealth(5); // fraction 0.05 -> below forced rest threshold? 0.05 <= 0.25 -> moved to rest
+        dm.updateDailyResources();
+        // Forced rest wins over the build assignment: no builder left, building stalls
+        expect(dm.getTaskForPerson('Mason')).toBe('rest');
+        expect(dm.isBuildingCompleted('shelter')).toBe(false);
+    });
+
     test('rest produces nothing', () => {
         const p = new Person('A', 'life', 'magic', 'harmony');
         const dm = makeModel([p], 10);
