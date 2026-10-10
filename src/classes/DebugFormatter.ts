@@ -33,6 +33,11 @@ export class DebugFormatter {
             lines.push(`task: ${assignment.personName}=${assignment.taskType}`);
         }
 
+        // Character health and attitude
+        for (const person of dataModel.getCast()) {
+            lines.push(`${person.getName()}: hp ${Math.round(person.getHealth())}/${person.getMaxHealth()}, attitude ${Math.round(person.getAttitude())}`);
+        }
+
         // Buildings
         const { under, completed } = dataModel.getBuildingsForDebug();
         for (const building of under) {
