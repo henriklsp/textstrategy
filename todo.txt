@@ -10,6 +10,8 @@
 - Combat system
 - Put random events on event queue if prerequisites are met
 - dialog event: log text to be reported at the next council event. Add variable subsection to show recent events.
+- Starvation events: trigger a story event when a character's health falls below a threshold, so the crisis appears in prose
+- Feast: let the council spend surplus food to raise health and attitude above their baseline
 
 To run:
 - Powershell textstrategy root folder
