@@ -336,9 +336,15 @@ export class DataModel {
         // Step 2: Process buildings under construction (copy: completeBuilding modifies the list)
         for (const building of [...this.buildingsUnderConstruction]) {
             const daysPassed = currentDay - building.startDay;
-            // Calculate actual days needed based on workers assigned to build task
-            const buildersCount = this.getPersonsForTask('build').length;
-            const actualDaysToBuild = Math.max(1, Math.ceil(building.daysToBuild / Math.max(1, buildersCount)));
+            // Calculate actual days needed based on workers assigned to build task.
+            // Low health reduces a builder's contribution: each builder counts as
+            // their work efficiency (1.0 at full strength, proportionally less below
+            // their work penalty threshold), so weak builders build slower.
+            const builderEffort = this.getPersonsForTask('build')
+                .map(name => this.getPersonByName(name))
+                .filter((builder): builder is Person => builder !== null)
+                .reduce((sum, builder) => sum + this.getWorkEfficiency(builder), 0);
+            const actualDaysToBuild = Math.max(1, Math.ceil(building.daysToBuild / Math.max(0.0001, builderEffort)));
 
             if (daysPassed >= actualDaysToBuild) {
                 this.completeBuilding(building.buildingType);
