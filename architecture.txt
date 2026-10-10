@@ -26,7 +26,8 @@ src/browser.ts (browser) or src/index.ts (Node)
   - Event queue is kept sorted by day; same-day events maintain insertion order
   - Async loading of event files in browser environment
   - Daily updates: resource production from tasks, resource consumption, building construction progress
-  - Building completion time scales with number of workers assigned to build task
+  - Building completion time scales with the builders' total work effort
+    (each builder weighted by work efficiency, so low health slows construction)
 - **UI.ts**: All presentation decisions. Paragraph layout (blank line = new paragraph, single line
   breaks become spaces), "Continue" option for sections without choices, output to index.html
   (window.updateStory callback) or console. Implements IGameUI interface for decoupling from GameLoop.
@@ -202,7 +203,8 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
 6. **Resource Flow**: Daily updates produce resources based on task assignments and consume
    resources based on population. Buildings enable new tasks and provide bonuses.
 7. **Construction**: Buildings require resources, take time to build, and enable new capabilities.
-   Construction time scales inversely with number of workers on build task.
+   Construction time scales inversely with the builders' total work effort: each builder
+   counts as their work efficiency, so low health slows construction (never below 0.1).
 
 ## CORE LOOP WIRING
 The core loop is wired through the event files:
@@ -220,7 +222,8 @@ The core loop is wired through the event files:
 - One unit of food is a basket that feeds a family for a day: each day the settlement eats 0.2 food per character
 - If the food runs out, the stores are emptied and everyone starves: health -5/day, attitude -4/day
 - The rest task produces nothing but heals +3/day (healing is deliberately slower than starving); healing is clamped at maxHealth
-- Characters below their work penalty threshold (default 50% of maxHealth) work at proportionally reduced efficiency (floor 0.1)
+- Characters below their work penalty threshold (default 50% of maxHealth) work at proportionally reduced
+  efficiency (floor 0.1) on every task except rest, including the build task (construction progress)
 - Characters at or below their forced rest threshold (default 25%) are moved to the rest task at the start of the daily update
 - Trait modifiers: positive life heals 1.5x, negative life heals 0.5x; positive divinity keeps working down to 30% health
   and is only forced to rest at 15%, negative divinity gives up earlier (75% / 37.5%) and takes 1.25x starvation damage;
