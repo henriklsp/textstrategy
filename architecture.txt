@@ -153,13 +153,13 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   - Daily updates: updateDailyResources() handles:
     - Building construction progress (scaled by builders)
     - Resource production from tasks (based on task type)
-    - Resource consumption (population eats food)
+    - Food consumption and starvation (see STARVATION, HEALTH AND REST below)
     - Resource decay (without storage building)
   - Task requirements: canPerformTask() checks if required buildings are completed
   - Default task assignment: assignUnassignedToDefaultTask() assigns to 'scavenge'
   
   Resource types: food, gold, silver, weapons, population, iron, copper, wood
-  Task types: scavenge, hunting, fishing, farming, woodcutting, mining, build, craft, storage
+  Task types: scavenge, hunting, fishing, farming, woodcutting, mining, build, craft, storage, rest
   
 - **BuildingDefinitions.ts**: Central registry of all building types with definitions:
   - Costs: wood, copper, iron requirements
@@ -173,6 +173,7 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   Each Person has three trait categories: positiveTraits, negativeTraits, tertiaryTraits.
   Provides methods: getName(), getTraitType(), hasTrait(), hasPositiveTrait(), etc.
   getTraitType() returns "positive", "negative", "tertiary", or null.
+  Also tracks health (clamped 0..maxHealth, default max 100) and attitude (clamped 0..100, default 50).
 - **DefaultCharacters.ts**: Factory function createDefaultCharacters() creates 5 starting
   characters (Bearn, Arik, Eya, Agnar, Elrid) with predefined trait combinations based
   on the four deific aspects: divinity, magic, life, harmony.
@@ -184,7 +185,7 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
 ### Utility Classes
 - **DebugFormatter.ts**: Formats DataModel state for display.
   Shows: known variables with values, boolean flags (true only), task assignments,
-  buildings under construction (with days left), completed buildings.
+  character health/attitude, buildings under construction (with days left), completed buildings.
   Only outputs in debug mode (always enabled during development).
 
 ## KEY MECHANICS
@@ -214,6 +215,19 @@ The core loop is wired through the event files:
   [event workinprogress/council 10] -> the council recurs every 10 days
 - Between events, GameLoop advances day by day, running the economy
   (production, consumption, construction progress) for every day that passes
+
+## STARVATION, HEALTH AND REST
+- One unit of food is a basket that feeds a family for a day: each day the settlement eats 0.2 food per character
+- If the food runs out, the stores are emptied and everyone starves: health -5/day, attitude -4/day
+- The rest task produces nothing but heals +3/day (healing is deliberately slower than starving); healing is clamped at maxHealth
+- Characters below their work penalty threshold (default 50% of maxHealth) work at proportionally reduced efficiency (floor 0.1)
+- Characters at or below their forced rest threshold (default 25%) are moved to the rest task at the start of the daily update
+- Trait modifiers: positive life heals 1.5x, negative life heals 0.5x; positive divinity keeps working down to 30% health
+  and is only forced to rest at 15%, negative divinity gives up earlier (75% / 37.5%) and takes 1.25x starvation damage;
+  positive harmony loses half attitude from starvation, negative harmony loses double
+- Starvation consumes no food (stores are already empty); the character count is the cast size, not the 'population' variable
+- Death at 0 health is intentionally not implemented yet
+- Story events for starvation crises and a feast food sink are deferred (see todo.txt)
 
 ## ARCHITECTURAL WEAKNESSES
 
