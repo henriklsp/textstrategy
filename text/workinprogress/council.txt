@@ -23,6 +23,7 @@ Which task should we assign people to do?
 #3 (can woodcut) Woodcutting
 #4 (can build) Building
 #5 Scavenging
+#10 Resting
 #8 Order construction of a building
 #6 Nothing. All is good.
 
@@ -55,6 +56,15 @@ We are currently building <currentconstruction?<currentconstruction>;nothing>. W
 Scavenging provides food. <bounty 4?We can easily find something to eat.;We will need to roam far to find anything edible.> 
 Who should we assign to go foraging for food?
 <C> enjoys nature and suggests <himself> for the task.
+[set person=choice]
+#7 <E>
+#7 <C>
+
+§10
+*E: rest
+Resting produces nothing, but it is the only way to recover health.
+Who should we tell to rest and gather their strength?
+<C> says that the weak and weary must be spared the day's work.
 [set person=choice]
 #7 <E>
 #7 <C>
