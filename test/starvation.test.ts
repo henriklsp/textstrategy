@@ -40,15 +40,14 @@ describe('Starvation, health and rest', () => {
     test('health is clamped at 0 under continued starvation', () => {
         const p = new Person('A', 'life', 'magic', 'harmony');
         const dm = makeModel([p], 0);
-        dm.updateDailyResources();
-        dm.updateDailyResources();
-        dm.updateDailyResources();
-        dm.updateDailyResources();
+        // Starvation costs 5 health per day; run well past 100 damage to prove the clamp at 0
+        for (let i = 0; i < 25; i++) dm.updateDailyResources();
         expect(p.getHealth()).toBe(0);
     });
 
     test('rest heals +3 per day and is clamped at maxHealth', () => {
-        const p = new Person('A', 'life', 'magic', 'harmony');
+        // No life trait, so the heal rate is the base +3 (positive life would heal 1.5x)
+        const p = new Person('A', 'harmony', 'magic', 'divinity');
         const dm = makeModel([p], 10);
         p.setHealth(90);
         dm.assignPersonToTask('A', 'rest');

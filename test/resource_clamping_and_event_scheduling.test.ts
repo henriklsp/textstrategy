@@ -33,10 +33,15 @@ describe('Resources are clamped at 0', () => {
 
     test('daily consumption stops at 0 food', () => {
         const dm = new DataModel();
+        // Consumption counts the characters in the cast, not the population variable
+        for (let i = 0; i < 5; i++) {
+            dm.addPerson(new Person('P' + i, 'life', 'magic', 'harmony'));
+        }
         dm.set('population', 5);
         dm.set('food', 2);
-        dm.updateDailyResources();
-        dm.updateDailyResources();
+        dm.updateDailyResources(); // 2 - 5 * 0.2 = 1
+        dm.updateDailyResources(); // 1 - 1 = 0
+        dm.updateDailyResources(); // starving: stays at 0, never negative
         expect(dm.get('food')).toBe(0);
     });
 
