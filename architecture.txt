@@ -237,7 +237,10 @@ The core loop is wired through the event files:
 - Trait modifiers: positive life heals 1.5x, negative life heals 0.5x; positive divinity keeps working down to 30% health
   and is only forced to rest at 15%, negative divinity gives up earlier (75% / 37.5%) and takes 1.25x starvation damage;
   positive harmony loses half attitude from starvation, negative harmony loses double
-- Starvation consumes no food (stores are already empty); the character count is the cast size, not the 'population' variable
+- Food consumption counts the 'population' variable (0.2 food per person per day), not the cast size:
+  population >= cast of named characters, and may include unnamed people later (for now they are the same).
+  Starvation drains the health/attitude of the named cast only.
+- Starvation consumes no food (stores are already empty)
 - Death at 0 health is intentionally not implemented yet
 - Story events for starvation crises and a feast food sink are deferred (see todo.txt)
 

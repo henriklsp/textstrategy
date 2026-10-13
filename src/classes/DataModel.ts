@@ -488,7 +488,9 @@ export class DataModel {
     // If the food runs out, the stores are emptied and everyone starves:
     // health and attitude drop (attitude loss is modified by the harmony trait).
     private applyConsumption(): void {
-        const people = this.castOfCharacters.length;
+        // Consumption counts the population variable, not the cast of named
+        // characters: population >= cast, and may include unnamed people later.
+        const people = this.get('population');
         const needed = people * FOOD_PER_PERSON_PER_DAY;
         const available = this.get('food');
 

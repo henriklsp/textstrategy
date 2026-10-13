@@ -10,6 +10,8 @@ describe('Starvation, health and rest', () => {
     const makeModel = (people: Person[], food: number): DataModel => {
         const dm = new DataModel();
         for (const p of people) dm.addPerson(p);
+        // Consumption counts the population variable; keep it in sync with the cast
+        dm.set('population', people.length);
         dm.set('food', food);
         return dm;
     };

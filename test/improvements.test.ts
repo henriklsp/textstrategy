@@ -326,6 +326,8 @@ describe('Buildings', () => {
         const dm = new DataModel();
         const builder = new Person('Builder', 'life', 'magic', 'harmony');
         dm.addPerson(builder);
+        // Population is in sync with the cast; one person eats 0.2 food per day
+        dm.set('population', 1);
         dm.assignPersonToTask('Builder', 'build');
         dm.assignPersonToTask('Farmer', 'farming');
         dm.assignPersonToTask('Hunter', 'hunting');
