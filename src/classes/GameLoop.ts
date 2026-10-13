@@ -168,7 +168,8 @@ export class GameLoop implements DialogCallback {
         const theEvent = event ?? entry.event!;
         if (!theEvent.arePrerequisitesMet(this.dataModel)) {
             this.requeueNextFreeDay(entry);
-            this.recordError(`Event '${entry.eventName ?? 'event'}' prerequisites not met, moved to day ${entry.day}`);
+            // By-design game flow, not an error: do not show in the UI's red error list
+            console.log(`Event '${entry.eventName ?? 'event'}' prerequisites not met, moved to day ${entry.day}`);
             return this.startNextDueEvent();
         }
         this.startDialog(theEvent);
