@@ -33,7 +33,8 @@ function render(text: string, dataModel = new DataModel()): string {
 
 describe('Content files', () => {
     const textDir = path.join(__dirname, '..', 'text');
-    const files = fs.readdirSync(textDir).filter(f => f.endsWith('.txt'));
+    // pool.txt is a pool manifest (event names, comments only), not an event file
+    const files = fs.readdirSync(textDir).filter(f => f.endsWith('.txt') && f !== 'pool.txt');
 
     test.each(files)('text/%s parses without issues', file => {
         const parser = new EventParser();

@@ -25,6 +25,11 @@ src/browser.ts (browser) or src/index.ts (Node)
   text/<name>.txt files via EventParser or registered with registerEvent().
   Events with unmet header prerequisites are not started when due: they are moved to the next
   day with no other due events and checked again then.
+  Also manages a pool of ?when/?maybe events (from text/pool.txt via loadPoolManifest(), or
+  registerPoolEvent(name)): on a day with no scheduled events due, at most one pool event fires
+  (if its header prerequisites are met). ?when events are considered first, then ?maybe; among
+  candidates the lowest priority number wins, ties broken at random. A fired event leaves the
+  pool (fires once per registration). Idle days advance only while a pool event might still fire.
   - Event queue is kept sorted by day; same-day events maintain insertion order
   - Async loading of event files in browser environment
   - Daily updates: resource production from tasks, resource consumption, building construction progress
@@ -45,6 +50,9 @@ src/browser.ts (browser) or src/index.ts (Node)
       (any choice condition works; several lines must all be met; the GameLoop
       checks them when the event comes due and otherwise moves it to the next
       day with no other due events)
+    - `?when [n]` / `?maybe [n]` -> Trigger mode (header, before first section): pool event
+      that fires itself on an idle day when its prerequisites are met; optional priority n
+      (lower first). ?maybe is only considered when no ?when event can fire.
     - `*A: trait` -> PersonSelection (role A requires positive trait)
     - `*A: -trait` -> PersonSelection (role A requires negative trait)
     - `*A: trait1, trait2` -> PersonSelection (role A requires both traits)
@@ -69,6 +77,8 @@ src/browser.ts (browser) or src/index.ts (Node)
 - **Event.ts**: Container for game narrative. Holds Section[] array, startingSection reference
   and Prerequisite[] from the file header ((cond?) lines). arePrerequisitesMet(dataModel) checks
   them outside any dialog (no roles assigned, so person trait conditions are never met).
+  Also carries a trigger mode ('scheduled', 'when' or 'maybe') and a priority number
+  (from ?when [n] / ?maybe [n] header lines); lower priority fires first among pool candidates.
   Starting section defaults to first section if not specified.
 - **Dialog.ts**: Runs one Event. Manages:
   - Navigation through Section graph via player choices
