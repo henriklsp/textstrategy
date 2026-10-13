@@ -6,6 +6,13 @@ Dialog Parsing Cheat Sheet
 *A: Trait, Trait2 : Select person with both traits for dialog role A (max two)
 *A: scavenge : Select person best suited for task (scavenge, build, hunting, fishing, farming, woodcutting, mining, craft, storage)
 
+(cond?) : Event prerequisite. One condition per line, in the header before the first section.
+ (weapons 1?) : The event only happens if the condition is met when it comes due.
+ (can fish) : Any choice condition works here, e.g. flags, numbers, can task.
+ Several (cond?) lines must all be met.
+ If not met when due, the event is moved to the next day with no other due events, and checked again then.
+ Person role conditions (A life?) are never met: no dialog roles are assigned outside a dialog.
+
 §1 : begin section 1
 §1 text : begin section 1, with text as its first text line
 

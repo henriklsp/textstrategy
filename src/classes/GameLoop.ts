@@ -125,27 +125,30 @@ export class GameLoop implements DialogCallback {
 
     // Start the next event due today (or earlier). Named events are resolved here;
     // if one is still loading, it starts when loading completes. Unknown events are skipped.
+    // Events whose header prerequisites are not met are moved to the next day with
+    // no other due events, and the next due event is started instead.
     // Returns false if nothing is due.
     private startNextDueEvent(): boolean {
         if (!this.hasDueEvent()) return false;
         const entry = this.eventQueue.shift()!;
         if (entry.event) {
-            this.startDialog(entry.event);
-            return true;
+            return this.startDueEvent(entry);
         }
 
         const name = entry.eventName!;
         const event = this.eventRegistry.get(name);
         if (event) {
-            this.startDialog(event);
-            return true;
+            return this.startDueEvent(entry, event);
         }
         const loading = this.loadingEvents.get(name);
         if (loading) {
             loading.then(() => {
                 const loaded = this.eventRegistry.get(name);
                 if (loaded) {
-                    this.startDialog(loaded);
+                    if (!this.startDueEvent(entry, loaded)) {
+                        // Prerequisites not met and nothing else due: advance the days
+                        this.continueGame();
+                    }
                 } else {
                     this.recordError(`Unknown event '${name}', skipped`);
                     this.continueGame();
@@ -156,6 +159,30 @@ export class GameLoop implements DialogCallback {
         this.recordError(`Unknown event '${name}', skipped`);
         this.continueGame();
         return true;
+    }
+
+    // Start a due event if its header prerequisites are met.
+    // If not, move it to the next day with no other due events and
+    // continue with the next due event (there may still be one today).
+    private startDueEvent(entry: ScheduledEvent, event?: Event): boolean {
+        const theEvent = event ?? entry.event!;
+        if (!theEvent.arePrerequisitesMet(this.dataModel)) {
+            this.requeueNextFreeDay(entry);
+            this.recordError(`Event '${entry.eventName ?? 'event'}' prerequisites not met, moved to day ${entry.day}`);
+            return this.startNextDueEvent();
+        }
+        this.startDialog(theEvent);
+        return true;
+    }
+
+    // Move a queue entry to the next day that has no other due events
+    private requeueNextFreeDay(entry: ScheduledEvent): void {
+        let day = this.dataModel.getCurrentDay() + 1;
+        while (this.eventQueue.some(e => e.day === day)) {
+            day++;
+        }
+        entry.day = day;
+        this.enqueue(entry);
     }
 
     // Start the next due event; if nothing more is due today, advance day by day

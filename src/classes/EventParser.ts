@@ -25,6 +25,7 @@ interface SectionData {
 // Parses structured text files into Event objects.
 // Syntax:
 //   // comment → Line is ignored
+//   (cond?) → Event prerequisite, in the header before the first section
 //   *A: magic → PersonSelection (role A requires positive magic trait)
 //   *B: -magic → PersonSelection (role B requires negative magic trait)
 //   §1 text → Section
@@ -94,6 +95,7 @@ export class EventParser {
         this.issues = [];
         const sectionData: SectionData[] = [];
         const pendingPersonSelections: PersonSelection[] = [];
+        const eventPrerequisites: Prerequisite[] = [];
         const current = (): SectionData | undefined => sectionData[sectionData.length - 1];
         const lines = text.split(/\r?\n/);
 
@@ -125,6 +127,22 @@ export class EventParser {
                 } else {
                     // Before the first section: belongs to the first section
                     pendingPersonSelections.push(selection);
+                }
+                return;
+            }
+
+            if (trimmedLine.startsWith('(') && trimmedLine.endsWith(')')) {
+                // Event prerequisite: (condition?) in the header, before the first section
+                const condition = trimmedLine.substring(1, trimmedLine.length - 1).trim();
+                if (!section) {
+                    const prerequisite = PrerequisiteParser.parseCondition(condition);
+                    if (prerequisite) {
+                        eventPrerequisites.push(prerequisite);
+                    } else {
+                        this.addIssue(lineNumber, `Invalid event condition '${trimmedLine}'`);
+                    }
+                } else {
+                    this.addIssue(lineNumber, `Event condition '${trimmedLine}' must be in the header, before the first section`);
                 }
                 return;
             }
@@ -222,7 +240,7 @@ export class EventParser {
             console.warn(`${sourceName}:${issue.line}: ${issue.message}`);
         }
 
-        return new Event(sections);
+        return new Event(sections, undefined, eventPrerequisites);
     }
 
     private addIssue(line: number, message: string): void {
