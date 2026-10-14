@@ -23,6 +23,9 @@ export class Main {
         dataModel.set('wood', 5);
         dataModel.setBounty(10); // Initialize bounty to maximum (10)
 
+        // Register pool events (?when / ?maybe) from the pool manifest
+        await this.gameLoop.loadPoolManifest();
+
         // Load text/intro.txt with the game's parser, so [event x n] effects reach the game's queue
         const event = await this.gameLoop.getParser().loadEvent('intro');
         

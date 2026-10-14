@@ -33,7 +33,8 @@ function render(text: string, dataModel = new DataModel()): string {
 
 describe('Content files', () => {
     const textDir = path.join(__dirname, '..', 'text');
-    const files = fs.readdirSync(textDir).filter(f => f.endsWith('.txt'));
+    // pool.txt is a pool manifest (event names, comments only), not an event file
+    const files = fs.readdirSync(textDir).filter(f => f.endsWith('.txt') && f !== 'pool.txt');
 
     test.each(files)('text/%s parses without issues', file => {
         const parser = new EventParser();
@@ -309,6 +310,10 @@ describe('Buildings', () => {
 
     test('the same building cannot be started twice or rebuilt', () => {
         const dm = new DataModel();
+        // Buildings only progress while someone is assigned to the build task
+        const builder = new Person('Builder', 'life', 'magic', 'harmony');
+        dm.addPerson(builder);
+        dm.assignPersonToTask('Builder', 'build');
         expect(dm.startBuildingConstruction('hall', 1)).toBe(true);
         expect(dm.startBuildingConstruction('hall', 1)).toBe(false);
         expect(dm.getBuildingsUnderConstruction()).toHaveLength(1);
@@ -320,18 +325,36 @@ describe('Buildings', () => {
 
     test('farming, fishing, mining and crafting need their building', () => {
         const dm = new DataModel();
+        const builder = new Person('Builder', 'life', 'magic', 'harmony');
+        dm.addPerson(builder);
+        // Population is in sync with the cast; one person eats 0.2 food per day
+        dm.set('population', 1);
+        dm.assignPersonToTask('Builder', 'build');
         dm.assignPersonToTask('Farmer', 'farming');
         dm.assignPersonToTask('Hunter', 'hunting');
         dm.updateDailyResources();
-        expect(dm.get('food')).toBe(2); // hunting only
+        // Hunting produces 2 food, farming is blocked without a farm;
+        // the builder in the cast eats 0.2 per day
+        expect(dm.get('food')).toBeCloseTo(2 - 0.2);
 
         dm.set('wood', 5);
         dm.startBuildingConstruction('farm', 1);
+        // enforceForcedRest moved the builder to rest while there was nothing to
+        // build; assign them to build again now that construction has started
+        dm.assignPersonToTask('Builder', 'build');
         dm.set('food', 0);
         dm.nextDay();
         dm.updateDailyResources();
         expect(dm.isBuildingCompleted('farm')).toBe(true);
-        expect(dm.get('food')).toBe(5); // hunting 2 + farming 3
+
+        // The farmer was moved to rest while the farm was not finished yet;
+        // with the farm completed, assign them again and farming now produces
+        dm.assignPersonToTask('Farmer', 'farming');
+        dm.set('food', 0);
+        dm.nextDay();
+        dm.updateDailyResources();
+        // hunting 2 + farming 3, minus the builder's 0.2
+        expect(dm.get('food')).toBeCloseTo(2 + 3 - 0.2);
         expect(dm.canPerformTask('mining')).toBe(false);
     });
 });

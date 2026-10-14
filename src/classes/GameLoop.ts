@@ -1,5 +1,6 @@
 import { Event } from './Event';
 import { EventParser } from './EventParser';
+import { EventLoader } from './EventLoader';
 import { IGameUI, UI } from './UI';
 import { DataModel } from './DataModel';
 import { Dialog, DialogCallback } from './Dialog';
@@ -15,6 +16,10 @@ interface ScheduledEvent {
     eventName?: string;
 }
 
+// Days may pass while only pool events remain; never advance more than this
+// without anything becoming due (guards against a pool event that can never fire)
+const MAX_IDLE_DAYS = 365;
+
 // Core game loop. Manages Event queue, creates Dialog instances, and updates UI.
 export class GameLoop implements DialogCallback {
     // Kept sorted by day; events on the same day keep the order they were added
@@ -23,6 +28,9 @@ export class GameLoop implements DialogCallback {
     private eventRegistry: Map<string, Event>;
     // Named events being loaded (browser: files are fetched asynchronously)
     private loadingEvents: Map<string, Promise<void>>;
+    // Pool events (from the pool manifest / registerPoolEvent) that may fire
+    // on their own; by name, resolved through the eventRegistry
+    private pool: string[];
     private parser: EventParser;
     private ui!: IGameUI;
     private dataModel: DataModel;
@@ -34,6 +42,7 @@ export class GameLoop implements DialogCallback {
         this.eventQueue = [];
         this.eventRegistry = new Map<string, Event>();
         this.loadingEvents = new Map<string, Promise<void>>();
+        this.pool = [];
         this.parser = new EventParser();
         if (ui) {
             this.ui = ui;
@@ -123,29 +132,86 @@ export class GameLoop implements DialogCallback {
         return this.eventQueue.length > 0 && this.eventQueue[0].day <= this.dataModel.getCurrentDay();
     }
 
+    // Register an event in the pool by name. The event file must declare a
+    // ?when or ?maybe trigger mode in its header; it may then fire on its own
+    // (once per registration) on a day with no scheduled events due.
+    // The file is loaded now (Node) or in the background (browser).
+    public registerPoolEvent(name: string): void {
+        this.ensureEventLoaded(name);
+        if (!this.pool.includes(name)) {
+            this.pool.push(name);
+        }
+    }
+
+    // The pool events currently registered (by name, for inspection/debugging)
+    public getPool(): string[] {
+        return [...this.pool];
+    }
+
+    // Load a pool manifest (default: text/pool.txt). One event name per line;
+    // // comments and blank lines are ignored. Each name is registered in the pool.
+    public async loadPoolManifest(path?: string): Promise<void> {
+        const loader = new EventLoader();
+        const file = path ?? loader.eventPath('pool');
+        const content = await loader.load(file);
+        if (content === null) return; // No manifest: nothing to register
+        for (const line of content.split(/\r?\n/)) {
+            const name = line.trim();
+            if (name === '' || name.startsWith('//')) continue;
+            this.registerPoolEvent(name);
+        }
+    }
+
+    // On a day with no scheduled events due, at most one pool event fires.
+    // Watched (?when) events are considered first; only if none of them can
+    // fire are filler (?maybe) events considered. Among the candidates, the
+    // lowest priority number goes first; ties are broken at random.
+    // A fired event leaves the pool (fires once per registration).
+    // Returns true if an event was put on the queue for today.
+    private firePoolEventIfIdle(): boolean {
+        if (this.hasDueEvent() || this.pool.length === 0) return false;
+        for (const tier of ['when', 'maybe'] as const) {
+            const ready = this.pool
+                .filter(name => this.eventRegistry.has(name))
+                .map(name => ({ name, event: this.eventRegistry.get(name)! }))
+                .filter(e => e.event.getTrigger() === tier && e.event.arePrerequisitesMet(this.dataModel));
+            if (ready.length === 0) continue;
+            const minPriority = Math.min(...ready.map(e => e.event.getPriority()));
+            const top = ready.filter(e => e.event.getPriority() === minPriority);
+            const pick = top[Math.floor(Math.random() * top.length)];
+            this.pool = this.pool.filter(name => name !== pick.name);
+            this.enqueue({ day: this.dataModel.getCurrentDay(), eventName: pick.name });
+            return true;
+        }
+        return false;
+    }
+
     // Start the next event due today (or earlier). Named events are resolved here;
     // if one is still loading, it starts when loading completes. Unknown events are skipped.
+    // Events whose header prerequisites are not met are moved to the next day with
+    // no other due events, and the next due event is started instead.
     // Returns false if nothing is due.
     private startNextDueEvent(): boolean {
         if (!this.hasDueEvent()) return false;
         const entry = this.eventQueue.shift()!;
         if (entry.event) {
-            this.startDialog(entry.event);
-            return true;
+            return this.startDueEvent(entry);
         }
 
         const name = entry.eventName!;
         const event = this.eventRegistry.get(name);
         if (event) {
-            this.startDialog(event);
-            return true;
+            return this.startDueEvent(entry, event);
         }
         const loading = this.loadingEvents.get(name);
         if (loading) {
             loading.then(() => {
                 const loaded = this.eventRegistry.get(name);
                 if (loaded) {
-                    this.startDialog(loaded);
+                    if (!this.startDueEvent(entry, loaded)) {
+                        // Prerequisites not met and nothing else due: advance the days
+                        this.continueGame();
+                    }
                 } else {
                     this.recordError(`Unknown event '${name}', skipped`);
                     this.continueGame();
@@ -158,14 +224,46 @@ export class GameLoop implements DialogCallback {
         return true;
     }
 
+    // Start a due event if its header prerequisites are met.
+    // If not, move it to the next day with no other due events and
+    // continue with the next due event (there may still be one today).
+    private startDueEvent(entry: ScheduledEvent, event?: Event): boolean {
+        const theEvent = event ?? entry.event!;
+        if (!theEvent.arePrerequisitesMet(this.dataModel)) {
+            this.requeueNextFreeDay(entry);
+            // By-design game flow, not an error: do not show in the UI's red error list
+            console.log(`Event '${entry.eventName ?? 'event'}' prerequisites not met, moved to day ${entry.day}`);
+            return this.startNextDueEvent();
+        }
+        this.startDialog(theEvent);
+        return true;
+    }
+
+    // Move a queue entry to the next day that has no other due events
+    private requeueNextFreeDay(entry: ScheduledEvent): void {
+        let day = this.dataModel.getCurrentDay() + 1;
+        while (this.eventQueue.some(e => e.day === day)) {
+            day++;
+        }
+        entry.day = day;
+        this.enqueue(entry);
+    }
+
     // Start the next due event; if nothing more is due today, advance day by day
     // until an event is due (daily updates run for every day that passes).
     private continueGame(): void {
         this.clearErrors();
-        if (!this.hasDueEvent() && this.eventQueue.length > 0) {
-            do {
-                this.advanceDay();
-            } while (!this.hasDueEvent());
+        let daysPassed = 0;
+        while (!this.hasDueEvent() && daysPassed < MAX_IDLE_DAYS) {
+            // Nothing scheduled anywhere: an empty pool cannot produce anything
+            if (this.eventQueue.length === 0 && this.pool.length === 0) break;
+            this.advanceDay();
+            daysPassed++;
+            // An idle day (no scheduled event due) may fire one pool event
+            this.firePoolEventIfIdle();
+        }
+        if (daysPassed >= MAX_IDLE_DAYS) {
+            console.log(`Advance-day guard tripped after ${MAX_IDLE_DAYS} idle days; check for a pool event whose prerequisites can never be met`);
         }
         if (!this.startNextDueEvent()) {
             console.log("No events due");
@@ -240,10 +338,16 @@ export class GameLoop implements DialogCallback {
         }
     }
 
-    // Start the next event that is due today (or earlier)
+    // Start the next event that is due today (or earlier). If nothing is due,
+    // a pool event may fire for today instead.
     public next(): void {
         if (!this.startNextDueEvent()) {
-            const message = this.eventQueue.length === 0 ? "Event queue is empty" : "No events due today";
+            if (this.firePoolEventIfIdle() && this.startNextDueEvent()) {
+                return;
+            }
+            const message = this.eventQueue.length === 0 && this.pool.length === 0
+                ? "Event queue is empty"
+                : "No events due today";
             this.recordError(message);
         }
     }

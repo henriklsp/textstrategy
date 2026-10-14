@@ -1,4 +1,4 @@
-import { Person } from './Person';
+import { Person, SerializedPerson } from './Person';
 import { BuildingType, ResourceCosts, BuildingDefinition, BuildingDefinitions } from './BuildingDefinitions';
 
 // Global state container. Key-value store using separate maps for numbers and booleans.
@@ -109,6 +109,16 @@ export const DEFAULT_TASK: TaskType = 'scavenge';
 interface TaskAssignment {
     personName: string;
     taskType: TaskType;
+}
+
+// Serializable representation of the full data model state
+export interface SerializedDataModel {
+    numericData: [string, number][];
+    booleanData: string[];
+    cast: SerializedPerson[];
+    taskAssignments: TaskAssignment[];
+    buildingsUnderConstruction: BuildingConstruction[];
+    completedBuildings: BuildingType[];
 }
 
 export class DataModel {
@@ -488,7 +498,9 @@ export class DataModel {
     // If the food runs out, the stores are emptied and everyone starves:
     // health and attitude drop (attitude loss is modified by the harmony trait).
     private applyConsumption(): void {
-        const people = this.castOfCharacters.length;
+        // Consumption counts the population variable, not the cast of named
+        // characters: population >= cast, and may include unnamed people later.
+        const people = this.get('population');
         const needed = people * FOOD_PER_PERSON_PER_DAY;
         const available = this.get('food');
 
@@ -624,5 +636,41 @@ export class DataModel {
     // Check if debug mode is enabled
     public static isDebugMode(): boolean {
         return DEBUG_MODE;
+    }
+
+    // Serializable representation of the full data model state
+    public toJSON(): SerializedDataModel {
+        return {
+            numericData: Array.from(this.numericData.entries()),
+            booleanData: Array.from(this.booleanData),
+            cast: this.castOfCharacters.map(p => p.toJSON()),
+            taskAssignments: this.taskAssignments.map(a => ({ ...a })),
+            buildingsUnderConstruction: this.buildingsUnderConstruction.map(b => ({ ...b })),
+            completedBuildings: Array.from(this.completedBuildings)
+        };
+    }
+
+    // Restore state from its serialized form. Replaces all current content.
+    public static fromJSON(data: SerializedDataModel): DataModel {
+        const model = new DataModel();
+        for (const [name, value] of data.numericData) {
+            model.numericData.set(name, value);
+        }
+        for (const name of data.booleanData) {
+            model.booleanData.add(name);
+        }
+        for (const personData of data.cast) {
+            model.castOfCharacters.push(Person.fromJSON(personData));
+        }
+        for (const assignment of data.taskAssignments) {
+            model.taskAssignments.push({ ...assignment });
+        }
+        for (const building of data.buildingsUnderConstruction) {
+            model.buildingsUnderConstruction.push({ ...building });
+        }
+        for (const buildingType of data.completedBuildings) {
+            model.completedBuildings.add(buildingType);
+        }
+        return model;
     }
 }

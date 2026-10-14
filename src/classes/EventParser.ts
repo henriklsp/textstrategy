@@ -1,4 +1,4 @@
-import { Event } from './Event';
+import { Event, TriggerMode } from './Event';
 import { Section } from './Section';
 import { PersonSelection } from './PersonSelection';
 import { Effect } from './Effect';
@@ -25,6 +25,9 @@ interface SectionData {
 // Parses structured text files into Event objects.
 // Syntax:
 //   // comment → Line is ignored
+//   (cond?) → Event prerequisite, in the header before the first section
+//   ?when [n] → Trigger mode: fires by itself when all conditions are met (n = priority, lower first)
+//   ?maybe [n] → Trigger mode: only considered if no ?when event can fire (n = priority, lower first)
 //   *A: magic → PersonSelection (role A requires positive magic trait)
 //   *B: -magic → PersonSelection (role B requires negative magic trait)
 //   §1 text → Section
@@ -94,6 +97,9 @@ export class EventParser {
         this.issues = [];
         const sectionData: SectionData[] = [];
         const pendingPersonSelections: PersonSelection[] = [];
+        const eventPrerequisites: Prerequisite[] = [];
+        let triggerMode: TriggerMode | null = null;
+        let triggerPriority = 0;
         const current = (): SectionData | undefined => sectionData[sectionData.length - 1];
         const lines = text.split(/\r?\n/);
 
@@ -125,6 +131,39 @@ export class EventParser {
                 } else {
                     // Before the first section: belongs to the first section
                     pendingPersonSelections.push(selection);
+                }
+                return;
+            }
+
+            if (trimmedLine.startsWith('?')) {
+                // Trigger mode: ?when or ?maybe, with an optional priority
+                // number, in the header before the first section
+                const modeMatch = trimmedLine.match(/^\?(when|maybe)(?:\s+(-?\d+))?$/);
+                if (!modeMatch) {
+                    this.addIssue(lineNumber, `Invalid trigger mode '${trimmedLine}'`);
+                } else if (section) {
+                    this.addIssue(lineNumber, `Trigger mode '${trimmedLine}' must be in the header, before the first section`);
+                } else if (triggerMode !== null) {
+                    this.addIssue(lineNumber, `Duplicate trigger mode '${trimmedLine}'`);
+                } else {
+                    triggerMode = modeMatch[1] as TriggerMode;
+                    triggerPriority = modeMatch[2] !== undefined ? parseInt(modeMatch[2], 10) : 0;
+                }
+                return;
+            }
+
+            if (trimmedLine.startsWith('(') && trimmedLine.endsWith(')')) {
+                // Event prerequisite: (condition?) in the header, before the first section
+                const condition = trimmedLine.substring(1, trimmedLine.length - 1).trim();
+                if (!section) {
+                    const prerequisite = PrerequisiteParser.parseCondition(condition);
+                    if (prerequisite) {
+                        eventPrerequisites.push(prerequisite);
+                    } else {
+                        this.addIssue(lineNumber, `Invalid event condition '${trimmedLine}'`);
+                    }
+                } else {
+                    this.addIssue(lineNumber, `Event condition '${trimmedLine}' must be in the header, before the first section`);
                 }
                 return;
             }
@@ -222,7 +261,7 @@ export class EventParser {
             console.warn(`${sourceName}:${issue.line}: ${issue.message}`);
         }
 
-        return new Event(sections);
+        return new Event(sections, undefined, eventPrerequisites, triggerMode ?? 'scheduled', triggerPriority);
     }
 
     private addIssue(line: number, message: string): void {

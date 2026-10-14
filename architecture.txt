@@ -23,6 +23,13 @@ src/browser.ts (browser) or src/index.ts (Node)
   resource updates via DataModel.updateDailyResources()) until the next event is due. Handles both
   immediate Event objects and named event references. Named events ([event x n]) are loaded from
   text/<name>.txt files via EventParser or registered with registerEvent().
+  Events with unmet header prerequisites are not started when due: they are moved to the next
+  day with no other due events and checked again then.
+  Also manages a pool of ?when/?maybe events (from text/pool.txt via loadPoolManifest(), or
+  registerPoolEvent(name)): on a day with no scheduled events due, at most one pool event fires
+  (if its header prerequisites are met). ?when events are considered first, then ?maybe; among
+  candidates the lowest priority number wins, ties broken at random. A fired event leaves the
+  pool (fires once per registration). Idle days advance only while a pool event might still fire.
   - Event queue is kept sorted by day; same-day events maintain insertion order
   - Async loading of event files in browser environment
   - Daily updates: resource production from tasks, resource consumption, building construction progress
@@ -39,6 +46,13 @@ src/browser.ts (browser) or src/index.ts (Node)
   unbalanced tags, ignored lines) with line numbers via getIssues().
   - Syntax support:
     - `// comment` -> ignored
+    - `(cond?)` -> Event prerequisite, in the header before the first section
+      (any choice condition works; several lines must all be met; the GameLoop
+      checks them when the event comes due and otherwise moves it to the next
+      day with no other due events)
+    - `?when [n]` / `?maybe [n]` -> Trigger mode (header, before first section): pool event
+      that fires itself on an idle day when its prerequisites are met; optional priority n
+      (lower first). ?maybe is only considered when no ?when event can fire.
     - `*A: trait` -> PersonSelection (role A requires positive trait)
     - `*A: -trait` -> PersonSelection (role A requires negative trait)
     - `*A: trait1, trait2` -> PersonSelection (role A requires both traits)
@@ -60,7 +74,11 @@ src/browser.ts (browser) or src/index.ts (Node)
     - `<condition?a;b>` -> text substitution: conditional based on truthy value
 - **EventLoader.ts**: Handles environment detection (browser vs Node.js) and file loading.
   Uses fetch() in browser, fs.readFileSync in Node. Returns null on errors.
-- **Event.ts**: Container for game narrative. Holds Section[] array and startingSection reference.
+- **Event.ts**: Container for game narrative. Holds Section[] array, startingSection reference
+  and Prerequisite[] from the file header ((cond?) lines). arePrerequisitesMet(dataModel) checks
+  them outside any dialog (no roles assigned, so person trait conditions are never met).
+  Also carries a trigger mode ('scheduled', 'when' or 'maybe') and a priority number
+  (from ?when [n] / ?maybe [n] header lines); lower priority fires first among pool candidates.
   Starting section defaults to first section if not specified.
 - **Dialog.ts**: Runs one Event. Manages:
   - Navigation through Section graph via player choices
@@ -133,7 +151,8 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   - Missing trait: 0 points
   Task-based scoring uses trait bonuses (e.g., life trait helps hunting/fishing/farming)
 - **Prerequisite.ts**: Generic condition wrapper. Base class for all prerequisites.
-  Implements isMet(dataModel) method.
+  Implements isMet(dataModel) method. Used for dialog choices, text conditionals, and
+  event prerequisites (Event header, checked by GameLoop when the event comes due).
 - **VariablePrerequisite.ts**: Prerequisite checking variable values.
   Supports boolean checks (x?) and space syntax for >= (gold 5? = gold >= 5).
   Parsing from text format like `(x?)` or `(gold 5?)` with display text extraction.
@@ -228,7 +247,10 @@ The core loop is wired through the event files:
 - Trait modifiers: positive life heals 1.5x, negative life heals 0.5x; positive divinity keeps working down to 30% health
   and is only forced to rest at 15%, negative divinity gives up earlier (75% / 37.5%) and takes 1.25x starvation damage;
   positive harmony loses half attitude from starvation, negative harmony loses double
-- Starvation consumes no food (stores are already empty); the character count is the cast size, not the 'population' variable
+- Food consumption counts the 'population' variable (0.2 food per person per day), not the cast size:
+  population >= cast of named characters, and may include unnamed people later (for now they are the same).
+  Starvation drains the health/attitude of the named cast only.
+- Starvation consumes no food (stores are already empty)
 - Death at 0 health is intentionally not implemented yet
 - Story events for starvation crises and a feast food sink are deferred (see todo.txt)
 

@@ -10,6 +10,8 @@ describe('Starvation, health and rest', () => {
     const makeModel = (people: Person[], food: number): DataModel => {
         const dm = new DataModel();
         for (const p of people) dm.addPerson(p);
+        // Consumption counts the population variable; keep it in sync with the cast
+        dm.set('population', people.length);
         dm.set('food', food);
         return dm;
     };
@@ -40,15 +42,14 @@ describe('Starvation, health and rest', () => {
     test('health is clamped at 0 under continued starvation', () => {
         const p = new Person('A', 'life', 'magic', 'harmony');
         const dm = makeModel([p], 0);
-        dm.updateDailyResources();
-        dm.updateDailyResources();
-        dm.updateDailyResources();
-        dm.updateDailyResources();
+        // Starvation costs 5 health per day; run well past 100 damage to prove the clamp at 0
+        for (let i = 0; i < 25; i++) dm.updateDailyResources();
         expect(p.getHealth()).toBe(0);
     });
 
     test('rest heals +3 per day and is clamped at maxHealth', () => {
-        const p = new Person('A', 'life', 'magic', 'harmony');
+        // No life trait, so the heal rate is the base +3 (positive life would heal 1.5x)
+        const p = new Person('A', 'harmony', 'magic', 'divinity');
         const dm = makeModel([p], 10);
         p.setHealth(90);
         dm.assignPersonToTask('A', 'rest');
@@ -152,8 +153,10 @@ describe('Starvation, health and rest', () => {
 
         // Healthy builder: efficiency 1 -> 4 days to build
         builder.setHealth(100);
-        dm.nextDay();
-        dm.updateDailyResources(); // day 1: 4/4 days elapsed -> complete
+        for (let i = 0; i < 4; i++) {
+            dm.nextDay();
+            dm.updateDailyResources();
+        }
         expect(dm.isBuildingCompleted('shelter')).toBe(true);
 
         // Same setup, but the builder is weak (0.4 health -> 0.8 efficiency -> 4/0.8 = 5 days)
