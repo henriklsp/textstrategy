@@ -1,10 +1,26 @@
 // Represents a character with personality traits.
 // Each Person has at least 3 traits: at least one positive, one negative, one tertiary.
+export type Gender = 'male' | 'female';
+
+// Serializable representation of a Person
+export interface SerializedPerson {
+    name: string;
+    gender: Gender;
+    health: number;
+    maxHealth: number;
+    attitude: number;
+    traits: { trait: string; type: 'positive' | 'negative' | 'tertiary' }[];
+}
+
 export class Person {
     private name: string;
     private positiveTraits: Set<string>;
     private negativeTraits: Set<string>;
     private tertiaryTraits: Set<string>;
+    private gender: Gender;
+    private health: number;
+    private maxHealth: number;
+    private attitude: number;
     
     // Constructor with just a name
     constructor(name: string);
@@ -12,11 +28,18 @@ export class Person {
     // Constructor with name and three traits (positive, negative, tertiary)
     constructor(name: string, positiveTrait: string, negativeTrait: string, tertiaryTrait: string);
     
-    constructor(name: string, positiveTrait?: string, negativeTrait?: string, tertiaryTrait?: string) {
+    // Constructor with name, traits, and gender
+    constructor(name: string, positiveTrait: string, negativeTrait: string, tertiaryTrait: string, gender: Gender);
+    
+    constructor(name: string, positiveTrait?: string, negativeTrait?: string, tertiaryTrait?: string, gender: Gender = 'male') {
         this.name = name;
         this.positiveTraits = new Set<string>();
         this.negativeTraits = new Set<string>();
         this.tertiaryTraits = new Set<string>();
+        this.gender = gender;
+        this.maxHealth = 100;
+        this.health = this.maxHealth;
+        this.attitude = 50;
         
         if (positiveTrait !== undefined && negativeTrait !== undefined && tertiaryTrait !== undefined) {
             this.positiveTraits.add(positiveTrait);
@@ -25,8 +48,46 @@ export class Person {
         }
     }
     
+    public getGender(): Gender {
+        return this.gender;
+    }
+    
+    public setGender(gender: Gender): void {
+        this.gender = gender;
+    }
+    
     public getName(): string {
         return this.name;
+    }
+
+    // Health: clamped between 0 and maxHealth. 0 means the character is out of action
+    // (death is intentionally not implemented yet). Rest restores health, starvation drains it.
+    public getHealth(): number {
+        return this.health;
+    }
+
+    public getMaxHealth(): number {
+        return this.maxHealth;
+    }
+
+    // Set health, clamped between 0 and maxHealth
+    public setHealth(value: number): void {
+        this.health = Math.max(0, Math.min(this.maxHealth, value));
+    }
+
+    // Health as a fraction of maxHealth (0 to 1)
+    public getHealthFraction(): number {
+        return this.health / this.maxHealth;
+    }
+
+    // Attitude towards the player: 0 (hostile) to 100 (devoted). Starvation reduces it.
+    public getAttitude(): number {
+        return this.attitude;
+    }
+
+    // Adjust attitude, clamped between 0 and 100
+    public adjustAttitude(delta: number): void {
+        this.attitude = Math.max(0, Math.min(100, this.attitude + delta));
     }
 
     // Add a positive trait to this person
@@ -97,13 +158,23 @@ export class Person {
     }
 
     // Serializable representation of this person
-    public toJSON(): { name: string; traits: { trait: string; type: 'positive' | 'negative' | 'tertiary' }[] } {
-        return { name: this.name, traits: this.getAllTraits() };
+    public toJSON(): SerializedPerson {
+        return {
+            name: this.name,
+            gender: this.gender,
+            health: this.health,
+            maxHealth: this.maxHealth,
+            attitude: this.attitude,
+            traits: this.getAllTraits()
+        };
     }
 
     // Restore a person from its serialized form
-    public static fromJSON(data: { name: string; traits: { trait: string; type: 'positive' | 'negative' | 'tertiary' }[] }): Person {
+    public static fromJSON(data: SerializedPerson): Person {
         const person = new Person(data.name);
+        person.setGender(data.gender);
+        person.setHealth(data.health);
+        if (data.attitude !== undefined) person.adjustAttitude(data.attitude - 50);
         for (const { trait, type } of data.traits) {
             if (type === 'positive') person.addPositiveTrait(trait);
             else if (type === 'negative') person.addNegativeTrait(trait);

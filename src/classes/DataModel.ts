@@ -1,4 +1,4 @@
-import { Person } from './Person';
+import { Person, SerializedPerson } from './Person';
 import { BuildingType, ResourceCosts, BuildingDefinition, BuildingDefinitions } from './BuildingDefinitions';
 
 // Global state container. Key-value store using separate maps for numbers and booleans.
@@ -19,11 +19,25 @@ const MAX_REPLENISHMENT_RATE = 3.0;
 const MIN_SCAVENGE_PRODUCTION = 0.2;
 const MAX_SCAVENGE_PRODUCTION = 1.0;
 
+// Starvation, health and rest system.
+// One unit of food is a basket that feeds a family for a day: each character eats 0.2 food per day.
+const FOOD_PER_PERSON_PER_DAY = 0.2;
+// Health lost per starving day (healing via rest is deliberately slower than starving)
+const STARVATION_HEALTH_LOSS = 5;
+// Health regained per day by a character assigned to the rest task
+const REST_HEAL_PER_DAY = 3;
+// Attitude lost per starving day (before harmony trait modifiers)
+const STARVATION_ATTITUDE_LOSS = 4;
+// Fraction of max health below which a character works at reduced efficiency (before divinity modifiers)
+const DEFAULT_WORK_PENALTY_THRESHOLD = 0.5;
+// Fraction of max health at or below which a character is moved to the rest task (before divinity modifiers)
+const DEFAULT_FORCED_REST_THRESHOLD = 0.25;
+
 // Debug info is always on during development
 const DEBUG_MODE = true;
 
 // Task types available in the game
-export const TASK_TYPES = ['scavenge', 'hunting', 'fishing', 'farming', 'woodcutting', 'mining', 'build', 'craft', 'storage'] as const;
+export const TASK_TYPES = ['scavenge', 'hunting', 'fishing', 'farming', 'woodcutting', 'mining', 'build', 'craft', 'storage', 'rest'] as const;
 export type TaskType = typeof TASK_TYPES[number];
 
 export function isTaskType(value: string): value is TaskType {
@@ -51,10 +65,14 @@ export function normalizeTaskName(input: string): TaskType {
         'mine': 'mining',
         'miner': 'mining',
         'build': 'build',
+        'building': 'build',
         'craft': 'craft',
         'scav': 'scavenge',
         'scavenge': 'scavenge',
+        'scavenging': 'scavenge',
         'storage': 'storage',
+        'rest': 'rest',
+        'resting': 'rest',
     };
 
     if (taskMappings[lower]) {
@@ -93,10 +111,11 @@ interface TaskAssignment {
     taskType: TaskType;
 }
 
+// Serializable representation of the full data model state
 export interface SerializedDataModel {
     numericData: [string, number][];
     booleanData: string[];
-    cast: ReturnType<Person['toJSON']>[];
+    cast: SerializedPerson[];
     taskAssignments: TaskAssignment[];
     buildingsUnderConstruction: BuildingConstruction[];
     completedBuildings: BuildingType[];
@@ -142,10 +161,10 @@ export class DataModel {
     public set(name: string, value: number | boolean): void {
         if (typeof value === 'boolean') {
             if (KNOWN_VARIABLES.has(name)) {
-                throw new Error(`Cannot set known numeric variable '${name}' to boolean`);
+                throw new Error(`Cannot set integer variable '${name}' to boolean`);
             }
             if (this.numericData.has(name)) {
-                throw new Error(`Cannot set numeric variable '${name}' to boolean`);
+                throw new Error(`Cannot set integer variable '${name}' to boolean`);
             }
             if (value) {
                 this.booleanData.add(name);
@@ -160,7 +179,7 @@ export class DataModel {
 
     private assertNotFlag(name: string): void {
         if (this.booleanData.has(name)) {
-            throw new Error(`Cannot set boolean flag '${name}' as numeric variable`);
+            throw new Error(`Cannot set boolean variable '${name}' to numeric`);
         }
     }
 
@@ -316,6 +335,9 @@ export class DataModel {
     public updateDailyResources(): void {
         const currentDay = this.getCurrentDay();
 
+        // Step 0: Characters too weak to work are moved to the rest task
+        this.enforceForcedRest();
+
         // Step 1: Replenish bounty at the start of the day
         const replenishment = this.getBountyReplenishment();
         const currentBounty = this.getBounty();
@@ -324,9 +346,15 @@ export class DataModel {
         // Step 2: Process buildings under construction (copy: completeBuilding modifies the list)
         for (const building of [...this.buildingsUnderConstruction]) {
             const daysPassed = currentDay - building.startDay;
-            // Calculate actual days needed based on workers assigned to build task
-            const buildersCount = this.getPersonsForTask('build').length;
-            const actualDaysToBuild = Math.max(1, Math.ceil(building.daysToBuild / Math.max(1, buildersCount)));
+            // Calculate actual days needed based on workers assigned to build task.
+            // Low health reduces a builder's contribution: each builder counts as
+            // their work efficiency (1.0 at full strength, proportionally less below
+            // their work penalty threshold), so weak builders build slower.
+            const builderEffort = this.getPersonsForTask('build')
+                .map(name => this.getPersonByName(name))
+                .filter((builder): builder is Person => builder !== null)
+                .reduce((sum, builder) => sum + this.getWorkEfficiency(builder), 0);
+            const actualDaysToBuild = Math.max(1, Math.ceil(building.daysToBuild / Math.max(0.0001, builderEffort)));
 
             if (daysPassed >= actualDaysToBuild) {
                 this.completeBuilding(building.buildingType);
@@ -338,15 +366,20 @@ export class DataModel {
         let foodFromScavenging = 0;
         
         for (const assignment of this.taskAssignments) {
+            if (assignment.taskType === 'rest') continue;
             if (!this.canPerformTask(assignment.taskType)) continue;
             const production = this.getDailyProductionForTask(assignment.taskType);
-            
+
+            // Characters below their work penalty threshold work at reduced efficiency
+            const person = this.getPersonByName(assignment.personName);
+            const efficiency = person !== null ? this.getWorkEfficiency(person) : 1;
+
             // Track food from scavenging before applying
             if (assignment.taskType === 'scavenge' && production.food) {
-                foodFromScavenging += production.food;
+                foodFromScavenging += production.food * efficiency;
             }
-            
-            this.applyProduction(production);
+
+            this.applyProduction(production, efficiency);
         }
 
         // Step 4: Reduce bounty by food produced from scavenging (each unit reduces bounty by 1)
@@ -362,9 +395,20 @@ export class DataModel {
 
     // True if the task needs no building, or a completed building enables it
     public canPerformTask(taskType: TaskType): boolean {
+        if (taskType === 'build') {
+            return this.buildingsUnderConstruction.length > 0;
+        }
         const required = TASK_REQUIRES[taskType];
         if (!required) return true;
         return this.getCompletedBuildings().some(b => BuildingDefinitions.get(b).effects.includes(required));
+    }
+
+    // Get the name of the building currently under construction (or empty string if none)
+    public getCurrentConstruction(): string {
+        if (this.buildingsUnderConstruction.length === 0) {
+            return '';
+        }
+        return this.buildingsUnderConstruction[0].buildingType;
     }
 
     // Get daily production rates for each task type
@@ -403,6 +447,9 @@ export class DataModel {
             case 'storage':
                 // Storage reduces resource loss
                 break;
+            case 'rest':
+                // Resting produces nothing; it restores health instead (see applyConsumption)
+                break;
         }
 
         return production;
@@ -439,20 +486,42 @@ export class DataModel {
     }
 
     // Apply production to resources
-    private applyProduction(production: Partial<Record<Resource, number>>): void {
+    private applyProduction(production: Partial<Record<Resource, number>>, efficiency: number = 1): void {
         for (const [resource, amount] of Object.entries(production)) {
             if (amount !== undefined) {
-                this.adjust(resource, amount);
+                this.adjust(resource, amount * efficiency);
             }
         }
     }
 
-    // Apply daily consumption
+    // Apply daily consumption: each character eats FOOD_PER_PERSON_PER_DAY food.
+    // If the food runs out, the stores are emptied and everyone starves:
+    // health and attitude drop (attitude loss is modified by the harmony trait).
     private applyConsumption(): void {
-        const population = this.get('population');
-        // Each person consumes 1 food per day
-        this.adjust('food', -population);
-        
+        // Consumption counts the population variable, not the cast of named
+        // characters: population >= cast, and may include unnamed people later.
+        const people = this.get('population');
+        const needed = people * FOOD_PER_PERSON_PER_DAY;
+        const available = this.get('food');
+
+        if (available >= needed) {
+            // Well fed: pay the food and let resters recover health
+            this.adjust('food', -needed);
+            for (const name of this.getPersonsForTask('rest')) {
+                const person = this.getPersonByName(name);
+                if (person !== null) {
+                    person.setHealth(person.getHealth() + this.getRestHealRate(person));
+                }
+            }
+        } else {
+            // Starvation: no one recovers, everyone loses health and attitude
+            this.set('food', 0);
+            for (const person of this.castOfCharacters) {
+                person.setHealth(person.getHealth() - this.getStarvationHealthLoss(person));
+                person.adjustAttitude(-this.getStarvationAttitudeLoss(person));
+            }
+        }
+
         // Resource decay (unless we have storage)
         if (!this.isBuildingCompleted('storage')) {
             // Lose 10% of resources due to poor storage
@@ -461,6 +530,86 @@ export class DataModel {
             this.adjust('food', -Math.floor(food * 0.1));
             this.adjust('wood', -Math.floor(wood * 0.1));
         }
+    }
+
+    // Find a cast member by name (or null if not in the cast)
+    public getPersonByName(name: string): Person | null {
+        return this.castOfCharacters.find(p => p.getName() === name) || null;
+    }
+
+    // True if this person may currently be assigned to this task:
+    // characters at or below their forced rest threshold can only rest.
+    public canPersonPerformTask(personName: string, taskType: TaskType): boolean {
+        if (taskType !== 'rest') {
+            const person = this.getPersonByName(personName);
+            if (person !== null && person.getHealthFraction() <= this.getForcedRestThreshold(person)) {
+                return false;
+            }
+        }
+        return this.canPerformTask(taskType);
+    }
+
+    // Move every character at or below their forced rest threshold (who is not
+    // already resting) to the rest task. Called at the start of each daily update.
+    private enforceForcedRest(): void {
+        for (const assignment of [...this.taskAssignments]) {
+            if (assignment.taskType === 'rest') continue;
+            if (!this.canPersonPerformTask(assignment.personName, assignment.taskType)) {
+                this.assignPersonToTask(assignment.personName, 'rest');
+            }
+        }
+    }
+
+    // Work efficiency of a person: 1.0 at or above their work penalty threshold,
+    // then proportionally lower, with a floor of 0.1 so the weakest still contribute a little.
+    public getWorkEfficiency(person: Person): number {
+        const threshold = this.getWorkPenaltyThreshold(person);
+        const fraction = person.getHealthFraction();
+        if (fraction >= threshold) return 1;
+        return Math.max(0.1, fraction / threshold);
+    }
+
+    // Health fraction below which a person works at reduced efficiency.
+    // Positive divinity characters keep working at lower health;
+    // negative divinity characters give up more easily.
+    private getWorkPenaltyThreshold(person: Person): number {
+        const traitType = person.getTraitType('divinity');
+        if (traitType === 'positive') return 0.3;
+        if (traitType === 'negative') return 0.75;
+        return DEFAULT_WORK_PENALTY_THRESHOLD;
+    }
+
+    // Health fraction at or below which a person is moved to the rest task.
+    private getForcedRestThreshold(person: Person): number {
+        const traitType = person.getTraitType('divinity');
+        if (traitType === 'positive') return 0.15;
+        if (traitType === 'negative') return 0.375;
+        return DEFAULT_FORCED_REST_THRESHOLD;
+    }
+
+    // Health lost per starving day. Negative divinity characters suffer more.
+    private getStarvationHealthLoss(person: Person): number {
+        return person.getTraitType('divinity') === 'negative'
+            ? STARVATION_HEALTH_LOSS * 1.25
+            : STARVATION_HEALTH_LOSS;
+    }
+
+    // Health regained per day of rest. Positive life trait heals 1.5x,
+    // negative life trait heals only half as fast.
+    private getRestHealRate(person: Person): number {
+        const traitType = person.getTraitType('life');
+        if (traitType === 'positive') return REST_HEAL_PER_DAY * 1.5;
+        if (traitType === 'negative') return REST_HEAL_PER_DAY * 0.5;
+        return REST_HEAL_PER_DAY;
+    }
+
+    // Attitude lost per starving day. Positive harmony characters take it with
+    // patience (half loss), negative harmony characters are more easily angered (double loss).
+    private getStarvationAttitudeLoss(person: Person): number {
+        const traitType = person.getTraitType('harmony');
+        if (traitType === 'positive') return STARVATION_ATTITUDE_LOSS * 0.5;
+        if (traitType === 'negative') return STARVATION_ATTITUDE_LOSS * 2;
+        return STARVATION_ATTITUDE_LOSS;
     }
 
     // Expose internal data for UI formatting (read-only interface)

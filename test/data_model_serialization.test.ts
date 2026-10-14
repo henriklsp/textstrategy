@@ -24,17 +24,29 @@ describe('DataModel serialization', () => {
         expect(restored.getBounty()).toBe(3.5);
     });
 
-    test('round trip preserves cast of characters with traits', () => {
+    test('round trip preserves cast of characters with traits, gender, health and attitude', () => {
         const model = new DataModel();
-        model.addPerson(new Person('Astrid', 'brave', 'stubborn', 'curious'));
+        const astrid = new Person('Astrid', 'brave', 'stubborn', 'curious', 'female');
+        astrid.setHealth(60);
+        astrid.adjustAttitude(20);
+        model.addPerson(astrid);
+        model.addPerson(new Person('Bjorn', 'strong', 'dull', 'loyal'));
+
         const restored = DataModel.fromJSON(model.toJSON());
         const cast = restored.getCast();
-        expect(cast.length).toBe(1);
+        expect(cast.length).toBe(2);
         expect(cast[0].getName()).toBe('Astrid');
+        expect(cast[0].getGender()).toBe('female');
+        expect(cast[0].getHealth()).toBe(60);
+        expect(cast[0].getAttitude()).toBe(70);
         expect(cast[0].hasPositiveTrait('brave')).toBe(true);
         expect(cast[0].hasNegativeTrait('stubborn')).toBe(true);
         expect(cast[0].hasTertiaryTrait('curious')).toBe(true);
         expect(cast[0].hasTrait('missing')).toBe(false);
+        expect(cast[1].getName()).toBe('Bjorn');
+        expect(cast[1].getGender()).toBe('male');
+        expect(cast[1].getHealth()).toBe(100);
+        expect(cast[1].getAttitude()).toBe(50);
     });
 
     test('round trip preserves task assignments', () => {
