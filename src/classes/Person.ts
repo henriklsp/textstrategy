@@ -2,6 +2,16 @@
 // Each Person has at least 3 traits: at least one positive, one negative, one tertiary.
 export type Gender = 'male' | 'female';
 
+// Serializable representation of a Person
+export interface SerializedPerson {
+    name: string;
+    gender: Gender;
+    health: number;
+    maxHealth: number;
+    attitude: number;
+    traits: { trait: string; type: 'positive' | 'negative' | 'tertiary' }[];
+}
+
 export class Person {
     private name: string;
     private positiveTraits: Set<string>;
@@ -145,5 +155,31 @@ export class Person {
             allTraits.push({ trait, type: "tertiary" });
         }
         return allTraits;
+    }
+
+    // Serializable representation of this person
+    public toJSON(): SerializedPerson {
+        return {
+            name: this.name,
+            gender: this.gender,
+            health: this.health,
+            maxHealth: this.maxHealth,
+            attitude: this.attitude,
+            traits: this.getAllTraits()
+        };
+    }
+
+    // Restore a person from its serialized form
+    public static fromJSON(data: SerializedPerson): Person {
+        const person = new Person(data.name);
+        person.setGender(data.gender);
+        person.setHealth(data.health);
+        if (data.attitude !== undefined) person.adjustAttitude(data.attitude - 50);
+        for (const { trait, type } of data.traits) {
+            if (type === 'positive') person.addPositiveTrait(trait);
+            else if (type === 'negative') person.addNegativeTrait(trait);
+            else person.addTertiaryTrait(trait);
+        }
+        return person;
     }
 }
