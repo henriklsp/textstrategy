@@ -1,8 +1,10 @@
-// Pool manifest. One event name per line; // comments and blank lines are ignored.
-// Each listed event file must declare a trigger mode (?when or ?maybe) in its header.
-// On a day with no scheduled events due, at most one pool event fires:
-// ?when events first, then ?maybe; lowest priority number wins, ties at random.
+// Pool manifest. One entry per line, tier first:
+//   when <name>    watched event, considered first on an idle day
+//   maybe <name>   filler event, considered only if no watched event can fire
+// // comments and blank lines are ignored.
+// On a day with no scheduled events due, at most one pool event fires;
+// among the candidates of the winning tier, one is picked at random.
 // A fired event leaves the pool (fires once per registration).
-// Events can also be registered from code with GameLoop.registerPoolEvent(name).
+// Events can also be registered from code with GameLoop.registerPoolEvent(name, tier).
 // Example:
-//foraging
+//when foraging

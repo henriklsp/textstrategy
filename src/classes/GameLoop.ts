@@ -20,6 +20,16 @@ interface ScheduledEvent {
 // without anything becoming due (guards against a pool event that can never fire)
 const MAX_IDLE_DAYS = 365;
 
+// How a pool event is tiered (from the pool manifest / registerPoolEvent).
+// Watched events fire before filler ones on an idle day.
+export type PoolTier = 'when' | 'maybe';
+
+// A pool registration: the event name and its tier
+interface PoolEntry {
+    name: string;
+    tier: PoolTier;
+}
+
 // Core game loop. Manages Event queue, creates Dialog instances, and updates UI.
 export class GameLoop implements DialogCallback {
     // Kept sorted by day; events on the same day keep the order they were added
@@ -29,8 +39,8 @@ export class GameLoop implements DialogCallback {
     // Named events being loaded (browser: files are fetched asynchronously)
     private loadingEvents: Map<string, Promise<void>>;
     // Pool events (from the pool manifest / registerPoolEvent) that may fire
-    // on their own; by name, resolved through the eventRegistry
-    private pool: string[];
+    // on their own; by name and tier, resolved through the eventRegistry
+    private pool: PoolEntry[];
     private parser: EventParser;
     private ui!: IGameUI;
     private dataModel: DataModel;
@@ -132,55 +142,61 @@ export class GameLoop implements DialogCallback {
         return this.eventQueue.length > 0 && this.eventQueue[0].day <= this.dataModel.getCurrentDay();
     }
 
-    // Register an event in the pool by name. The event file must declare a
-    // ?when or ?maybe trigger mode in its header; it may then fire on its own
-    // (once per registration) on a day with no scheduled events due.
+    // Register an event in the pool by name and tier. It may then fire on its
+    // own (once per registration) on a day with no scheduled events due.
+    // 'when' (watched) events are considered before 'maybe' (filler) events.
     // The file is loaded now (Node) or in the background (browser).
-    public registerPoolEvent(name: string): void {
+    public registerPoolEvent(name: string, tier: PoolTier = 'when'): void {
         this.ensureEventLoaded(name);
-        if (!this.pool.includes(name)) {
-            this.pool.push(name);
+        if (!this.pool.some(entry => entry.name === name)) {
+            this.pool.push({ name, tier });
         }
     }
 
     // The pool events currently registered (by name, for inspection/debugging)
-    public getPool(): string[] {
-        return [...this.pool];
+    public getPool(): { name: string; tier: PoolTier }[] {
+        return this.pool.map(entry => ({ ...entry }));
     }
 
-    // Load a pool manifest (default: text/pool.txt). One event name per line;
-    // // comments and blank lines are ignored. Each name is registered in the pool.
+    // Load a pool manifest (default: text/pool.txt). One entry per line:
+    //   when <name>   or   maybe <name>
+    // The tier decides firing order on idle days: watched (when) before filler
+    // (maybe). // comments and blank lines are ignored. Each entry is
+    // registered in the pool.
     public async loadPoolManifest(path?: string): Promise<void> {
         const loader = new EventLoader();
         const file = path ?? loader.eventPath('pool');
         const content = await loader.load(file);
         if (content === null) return; // No manifest: nothing to register
         for (const line of content.split(/\r?\n/)) {
-            const name = line.trim();
-            if (name === '' || name.startsWith('//')) continue;
-            this.registerPoolEvent(name);
+            const trimmed = line.trim();
+            if (trimmed === '' || trimmed.startsWith('//')) continue;
+            const match = trimmed.match(/^(when|maybe)\s+([A-Za-z0-9_/.-]+)$/);
+            if (!match) {
+                console.warn(`Pool manifest: ignoring invalid entry '${trimmed}' (expected 'when <name>' or 'maybe <name>')`);
+                continue;
+            }
+            this.registerPoolEvent(match[2], match[1] as PoolTier);
         }
     }
 
     // On a day with no scheduled events due, at most one pool event fires.
-    // Watched (?when) events are considered first; only if none of them can
-    // fire are filler (?maybe) events considered. Among the candidates, the
-    // lowest priority number goes first; ties are broken at random.
-    // A fired event leaves the pool (fires once per registration).
+    // Watched ('when') events are considered first; only if none of them can
+    // fire are filler ('maybe') events considered. Among the candidates in a
+    // tier, one is picked at random. A fired event leaves the pool
+    // (fires once per registration).
     // Returns true if an event was put on the queue for today.
     private firePoolEventIfIdle(): boolean {
         if (this.hasDueEvent() || this.pool.length === 0) return false;
         for (const tier of ['when', 'maybe'] as const) {
             const ready = this.pool
-                .filter(name => this.eventRegistry.has(name))
-                .map(name => ({ name, event: this.eventRegistry.get(name)! }))
-                .filter(e => e.event.getTrigger() === tier && e.event.arePrerequisitesMet(this.dataModel));
+                .filter(entry => entry.tier === tier && this.eventRegistry.has(entry.name))
+                .map(entry => ({ entry, event: this.eventRegistry.get(entry.name)! }))
+                .filter(e => e.event.arePrerequisitesMet(this.dataModel));
             if (ready.length === 0) continue;
-            const minPriority = Math.min(...ready.map(e => e.event.getPriority()));
-            const top = ready.filter(e => e.event.getPriority() === minPriority);
-            const pick = top[Math.floor(Math.random() * top.length)];
-            this.pool = this.pool.filter(name => name !== pick.name);
-            this.enqueue({ day: this.dataModel.getCurrentDay(), eventName: pick.name });
+            const pick = ready[Math.floor(Math.random() * ready.length)];
+            this.pool = this.pool.filter(entry => entry.name !== pick.entry.name);
+            this.enqueue({ day: this.dataModel.getCurrentDay(), eventName: pick.entry.name });
             return true;
         }
         return false;
@@ -383,3 +399,4 @@ export class GameLoop implements DialogCallback {
         }
     }
 }
+
