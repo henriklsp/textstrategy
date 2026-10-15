@@ -31,8 +31,10 @@ Dialog Parsing Cheat Sheet
  #2 abc : dialog choice with text abc, go to section 2
  #2 (x?) abc : dialog choice visible only if x is true (boolean flag set, or number not 0)
  #2 (gold 5?) abc : dialog choice visible only if gold >= 5
- #2 (can fish) abc : visible if fish task is assignable
- #2 (can build) abc : if there is a building under construction.
+ #2 (can fish) abc : visible if a free worker is available for fishing:
+                     task performable (required building, construction for build)
+                     and someone fit for work not already doing it
+ #2 (can build) abc : if there is a building under construction and a free worker for it.
  #2 (A life?) abc : visible if the person in dialog role A has positive trait life
  #2 (B -magic?) abc : visible if the person in dialog role B has negative trait magic
  #n pointing to a section that does not exist ends the dialog.
@@ -46,7 +48,7 @@ Dialog Parsing Cheat Sheet
  <food>: show current integer value of food
  <x?> : show value of variable x
  <food 2?a;b> : if food >= 2, show a, else b
- <can scavenge?a;b> : if scavenge task is assignable, show a, else b (also can fish, can build, etc.)
+ <can scavenge?a;b> : if a free worker is available for scavenge, show a, else b (also can fish, can build, etc.)
  <A life?a;b> : a if the person in role A has positive trait life, else b (also other traits)
  <A -magic?a;b> : a if the person in role A has negative trait magic
  <A> : name of person A

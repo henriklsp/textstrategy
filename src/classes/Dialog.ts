@@ -220,7 +220,7 @@ export class Dialog implements EffectContext, TextSubstitutionContext, Prerequis
 
         const cast = this.dataModel.getCast();
         try {
-            const best = RoleAssigner.findBestAssignment(selections, cast);
+            const best = RoleAssigner.findBestAssignment(selections, cast, this.dataModel);
             selections.forEach((selection, i) => this.roleToPerson.set(selection.getRoleName(), best[i]));
         } catch (error) {
             const sectionNumber = this.currentSection.getSectionNumber();

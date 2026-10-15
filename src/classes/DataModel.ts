@@ -549,6 +549,25 @@ export class DataModel {
         return this.canPerformTask(taskType);
     }
 
+    // True if a person's health is high enough to work:
+    // above their forced rest threshold.
+    public isFitForWork(person: Person): boolean {
+        return person.getHealthFraction() > this.getForcedRestThreshold(person);
+    }
+
+    // True if the task can be performed (building requirements met) and at least
+    // one cast member is fit for work and not already assigned to that task,
+    // i.e. someone is actually available to take it on.
+    public hasFreeWorkerFor(taskType: TaskType): boolean {
+        if (!this.canPerformTask(taskType)) {
+            return false;
+        }
+        return this.castOfCharacters.some(person =>
+            this.isFitForWork(person) &&
+            this.getTaskForPerson(person.getName()) !== taskType
+        );
+    }
+
     // Move every character at or below their forced rest threshold (who is not
     // already resting) to the rest task. Called at the start of each daily update.
     private enforceForcedRest(): void {

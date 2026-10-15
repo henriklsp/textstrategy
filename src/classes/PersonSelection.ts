@@ -1,5 +1,5 @@
 import { Person } from './Person';
-import { TaskType, isTaskType } from './DataModel';
+import { DataModel, TaskType, normalizeTaskName } from './DataModel';
 
 // Represents a trait requirement for a role
 export class TraitRequirement {
@@ -53,17 +53,20 @@ export class PersonSelection {
 
     // Calculate score for matching a Person to this selection
     // For trait-based selections: sums scores for all trait requirements
-    // For task-based selections: returns simple score based on traits that help with the task
+    // For task-based selections: prefers someone who is fit for work, not
+    // already doing the task, and ideally free (resting) and healthy.
+    // When a DataModel is provided, the current task assignments and health
+    // are taken into account; without one, only the small trait bonus applies.
     // Scoring per trait:
     // - 10 points: perfect match (positive role to positive person OR negative role to negative person)
     // - 4 points: positive role to tertiary person
     // - -9 points: mismatch (positive to negative or negative to positive)
     // - -3 points: negative role to tertiary person
     // - 0 points: Person doesn't have this trait at all
-    public calculateScore(person: Person): number {
+    public calculateScore(person: Person, dataModel: DataModel | null = null): number {
         if (this.isTaskBased()) {
-            // For task-based selection, use simple trait mapping
-            return this.calculateTaskScore(person);
+            // For task-based selection, use task criteria and trait mapping
+            return this.calculateTaskScore(person, dataModel);
         }
 
         let totalScore = 0;
@@ -94,9 +97,30 @@ export class PersonSelection {
         return totalScore;
     }
 
-    // Simple task-based scoring: bonus for relevant traits
-    private calculateTaskScore(person: Person): number {
+    // Task-based scoring. In order of importance:
+    // - Disqualified (large negative score): already doing this task, or health
+    //   too low to work. The least bad candidate is still chosen if nobody
+    //   qualifies, so the dialog can always resolve its roles.
+    // - Preferred: someone currently resting or unassigned (free to work),
+    //   and the healthier the better.
+    // - Small bonus for traits that help with the task (no skill system yet).
+    private calculateTaskScore(person: Person, dataModel: DataModel | null): number {
         let score = 0;
+
+        if (dataModel !== null) {
+            const currentTask = dataModel.getTaskForPerson(person.getName());
+            if (currentTask === this.taskType) {
+                score -= 1000; // already doing this task
+            }
+            if (!dataModel.isFitForWork(person)) {
+                score -= 1000; // health too low to work
+            }
+            if (currentTask === 'rest' || currentTask === null) {
+                score += 20; // not doing anything: free to take on the task
+            }
+            score += Math.round(10 * person.getHealthFraction()); // healthier is better
+        }
+
         // Task-to-trait mapping for simple bonuses
         const traitBonuses: Partial<Record<TaskType, string[]>> = {
             scavenge: [],
@@ -135,9 +159,13 @@ export class PersonSelection {
         const roleName = match[1];
         const contentText = match[2].trim();
 
-        // Check if this is a task-based selection (single word that is a valid task type)
-        if (isTaskType(contentText)) {
-            return new PersonSelection(roleName, [], contentText as TaskType);
+        // Check if this is a task-based selection (single word that normalizes
+        // to a task type, e.g. "fish" or "woodcut" as well as "fishing")
+        try {
+            const taskType = normalizeTaskName(contentText);
+            return new PersonSelection(roleName, [], taskType);
+        } catch (e) {
+            // Not a task name: fall through and treat as trait-based selection
         }
 
         // Otherwise treat as trait-based selection
