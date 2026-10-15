@@ -178,6 +178,9 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   - Task requirements: canPerformTask() checks if required buildings are completed
   - Worker availability: hasFreeWorkerFor() checks task requirements plus at least
     one cast member fit for work and not already doing the task; used by CanDoTaskPrerequisite
+  - Person availability: canPersonTakeTask() checks one person: able to perform the
+    task (health, building requirements) and not already doing it; used by
+    PersonCanTaskPrerequisite ("D can fish" choice conditions)
   - Role selection for tasks: PersonSelection task-based scoring disqualifies people
     already doing the task or too unhealthy to work, and prefers free (resting), healthy people
   - Default task assignment: assignUnassignedToDefaultTask() assigns to 'scavenge'

@@ -3,6 +3,8 @@ import { Person } from '../src/classes/Person';
 import { PersonSelection } from '../src/classes/PersonSelection';
 import { RoleAssigner } from '../src/classes/RoleAssigner';
 import { CanDoTaskPrerequisite } from '../src/classes/CanDoTaskPrerequisite';
+import { PersonCanTaskPrerequisite } from '../src/classes/PersonCanTaskPrerequisite';
+import { PrerequisiteParser } from '../src/classes/PrerequisiteParser';
 import { PrerequisiteContext } from '../src/classes/Prerequisite';
 
 // Tests for selecting a person for a task role (*E: fish etc.) and for the
@@ -164,5 +166,86 @@ describe('(can task) prerequisite', () => {
         const a = makePerson('A');
         const dm = makeModel([a]);
         expect(canDo(dm, 'build')).toBe(false);
+    });
+});
+
+describe('(role can task) prerequisite', () => {
+    const makeModel = (people: Person[]): DataModel => {
+        const dm = new DataModel();
+        for (const p of people) dm.addPerson(p);
+        return dm;
+    };
+
+    const makePerson = (name: string): Person => new Person(name, 'life', 'magic', 'harmony');
+
+    // Context with the given person in role D
+    const context = (dm: DataModel, person: Person | undefined): PrerequisiteContext => ({
+        dataModel: dm,
+        getPersonForRole: () => person
+    });
+
+    test('parses "role can task" conditions (fuzzy task names)', () => {
+        const prereq = PrerequisiteParser.parseCondition('D can fish');
+        expect(prereq).toBeInstanceOf(PersonCanTaskPrerequisite);
+        expect((prereq as PersonCanTaskPrerequisite).getTaskType()).toBe('fishing');
+        expect(PrerequisiteParser.parseCondition('D can scavenge')).toBeInstanceOf(PersonCanTaskPrerequisite);
+        // Unknown task, missing keyword, or multi-letter role: not this prerequisite
+        expect(PrerequisiteParser.parseCondition('D can nonsense')).toBeNull();
+        expect(PrerequisiteParser.parseCondition('D will fish')).toBeNull();
+        expect(PrerequisiteParser.parseCondition('DD can fish')).toBeNull();
+        // No confusion with the other parsers
+        expect(PrerequisiteParser.parseCondition('can fish')).toBeInstanceOf(CanDoTaskPrerequisite);
+    });
+
+    test('met for a fit person not already doing the task', () => {
+        const a = makePerson('A');
+        const dm = makeModel([a]);
+        const prereq = new PersonCanTaskPrerequisite('D', 'scavenge');
+        expect(prereq.isMet(context(dm, a))).toBe(true);
+    });
+
+    test('not met when the person is already doing the task', () => {
+        const a = makePerson('A');
+        const dm = makeModel([a]);
+        dm.assignPersonToTask('A', 'scavenge');
+        const prereq = new PersonCanTaskPrerequisite('D', 'scavenge');
+        expect(prereq.isMet(context(dm, a))).toBe(false);
+    });
+
+    test('not met when the person is too unhealthy to work', () => {
+        const a = makePerson('A');
+        const dm = makeModel([a]);
+        a.setHealth(10); // at/below the 0.25 forced rest threshold
+        const prereq = new PersonCanTaskPrerequisite('D', 'scavenge');
+        expect(prereq.isMet(context(dm, a))).toBe(false);
+    });
+
+    test('building requirements gate the person condition too (fishing needs a dock)', () => {
+        const a = makePerson('A');
+        const dm = makeModel([a]);
+        const prereq = new PersonCanTaskPrerequisite('D', 'fishing');
+        expect(prereq.isMet(context(dm, a))).toBe(false);
+        dm.completeBuilding('dock');
+        expect(prereq.isMet(context(dm, a))).toBe(true);
+    });
+
+    test('not met when the role has no person assigned', () => {
+        const a = makePerson('A');
+        const dm = makeModel([a]);
+        const prereq = new PersonCanTaskPrerequisite('D', 'scavenge');
+        expect(prereq.isMet(context(dm, undefined))).toBe(false);
+    });
+
+    test('an exhausted person can still be told to rest (but not to work)', () => {
+        const a = makePerson('A');
+        const dm = makeModel([a]);
+        a.setHealth(10);
+        const rest = new PersonCanTaskPrerequisite('D', 'rest');
+        const work = new PersonCanTaskPrerequisite('D', 'scavenge');
+        expect(rest.isMet(context(dm, a))).toBe(true);
+        expect(work.isMet(context(dm, a))).toBe(false);
+        // Already resting: nothing left to assign
+        dm.assignPersonToTask('A', 'rest');
+        expect(rest.isMet(context(dm, a))).toBe(false);
     });
 });

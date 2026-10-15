@@ -568,6 +568,16 @@ export class DataModel {
         );
     }
 
+    // True if a person can be assigned to this task right now:
+    // able to perform it (health and building requirements, see
+    // canPersonPerformTask) and not already doing it.
+    public canPersonTakeTask(person: Person, taskType: TaskType): boolean {
+        if (this.getTaskForPerson(person.getName()) === taskType) {
+            return false; // already doing this task
+        }
+        return this.canPersonPerformTask(person.getName(), taskType);
+    }
+
     // Move every character at or below their forced rest threshold (who is not
     // already resting) to the rest task. Called at the start of each daily update.
     private enforceForcedRest(): void {

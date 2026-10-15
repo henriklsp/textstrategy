@@ -35,6 +35,8 @@ Dialog Parsing Cheat Sheet
                      task performable (required building, construction for build)
                      and someone fit for work not already doing it
  #2 (can build) abc : if there is a building under construction and a free worker for it.
+ #2 (D can fish) abc : visible if the person in dialog role D can take on the fishing task:
+                     fit for work and not already doing it (task requirements included)
  #2 (A life?) abc : visible if the person in dialog role A has positive trait life
  #2 (B -magic?) abc : visible if the person in dialog role B has negative trait magic
  #n pointing to a section that does not exist ends the dialog.
@@ -49,6 +51,7 @@ Dialog Parsing Cheat Sheet
  <x?> : show value of variable x
  <food 2?a;b> : if food >= 2, show a, else b
  <can scavenge?a;b> : if a free worker is available for scavenge, show a, else b (also can fish, can build, etc.)
+ <D can scavenge?a;b> : if the person in role D can take on scavenge, show a, else b (like the choice condition)
  <A life?a;b> : a if the person in role A has positive trait life, else b (also other traits)
  <A -magic?a;b> : a if the person in role A has negative trait magic
  <A> : name of person A

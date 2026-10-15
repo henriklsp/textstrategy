@@ -1,6 +1,7 @@
 import { Prerequisite } from './Prerequisite';
 import { VariablePrerequisite } from './VariablePrerequisite';
 import { CanDoTaskPrerequisite } from './CanDoTaskPrerequisite';
+import { PersonCanTaskPrerequisite } from './PersonCanTaskPrerequisite';
 import { PersonTraitPrerequisite } from './PersonTraitPrerequisite';
 
 // Single entry point for parsing condition expressions into Prerequisites.
@@ -17,15 +18,18 @@ export class PrerequisiteParser {
     // All known prerequisite parsers, tried in order.
     // Note: CanDoTaskPrerequisite must come before PersonTraitPrerequisite,
     // so "can fish" is not read as role "can" with trait "fish".
+    // PersonCanTaskPrerequisite ("D can fish") cannot collide with either,
+    // but is kept next to CanDoTaskPrerequisite for readability.
     private static readonly parsers: ((condition: string) => Prerequisite | null)[] = [
         VariablePrerequisite.parseCondition,
         CanDoTaskPrerequisite.parseCondition,
+        PersonCanTaskPrerequisite.parseCondition,
         PersonTraitPrerequisite.parseCondition,
     ];
 
     // Parse a condition expression (without parentheses or trailing '?')
     // into a Prerequisite, e.g. "hasDoneIt", "gold 5", "can fish",
-    // "A life", "B -magic" (person trait conditions).
+    // "D can fish", "A life", "B -magic" (person trait conditions).
     // The expression may end with an optional '?' (so choice content like
     // "hasDoneIt?" or "gold 5?" parses unchanged).
     // Note: Comparison operators are NOT supported; only space syntax (gold 5) and truthy (x) work.
