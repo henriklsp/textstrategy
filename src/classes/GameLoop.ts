@@ -29,8 +29,9 @@ export class GameLoop implements DialogCallback {
     // Named events being loaded (browser: files are fetched asynchronously)
     private loadingEvents: Map<string, Promise<void>>;
     // Pool events (from the pool manifest / registerPoolEvent) that may fire
-    // on their own; by name, resolved through the eventRegistry
-    private pool: string[];
+    // on their own; by name, resolved through the eventRegistry.
+    // tier: null = filler; 1, 2, ... = watched priority (lower number first)
+    private pool: { name: string; tier: number | null }[];
     private parser: EventParser;
     private ui!: IGameUI;
     private dataModel: DataModel;
@@ -132,54 +133,69 @@ export class GameLoop implements DialogCallback {
         return this.eventQueue.length > 0 && this.eventQueue[0].day <= this.dataModel.getCurrentDay();
     }
 
-    // Register an event in the pool by name. The event file must declare a
-    // ?when or ?maybe trigger mode in its header; it may then fire on its own
-    // (once per registration) on a day with no scheduled events due.
-    // The file is loaded now (Node) or in the background (browser).
-    public registerPoolEvent(name: string): void {
+    // Register an event in the pool by name. Watched events carry a priority
+    // tier (1, 2, ...; lower considered first); without one the event is a
+    // filler, considered only when no watched event can fire.
+    // It may then fire on its own (once per registration) on a day with no
+    // scheduled events due. The file is loaded now (Node) or in the browser.
+    public registerPoolEvent(name: string, tier?: number): void {
         this.ensureEventLoaded(name);
-        if (!this.pool.includes(name)) {
-            this.pool.push(name);
+        if (!this.pool.some(e => e.name === name)) {
+            this.pool.push({ name, tier: tier ?? null });
         }
     }
 
     // The pool events currently registered (by name, for inspection/debugging)
     public getPool(): string[] {
-        return [...this.pool];
+        return this.pool.map(e => e.name);
     }
 
     // Load a pool manifest (default: text/pool.txt). One event name per line;
-    // // comments and blank lines are ignored. Each name is registered in the pool.
+    // // comments and blank lines are ignored. Section headers select the tier:
+    //   filler:        → events listed under it are fillers (the default tier)
+    //   priority 1:    → watched events, considered before priority 2, etc.
+    // Before any section header, events are fillers.
     public async loadPoolManifest(path?: string): Promise<void> {
         const loader = new EventLoader();
         const file = path ?? loader.eventPath('pool');
         const content = await loader.load(file);
         if (content === null) return; // No manifest: nothing to register
+        let tier: number | null = null;
         for (const line of content.split(/\r?\n/)) {
             const name = line.trim();
             if (name === '' || name.startsWith('//')) continue;
-            this.registerPoolEvent(name);
+            const section = name.match(/^priority (\d+):?$/);
+            if (section) {
+                tier = parseInt(section[1], 10);
+                continue;
+            }
+            if (name === 'filler:') {
+                tier = null;
+                continue;
+            }
+            this.registerPoolEvent(name, tier ?? undefined);
         }
     }
 
     // On a day with no scheduled events due, at most one pool event fires.
-    // Watched (?when) events are considered first; only if none of them can
-    // fire are filler (?maybe) events considered. Among the candidates, the
-    // lowest priority number goes first; ties are broken at random.
-    // A fired event leaves the pool (fires once per registration).
+    // Watched events are considered in priority order (priority 1 before 2,
+    // etc.); only if no watched event can fire are fillers considered.
+    // Within a tier the pick among candidates is random. A fired event leaves
+    // the pool (fires once per registration).
     // Returns true if an event was put on the queue for today.
     private firePoolEventIfIdle(): boolean {
         if (this.hasDueEvent() || this.pool.length === 0) return false;
-        for (const tier of ['when', 'maybe'] as const) {
+        const tiers = [...new Set(this.pool.map(e => e.tier).filter(t => t !== null))].sort((a, b) => a! - b!) as number[];
+        tiers.push(-1); // filler tier, considered last
+        for (const tier of tiers) {
+            const wantTier = tier === -1 ? null : tier;
             const ready = this.pool
-                .filter(name => this.eventRegistry.has(name))
-                .map(name => ({ name, event: this.eventRegistry.get(name)! }))
-                .filter(e => e.event.getTrigger() === tier && e.event.arePrerequisitesMet(this.dataModel));
+                .filter(e => e.tier === wantTier && this.eventRegistry.has(e.name))
+                .map(e => ({ name: e.name, event: this.eventRegistry.get(e.name)! }))
+                .filter(e => e.event.arePrerequisitesMet(this.dataModel));
             if (ready.length === 0) continue;
-            const minPriority = Math.min(...ready.map(e => e.event.getPriority()));
-            const top = ready.filter(e => e.event.getPriority() === minPriority);
-            const pick = top[Math.floor(Math.random() * top.length)];
-            this.pool = this.pool.filter(name => name !== pick.name);
+            const pick = ready[Math.floor(Math.random() * ready.length)];
+            this.pool = this.pool.filter(e => e.name !== pick.name);
             this.enqueue({ day: this.dataModel.getCurrentDay(), eventName: pick.name });
             return true;
         }

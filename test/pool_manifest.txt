@@ -1,0 +1,9 @@
+// Test fixture for the pool manifest: a filler before any section header,
+// an explicit filler section, then watched priorities
+foraging
+filler:
+rabbit
+priority 1:
+sickness
+priority 2:
+storm
