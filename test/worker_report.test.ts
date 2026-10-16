@@ -66,6 +66,11 @@ describe('Worker report substitutions', () => {
             expect(renderText(dataModel, '<working fishing>')).toBe('');
         });
 
+        test('includes unassigned cast members as resting', () => {
+            dataModel.assignPersonToTask('Bearn', 'scavenge');
+            expect(renderText(dataModel, '<working rest>')).toBe('Arik, Eya, Agnar and Elrid are resting.');
+        });
+
         test('keeps an invalid task name visible', () => {
             expect(renderText(dataModel, '<working sailing>')).toBe('<working sailing>');
         });
@@ -118,28 +123,46 @@ describe('Worker report substitutions', () => {
             dataModel.startBuildingConstruction('hall');
             dataModel.assignPersonToTask('Bearn', 'fishing');
             dataModel.assignPersonToTask('Arik', 'scavenge');
+            dataModel.assignPersonToTask('Agnar', 'scavenge');
+            dataModel.assignPersonToTask('Elrid', 'scavenge');
             dataModel.assignPersonToTask('Eya', 'build');
             const selections = [PersonSelection.createSingle('D', 'harmony')];
             expect(renderText(dataModel, '<D> says "<taskreport>"', selections))
-                .toBe('Bearn says "Arik is scavenging. Eya is building the hall. And I am fishing."');
+                .toBe('Bearn says "Arik, Agnar and Elrid are scavenging. Eya is building the hall. And I am fishing."');
         });
 
         test('mentions resting people like any other task', () => {
-            dataModel.assignPersonToTask('Agnar', 'rest');
-            dataModel.assignPersonToTask('Elrid', 'rest');
-            expect(renderText(dataModel, '<taskreport>')).toBe('Agnar and Elrid are resting.');
-        });
-
-        test('renders a default sentence when no task is assigned to anyone', () => {
-            expect(renderText(dataModel, '<taskreport>')).toBe('Nobody is doing anything right now.');
-        });
-
-        test('all clauses in third person when the speaker has no task', () => {
+            dataModel.assignPersonToTask('Bearn', 'scavenge');
             dataModel.assignPersonToTask('Arik', 'scavenge');
             dataModel.assignPersonToTask('Eya', 'fishing');
+            dataModel.assignPersonToTask('Agnar', 'rest');
+            dataModel.assignPersonToTask('Elrid', 'rest');
+            expect(renderText(dataModel, '<taskreport>'))
+                .toBe('Bearn and Arik are scavenging. Eya is fishing. Agnar and Elrid are resting.');
+        });
+
+        test('treats unassigned people as resting by default', () => {
+            expect(renderText(dataModel, '<taskreport>'))
+                .toBe('Bearn, Arik, Eya, Agnar and Elrid are resting.');
+        });
+
+        test('the default-resting speaker still gets a first person clause', () => {
+            dataModel.assignPersonToTask('Arik', 'scavenge');
+            dataModel.assignPersonToTask('Agnar', 'scavenge');
+            dataModel.assignPersonToTask('Eya', 'fishing');
+            dataModel.assignPersonToTask('Elrid', 'fishing');
             const selections = [PersonSelection.createSingle('D', 'harmony')];
-            expect(renderText(dataModel, '<taskreport>', selections))
-                .toBe('Arik is scavenging. Eya is fishing.');
+            expect(renderText(dataModel, '<D> says "<taskreport>"', selections))
+                .toBe('Bearn says "Arik and Agnar are scavenging. Eya and Elrid are fishing. And I am resting."');
+        });
+
+        test('joins the speaker into a multi-name group correctly', () => {
+            dataModel.assignPersonToTask('Bearn', 'fishing');
+            dataModel.assignPersonToTask('Eya', 'fishing');
+            dataModel.assignPersonToTask('Agnar', 'fishing');
+            const selections = [PersonSelection.createSingle('D', 'harmony')];
+            expect(renderText(dataModel, '<D> reports: <working fishing>', selections))
+                .toBe('Bearn reports: Eya, Agnar and I are fishing.');
         });
     });
 });

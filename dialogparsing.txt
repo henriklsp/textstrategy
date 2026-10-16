@@ -64,7 +64,9 @@ Dialog Parsing Cheat Sheet
                   The person in the current role (last <A> etc.) becomes first person: "I am fishing."
  <taskreport>: one clause per task that has workers, speaker's clause last with "And ":
                   "Bea and Cal are scavenging. Dan is building the hall. And I am fishing."
-                  Large groups aggregate: "Ada and 12 others are farming." (WorkerReport.ts)
+                  Unassigned people are resting by default (DataModel), so a fresh game reads
+                  "Ada, Bea and Cal are resting." Large groups aggregate:
+                  "Ada and 12 others are farming." (WorkerReport.ts)
 
 [] Effect to execute when entering section
  [bool x true] : bool effect; set variable x to true

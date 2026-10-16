@@ -36,7 +36,8 @@ export interface TextSubstitutionContext extends PrerequisiteContext {
 //                       The current role's person becomes first person: "I am fishing."
 //   <taskreport>        one clause per populated task, speaker's clause last:
 //                       "Bea and Cal are scavenging. Dan is building the hall. And I am fishing."
-//                       ("Nobody is doing anything right now." if no task is assigned)
+//                       (everyone rests by default, so a fresh game reads
+//                       "Ada, Bea and Cal are resting.")
 //
 // Supported pronouns: he, him, his, hers, himself (case-sensitive for capitalization)
 // The current role is reset at the start of each text substitution.

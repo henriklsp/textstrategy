@@ -248,14 +248,30 @@ export class DataModel {
         return [...this.taskAssignments];
     }
 
-    // Get task for a specific person by name
+    // Get task for a specific person by name.
+    // Every cast member has precisely one task; a cast member with no explicit
+    // assignment is resting by default (mirrored in getPersonsForTask).
     public getTaskForPerson(personName: string): TaskType | null {
         const assignment = this.taskAssignments.find(a => a.personName === personName);
-        return assignment ? assignment.taskType : null;
+        if (assignment) return assignment.taskType;
+        const person = this.getPersonByName(personName);
+        return person !== null ? 'rest' : null;
     }
 
-    // Get persons assigned to a specific task
+    // Get persons assigned to a specific task.
+    // Unassigned cast members are resting by default, so they are part of the
+    // 'rest' list (rest healing, council report, <working rest>).
     public getPersonsForTask(taskType: TaskType): string[] {
+        if (taskType === 'rest') {
+            const explicit = this.taskAssignments
+                .filter(a => a.taskType === 'rest')
+                .map(a => a.personName);
+            const assignedNames = new Set(this.taskAssignments.map(a => a.personName));
+            const defaultResting = this.castOfCharacters
+                .filter(p => !assignedNames.has(p.getName()))
+                .map(p => p.getName());
+            return [...explicit, ...defaultResting];
+        }
         return this.taskAssignments
             .filter(a => a.taskType === taskType)
             .map(a => a.personName);

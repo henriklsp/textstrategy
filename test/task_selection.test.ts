@@ -150,7 +150,10 @@ describe('(can task) prerequisite', () => {
     test('met for tasks without building requirements (scavenge, rest)', () => {
         const a = makePerson('A');
         const dm = makeModel([a]);
+        // Unassigned means resting by default: available for scavenge, already resting
         expect(canDo(dm, 'scavenge')).toBe(true);
+        expect(canDo(dm, 'rest')).toBe(false);
+        dm.assignPersonToTask('A', 'scavenge');
         expect(canDo(dm, 'rest')).toBe(true);
     });
 
@@ -239,6 +242,7 @@ describe('(role can task) prerequisite', () => {
     test('an exhausted person can still be told to rest (but not to work)', () => {
         const a = makePerson('A');
         const dm = makeModel([a]);
+        dm.assignPersonToTask('A', 'scavenge');
         a.setHealth(10);
         const rest = new PersonCanTaskPrerequisite('D', 'rest');
         const work = new PersonCanTaskPrerequisite('D', 'scavenge');

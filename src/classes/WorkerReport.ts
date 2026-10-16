@@ -15,9 +15,11 @@ import { TaskPhrases } from './TaskPhrases';
 //     "Ada and 12 others are farming."
 // - In a full report the speaker's own clause comes last, prefixed with "And ":
 //     "Bea and Cal are scavenging. Dan is building the hall. And I am fishing."
+// - Unassigned cast members are resting by default (DataModel), so a fresh
+//   game renders as "Ada, Bea and Cal are resting."
 // - <working fish> is empty when nobody is doing the task, so the surrounding
-//   sentence must make sense without it. <taskreport> renders "Nobody is doing
-//   anything right now." when no task has been assigned to anyone.
+//   sentence must make sense without it. <taskreport> is empty only with an
+//   empty cast.
 export class WorkerReport {
     // Aggregate to "First and N others" once a group exceeds this many names.
     private static readonly MAX_NAMES = 5;
@@ -36,7 +38,7 @@ export class WorkerReport {
         const populated = TASK_TYPES.filter(taskType =>
             dataModel.getPersonsForTask(taskType).length > 0
         );
-        if (populated.length === 0) return 'Nobody is doing anything right now.';
+        if (populated.length === 0) return '';
 
         const ownTasks = speakerName
             ? populated.filter(taskType => dataModel.getPersonsForTask(taskType).includes(speakerName))
@@ -75,7 +77,8 @@ export class WorkerReport {
                 subject = 'I';
                 verb = 'am';
             } else {
-                subject = `${WorkerReport.joinNames(others)} and I`;
+                // Speaker joined into the list, last: "Eya and I", "Bea, Cal and I"
+                subject = WorkerReport.joinNames([...others, 'I']);
                 verb = 'are';
             }
         } else {
