@@ -59,6 +59,12 @@ Dialog Parsing Cheat Sheet
  <He> <him> <his> <hers> <himself>. As above. Use last <A>...
  <person>: temporary variable previously set with [set person=choice]
  <currentconstruction>: name of the building currently under construction (empty if none)
+ <working fish>: who is doing a task, e.g. "Ada and Bea are fishing." (empty if nobody).
+                  Task name fuzzy-matched like fish->fishing. Person phrases from TaskPhrases.ts.
+                  The person in the current role (last <A> etc.) becomes first person: "I am fishing."
+ <taskreport>: one clause per task that has workers, speaker's clause last with "And ":
+                  "Bea and Cal are scavenging. Dan is building the hall. And I am fishing."
+                  Large groups aggregate: "Ada and 12 others are farming." (WorkerReport.ts)
 
 [] Effect to execute when entering section
  [bool x true] : bool effect; set variable x to true

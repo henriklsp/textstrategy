@@ -1,6 +1,5 @@
 - Dialog: variable subsection based on selected person, they may say different things depending on traits.
 - More roles than Person characters? How to handle?
-- Variable subsection for council event: how many people are working on each task.
 - Person skill and skill progression and natural aptitude
 - Event queue is ordered by due date.
 - Persistence: use browser localstorage for datamodel, eventqueue and current position in dialog
