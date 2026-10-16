@@ -124,27 +124,27 @@ describe('(can task) prerequisite', () => {
         const a = makePerson('A');
         const b = makePerson('B');
         const dm = makeModel([a, b]);
-        dm.assignPersonToTask('A', 'fishing');
+        dm.assignPersonToTask('A', 'scavenge');
         dm.assignPersonToTask('B', 'rest');
-        expect(canDo(dm, 'fish')).toBe(true);
+        expect(canDo(dm, 'scavenge')).toBe(true);
     });
 
     test('not met when everyone is already doing the task', () => {
         const a = makePerson('A');
         const b = makePerson('B');
         const dm = makeModel([a, b]);
-        dm.assignPersonToTask('A', 'fishing');
-        dm.assignPersonToTask('B', 'fishing');
-        expect(canDo(dm, 'fish')).toBe(false);
+        dm.assignPersonToTask('A', 'scavenge');
+        dm.assignPersonToTask('B', 'scavenge');
+        expect(canDo(dm, 'scavenge')).toBe(false);
     });
 
     test('not met when the only free person is too unhealthy to work', () => {
         const a = makePerson('A');
         const b = makePerson('B');
         const dm = makeModel([a, b]);
-        dm.assignPersonToTask('A', 'fishing');
+        dm.assignPersonToTask('A', 'scavenge');
         b.setHealth(10);
-        expect(canDo(dm, 'fish')).toBe(false);
+        expect(canDo(dm, 'scavenge')).toBe(false);
     });
 
     test('met for tasks without building requirements (scavenge, rest)', () => {
