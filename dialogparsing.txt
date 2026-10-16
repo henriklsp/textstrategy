@@ -11,15 +11,8 @@ Dialog Parsing Quick Reference Cheat Sheet
 
 (cond?) : Event prerequisite. Before the first section.
  (weapons 1?) : The event only happens if player has at least 1 weapons.
- (can fish) : only if fishing is possible
-
-?when [n] : Trigger mode: event sits in a pool and fires by itself on an idle day (no scheduled
- event due) once its conditions are met. n is an optional priority: lower fires first (default 0).
-?maybe [n] : Trigger mode like ?when, but only considered if no ?when event can fire.
- Pool events fire at most one per idle day, then leave the pool (fire once per registration).
- Pool events are listed in text/pool.txt (one name per line) or registered with
- GameLoop.registerPoolEvent(name). A pool event may also have (cond?) header conditions;
- they gate when it can fire.
+ (can fish) : if fishing is possible and
+ someone can do it. 
 
 §1 : begin section 1
 §1 text : begin section 1, with text as its first text line
