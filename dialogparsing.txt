@@ -14,11 +14,11 @@ Dialog Parsing Quick Reference Cheat Sheet
  (can fish) : only if fishing is possible
 
 Pool manifest (text/pool.txt): lists events that fire by themselves on an idle day (no scheduled
- event due), once, when their (cond?) header conditions are met. Section headers select the tier:
- "priority 1:", "priority 2", ... are watched (lower number considered first); "filler:" events
- are only considered when no watched event can fire. Within a tier the pick is random. Events not
- listed only fire when an [event x n] effect queues them. GameLoop.registerPoolEvent(name, tier?)
- registers the same way from code.
+ event due), once, when their (cond?) header conditions are met. "priority n:" section headers
+ give the events under them that priority tier; events before any header get the lowest
+ priority. On an idle day the lowest tier with an eligible event fires, picked randomly within
+ the tier. Events not listed only fire when an [event x n] effect queues them.
+ GameLoop.registerPoolEvent(name, tier?) registers the same way from code.
 
 §1 : begin section 1
 §1 text : begin section 1, with text as its first text line

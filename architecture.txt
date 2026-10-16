@@ -27,9 +27,9 @@ src/browser.ts (browser) or src/index.ts (Node)
   day with no other due events and checked again then.
   Also manages a pool of events (from text/pool.txt via loadPoolManifest(), or
   registerPoolEvent(name, tier?)): on a day with no scheduled events due, at most one pool
-  event fires (if its header prerequisites are met). Watched events (in a "priority n:"
-  manifest section) are considered in priority order, then fillers; within a tier the pick
-  is random. A fired event leaves the pool (fires once per registration). Idle days advance
+  event fires (if its header prerequisites are met). Priority tiers are considered in
+  ascending order (events without a priority last); within a tier the pick is random.
+  A fired event leaves the pool (fires once per registration). Idle days advance
   only while a pool event might still fire.
   - Event queue is kept sorted by day; same-day events maintain insertion order
   - Async loading of event files in browser environment

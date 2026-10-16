@@ -1,7 +1,6 @@
-// Test fixture for the pool manifest: a filler before any section header,
-// an explicit filler section, then watched priorities
+// Test fixture for the pool manifest: events before any header get the lowest
+// priority, then priority sections
 foraging
-filler:
 rabbit
 priority 1:
 sickness

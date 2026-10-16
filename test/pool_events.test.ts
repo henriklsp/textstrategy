@@ -3,10 +3,10 @@ import { GameLoop } from '../src/classes/GameLoop';
 import { IGameUI } from '../src/classes/UI';
 
 describe('Pool manifest parsing', () => {
-    test('loads a manifest with fillers before any section, a filler section, and priority sections', async () => {
+    test('loads a manifest with unheaded events and priority sections', async () => {
         const gameLoop = new GameLoop({ show: () => {} });
         await gameLoop.loadPoolManifest('test/pool_manifest.txt');
-        // foraging + rabbit: fillers; sickness: priority 1; storm: priority 2
+        // foraging + rabbit: lowest priority; sickness: priority 1; storm: priority 2
         expect(gameLoop.getPool()).toEqual(['foraging', 'rabbit', 'sickness', 'storm']);
     });
 
@@ -75,30 +75,30 @@ describe('Pool events: GameLoop firing', () => {
         expect(gameLoop.getPool().length).toBe(1);
     });
 
-    test('priority 1 beats priority 2 and filler', () => {
-        register('filler', 'Filler event');
+    test('priority 1 beats priority 2 and lowest priority', () => {
+        register('low', 'Low event');
         register('urgent', 'Urgent event', '', 1);
         register('storm', 'Storm event', '', 2);
         gameLoop.next();
         expect(currentText()).toContain('Urgent event');
-        expect(gameLoop.getPool().sort()).toEqual(['filler', 'storm'].sort());
+        expect(gameLoop.getPool().sort()).toEqual(['low', 'storm'].sort());
     });
 
-    test('priority 2 beats filler', () => {
-        register('filler', 'Filler event');
+    test('priority 2 beats lowest priority', () => {
+        register('low', 'Low event');
         register('storm', 'Storm event', '', 2);
         gameLoop.next();
         expect(currentText()).toContain('Storm event');
-        expect(gameLoop.getPool()).toEqual(['filler']);
+        expect(gameLoop.getPool()).toEqual(['low']);
     });
 
     test('priority 1 with unmet conditions falls through to priority 2', () => {
         register('urgent', 'Urgent event', '(weapons 1?)', 1);
         register('storm', 'Storm event', '', 2);
-        register('filler', 'Filler event');
+        register('low', 'Low event');
         gameLoop.next();
         expect(currentText()).toContain('Storm event');
-        expect(gameLoop.getPool().sort()).toEqual(['filler', 'urgent'].sort());
+        expect(gameLoop.getPool().sort()).toEqual(['low', 'urgent'].sort());
     });
 
     test('only one pool event fires per idle day; second fires the next day', () => {
