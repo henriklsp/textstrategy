@@ -6,6 +6,7 @@ import { BoolEffect } from './BoolEffect';
 import { EventEffect } from './EventEffect';
 import { SetChoiceEffect } from './SetChoiceEffect';
 import { AssignTaskEffect } from './AssignTaskEffect';
+import { PersonStatEffect, PERSON_STATS, isPersonStat } from './PersonStatEffect';
 import { StartConstructionEffect } from './StartConstructionEffect';
 import { DataModel, isTaskType, TASK_TYPES } from './DataModel';
 import { BuildingDefinitions } from './BuildingDefinitions';
@@ -69,6 +70,18 @@ export class EffectFactory {
                 }
 
                 return new AssignTaskEffect(personRef, taskRef);
+            }
+            case 'person': {
+                // [person role|<variable> health|attitude +5]
+                if (parts.length < 4) return fail('Expected [person role|<variable> health|attitude value]');
+                const personRef = textField;
+                const stat = parts[2].toLowerCase();
+                if (!isPersonStat(stat)) {
+                    return fail(`Unknown person stat (expected one of ${PERSON_STATS.join(', ')})`);
+                }
+                const delta = parseFloat(parts[3]);
+                if (isNaN(delta)) return fail('Value is not a number');
+                return new PersonStatEffect(personRef, stat, delta);
             }
             case 'build': {
                 if (parts.length < 2) return fail('Expected [build buildingtype] or [build <variable>]');

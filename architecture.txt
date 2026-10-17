@@ -60,6 +60,7 @@ src/browser.ts (browser) or src/index.ts (Node)
     - `[bool name true/false]` -> BoolEffect (set boolean flag)
     - `[event name delay]` -> EventEffect (schedule named event after delay days)
     - `[task role|<variable> taskType|<variable>]` -> AssignTaskEffect (assign person to task)
+    - `[person role|<variable> health|attitude value]` -> PersonStatEffect (adjust person's health or attitude)
     - `[build buildingType|<variable>]` -> StartConstructionEffect (start building construction)
     - `[set variableName=choice]` -> SetChoiceEffect (capture next choice as variable)
     - `#2 text` -> Choice to Section 2
@@ -127,6 +128,12 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   - Literal task type (hunting, fishing, etc.)
   - Choice variable reference (<task>) via normalizeTaskName()
   Uses DataModel.assignPersonToTask() to update assignments.
+- **PersonStatEffect.ts**: Adjusts a person's health or attitude by a delta (may be negative
+  or decimal). Resolves the person reference the same way as AssignTaskEffect:
+  - Role name (A, B, C...) via context.getPersonForRole()
+  - Choice variable reference (<person>) via context.getChoiceVariable()
+  Health is clamped to 0..maxHealth in Person.setHealth() (0 = out of action, can trigger
+  forced rest); attitude is clamped to 0..100 in Person.adjustAttitude().
 - **StartConstructionEffect.ts**: Starts building construction. Calls DataModel.startBuildingConstruction()
   which pays resource costs and adds to construction queue. Building must not already be
   completed or under construction, and resources must be available. Resolves building reference from:
