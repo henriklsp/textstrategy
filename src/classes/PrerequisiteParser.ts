@@ -3,6 +3,7 @@ import { VariablePrerequisite } from './VariablePrerequisite';
 import { CanDoTaskPrerequisite } from './CanDoTaskPrerequisite';
 import { PersonCanTaskPrerequisite } from './PersonCanTaskPrerequisite';
 import { PersonTraitPrerequisite } from './PersonTraitPrerequisite';
+import { BuildingStatePrerequisite } from './BuildingStatePrerequisite';
 
 // Single entry point for parsing condition expressions into Prerequisites.
 // Used by both choice prerequisites ((cond) choice text, see EventParser)
@@ -18,9 +19,12 @@ export class PrerequisiteParser {
     // All known prerequisite parsers, tried in order.
     // Note: CanDoTaskPrerequisite must come before PersonTraitPrerequisite,
     // so "can fish" is not read as role "can" with trait "fish".
+    // BuildingStatePrerequisite must come before VariablePrerequisite, so
+    // "constructing" is not read as an (unknown) numeric variable.
     // PersonCanTaskPrerequisite ("D can fish") cannot collide with either,
     // but is kept next to CanDoTaskPrerequisite for readability.
     private static readonly parsers: ((condition: string) => Prerequisite | null)[] = [
+        BuildingStatePrerequisite.parseCondition,
         VariablePrerequisite.parseCondition,
         CanDoTaskPrerequisite.parseCondition,
         PersonCanTaskPrerequisite.parseCondition,
@@ -28,7 +32,7 @@ export class PrerequisiteParser {
     ];
 
     // Parse a condition expression (without parentheses or trailing '?')
-    // into a Prerequisite, e.g. "hasDoneIt", "gold 5", "can fish",
+    // into a Prerequisite, e.g. "hasDoneIt", "gold 5", "can fish", "built shelter", "constructing",
     // "D can fish", "A life", "B -magic" (person trait conditions).
     // A "not " prefix negates the rest of the expression: "not food 2" is met
     // when food is below 2, "not hasDoneIt" when the flag is not set,
