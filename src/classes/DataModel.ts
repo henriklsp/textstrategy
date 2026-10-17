@@ -296,6 +296,7 @@ export class DataModel {
             console.warn(`Cannot start construction of '${buildingType}'`);
             return false;
         }
+        const costs = BuildingDefinitions.getCosts(buildingType);
         this.adjust('wood', -costs.wood);
         this.adjust('copper', -costs.copper);
         this.adjust('iron', -costs.iron);
