@@ -3,6 +3,7 @@ Dialog Parsing Quick Reference Cheat Sheet
 // comment : Line is ignored by parser
 
 (hasDoneIt?) : event can only trigger if prerequisite is met. Same prerequisite syntax as dialog choices.
+(not hasDoneIt?) : trigger if prerequisite not met.
 
 *A: Trait : Select person with positive trait for dialog role A
 *A: -Trait : Select person with negative trait for dialog role A
