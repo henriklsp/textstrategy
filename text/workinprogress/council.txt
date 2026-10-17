@@ -26,7 +26,7 @@ Which task should we assign people to do?
 #4 (can build) Building
 #5 (can scavenge) Scavenging
 #10 (can rest) Resting
-#8 Order construction of a building
+#8 (not constructing) Order construction of a building
 #6 Nothing. All is good.
 
 §2
@@ -84,13 +84,13 @@ That is all for now. The council will meet again in ten days.
 §8
 [set building=choice]
 We have <wood> stacks of wood. What should we build?
-#9 (wood 1?) Shelter
-#9 Hall
-#9 Workshop
-#9 (wood 5?) Farm
-#9 (wood 8?) Storage
-#9 (wood 10?) Mine
-#9 (wood 15?) Dock
+#9 (wood 1?)(not built shelter) Shelter
+#9 (not built hall) Hall
+#9 (not built workshop) Workshop
+#9 (wood 5?)(not built farm) Farm
+#9 (wood 8?)(not built storage) Storage
+#9 (wood 10?)(not built mine) Mine
+#9 (wood 15?)(not built dock) Dock
 #1 Nothing for now.
 
 §9
