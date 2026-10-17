@@ -19,7 +19,7 @@ interface SectionData {
     sectionNumber: number | null;
     effects: Effect[];
     personSelections: PersonSelection[];
-    choiceConfigs: { line: number; targetSectionNumber: number; choiceText: string; prerequisite: Prerequisite | null }[];
+    choiceConfigs: { line: number; targetSectionNumber: number; choiceText: string; prerequisites: Prerequisite[] }[];
 }
 
 // Parses structured text files into Event objects.
@@ -35,6 +35,8 @@ interface SectionData {
 //   [task rolename tasktype] → AssignTaskEffect to assign role to a task
 //   [build buildingtype days] → StartConstructionEffect to start building construction
 //   #2 text → Choice: display a user dialog option to go to Section number x
+//   One or more (cond?) groups before the choice text are optional prerequisites;
+//   the choice is shown only when all are met, e.g. #9 (wood 5?)(not built farm) Farm
 //   #n pointing to a section that does not exist ends the dialog.
 //   Text lines are kept as written (joined with '\n', blank lines included);
 //   how they are laid out is up to the UI.
@@ -191,24 +193,30 @@ export class EventParser {
                 }
                 const targetSectionNumber = parseInt(choiceMatch[1], 10);
                 let choiceText = choiceMatch[2].trim();
-                let prerequisite: Prerequisite | null = null;
+                const prerequisites: Prerequisite[] = [];
 
-                // Optional prerequisite at the start: (var?) or (var>num?) or (can task)
-                // Uses the same PrerequisiteParser.parseCondition as text substitution conditionals,
-                // so every prerequisite type works in both places.
-                const prerequisiteMatch = choiceText.match(/^\(([^)]+)\)\s*(.*)$/);
-                if (prerequisiteMatch) {
+                // Optional prerequisites at the start: one or more (cond?) groups,
+                // e.g. (wood 5?)(not built farm). Uses the same PrerequisiteParser.parseCondition
+                // as text substitution conditionals, so every prerequisite type works in both places.
+                // The choice is only shown when ALL groups are met.
+                let prerequisitesValid = true;
+                while (prerequisitesValid) {
+                    const prerequisiteMatch = choiceText.match(/^\(([^)]+)\)\s*(.*)$/);
+                    if (!prerequisiteMatch) break;
                     const innerContent = prerequisiteMatch[1];
                     const displayText = prerequisiteMatch[2].trim();
 
-                    prerequisite = PrerequisiteParser.parseCondition(innerContent);
+                    const prerequisite = PrerequisiteParser.parseCondition(innerContent);
                     if (prerequisite) {
+                        prerequisites.push(prerequisite);
                         choiceText = displayText;
                     } else {
                         this.addIssue(lineNumber, `Invalid choice condition '(${innerContent})'`);
+                        // Leave the invalid group visible in the choice text
+                        prerequisitesValid = false;
                     }
                 }
-                section.choiceConfigs.push({ line: lineNumber, targetSectionNumber, choiceText, prerequisite });
+                section.choiceConfigs.push({ line: lineNumber, targetSectionNumber, choiceText, prerequisites });
                 return;
             }
 
@@ -231,7 +239,7 @@ export class EventParser {
             const choices = data.choiceConfigs.map(config => {
                 // A missing target section is allowed: the choice ends the dialog
                 const targetSection = sections.find(s => s.getSectionNumber() === config.targetSectionNumber);
-                return new Choice(config.choiceText, config.prerequisite ? [config.prerequisite] : [], targetSection);
+                return new Choice(config.choiceText, config.prerequisites, targetSection);
             });
             sections[i].setChoices(choices);
         });
