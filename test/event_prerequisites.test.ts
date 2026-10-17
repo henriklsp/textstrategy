@@ -32,7 +32,8 @@ describe('Event prerequisites (header conditions)', () => {
     });
 
     test('reports an issue for an invalid header condition', () => {
-        const event = parser.parseText('(not a condition)\n§1\nText here');
+        // "not a condition" is valid now (negated role-trait); this one is not
+        const event = parser.parseText('(not !an invalid condition!)\n§1\nText here');
         expect(event.getPrerequisites().length).toBe(0);
         expect(parser.getIssues().some(i => i.message.includes('Invalid event condition'))).toBe(true);
     });

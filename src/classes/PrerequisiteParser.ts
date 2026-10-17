@@ -30,6 +30,9 @@ export class PrerequisiteParser {
     // Parse a condition expression (without parentheses or trailing '?')
     // into a Prerequisite, e.g. "hasDoneIt", "gold 5", "can fish",
     // "D can fish", "A life", "B -magic" (person trait conditions).
+    // A "not " prefix negates the rest of the expression: "not food 2" is met
+    // when food is below 2, "not hasDoneIt" when the flag is not set,
+    // "not A magic" when role A does not have the magic trait.
     // The expression may end with an optional '?' (so choice content like
     // "hasDoneIt?" or "gold 5?" parses unchanged).
     // Note: Comparison operators are NOT supported; only space syntax (gold 5) and truthy (x) work.
@@ -38,6 +41,16 @@ export class PrerequisiteParser {
         let content = expression.trim();
         if (content.endsWith('?')) {
             content = content.substring(0, content.length - 1);
+        }
+
+        // Negation: "not <condition>" is met when the inner condition is not
+        const not = content.match(/^not\s+(.+)$/i);
+        if (not) {
+            const inner = PrerequisiteParser.parseCondition(not[1]);
+            if (inner !== null) {
+                return new Prerequisite(context => !inner.isMet(context));
+            }
+            return null;
         }
 
         for (const parser of PrerequisiteParser.parsers) {

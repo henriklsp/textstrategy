@@ -12,6 +12,9 @@ Dialog Parsing Quick Reference Cheat Sheet
 (cond?) : Event prerequisite. Before the first section.
  (weapons 1?) : The event only happens if player has at least 1 weapons.
  (can fish) : only if fishing is possible
+ (not ...) : negates any condition. (not food 2) = food below 2, (not hasdoneit) = flag not set,
+ (not A magic) = role A does not have the magic trait. Works everywhere conditions do:
+ event headers, dialog choices (#2 (A magic) abc / #3 (not A magic) def) and <cond?a;b>.
 
 Pool manifest (text/pool.txt): lists events that fire by themselves on an idle day (no scheduled
  event due), once, when their (cond?) header conditions are met. "priority n:" section headers

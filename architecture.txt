@@ -151,6 +151,10 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
 - **Prerequisite.ts**: Generic condition wrapper. Base class for all prerequisites.
   Implements isMet(dataModel) method. Used for dialog choices, text conditionals, and
   event prerequisites (Event header, checked by GameLoop when the event comes due).
+- **PrerequisiteParser.ts**: Parses condition expressions into Prerequisites. Single entry
+  point used for all condition sites (choices, <cond?a;b>, event headers). A "not " prefix
+  negates the rest of the expression (not food 2, not hasdoneit, not A magic); "not" may
+  not be used in nested negations beyond wrapping any single recognized condition.
 - **VariablePrerequisite.ts**: Prerequisite checking variable values.
   Supports boolean checks (x?) and space syntax for >= (gold 5? = gold >= 5).
   Parsing from text format like `(x?)` or `(gold 5?)` with display text extraction.
