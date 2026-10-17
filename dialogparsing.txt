@@ -13,19 +13,10 @@ Dialog Parsing Quick Reference Cheat Sheet
 (cond?) : Event prerequisite. Before the first section.
  (weapons 1?) : The event only happens if player has at least 1 weapons.
  (can fish) : only if fishing is possible
- (not ...) : negates any condition. (not food 2) = food below 2, (not hasdoneit) = flag not set,
- (not A magic) = role A does not have the magic trait. Works everywhere conditions do:
- event headers, dialog choices (#2 (A magic) abc / #3 (not A magic) def) and <cond?a;b>.
-
-Pool manifest (text/pool.txt): lists events that fire by themselves on an idle day (no scheduled
- event due), once, when their (cond?) header conditions are met. "priority n:" section headers
- give the events under them that priority tier; events before any header get the lowest
- priority. On an idle day the lowest tier with an eligible event fires, picked randomly within
- the tier. Events not listed only fire when an [event x n] effect queues them.
- GameLoop.registerPoolEvent(name, tier?) registers the same way from code.
+ (not ...) : negates any condition.
+ (not A magic) = role A does not have the magic trait.
 
 §1 : begin section 1
-§1 text : begin section 1, with text as its first text line
 
 # dialog choice
  #2 abc : dialog choice with text abc, go to section 2
@@ -35,6 +26,7 @@ Pool manifest (text/pool.txt): lists events that fire by themselves on an idle d
                      task performable (required building, construction for build)
                      and someone fit for work not already doing it
  #2 (can build) abc : if there is a building under construction and a free worker for it.
+#2 (canbuild hut?) abc : if it is possible to start construction of a specific building. 
  #2 (D can fish) abc : visible if the person in dialog role D can take on the fishing task:
                      fit for work and not already doing it (task requirements included)
  #2 (A life?) abc : visible if the person in dialog role A has positive trait life
