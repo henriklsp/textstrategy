@@ -15,6 +15,7 @@
 - dialog event: log text to be reported at the next council event. Add variable subsection to show recent events.
 - Starvation events: trigger a story event when a character's health falls below a threshold, so the crisis appears in prose
 - Feast: let the council spend surplus food to raise health and attitude above their baseline
+- Building "tech tree" and prerequisites
 - Combat system
 
 To run:
