@@ -104,6 +104,80 @@ describe('Choices with multiple conditions', () => {
     });
 });
 
+describe('canbuild condition', () => {
+    const makeContext = (dataModel: DataModel): PrerequisiteContext => ({
+        dataModel,
+        getPersonForRole: () => undefined
+    });
+
+    test('canbuild is met when everything lines up', () => {
+        const dm = new DataModel();
+        dm.set('wood', 5);
+        const prereq = PrerequisiteParser.parseCondition('canbuild farm');
+        expect(prereq).not.toBeNull();
+        expect(prereq!.isMet(makeContext(dm))).toBe(true);
+    });
+
+    test('canbuild requires the resources', () => {
+        const dm = new DataModel();
+        dm.set('wood', 4); // farm costs 5
+        const prereq = PrerequisiteParser.parseCondition('canbuild farm');
+        expect(prereq!.isMet(makeContext(dm))).toBe(false);
+    });
+
+    test('canbuild is case-insensitive', () => {
+        const dm = new DataModel();
+        dm.set('wood', 5);
+        expect(PrerequisiteParser.parseCondition('canBuild Farm')!.isMet(makeContext(dm))).toBe(true);
+    });
+
+    test('canbuild fails for unknown buildings', () => {
+        expect(PrerequisiteParser.parseCondition('canbuild castle')).toBeNull();
+    });
+
+    test('canbuild is not met when the building is already built or under construction', () => {
+        const dm = new DataModel();
+        dm.set('wood', 20);
+        dm.completeBuilding('shelter');
+        expect(PrerequisiteParser.parseCondition('canbuild shelter')!.isMet(makeContext(dm))).toBe(false);
+
+        const dm2 = new DataModel();
+        dm2.set('wood', 20);
+        dm2.startBuildingConstruction('mine');
+        expect(PrerequisiteParser.parseCondition('canbuild mine')!.isMet(makeContext(dm2))).toBe(false);
+    });
+
+    test('canbuild is not met while something else is under construction', () => {
+        const dm = new DataModel();
+        dm.set('wood', 20);
+        dm.startBuildingConstruction('shelter');
+        const prereq = PrerequisiteParser.parseCondition('canbuild hall');
+        expect(prereq!.isMet(makeContext(dm))).toBe(false);
+    });
+
+    test('canbuild mirrors the engine: canStartConstruction and startBuildingConstruction agree', () => {
+        const dm = new DataModel();
+        dm.set('wood', 20);
+        const prereq = PrerequisiteParser.parseCondition('canbuild shelter')!;
+        expect(prereq.isMet(makeContext(dm))).toBe(dm.canStartConstruction('shelter'));
+        expect(dm.startBuildingConstruction('shelter')).toBe(true);
+        expect(prereq.isMet(makeContext(dm))).toBe(dm.canStartConstruction('shelter'));
+
+        // After construction, starting again fails just like the condition
+        dm.completeBuilding('shelter');
+        expect(dm.startBuildingConstruction('shelter')).toBe(false);
+        expect(prereq.isMet(makeContext(dm))).toBe(false);
+    });
+
+    test('the engine allows only one construction site at a time', () => {
+        const dm = new DataModel();
+        dm.set('wood', 20);
+        expect(dm.startBuildingConstruction('shelter')).toBe(true);
+        expect(dm.startBuildingConstruction('hall')).toBe(false);
+        expect(dm.getBuildingsUnderConstruction()).toHaveLength(1);
+    });
+});
+
 describe('Council cannot order already-built buildings', () => {
     test('council.txt parses clean with the gated construction choices', () => {
         const parser = new EventParser();
