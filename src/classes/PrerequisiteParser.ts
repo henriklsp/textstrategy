@@ -4,6 +4,7 @@ import { CanDoTaskPrerequisite } from './CanDoTaskPrerequisite';
 import { PersonCanTaskPrerequisite } from './PersonCanTaskPrerequisite';
 import { PersonTraitPrerequisite } from './PersonTraitPrerequisite';
 import { BuildingStatePrerequisite } from './BuildingStatePrerequisite';
+import { CanBuildPrerequisite } from './CanBuildPrerequisite';
 
 // Single entry point for parsing condition expressions into Prerequisites.
 // Used by both choice prerequisites ((cond) choice text, see EventParser)
@@ -25,6 +26,7 @@ export class PrerequisiteParser {
     // but is kept next to CanDoTaskPrerequisite for readability.
     private static readonly parsers: ((condition: string) => Prerequisite | null)[] = [
         BuildingStatePrerequisite.parseCondition,
+        CanBuildPrerequisite.parseCondition,
         VariablePrerequisite.parseCondition,
         CanDoTaskPrerequisite.parseCondition,
         PersonCanTaskPrerequisite.parseCondition,
@@ -32,7 +34,7 @@ export class PrerequisiteParser {
     ];
 
     // Parse a condition expression (without parentheses or trailing '?')
-    // into a Prerequisite, e.g. "hasDoneIt", "gold 5", "can fish", "built shelter", "constructing",
+    // into a Prerequisite, e.g. "hasDoneIt", "gold 5", "can fish", "built shelter", "constructing", "canbuild mine",
     // "D can fish", "A life", "B -magic" (person trait conditions).
     // A "not " prefix negates the rest of the expression: "not food 2" is met
     // when food is below 2, "not hasDoneIt" when the flag is not set,
