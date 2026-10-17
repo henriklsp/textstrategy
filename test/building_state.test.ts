@@ -188,7 +188,7 @@ describe('Council cannot order already-built buildings', () => {
         const section8 = event.getSections().find(s => s.getSectionNumber() === 8);
         expect(section8).toBeDefined();
 
-        // Every building choice is gated by (not built x) plus its wood cost where one exists
+        // Every building choice is gated by a single (canbuild x?) condition
         const buildingChoices = section8!.getChoices().filter(c =>
             ['Shelter', 'Hall', 'Workshop', 'Farm', 'Storage', 'Mine', 'Dock'].includes(c.getText())
         );
