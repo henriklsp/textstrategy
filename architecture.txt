@@ -156,6 +156,11 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   point used for all condition sites (choices, <cond?a;b>, event headers). A "not " prefix
   negates the rest of the expression (not food 2, not hasdoneit, not A magic); "not" may
   not be used in nested negations beyond wrapping any single recognized condition.
+- **CanBuildPrerequisite.ts**: Prerequisite checking whether a building could be ordered right now.
+  Parsed from "canbuild shelter" (case-insensitive building name). Delegates to
+  DataModel.canStartConstruction(): not built, not under construction, nothing else under
+  construction, resources affordable - the same check startBuildingConstruction uses, so
+  dialog conditions and engine can never disagree. Registered before VariablePrerequisite.
 - **BuildingStatePrerequisite.ts**: Prerequisite checking building state. Parsed from
   "built shelter" (building completed), "constructing" (any building under construction),
   "constructing mine" (specific building under construction). Building names case-insensitive;
@@ -315,7 +320,7 @@ The core loop is wired through the event files:
   in prose form, but the current implementation has no map or location tracking.
 - **Council event is a first draft**: text/workinprogress/council.txt recurs every 10 days and
   supports construction orders and task assignment, but military status, recent events and
-  worker-count reports are still TODO, and construction orders are gated by choice conditions: an already-built building (or one under construction) is never offered.
+  worker-count reports are still TODO, and construction orders use the single condition (canbuild <building>?), which mirrors the engine check exactly.
 - **No random/prerequisite-triggered events**: the design calls for events to be triggered when
   their prerequisites are met (possibly randomly when the queue runs low); currently an empty
   event queue stops the game.
