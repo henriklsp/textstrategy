@@ -72,4 +72,6 @@ Dialog Parsing Quick Reference Cheat Sheet
  [set person=choice] : set temporary variable 'person' to the text of the next choice the player picks
  [set task=choice] : same, for temporary variable 'task'
  [set building=choice] : same, for temporary variable 'building'
-
+[person A health -40] : adjust health of person A
+[person B attitude +5] : adjust attitude of person B
+[person <person> health +5] : adjust a person captured with [set person=choice]
