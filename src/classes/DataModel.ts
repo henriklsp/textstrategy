@@ -292,13 +292,8 @@ export class DataModel {
     // construction, or if the resources are not available.
     // daysToBuild is stored as the base value; actual completion time depends on workers assigned to the build task.
     public startBuildingConstruction(buildingType: BuildingType, daysToBuild?: number): boolean {
-        if (this.isBuildingCompleted(buildingType) || this.isBuildingUnderConstruction(buildingType)) {
-            console.warn(`Building '${buildingType}' is already built or under construction`);
-            return false;
-        }
-        const costs = BuildingDefinitions.getCosts(buildingType);
-        if (!BuildingDefinitions.canAfford(buildingType, this.get('wood'), this.get('copper'), this.get('iron'))) {
-            console.warn(`Cannot afford building '${buildingType}'`);
+        if (!this.canStartConstruction(buildingType)) {
+            console.warn(`Cannot start construction of '${buildingType}'`);
             return false;
         }
         this.adjust('wood', -costs.wood);
@@ -315,6 +310,26 @@ export class DataModel {
             startDay: this.getCurrentDay(),
             daysToBuild: baseDaysToBuild
         });
+        return true;
+    }
+
+    // True if construction of this building could start right now:
+    //   - the building is not already completed or under construction
+    //   - no other building is under construction (one construction site at a time)
+    //   - the resource costs (wood, copper, iron) are available
+    //   - other building-specific prerequisites are met (none exist yet; add them here)
+    // Single source of truth for the engine (startBuildingConstruction) and the
+    // "canbuild <building>" dialog condition, so they can never disagree.
+    public canStartConstruction(buildingType: BuildingType): boolean {
+        if (this.isBuildingCompleted(buildingType) || this.isBuildingUnderConstruction(buildingType)) {
+            return false;
+        }
+        if (this.buildingsUnderConstruction.length > 0) {
+            return false;
+        }
+        if (!BuildingDefinitions.canAfford(buildingType, this.get('wood'), this.get('copper'), this.get('iron'))) {
+            return false;
+        }
         return true;
     }
 
