@@ -115,7 +115,7 @@ Storage: Reduces resource loss over time. Needs building(s).
 ...and other tasks. healing? repairing? teaching? raiding? exploring? worshipping? guarding? attacking? training?
 
 Buildings:
-Different types of buildings provide different bonuses and have different construction times,  resource costs, and prerequisites. Assume can only be built in specific terrain. 
+Different types of buildings provide different bonuses and have different construction times,  resource costs, and prerequisites. Some can only be built in specific terrain. 
 
 Combat system:
 UI looks just like the test of the game - like a book with choices. Not controlled by a dialog tree, but by the combat loop. 
@@ -124,7 +124,8 @@ Each unit occupies one position: vanguard, main, rear, reserve.
 Each unit is led by one named character. A units stats, strengths and weaknesses are determined by training and equipment. 
 Units act by initiative. On its turn, a player controlled unit will show its status in prose form and at least two choices of what to do.  Possible actions depend on the character leading the unit, position, equipment and training. 
 The player (or AI for enemy units) chooses an action. The game resolves the effects and shows the result in prose form. 
-Fights are won by clever combinations of status effects,  buffs and debuffs, rather than by numbers (because numbers are not easily turned into prose).
+Fights are won by clever combinations of status effects,  buffs and debuffs, rather than by numbers (because numbers are not easily turned into prose). Examples of status effects: Encouraged, bracing, guarded, winning, surprised, losing, discouraged, outflanked, confused, impeded, tired, exhausted...
+Details and precise combat mechanics to be decided...
 
 Controls:
 The game is played using mouse on PC/Mac or by touch on mobile devices.
@@ -143,7 +144,7 @@ In combat, exploiting own strengths and enemies weaknesses.
 Player Experience:
 All aspects of the game must support a relaxed playstyle. There is no time limit on anything allowing the player to take their time making decisions. Controls are simple and easy to learn. Difficulty level is relatively low. Visuals are extremely simple and will never have multiple elements competing for attention.
 Target group:
-Calm introverts. People who enjoy reading fiction books. Mostly casual gamers.
+Mostly for myself. Calm introverts. People who enjoy reading fiction books. Mostly casual gamers.
 
 Story:
 Plot
