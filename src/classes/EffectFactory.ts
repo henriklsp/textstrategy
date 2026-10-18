@@ -51,7 +51,7 @@ export class EffectFactory {
             case 'set': {
                 // [set variableName=choice]
                 if (parts.length < 2) return fail('Expected [set variableName=choice]');
-                const setContent = parts.slice(1).join('=');
+                const setContent = parts.slice(1).join(' ');
                 const match = setContent.match(/^(\w+)\s*=\s*choice$/);
                 if (!match) return fail('Expected [set variableName=choice]');
                 const varName = match[1].toLowerCase();

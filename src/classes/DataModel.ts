@@ -140,12 +140,15 @@ export class DataModel {
 
     // Add a Person to the cast of available characters
     public addPerson(person: Person): void {
+        if (this.castOfCharacters.some(p => p.getName() === person.getName())) {
+            throw new Error(`Person '${person.getName()}' already in cast`);
+        }
         this.castOfCharacters.push(person);
     }
 
     // Get all Persons in the cast
     public getCast(): Person[] {
-        return this.castOfCharacters;
+        return [...this.castOfCharacters];
     }
 
     // Remove a Person from the cast
@@ -160,10 +163,7 @@ export class DataModel {
 
     public set(name: string, value: number | boolean): void {
         if (typeof value === 'boolean') {
-            if (KNOWN_VARIABLES.has(name)) {
-                throw new Error(`Cannot set integer variable '${name}' to boolean`);
-            }
-            if (this.numericData.has(name)) {
+            if (KNOWN_VARIABLES.has(name) || this.numericData.has(name)) {
                 throw new Error(`Cannot set integer variable '${name}' to boolean`);
             }
             if (value) {
@@ -236,6 +236,7 @@ export class DataModel {
 
     // Assign a person (by person name) to a task.
     // Dialog roles (A, B, ...) must be resolved to a Person before calling this.
+    // Note: this allows assigning any person name; only persons in the cast contribute to production/consumption.
     public assignPersonToTask(personName: string, taskType: TaskType): void {
         // Remove any existing assignment for this person
         this.taskAssignments = this.taskAssignments.filter(a => a.personName !== personName);

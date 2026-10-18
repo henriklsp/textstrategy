@@ -85,6 +85,11 @@ export class Person {
         return this.attitude;
     }
 
+    // Set attitude, clamped between 0 and 100
+    public setAttitude(value: number): void {
+        this.attitude = Math.max(0, Math.min(100, value));
+    }
+
     // Adjust attitude, clamped between 0 and 100
     public adjustAttitude(delta: number): void {
         this.attitude = Math.max(0, Math.min(100, this.attitude + delta));
@@ -174,7 +179,7 @@ export class Person {
         const person = new Person(data.name);
         person.setGender(data.gender);
         person.setHealth(data.health);
-        if (data.attitude !== undefined) person.adjustAttitude(data.attitude - 50);
+        if (data.attitude !== undefined) person.setAttitude(data.attitude);
         for (const { trait, type } of data.traits) {
             if (type === 'positive') person.addPositiveTrait(trait);
             else if (type === 'negative') person.addNegativeTrait(trait);
