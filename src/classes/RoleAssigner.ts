@@ -2,12 +2,14 @@
 // The algorithm finds the assignment with the highest total score.
 import { Person } from './Person';
 import { PersonSelection } from './PersonSelection';
+import { DataModel } from './DataModel';
 
 export class RoleAssigner {
     // Find the assignment of Persons to roles with the highest total score.
     // Throws if there are more roles than characters available.
     // Cost grows as cast!/(cast-roles)!, which is small for a handful of roles and characters.
-    public static findBestAssignment(selections: PersonSelection[], cast: Person[]): Person[] {
+    // dataModel supplies current task assignments and health for task-based selections.
+    public static findBestAssignment(selections: PersonSelection[], cast: Person[], dataModel: DataModel | null = null): Person[] {
         if (selections.length > cast.length) {
             const roles = selections.map(s => s.getRoleName()).join(', ');
             throw new Error(
@@ -19,7 +21,7 @@ export class RoleAssigner {
             return [];
         }
 
-        const scores = selections.map(selection => cast.map(person => selection.calculateScore(person)));
+        const scores = selections.map(selection => cast.map(person => selection.calculateScore(person, dataModel)));
         const used = new Array<boolean>(cast.length).fill(false);
         const current: number[] = [];
         let best: number[] = [];

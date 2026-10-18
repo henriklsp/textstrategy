@@ -60,6 +60,16 @@ describe('Starvation, health and rest', () => {
         expect(p.getHealth()).toBe(100);
     });
 
+    test('unassigned people rest by default and heal like resters', () => {
+        const p = new Person('A', 'harmony', 'magic', 'divinity');
+        const dm = makeModel([p], 10);
+        p.setHealth(90);
+        expect(dm.getTaskForPerson('A')).toBe('rest');
+        expect(dm.getPersonsForTask('rest')).toEqual(['A']);
+        dm.updateDailyResources();
+        expect(p.getHealth()).toBeCloseTo(93);
+    });
+
     test('a starving character does not heal from rest', () => {
         const p = new Person('A', 'life', 'magic', 'harmony');
         const dm = makeModel([p], 0);

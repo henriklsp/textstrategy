@@ -1,7 +1,9 @@
 import { DataModel, TaskType, isTaskType, normalizeTaskName } from './DataModel';
 import { Prerequisite, PrerequisiteContext } from './Prerequisite';
 
-// Prerequisite that checks if a task can be performed (building requirements met)
+// Prerequisite that checks if a task has a free worker available:
+// the building requirements must be met, and at least one cast member must be
+// fit for work and not already doing the task.
 export class CanDoTaskPrerequisite extends Prerequisite {
     private readonly taskType: TaskType;
 
@@ -11,7 +13,7 @@ export class CanDoTaskPrerequisite extends Prerequisite {
     }
 
     public isMet(context: PrerequisiteContext): boolean {
-        return context.dataModel.canPerformTask(this.taskType);
+        return context.dataModel.hasFreeWorkerFor(this.taskType);
     }
 
     public getTaskType(): TaskType {

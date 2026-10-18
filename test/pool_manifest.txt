@@ -1,0 +1,8 @@
+// Test fixture for the pool manifest: events before any header get the lowest
+// priority, then priority sections
+foraging
+rabbit
+priority 1:
+sickness
+priority 2:
+storm

@@ -1,8 +1,13 @@
 // Pool manifest. One event name per line; // comments and blank lines are ignored.
-// Each listed event file must declare a trigger mode (?when or ?maybe) in its header.
-// On a day with no scheduled events due, at most one pool event fires:
-// ?when events first, then ?maybe; lowest priority number wins, ties at random.
-// A fired event leaves the pool (fires once per registration).
-// Events can also be registered from code with GameLoop.registerPoolEvent(name).
+// "priority n:" section headers give the events listed under them that priority tier
+// (1 is considered before 2, etc.). Events listed before any header get the lowest
+// priority. On a day with no scheduled events due, at most one pool event fires
+// (if its header conditions are met): the lowest tier with an eligible event,
+// picked randomly within that tier. A fired event leaves the pool (fires once
+// per registration). Scheduled events (not in this file) only fire when an
+// [event x n] effect queues them. Events can also be registered from code with
+// GameLoop.registerPoolEvent(name, tier?).
 // Example:
 //foraging
+//priority 1:
+//sickness

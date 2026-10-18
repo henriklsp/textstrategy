@@ -32,7 +32,8 @@ describe('Event prerequisites (header conditions)', () => {
     });
 
     test('reports an issue for an invalid header condition', () => {
-        const event = parser.parseText('(not a condition)\n§1\nText here');
+        // "not a condition" is valid now (negated role-trait); this one is not
+        const event = parser.parseText('(not !an invalid condition!)\n§1\nText here');
         expect(event.getPrerequisites().length).toBe(0);
         expect(parser.getIssues().some(i => i.message.includes('Invalid event condition'))).toBe(true);
     });
@@ -64,9 +65,12 @@ describe('Event prerequisites (header conditions)', () => {
             expect(event.arePrerequisitesMet(dataModel)).toBe(true);
         });
 
-        test('can task condition', () => {
+        test('can task condition: needs a free worker and task requirements met', () => {
+            // A fit cast member not already scavenging
+            dataModel.addPerson(new Person('Agnar', 'life', 'divinity', 'harmony', 'male'));
             const event = parser.parseText('(can scavenge)\n§1\nText here');
             expect(event.arePrerequisitesMet(dataModel)).toBe(true);
+            // Fishing requires a completed dock
             const fishing = parser.parseText('(can fish)\n§1\nText here');
             expect(fishing.arePrerequisitesMet(dataModel)).toBe(false);
         });

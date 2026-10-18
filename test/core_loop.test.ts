@@ -142,8 +142,23 @@ describe('Core loop wiring', () => {
         dialog.dialogChoiceSelected(dialog.getCurrentChoices()[0]);
         expect(dataModel.getTaskForPerson(forager)).toBe('scavenge');
 
-        // The council schedules its own next meeting before it adjourns
+        // The assignment returns to the agenda: several assignments per meeting
+        pick(dialog, 'Back to business');
+        expect(dialog.getCurrentChoices().map(c => c.getText())).toContain('Nothing. All is good.');
+
+        // A second person can be assigned to the same meeting
+        pick(dialog, 'Scavenging');
+        const secondForager = dialog.getCurrentChoices()[0].getText();
+        expect(secondForager).not.toBe(forager);
+        dialog.dialogChoiceSelected(dialog.getCurrentChoices()[0]);
+        expect(dataModel.getTaskForPerson(secondForager)).toBe('scavenge');
+        pick(dialog, 'Back to business');
+
+        // The council schedules its next meeting only when it adjourns
+        pick(dialog, 'Nothing. All is good.');
         expect(scheduled).toContainEqual({ name: 'workinprogress/council', delay: 10 });
+        expect(scheduled.filter(s => s.name === 'workinprogress/council')).toHaveLength(1);
+        pick(dialog, 'Council adjourned.');
     });
 });
 

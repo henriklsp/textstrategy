@@ -1,6 +1,8 @@
 import { Person, Gender } from './Person';
 import { PrerequisiteContext } from './Prerequisite';
 import { PrerequisiteParser } from './PrerequisiteParser';
+import { normalizeTaskName } from './DataModel';
+import { WorkerReport } from './WorkerReport';
 
 // What the substitution needs from the Dialog: game state, role assignments,
 // random picks, and captured choice variables.
@@ -29,6 +31,13 @@ export interface TextSubstitutionContext extends PrerequisiteContext {
 //   <can fish?a;b>      a if fishing can be performed, else b (any prerequisite type works)
 //   <A life?a;b>        a if the person in role A has positive trait life, else b
 //   <A -magic?a;b>      a if the person in role A has negative trait magic
+//   <working fish>      "Ada and Bea are fishing." - who is doing the task
+//                       (empty if nobody; task name fuzzy-matched like fish->fishing).
+//                       The current role's person becomes first person: "I am fishing."
+//   <taskreport>        one clause per populated task, speaker's clause last:
+//                       "Bea and Cal are scavenging. Dan is building the hall. And I am fishing."
+//                       (everyone rests by default, so a fresh game reads
+//                       "Ada, Bea and Cal are resting.")
 //
 // Supported pronouns: he, him, his, hers, himself (case-sensitive for capitalization)
 // The current role is reset at the start of each text substitution.
@@ -90,10 +99,30 @@ export class TextSubstitution {
                     return pronounResult;
                 }
             }
+
+            // <working fish>: who is doing a task (see WorkerReport)
+            if (spaceIndex > 0) {
+                const firstWord = trimmed.substring(0, spaceIndex).trim();
+                const taskText = trimmed.substring(spaceIndex + 1).trim();
+                if (firstWord === 'working') {
+                    try {
+                        const taskType = normalizeTaskName(taskText);
+                        return WorkerReport.workingClause(taskType, this.context.dataModel, this.speakerName());
+                    } catch (e) {
+                        // Invalid task name: keep the tag visible so the mistake is easy to spot
+                        return `<${inner}>`;
+                    }
+                }
+            }
             
             // <A> or <food> or <task> (choice variable) or standalone pronoun
             const name = trimmed;
             if (/^\w+$/.test(name)) {
+                // <taskreport>: who is working on each task (see WorkerReport)
+                if (name === 'taskreport') {
+                    return WorkerReport.taskReport(this.context.dataModel, this.speakerName());
+                }
+
                 // Check for standalone pronoun: <he>, <him>, <his>, etc. (uses current role)
                 if (this.isPronoun(name)) {
                     if (this.currentRole) {
@@ -162,6 +191,14 @@ export class TextSubstitution {
         }
 
         return `<${inner}>`;
+    }
+
+    // Name of the person in the current role (the "speaker"), or null.
+    // Used by <working fish> and <taskreport> for first-person prose.
+    private speakerName(): string | null {
+        if (!this.currentRole) return null;
+        const person = this.context.getPersonForRole(this.currentRole);
+        return person ? person.getName() : null;
     }
 
     // Numeric value, or undefined if the variable does not exist

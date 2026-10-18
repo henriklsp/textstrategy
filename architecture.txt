@@ -25,11 +25,12 @@ src/browser.ts (browser) or src/index.ts (Node)
   text/<name>.txt files via EventParser or registered with registerEvent().
   Events with unmet header prerequisites are not started when due: they are moved to the next
   day with no other due events and checked again then.
-  Also manages a pool of ?when/?maybe events (from text/pool.txt via loadPoolManifest(), or
-  registerPoolEvent(name)): on a day with no scheduled events due, at most one pool event fires
-  (if its header prerequisites are met). ?when events are considered first, then ?maybe; among
-  candidates the lowest priority number wins, ties broken at random. A fired event leaves the
-  pool (fires once per registration). Idle days advance only while a pool event might still fire.
+  Also manages a pool of events (from text/pool.txt via loadPoolManifest(), or
+  registerPoolEvent(name, tier?)): on a day with no scheduled events due, at most one pool
+  event fires (if its header prerequisites are met). Priority tiers are considered in
+  ascending order (events without a priority last); within a tier the pick is random.
+  A fired event leaves the pool (fires once per registration). Idle days advance
+  only while a pool event might still fire.
   - Event queue is kept sorted by day; same-day events maintain insertion order
   - Async loading of event files in browser environment
   - Daily updates: resource production from tasks, resource consumption, building construction progress
@@ -50,9 +51,6 @@ src/browser.ts (browser) or src/index.ts (Node)
       (any choice condition works; several lines must all be met; the GameLoop
       checks them when the event comes due and otherwise moves it to the next
       day with no other due events)
-    - `?when [n]` / `?maybe [n]` -> Trigger mode (header, before first section): pool event
-      that fires itself on an idle day when its prerequisites are met; optional priority n
-      (lower first). ?maybe is only considered when no ?when event can fire.
     - `*A: trait` -> PersonSelection (role A requires positive trait)
     - `*A: -trait` -> PersonSelection (role A requires negative trait)
     - `*A: trait1, trait2` -> PersonSelection (role A requires both traits)
@@ -62,10 +60,12 @@ src/browser.ts (browser) or src/index.ts (Node)
     - `[bool name true/false]` -> BoolEffect (set boolean flag)
     - `[event name delay]` -> EventEffect (schedule named event after delay days)
     - `[task role|<variable> taskType|<variable>]` -> AssignTaskEffect (assign person to task)
+    - `[person role|<variable> health|attitude value]` -> PersonStatEffect (adjust person's health or attitude)
     - `[build buildingType|<variable>]` -> StartConstructionEffect (start building construction)
     - `[set variableName=choice]` -> SetChoiceEffect (capture next choice as variable)
     - `#2 text` -> Choice to Section 2
-    - `#2 (condition?) text` -> Conditional Choice (visible only if condition met)
+    - `#2 (condition?) text` -> Conditional Choice (visible only if condition met); several
+      (cond?) groups may precede the text: the choice is shown only when ALL are met
     - `<A>` -> text substitution: name of person in role A
     - `<variable>` -> text substitution: value of numeric variable
     - `<variable?>` -> text substitution: display value of variable
@@ -77,8 +77,8 @@ src/browser.ts (browser) or src/index.ts (Node)
 - **Event.ts**: Container for game narrative. Holds Section[] array, startingSection reference
   and Prerequisite[] from the file header ((cond?) lines). arePrerequisitesMet(dataModel) checks
   them outside any dialog (no roles assigned, so person trait conditions are never met).
-  Also carries a trigger mode ('scheduled', 'when' or 'maybe') and a priority number
-  (from ?when [n] / ?maybe [n] header lines); lower priority fires first among pool candidates.
+  How an event triggers is decided outside the file: scheduled via [event x n] effects, or
+  pool registration in text/pool.txt / registerPoolEvent().
   Starting section defaults to first section if not specified.
 - **Dialog.ts**: Runs one Event. Manages:
   - Navigation through Section graph via player choices
@@ -128,6 +128,12 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   - Literal task type (hunting, fishing, etc.)
   - Choice variable reference (<task>) via normalizeTaskName()
   Uses DataModel.assignPersonToTask() to update assignments.
+- **PersonStatEffect.ts**: Adjusts a person's health or attitude by a delta (may be negative
+  or decimal). Resolves the person reference the same way as AssignTaskEffect:
+  - Role name (A, B, C...) via context.getPersonForRole()
+  - Choice variable reference (<person>) via context.getChoiceVariable()
+  Health is clamped to 0..maxHealth in Person.setHealth() (0 = out of action, can trigger
+  forced rest); attitude is clamped to 0..100 in Person.adjustAttitude().
 - **StartConstructionEffect.ts**: Starts building construction. Calls DataModel.startBuildingConstruction()
   which pays resource costs and adds to construction queue. Building must not already be
   completed or under construction, and resources must be available. Resolves building reference from:
@@ -153,6 +159,19 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
 - **Prerequisite.ts**: Generic condition wrapper. Base class for all prerequisites.
   Implements isMet(dataModel) method. Used for dialog choices, text conditionals, and
   event prerequisites (Event header, checked by GameLoop when the event comes due).
+- **PrerequisiteParser.ts**: Parses condition expressions into Prerequisites. Single entry
+  point used for all condition sites (choices, <cond?a;b>, event headers). A "not " prefix
+  negates the rest of the expression (not food 2, not hasdoneit, not A magic); "not" may
+  not be used in nested negations beyond wrapping any single recognized condition.
+- **CanBuildPrerequisite.ts**: Prerequisite checking whether a building could be ordered right now.
+  Parsed from "canbuild shelter" (case-insensitive building name). Delegates to
+  DataModel.canStartConstruction(): not built, not under construction, nothing else under
+  construction, resources affordable - the same check startBuildingConstruction uses, so
+  dialog conditions and engine can never disagree. Registered before VariablePrerequisite.
+- **BuildingStatePrerequisite.ts**: Prerequisite checking building state. Parsed from
+  "built shelter" (building completed), "constructing" (any building under construction),
+  "constructing mine" (specific building under construction). Building names case-insensitive;
+  combines with "not" (e.g. "not built shelter"). Registered before VariablePrerequisite.
 - **VariablePrerequisite.ts**: Prerequisite checking variable values.
   Supports boolean checks (x?) and space syntax for >= (gold 5? = gold >= 5).
   Parsing from text format like `(x?)` or `(gold 5?)` with display text extraction.
@@ -176,6 +195,13 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
     - Food consumption and starvation (see STARVATION, HEALTH AND REST below)
     - Resource decay (without storage building)
   - Task requirements: canPerformTask() checks if required buildings are completed
+  - Worker availability: hasFreeWorkerFor() checks task requirements plus at least
+    one cast member fit for work and not already doing the task; used by CanDoTaskPrerequisite
+  - Person availability: canPersonTakeTask() checks one person: able to perform the
+    task (health, building requirements) and not already doing it; used by
+    PersonCanTaskPrerequisite ("D can fish" choice conditions)
+  - Role selection for tasks: PersonSelection task-based scoring disqualifies people
+    already doing the task or too unhealthy to work, and prefers free (resting), healthy people
   - Default task assignment: assignUnassignedToDefaultTask() assigns to 'scavenge'
   
   Resource types: food, gold, silver, weapons, population, iron, copper, wood
@@ -301,7 +327,7 @@ The core loop is wired through the event files:
   in prose form, but the current implementation has no map or location tracking.
 - **Council event is a first draft**: text/workinprogress/council.txt recurs every 10 days and
   supports construction orders and task assignment, but military status, recent events and
-  worker-count reports are still TODO, and ordering an already-built building shows an error.
+  worker-count reports are still TODO, and construction orders use the single condition (canbuild <building>?), which mirrors the engine check exactly.
 - **No random/prerequisite-triggered events**: the design calls for events to be triggered when
   their prerequisites are met (possibly randomly when the queue runs low); currently an empty
   event queue stops the game.

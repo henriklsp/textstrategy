@@ -1,38 +1,34 @@
-Dialog Parsing Cheat Sheet
+Dialog Parsing Quick Reference Cheat Sheet
 
 // comment : Line is ignored by parser
 
 (hasDoneIt?) : event can only trigger if prerequisite is met. Same prerequisite syntax as dialog choices.
+(not hasDoneIt?) : trigger if prerequisite not met.
 
 *A: Trait : Select person with positive trait for dialog role A
 *A: -Trait : Select person with negative trait for dialog role A
 *A: Trait, Trait2 : Select person with both traits for dialog role A (max two)
 *A: scavenge : Select person best suited for task (scavenge, build, hunting, fishing, farming, woodcutting, mining, craft, storage)
 
-(cond?) : Event prerequisite. One condition per line, in the header before the first section.
- (weapons 1?) : The event only happens if the condition is met when it comes due.
- (can fish) : Any choice condition works here, e.g. flags, numbers, can task.
- Several (cond?) lines must all be met.
- If not met when due, the event is moved to the next day with no other due events, and checked again then.
- Person role conditions (A life?) are never met: no dialog roles are assigned outside a dialog.
-
-?when [n] : Trigger mode: event sits in a pool and fires by itself on an idle day (no scheduled
- event due) once its conditions are met. n is an optional priority: lower fires first (default 0).
-?maybe [n] : Trigger mode like ?when, but only considered if no ?when event can fire.
- Pool events fire at most one per idle day, then leave the pool (fire once per registration).
- Pool events are listed in text/pool.txt (one name per line) or registered with
- GameLoop.registerPoolEvent(name). A pool event may also have (cond?) header conditions;
- they gate when it can fire.
+(cond?) : Event prerequisite. Before the first section.
+ (weapons 1?) : The event only happens if player has at least 1 weapons.
+ (can fish) : only if fishing is possible
+ (not ...) : negates any condition.
+ (not A magic) = role A does not have the magic trait.
 
 §1 : begin section 1
-§1 text : begin section 1, with text as its first text line
 
 # dialog choice
  #2 abc : dialog choice with text abc, go to section 2
  #2 (x?) abc : dialog choice visible only if x is true (boolean flag set, or number not 0)
  #2 (gold 5?) abc : dialog choice visible only if gold >= 5
- #2 (can fish) abc : visible if fish task is assignable
- #2 (can build) abc : if there is a building under construction.
+ #2 (can fish) abc : visible if a free worker is available for fishing:
+                     task performable (required building, construction for build)
+                     and someone fit for work not already doing it
+ #2 (can build) abc : if there is a building under construction and a free worker for it.
+#2 (canbuild hut?) abc : if it is possible to start construction of a specific building. 
+ #2 (D can fish) abc : visible if the person in dialog role D can take on the fishing task:
+                     fit for work and not already doing it (task requirements included)
  #2 (A life?) abc : visible if the person in dialog role A has positive trait life
  #2 (B -magic?) abc : visible if the person in dialog role B has negative trait magic
  #n pointing to a section that does not exist ends the dialog.
@@ -46,7 +42,8 @@ Dialog Parsing Cheat Sheet
  <food>: show current integer value of food
  <x?> : show value of variable x
  <food 2?a;b> : if food >= 2, show a, else b
- <can scavenge?a;b> : if scavenge task is assignable, show a, else b (also can fish, can build, etc.)
+ <can scavenge?a;b> : if a free worker is available for scavenge, show a, else b (also can fish, can build, etc.)
+ <D can scavenge?a;b> : if the person in role D can take on scavenge, show a, else b (like the choice condition)
  <A life?a;b> : a if the person in role A has positive trait life, else b (also other traits)
  <A -magic?a;b> : a if the person in role A has negative trait magic
  <A> : name of person A
@@ -54,6 +51,14 @@ Dialog Parsing Cheat Sheet
  <He> <him> <his> <hers> <himself>. As above. Use last <A>...
  <person>: temporary variable previously set with [set person=choice]
  <currentconstruction>: name of the building currently under construction (empty if none)
+ <working fish>: who is doing a task, e.g. "Ada and Bea are fishing." (empty if nobody).
+                  Task name fuzzy-matched like fish->fishing. Person phrases from TaskPhrases.ts.
+                  The person in the current role (last <A> etc.) becomes first person: "I am fishing."
+ <taskreport>: one clause per task that has workers, speaker's clause last with "And ":
+                  "Bea and Cal are scavenging. Dan is building the hall. And I am fishing."
+                  Unassigned people are resting by default (DataModel), so a fresh game reads
+                  "Ada, Bea and Cal are resting." Large groups aggregate:
+                  "Ada and 12 others are farming." (WorkerReport.ts)
 
 [] Effect to execute when entering section
  [bool x true] : bool effect; set variable x to true
@@ -67,4 +72,6 @@ Dialog Parsing Cheat Sheet
  [set person=choice] : set temporary variable 'person' to the text of the next choice the player picks
  [set task=choice] : same, for temporary variable 'task'
  [set building=choice] : same, for temporary variable 'building'
-
+[person A health -40] : adjust health of person A
+[person B attitude +5] : adjust attitude of person B
+[person <person> health +5] : adjust a person captured with [set person=choice]

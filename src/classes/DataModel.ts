@@ -249,14 +249,30 @@ export class DataModel {
         return [...this.taskAssignments];
     }
 
-    // Get task for a specific person by name
+    // Get task for a specific person by name.
+    // Every cast member has precisely one task; a cast member with no explicit
+    // assignment is resting by default (mirrored in getPersonsForTask).
     public getTaskForPerson(personName: string): TaskType | null {
         const assignment = this.taskAssignments.find(a => a.personName === personName);
-        return assignment ? assignment.taskType : null;
+        if (assignment) return assignment.taskType;
+        const person = this.getPersonByName(personName);
+        return person !== null ? 'rest' : null;
     }
 
-    // Get persons assigned to a specific task
+    // Get persons assigned to a specific task.
+    // Unassigned cast members are resting by default, so they are part of the
+    // 'rest' list (rest healing, council report, <working rest>).
     public getPersonsForTask(taskType: TaskType): string[] {
+        if (taskType === 'rest') {
+            const explicit = this.taskAssignments
+                .filter(a => a.taskType === 'rest')
+                .map(a => a.personName);
+            const assignedNames = new Set(this.taskAssignments.map(a => a.personName));
+            const defaultResting = this.castOfCharacters
+                .filter(p => !assignedNames.has(p.getName()))
+                .map(p => p.getName());
+            return [...explicit, ...defaultResting];
+        }
         return this.taskAssignments
             .filter(a => a.taskType === taskType)
             .map(a => a.personName);
@@ -277,15 +293,11 @@ export class DataModel {
     // construction, or if the resources are not available.
     // daysToBuild is stored as the base value; actual completion time depends on workers assigned to the build task.
     public startBuildingConstruction(buildingType: BuildingType, daysToBuild?: number): boolean {
-        if (this.isBuildingCompleted(buildingType) || this.isBuildingUnderConstruction(buildingType)) {
-            console.warn(`Building '${buildingType}' is already built or under construction`);
+        if (!this.canStartConstruction(buildingType)) {
+            console.warn(`Cannot start construction of '${buildingType}'`);
             return false;
         }
         const costs = BuildingDefinitions.getCosts(buildingType);
-        if (!BuildingDefinitions.canAfford(buildingType, this.get('wood'), this.get('copper'), this.get('iron'))) {
-            console.warn(`Cannot afford building '${buildingType}'`);
-            return false;
-        }
         this.adjust('wood', -costs.wood);
         this.adjust('copper', -costs.copper);
         this.adjust('iron', -costs.iron);
@@ -300,6 +312,26 @@ export class DataModel {
             startDay: this.getCurrentDay(),
             daysToBuild: baseDaysToBuild
         });
+        return true;
+    }
+
+    // True if construction of this building could start right now:
+    //   - the building is not already completed or under construction
+    //   - no other building is under construction (one construction site at a time)
+    //   - the resource costs (wood, copper, iron) are available
+    //   - other building-specific prerequisites are met (none exist yet; add them here)
+    // Single source of truth for the engine (startBuildingConstruction) and the
+    // "canbuild <building>" dialog condition, so they can never disagree.
+    public canStartConstruction(buildingType: BuildingType): boolean {
+        if (this.isBuildingCompleted(buildingType) || this.isBuildingUnderConstruction(buildingType)) {
+            return false;
+        }
+        if (this.buildingsUnderConstruction.length > 0) {
+            return false;
+        }
+        if (!BuildingDefinitions.canAfford(buildingType, this.get('wood'), this.get('copper'), this.get('iron'))) {
+            return false;
+        }
         return true;
     }
 
@@ -548,6 +580,35 @@ export class DataModel {
             }
         }
         return this.canPerformTask(taskType);
+    }
+
+    // True if a person's health is high enough to work:
+    // above their forced rest threshold.
+    public isFitForWork(person: Person): boolean {
+        return person.getHealthFraction() > this.getForcedRestThreshold(person);
+    }
+
+    // True if the task can be performed (building requirements met) and at least
+    // one cast member is fit for work and not already assigned to that task,
+    // i.e. someone is actually available to take it on.
+    public hasFreeWorkerFor(taskType: TaskType): boolean {
+        if (!this.canPerformTask(taskType)) {
+            return false;
+        }
+        return this.castOfCharacters.some(person =>
+            this.isFitForWork(person) &&
+            this.getTaskForPerson(person.getName()) !== taskType
+        );
+    }
+
+    // True if a person can be assigned to this task right now:
+    // able to perform it (health and building requirements, see
+    // canPersonPerformTask) and not already doing it.
+    public canPersonTakeTask(person: Person, taskType: TaskType): boolean {
+        if (this.getTaskForPerson(person.getName()) === taskType) {
+            return false; // already doing this task
+        }
+        return this.canPersonPerformTask(person.getName(), taskType);
     }
 
     // Move every character at or below their forced rest threshold (who is not
