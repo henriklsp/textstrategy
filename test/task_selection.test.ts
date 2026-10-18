@@ -94,7 +94,7 @@ describe('Task role selection', () => {
 
     test('works without a data model (trait scoring only)', () => {
         const a = makePerson('A');
-        const selection = PersonSelection.createForTask('E', 'fish');
+        const selection = PersonSelection.createForTask('E', 'fishing');
         // No assignments to consult: scoring falls back to traits only
         expect(selection.calculateScore(a)).toBeGreaterThanOrEqual(0);
     });
