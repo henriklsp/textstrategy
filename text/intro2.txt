@@ -3,41 +3,51 @@
 *C: -life, magic
 
 // INTRO2 - SECOND DRAFT: STRUCTURE (guide stage 2), revised
-// Note from Henrik: the crash is not the opening. Start with quiet dialog on
-// the boat - the player must get to know the companions first - then let the
-// tension build gradually towards the crash on the reef. Only then is the
-// "who do you grab" decision meaningful.
+// The opening is grim, not calm-before-the-storm: the last remaining boat,
+// damaged and overcrowded, everyone tired, little fresh water left except
+// rain water, no land in sight, no way back. Some are still hopeful and
+// determined. Nothing happens in the opening except rowing and the sun
+// setting. The dialog choice is about hearing the friends' thoughts and
+// lifting their spirits or planning ahead. The tension then builds
+// gradually towards the crash on the reef, which they never saw coming.
 // Structure per the guide: numbered main path with one choice per section,
 // a main decision with consequence choices, ending section with no choices.
 // Skeleton text only - basic text and effects come in later stages.
 // Ends with night; the first day continues in the firstday event.
 
-// --- QUIET START - get to know the companions ---
+// --- GRIM QUIET - get to know the companions ---
 
 §10
 // SET THE SCENE - opening text of the game.
-Scene: dark is falling on the last evening of the voyage. The sail was
-destroyed days ago; everyone has been taking turns at the oars. The refugee
-boat is crowded with families, most of them resting after the evening meal.
-Nothing happens yet - just tiredness, salt, and the sound of the oars.
+Scene: the sun is setting on another day at the oars. This is the last
+remaining boat - the voyage took the others. It is damaged and overcrowded,
+everyone is tired, and there is little fresh water left except what the
+rains give. There is no land in sight, and no way back. Nothing happens
+except rowing and the sun going down. Yet some are still hopeful and
+determined. (The player does NOT know it is the last day - nobody does.)
 Question: Who do you sit next to while you rest?
 #20 <A>
 #30 <B>
 #40 <C>
 
 §20
-// A moment: proud, determined <A> - talk about the future, the leader's
-// dream of the unknown land. Insert dialog here.
+// A moment: proud, determined <A> - still hopeful, talks of what may lie
+// ahead if anything does. Maybe lift <A>'s spirits, or plan for what comes.
+Insert dialog here.
 #50 Continue
 
 §30
-// B moment: calm, strong <B> - talk about the sea and what lives in it,
-// at ease with the water. Insert dialog here.
+// B moment: calm, strong <B> - at ease with the sea, talks of what lives
+// in the water and what it means that the fish are gone/coming. Maybe lift
+// <B>'s spirits, or plan for what comes.
+Insert dialog here.
 #50 Continue
 
 §40
-// C moment: clever, curious <C> - talk about what was left behind, and what
-// might be ahead. Insert dialog here.
+// C moment: clever, curious <C> - tired like everyone, but the mind wanders:
+// what was left behind, what might be ahead, if anything. Maybe lift <C>'s
+// spirits, or plan for what comes.
+Insert dialog here.
 #50 Continue
 
 // --- RISING TENSION - the storm builds ---
@@ -45,11 +55,11 @@ Question: Who do you sit next to while you rest?
 §50
 Scene: the wind picks up. Clouds swallow the last light. The oars bite
 harder; the families wake and hold their children. Someone says they see
-lightning far out at sea. The tension rises, but the boat holds.
+lightning far out at sea. The tension rises, but the boat holds - for now.
 #60 Continue
 
 §60
-// THE CRASH. Now the decision has weight: the player knows these people.
+// THE CRASH - which nobody saw coming.
 Scene: the storm is on you in full darkness. A cry goes up - reef! The boat
 grinds over the rocks, the hull tears open, people and belongings spill into
 the waves.
@@ -114,6 +124,6 @@ Insert ending here.
 //   §140 queues the first day.
 // - Loop check: every section has exactly one choice; §20-§40 funnel to §50,
 //   §70-§90 funnel to §100, §110-§130 funnel to §140; no dead ends, no repeats.
-// - Dramatic arc: quiet start (§10-§40) - rising tension (§50) - climax and
+// - Dramatic arc: grim quiet (§10-§40) - rising tension (§50) - climax and
 //   companion decision (§60-§90) - falling action and main decision (§100-§130)
 //   - night (§140).
