@@ -3,127 +3,183 @@
 *C: -life, magic
 
 // INTRO2 - SECOND DRAFT: STRUCTURE (guide stage 2), revised
-// The opening is grim, not calm-before-the-storm: the last remaining boat,
-// damaged and overcrowded, everyone tired, little fresh water left except
-// rain water, no land in sight, no way back. Some are still hopeful and
-// determined. Nothing happens in the opening except rowing and the sun
-// setting. The dialog choice is about hearing the friends' thoughts and
-// lifting their spirits or planning ahead. The tension then builds
-// gradually towards the crash on the reef, which they never saw coming.
-// Structure per the guide: numbered main path with one choice per section,
-// a main decision with consequence choices, ending section with no choices.
-// Skeleton text only - basic text and effects come in later stages.
+// Opening mood: grim. The last remaining boat, damaged and overcrowded,
+// everyone tired, little fresh water left except rain water, no land in
+// sight, no way back. Some are still hopeful and determined. Nothing happens
+// except rowing and the sun setting.
+// Structure: starts at §1, then §10. Each companion is introduced through
+// dialog as their turn at the oars ends and they huddle together to talk.
+// The early choices are WHAT TO SAY, not who to sit with - the player learns
+// who A, B and C are before any choice about them matters.
+// Tension builds gradually towards the crash on the reef, which nobody saw
+// coming. Skeleton text only - basic text and effects come in later stages.
 // Ends with night; the first day continues in the firstday event.
 
-// --- GRIM QUIET - get to know the companions ---
+// --- SCENE-SET ---
 
-§10
+§1
 // SET THE SCENE - opening text of the game.
 Scene: the sun is setting on another day at the oars. This is the last
 remaining boat - the voyage took the others. It is damaged and overcrowded,
 everyone is tired, and there is little fresh water left except what the
-rains give. There is no land in sight, and no way back. Nothing happens
-except rowing and the sun going down. Yet some are still hopeful and
-determined. (The player does NOT know it is the last day - nobody does.)
-Question: Who do you sit next to while you rest?
-#20 <A>
-#30 <B>
-#40 <C>
+rains give. There is no land in sight, and no way back. Yet some are still
+hopeful and determined. Nobody knows it is the last day.
+#10 Continue
+
+// --- QUIET DIALOG - meet A, B and C; choices are what to say ---
+
+§10
+Scene: <A>'s turn at the oars ends. While the next rowers settle in, <A>
+huddles down beside you - proud, determined, still holding on to hope.
+Insert A's thoughts and worries here (through A's own words).
+Question: What do you say?
+#11 Speak of hope for what lies ahead
+#12 Plan for what may lie ahead, if anything
+#13 Say little - just listen
+
+§11
+// Reaction: hope lifts <A>'s spirits - or <A> lifts yours.
+Insert reaction here.
+#20 Continue
+
+§12
+// Reaction: practical talk - <A> warms to planning, lists what is needed.
+Insert reaction here.
+#20 Continue
+
+§13
+// Reaction: <A> talks on, and being heard is its own comfort.
+Insert reaction here.
+#20 Continue
 
 §20
-// A moment: proud, determined <A> - still hopeful, talks of what may lie
-// ahead if anything does. Maybe lift <A>'s spirits, or plan for what comes.
-Insert dialog here.
-#50 Continue
+Scene: <B>'s turn at the oars ends. Strong and calm, <B> settles beside you,
+at ease even on this damaged boat.
+Insert B's thoughts here (through B's own words - the sea, what lives below,
+what the water tells).
+Question: What do you say?
+#21 Speak of hope for what lies ahead
+#22 Plan for what may lie ahead, if anything
+#23 Say little - just listen
+
+§21
+// Reaction: hope - <B> answers with quiet confidence.
+Insert reaction here.
+#30 Continue
+
+§22
+// Reaction: practical talk - <B> weighs what the sea gives and takes.
+Insert reaction here.
+#30 Continue
+
+§23
+// Reaction: <B> talks on, calm as the swell.
+Insert reaction here.
+#30 Continue
 
 §30
-// B moment: calm, strong <B> - at ease with the sea, talks of what lives
-// in the water and what it means that the fish are gone/coming. Maybe lift
-// <B>'s spirits, or plan for what comes.
-Insert dialog here.
-#50 Continue
+Scene: <C>'s turn at the oars ends. Clever and curious but bone-tired, <C>
+drops down between you, mind still wandering: what was left behind, what
+might be ahead.
+Insert C's thoughts here (through C's own words).
+Question: What do you say?
+#31 Speak of hope for what lies ahead
+#32 Plan for what may lie ahead, if anything
+#33 Say little - just listen
 
-§40
-// C moment: clever, curious <C> - tired like everyone, but the mind wanders:
-// what was left behind, what might be ahead, if anything. Maybe lift <C>'s
-// spirits, or plan for what comes.
-Insert dialog here.
-#50 Continue
+§31
+// Reaction: hope - <C> laughs at the idea, then admits to wanting it.
+Insert reaction here.
+#40 Continue
+
+§32
+// Reaction: practical talk - <C> brightens; here is a game worth playing.
+Insert reaction here.
+#40 Continue
+
+§33
+// Reaction: <C> rambles on, and the talking keeps despair at bay.
+Insert reaction here.
+#40 Continue
 
 // --- RISING TENSION - the storm builds ---
 
-§50
+§40
 Scene: the wind picks up. Clouds swallow the last light. The oars bite
 harder; the families wake and hold their children. Someone says they see
 lightning far out at sea. The tension rises, but the boat holds - for now.
-#60 Continue
+#50 Continue
 
-§60
-// THE CRASH - which nobody saw coming.
+§50
+// THE CRASH - which nobody saw coming. Now the choice has weight.
 Scene: the storm is on you in full darkness. A cry goes up - reef! The boat
 grinds over the rocks, the hull tears open, people and belongings spill into
 the waves.
 Question: Who do you grab and hold onto in the waves?
-#70 <A>
-#80 <B>
-#90 <C>
+#51 <A>
+#52 <B>
+#53 <C>
 
-§70
+§51
 // A moment: <A> refuses to let go of you, drags you both toward the shore.
 Insert moment here.
-#100 Continue
+#60 Continue
 
-§80
+§52
 // B moment: <B> swims with you on the swell, calm as if the sea obeys.
 Insert moment here.
-#100 Continue
+#60 Continue
 
-§90
+§53
 // C moment: <C> clings to a floating plank, laughing in despair.
 Insert moment here.
-#100 Continue
+#60 Continue
 
 // --- MAIN DECISION ---
 
-§100
+§60
 // The beach in the dark: the wreck settling on the reef behind you,
 // refugees stumbling ashore, one badly hurt, others gathering around them.
 Question: One thing from the wreck is still within reach. What do you take?
-#110 Food
-#120 A bundle of silver coins
-#130 An axe
+#61 Food
+#62 A bundle of silver coins
+#63 An axe
 
-§110
+§61
 // Consequence: food saved from the wreck.
 Insert text here.
-#140 Continue
+#70 Continue
 
-§120
+§62
 // Consequence: the silver coins.
 Insert text here.
-#140 Continue
+#70 Continue
 
-§130
+§63
 // Consequence: the axe.
 Insert text here.
-#140 Continue
+#70 Continue
 
 // --- ENDING - no choices ---
 
-§140
+§70
 // LANDFALL / NIGHT. The cost of arrival sinks in. The wreck groans on the
 // reef. The survivors huddle together on the dark beach, too tired to go on.
 // Night falls - to be continued the next day.
 Insert ending here.
 
 // STAGE 2 NOTES:
-// - No prerequisites yet: the player starts with no variables, nothing to gate on.
-// - No alternative ending: the voyage always ends on the reef; only the
-//   companion dialog, the crash moment, and the saved item differ.
+// - Starts at §1 (scene-set), then §10 (A), §20 (B), §30 (C).
+// - Every companion gets: an intro section (through their own words) with a
+//   what-do-you-say choice of three options (hope / plan / listen), and each
+//   option has its own short reaction section before moving on.
+// - No prerequisites yet: the player starts with no variables.
+// - No alternative ending: the voyage always ends on the reef.
 // - The chosen item (food/silver/axe) sets variables in a later stage, and
-//   §140 queues the first day.
-// - Loop check: every section has exactly one choice; §20-§40 funnel to §50,
-//   §70-§90 funnel to §100, §110-§130 funnel to §140; no dead ends, no repeats.
-// - Dramatic arc: grim quiet (§10-§40) - rising tension (§50) - climax and
-//   companion decision (§60-§90) - falling action and main decision (§100-§130)
-//   - night (§140).
+//   §70 queues the first day.
+// - Loop check: every section has exactly one choice (§1 and §70 by design:
+//   §1 only continues, §70 ends); §11-§13 funnel to §20, §21-§23 to §30,
+//   §31-§33 to §40, §51-§53 to §60, §61-§63 to §70; no dead ends, no repeats.
+// - Dramatic arc: grim quiet and introductions (§1-§33) - rising tension
+//   (§40) - climax and companion decision (§50-§53) - falling action and
+//   main decision (§60-§63) - night (§70).
