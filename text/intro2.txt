@@ -12,18 +12,24 @@
 // Roles: A divinity (undeterred, destiny and glory), B -life (physically
 // exhausted), C magic (stars, omens, plans). D has no trait yet - decided
 // later; D sleeps through the intro, mentioned but not introduced.
+// Revised after read-through: the opening now establishes context for a
+// cold reader (fled the Empire of the Dragon, last of three ships, three
+// friends named before D is called the fourth). Meta/writer-voice phrases
+// removed. Contradiction in §65 fixed.
 // Ends with night; the first day continues in the firstday event.
 
 §1
 [var food 1]
-The sun is setting on another day at sea. This is the last boat. The voyage took the others. The boat is old and damaged, and crowded with refugees and everything they own. The sail was destroyed days ago, and everyone rows in turns. You are tired. There is little fresh water left, except what the rains give. There is no land in sight, and no way back.
-Near you, your fourth friend <D> sleeps under a tarp, worn out. You decide not to wake <D>. A proper introduction can wait.
-Your turn at the oars is over. Behind you, the next rowers settle in and the strokes continue.
+The sun is setting on another day at sea.
+You are a refugee. Weeks ago the people of your home province rose against the Empire of the Dragon, and were broken for it. The survivors fled across the Western Ocean in three ships, toward lands that may not even exist. One ship was lost in a storm. Another was sunk by the Emperor's warships - her people were barely rescued onto yours. Now this is the last boat: old, damaged, and crowded with a hundred refugees and everything they own.
+The sail was destroyed days ago, and everyone rows in turns. You are tired. There is little fresh water left, except what the rains give. There is no land in sight, and no way back - the Empire does not forgive those who fought it.
+By your bench your three friends rest from their turns at the oars: <A>, <B>, and <C>. Your fourth friend, <D>, sleeps under a tarp, worn out. You decide not to wake <D>.
+Your own turn at the oars is over. Behind you, the next rowers settle in and the strokes continue.
 #5 Watch the darkening sea and sky
 #10 Sit down among the others
 
 §5
-You move to the side and watch the water. The sea is black and moves like something breathing. Far away, lightning flickers inside the clouds, too far to hear. Nothing answers you, and no land breaks the horizon.
+You move to the side and watch the water. The sea is black and moves like something breathing. Far away, lightning flickers inside the clouds, too far to hear. No land breaks the horizon.
 #6 Count the remaining food (food 1?)
 #10 Sit down among the others
 
@@ -70,7 +76,7 @@ Sometimes being heard is enough. <A> seems calmer when the watch changes.
 #14 Ask <A> about the gods (A divinity)
 
 §14
-"The gods," you say. "You always speak of the gods. Do you think they sent us out here?"
+"The gods," you say. "You spoke of the gods. Do you think they sent us out here?"
 <A> is quiet for a moment. "I think they opened the door and pushed us through it," <A> says. "What we do on the other side is ours. That is the whole point of us."
 #15 Ask whether the gods sent the storm
 #20 Let it rest
@@ -229,7 +235,7 @@ You drag it up onto the sand, above the reach of the waves.
 
 §62
 [var silver 2]
-You wade back and pull a bundle from the wreck - a heavy bundle of silver coins, all that remains of the family fortune. Everything else went to the voyage, or to the sea. Silver will not fill a stomach. But if there are people on these lands, it might buy what you need.
+You wade back and pull a bundle from the wreck - a heavy bundle of silver coins, all that remains of your family's fortune. Everything your family owned went to the voyage, or to the sea. Silver will not fill a stomach. But if there are people on these lands, it might buy what you need.
 You carry it up onto the sand.
 #64 Look after the others
 #70 Let the night come
@@ -250,7 +256,7 @@ The storm begins to lose its voice. On the dark beach, the survivors drift toget
 #70 Let the night come
 
 §65
-You kneel by the hurt refugee. The leg is bad - broken by the rocks, the bone near the skin - but the bleeding has stopped. An old woman binds it with strips of sail cloth and tells you <B> and <A> carried <D> and the children ashore, so at least everyone is here. "Rest will do the rest," she says.
+You kneel by the hurt refugee. The leg is bad - broken by the rocks, the bone near the skin - but the bleeding has stopped. An old woman binds it with strips of sail cloth. "A gift from the sea rocks," she says. "The leg will mend, if it is allowed to rest. The rest of us were lucky."
 #66 See to the children and families
 #70 Let the night come
 
@@ -267,6 +273,6 @@ You search the surf with numb hands. In the shallows you find a length of broken
 
 §70
 The rain goes on. You count the others - everyone made it ashore. The injured one is being cared for. The wreck groans on the reef behind you, breaking a little more with every wave, but still holding together. There is no going back now, and nowhere else to go.
-The survivors huddle together on the dark beach. Someone starts a small fire of driftwood. Nobody speaks. Everyone is too tired. <D> sleeps again by the fire - a proper introduction must wait for morning.
+The survivors huddle together on the dark beach. Someone starts a small fire of driftwood. Nobody speaks. Everyone is too tired. <D> sleeps again by the fire.
 The night comes down on the first day of the rest of your lives.
 [event firstday 0]
