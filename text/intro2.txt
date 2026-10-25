@@ -1,69 +1,77 @@
-// INTRO2 - FIRST DRAFT: OUTLINE (guide stage 1)
-// Like intro.txt: assigns roles A/B/C, gives the player early choices,
-// ends on landfall and queues the first day.
-// Difference from intro.txt: storm and shipwreck arrival, and a larger
-// boat - a refugee boat, not a rowboat.
+*A: divinity, -magic
+*B: life
+*C: -life, magic
 
-// When: The evening of the final day of the voyage. It is getting dark and a
-// storm has been building all evening. Days ago the sail was destroyed, and
-// since then everyone has been taking turns at the oars. Everyone is tired.
+// INTRO2 - SECOND DRAFT: STRUCTURE (guide stage 2)
+// Structure per the guide: numbered main path with one choice per section,
+// a main decision with consequence choices, ending section with no choices.
+// Skeleton text only - basic text and effects come in later stages.
+// Ends with night; the first day continues in the firstday event.
 
-// Why: You and your friends are among a larger group of refugees who fled the
-// Dragon Emperor by sea - families, children, old people, all gambling on the
-// uncharted lands across the water. The boat is crowded and carrying
-// everything everyone owns. The intro must establish the peril, the
-// community, and the cost of arrival.
+// --- MAIN PATH ---
 
-// What: In the dark, the storm drives the boat onto a reef. The hull tears
-// open and the boat grinds over the rocks toward the unknown shore. Everyone
-// scrambles through the surf and up the beach in the storm-lit evening. All
-// survive, but exhausted, and much is lost in the water. One of the refugees
-// is badly injured in the grounding - not the companion the player helps.
-// (No game-mechanical injury at this stage; prose only.)
+§10
+// SET THE SCENE - opening text of the game.
+Scene: dark evening, crowded refugee boat with families, days of rowing since
+the sail was destroyed, everyone exhausted, storm building. The boat hits a
+reef and tears open.
+Question: Who do you grab and hold onto in the waves?
+#20 <A>
+#30 <B>
+#40 <C>
 
-// How: S1 is the first thing the player reads - it must SET THE SCENE: dark
-// evening, tired rowers, a crowded refugee boat with families, building
-// storm, the sail destroyed days ago. The grounding is narration, not a
-// choice. First choice: who do you grab and hold onto in the waves when the
-// boat breaks open? Leads to a short personal moment. Second choice: one
-// thing you can still reach before the wreck settles - what do you take?
+§20
+// A moment: <A> refuses to let go of you, drags you both toward the shore.
+Insert moment here.
+#50 Continue
 
-// But: The tension is loss and uncertainty. You can only save one item, and
-// you do not know what these lands hold: danger, people, or nothing at all.
-// The choice must feel like a real gamble. But the boat is NOT completely
-// gone - it is wrecked on the reef, battered but still there. The large boat
-// is ALWAYS wrecked (in both intros the voyage ends here): much later in the
-// game this leads to a choice: salvage what remains of the boat, or attempt
-// to repair it. No flag needed.
+§30
+// B moment: <B> swims with you on the swell, calm as if the sea obeys.
+Insert moment here.
+#50 Continue
 
-// Who: A (proud, determined, a born leader), B (strong, calm, close to
-// nature), C (clever, curious, weaker but quick-witted). Same trait lines as
-// intro.txt for now: *A: divinity, -magic  /  *B: life  /  *C: -life, magic
-// Also present: the other refugees - families with children, the old, the
-// tired. They are NOT named; they are background community, and will matter
-// later. The chosen companion talks to you while you catch your breath in
-// the surf.
+§40
+// C moment: <C> clings to a floating plank, laughing in despair.
+Insert moment here.
+#50 Continue
 
-// Finally: You stand dripping on an unknown beach in the dark, everything
-// lost except the one thing you saved, surrounded by tired survivors, with
-// the wreck of the boat groaning on the reef behind you. First day begins.
+§50
+// MAIN DECISION - the one thing still reachable from the wreck.
+Scene: the beach in the dark, wreck settling on the reef behind you,
+refugees stumbling ashore, one badly hurt, others gathering around them.
+Question: One thing from the wreck is still within reach. What do you take?
+#60 Food
+#70 A bundle of silver coins
+#80 An axe
 
-// SECTION SKETCH (guide stage 2 will formalize):
-// S1  - SET THE SCENE (opening text of the game): dark evening, crowded
-//      refugee boat with families, days of rowing since the sail was
-//      destroyed, everyone exhausted, storm building. Boat hits a reef and
-//      tears open. "Who do you grab and hold onto?" #A #B #C
-// S2-4 - Short personal moment with chosen companion in the surf:
-//      A: refuses to let go of you, drags you both up (determined leader)
-//      B: swims with you on the swell, calm as if the sea obeys (life)
-//      C: clings to a floating plank, laughing in despair (clever, -life)
-//      Each loops back to S5 with #Continue
-// S5  - On the beach in the dark. The wreck settles on the reef behind you.
-//      Other refugees stumble ashore around you; one is badly hurt and others
-//      gather around them. One thing is still reachable from the wreck.
-//      "What do you take?" #Food #Coins #Axe
-// S6-8 - Item sections, each ends #Continue -> S9
-// S9  - Landfall. The cost of arrival sinks in; the wreck groans on the reef
-//      in the dark. Queues the first day.
-//      (mirrors intro.txt S9; exact wording/effects come in later guide
-//      stages - effects are not for the first draft)
+§60
+// Consequence: food saved from the wreck.
+Insert text here.
+#90 Continue
+
+§70
+// Consequence: the silver coins.
+Insert text here.
+#90 Continue
+
+§80
+// Consequence: the axe.
+Insert text here.
+#90 Continue
+
+// --- ENDING - no choices ---
+
+§90
+// LANDFALL / NIGHT. The cost of arrival sinks in. The wreck groans on the
+// reef. The survivors huddle together on the dark beach, too tired to go on.
+// Night falls - to be continued the next day.
+Insert ending here.
+
+// STAGE 2 NOTES:
+// - No prerequisites yet: the player starts with no variables, nothing to gate on.
+// - No alternative ending: the voyage always ends on the reef; only the
+//   companion moment and the saved item differ.
+// - The chosen item (food/silver/axe) sets variables in a later stage, and
+//   §90 queues the first day.
+// - Loop check: every section has exactly one choice; §20-§40 and §60-§80 all
+//   funnel into §50/§90; no dead ends, no repeats.
