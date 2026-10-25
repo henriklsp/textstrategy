@@ -132,24 +132,39 @@ export class Dialog implements EffectContext, TextSubstitutionContext, Prerequis
     }
 
     // Get available choices for the current section with role substitutions (<A>, <B>, ...).
+    // Choices that contain unassigned roles are hidden (treated as if prerequisites are false).
     // Other variable types are not processed in choices.
     // An empty list means the dialog is at its end (see endDialog).
     public getCurrentChoices(): Choice[] {
         if (!this.currentSection) return [];
-        return this.getVisibleChoices(this.currentSection).map(choice => {
-            const originalText = choice.getText();
-            const processedText = originalText.replace(/<([A-Za-z]\w*)>/g, (match, roleName) => {
-                const person = this.roleToPerson.get(roleName);
-                return person ? person.getName() : match;
-            });
+        return this.getVisibleChoices(this.currentSection)
+            .map(choice => {
+                const originalText = choice.getText();
+                const processedText = originalText.replace(/<([A-Za-z]\w*)>/g, (match, roleName) => {
+                    const person = this.roleToPerson.get(roleName);
+                    return person ? person.getName() : match;
+                });
 
-            // If the text changed, create a new Choice with the processed text
-            // Keep the same prerequisites and section reference
-            if (processedText !== originalText) {
-                return new Choice(processedText, choice.getPrerequisites(), choice.getSection());
-            }
-            return choice;
-        });
+                // If the text changed, create a new Choice with the processed text
+                // Keep the same prerequisites and section reference
+                if (processedText !== originalText) {
+                    return new Choice(processedText, choice.getPrerequisites(), choice.getSection());
+                }
+                return choice;
+            })
+            .filter(choice => {
+                // Hide choices that contain unassigned role tags
+                const text = choice.getText();
+                const roleTagMatch = text.match(/<([A-Za-z]\w*)>/);
+                if (roleTagMatch) {
+                    const roleName = roleTagMatch[1];
+                    // If the role is not assigned, hide this choice
+                    if (!this.roleToPerson.has(roleName)) {
+                        return false;
+                    }
+                }
+                return true;
+            });
     }
 
     // Called by UI when user selects a choice
@@ -210,8 +225,7 @@ export class Dialog implements EffectContext, TextSubstitutionContext, Prerequis
 
     // Resolve PersonSelections for the current section.
     // Finds the assignment of Persons to roles with the highest total score.
-    // Existing role assignments are preserved unless the role appears again in this section.
-    // Throws if the section has more roles than there are characters.
+    // Assigns as many roles as possible; unassigned roles remain undefined.
     private resolvePersonSelections(): void {
         if (!this.currentSection) return;
 
@@ -219,13 +233,16 @@ export class Dialog implements EffectContext, TextSubstitutionContext, Prerequis
         if (selections.length === 0) return;
 
         const cast = this.dataModel.getCast();
-        try {
-            const best = RoleAssigner.findBestAssignment(selections, cast, this.dataModel);
-            selections.forEach((selection, i) => this.roleToPerson.set(selection.getRoleName(), best[i]));
-        } catch (error) {
-            const sectionNumber = this.currentSection.getSectionNumber();
-            throw new Error(`Section ${sectionNumber ?? '?'}: ${(error as Error).message}`);
-        }
+        const best = RoleAssigner.findBestAssignment(selections, cast, this.dataModel);
+        selections.forEach((selection, i) => {
+            const person = best[i];
+            if (person) {
+                this.roleToPerson.set(selection.getRoleName(), person);
+            } else {
+                // Role is unassigned - ensure it's not in the map
+                this.roleToPerson.delete(selection.getRoleName());
+            }
+        });
     }
 
     // Apply effects from the current section

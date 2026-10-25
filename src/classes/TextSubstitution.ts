@@ -153,6 +153,11 @@ export class TextSubstitution {
                 if (textValue !== undefined) return textValue;
                 
                 // Variable not found - return error indicator that will be visible
+                // Variable not found - return empty string if this is a role reference, else error indicator
+                // Roles are single uppercase letters (A-Z)
+                if (/^[A-Z]$/.test(name)) {
+                    return ''; // Unassigned role: return empty string
+                }
                 return `<ERROR: ${name} not found>`;
             }
             return `<${inner}>`;
@@ -179,6 +184,18 @@ export class TextSubstitution {
         // <currentconstruction?a;b>: truthy if something is under construction
         if (condition === 'currentconstruction') {
             return this.substitute((this.textValue('currentconstruction') ?? '') !== '' ? trueText : falseText);
+        }
+
+        // Check if condition references any unassigned roles (e.g., "A life", "B -magic")
+        // Extract role names from the condition - single uppercase letters at the start
+        const roleMatch = condition.match(/^([A-Z])\s/);
+        if (roleMatch) {
+            const roleName = roleMatch[1];
+            const person = this.context.getPersonForRole(roleName);
+            if (!person) {
+                // Role is unassigned - return empty string for the entire tag
+                return '';
+            }
         }
 
         // Conditional subsection: <cond?a;b>

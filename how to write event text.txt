@@ -1,0 +1,62 @@
+GUIDE: HOW TO WRITE EVENT TEXT
+ 1: First draft - Outline
+Write the general short outline of the event. Answer each of the following on a line preceded by // making it a a comment and not final text. 
+// When: When does it trigger?
+// Why: Why is this event interesting?
+// What: What challenge does the player face?
+// How: How can it be solved?
+// But: What is the dilemma?
+// Who: Who has a stake in it (Not a specific person, but a role, group, type or trait) and how might interests clash?
+// Finally: What are the possible outcomes?
+Save as a txt file with a descriptive name
+
+2: Second draft - Structure
+Add the following to the file:
+Event Prerequisite(s) 
+Main path: Sections in order. One # choice per section leading to the next section. Numbered §10 §20 §30 etc to make it easy to insert more sections in between. Write a // one-line comment description for each section.
+Main decision: somewhere along the main path,  the player faces a significant decision, problem or dilemma. Describe it in a few // lines.
+Consequences: The main decision must have 2 or 3 choices. Add the sections with a one line comment on each, stating the consequences. 
+Optional alternative ending. One of the main choices may lead away from the main path to its own ending of the event. 
+End: section(s) with no choices end the dialog. 
+
+3: Third draft: Basic text
+Add roles before the first section.
+*A: trait(s) 
+- Pick divinity trait for a proactive role who drives the narrative forward, magic trait for one who delivers information, life trait for a touch of nature, harmony for collaboration - or their opposites... (See gamedesign#characters for details)
+Write the §1 introduction in simple concise matter-of-fact prose.
+Set the scene. Where and when. what is going on. Who is present apart from the player.
+Fill the other sections with basic story text similarly.
+Add effects to sections as appropriate. Examples of typical effects could be: 
+[person A health -5] : A suffers a minor injury.
+[person B attitude +5] : B is pleased
+[person C health -30] : C is seriously injured
+[person B attitude -5] : B is annoyed
+[var food +1] : gain food equal to one basket full.
+[var wood -1]: lose or spend a stack of wood.
+See dialogparsing.txt for the whole list of possible effects. 
+
+4: Fourth draft - Complete dialog tree
+Add more sections, choices and additional branching paths, so that each section has at least two choices. Most choices lead back to the main path. 
+Add some choices with prerequisites. Some examples:  
+(silver 1?) check that the player has resources to spend. 
+(A magic) a character has a certain trait
+Choices can be made mutually exclusive with the 'not' operator, if results should depend on whether a prerequisite is met or not.
+
+5: Final draft - prose text
+Rewrite all basic text in prose form.
+Aim for a mythical style inspired by fantasy authors. Use lyrical descriptions, especially for passages setting the scene or depictions of nature, invoking a sense of wonder.
+Include sensory detail and vivid impressions.
+Ethical and moral themes revolve around human emotions, quirks and vices such as temptation, pride, courage, folly and hope and the dream of freedom.
+Everything happens in the present tense.
+The story is always told from the player's perspective. The player as the main character is referred to as 'you'. The reader only knows what the main character can see, hear and feel and remember. The player's character is mostly a silent protagonist, rarely described, but always present. 
+Be careful not to describe facts, which may contradict the actual game state. Check designdocument backstory section to keep facts consistent. Keep descriptions of person physical traits to a minimum, but focus on their behaviour, actions, speech, and mood. Use role traits as guidelines for personalities.
+On rare occasions, characters may mention past game events by using the <x?a;b> syntax where x is a tag that may or may not have been set in earlier events with [bool x true]. If x happened then they say 'a', if it didn't they say 'b'.
+Aim for 100 to 500 words per section.
+
+6: Complete text - final version
+Add variable text substitution.
+Use <?abc;def> syntax to add variation for remarkable details, particularly useful for the first paragraph. 
+Use <A life?a;b> syntax to add personality for other traits than the role selection traits. 
+Replace all gender pronouns with <A He> <him> <his> etc. 
+
+Finally, read the whole event text for syntax validation and correctness.

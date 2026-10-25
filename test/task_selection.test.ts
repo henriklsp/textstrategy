@@ -32,7 +32,8 @@ describe('Task role selection', () => {
 
     const pick = (dm: DataModel, task: string): Person => {
         const selection = PersonSelection.createForTask('E', normalizeTaskName(task));
-        return RoleAssigner.findBestAssignment([selection], dm.getCast(), dm)[0];
+        const result = RoleAssigner.findBestAssignment([selection], dm.getCast(), dm);
+        return result[0]!; // In tests, we always have at least one person
     };
 
     test('does not pick a person already doing the task', () => {

@@ -6,29 +6,31 @@ import { DataModel } from './DataModel';
 
 export class RoleAssigner {
     // Find the assignment of Persons to roles with the highest total score.
-    // Throws if there are more roles than characters available.
+    // If there are more roles than characters, assigns as many as possible (first N roles).
+    // Returns an array matching selections.length: assigned Person or undefined for unassigned roles.
     // Cost grows as cast!/(cast-roles)!, which is small for a handful of roles and characters.
     // dataModel supplies current task assignments and health for task-based selections.
-    public static findBestAssignment(selections: PersonSelection[], cast: Person[], dataModel: DataModel | null = null): Person[] {
-        if (selections.length > cast.length) {
-            const roles = selections.map(s => s.getRoleName()).join(', ');
-            throw new Error(
-                `Cannot assign ${selections.length} roles (${roles}): only ${cast.length} character(s) available`
-            );
-        }
-
+    public static findBestAssignment(selections: PersonSelection[], cast: Person[], dataModel: DataModel | null = null): (Person | undefined)[] {
         if (selections.length === 0) {
             return [];
         }
 
-        const scores = selections.map(selection => cast.map(person => selection.calculateScore(person, dataModel)));
+        // Assign as many roles as we have characters
+        const assignableCount = Math.min(selections.length, cast.length);
+        const limitedSelections = selections.slice(0, assignableCount);
+
+        if (assignableCount === 0) {
+            return selections.map(() => undefined);
+        }
+
+        const scores = limitedSelections.map(selection => cast.map(person => selection.calculateScore(person, dataModel)));
         const used = new Array<boolean>(cast.length).fill(false);
         const current: number[] = [];
         let best: number[] = [];
         let bestScore = -Infinity;
 
         const search = (role: number, score: number): void => {
-            if (role === selections.length) {
+            if (role === limitedSelections.length) {
                 if (score > bestScore) {
                     bestScore = score;
                     best = [...current];
@@ -46,6 +48,16 @@ export class RoleAssigner {
         };
         search(0, 0);
 
-        return best.map(p => cast[p]);
+        // Return assignment for all selections: first assignableCount get real persons,
+        // remaining selections get undefined (unassigned)
+        const result: (Person | undefined)[] = new Array(selections.length);
+        for (let i = 0; i < assignableCount; i++) {
+            result[i] = best[i] !== undefined ? cast[best[i]] : undefined;
+        }
+        // Mark unassigned roles as undefined
+        for (let i = assignableCount; i < selections.length; i++) {
+            result[i] = undefined;
+        }
+        return result;
     }
 }

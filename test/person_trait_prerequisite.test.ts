@@ -103,7 +103,7 @@ describe('Person trait prerequisites', () => {
             expect(text).toContain('NegPos: no positive life');   // life is a negative trait
             expect(text).toContain('Neg: has negative life');
             expect(text).toContain('Tert: <A ~divinity?has tertiary divinity;no tertiary divinity>'); // not a condition: shown as-is
-            expect(text).toContain('Unassigned: B not assigned'); // role B has no person
+            expect(text).toContain("Unassigned: "); // role B has no person
 
             const choices = dialog.getCurrentChoices().map(choice => choice.getText());
             expect(choices).toContain('Magic choice');
