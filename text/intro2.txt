@@ -1,14 +1,12 @@
 *A: divinity
 *B: -life
 *C: magic
-*D: harmony
 
 // INTRO2 - THIRD DRAFT: BASIC TEXT (guide stage 3)
 // Roles (one trait each): A divinity (undeterred, speaks of destiny and
 // glory), B -life (physically exhausted), C magic (reads stars and omens,
-// plans ahead), D harmony (for now, matching firstday.txt - Henrik may
-// change it). D sleeps through the intro, mentioned but not introduced;
-// properly introduced later.
+// plans ahead). D has no trait yet - decided later; D sleeps through the
+// intro, mentioned but not introduced; properly introduced later.
 // Simple concise matter-of-fact prose; effects added where appropriate.
 // Ends with night; the first day continues in the firstday event.
 
@@ -146,14 +144,14 @@ You drag it up onto the sand, above the reach of the waves.
 
 §62
 [var silver 2]
-You wade back and pull a bundle from the wreck - a heavy bundle of silver coins, the savings of families who will never see their homes again. Silver will not fill a stomach. But if there are people on these lands, it might buy what you need.
+You wade back and pull a bundle from the wreck - a heavy bundle of silver coins, all that remains of the family fortune. Everything else went to the voyage, or to the sea. Silver will not fill a stomach. But if there are people on these lands, it might buy what you need.
 You carry it up onto the sand.
 #70 Continue
 
 §63
 [var weapons 2]
 [bool broughtweapons true]
-You wade back and pull an axe from the wreck - a good one, with a strong haft. With it you can cut wood, build, and defend yourself if these lands hold danger.
+You wade back and pull an axe from the wreck - your great-grandfather's axe, with a strong haft and a head that has outlived three generations. With it you can cut wood, build, and defend yourself if these lands hold danger.
 You carry it up onto the sand.
 #70 Continue
 
