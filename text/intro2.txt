@@ -2,66 +2,105 @@
 *B: life
 *C: -life, magic
 
-// INTRO2 - SECOND DRAFT: STRUCTURE (guide stage 2)
+// INTRO2 - SECOND DRAFT: STRUCTURE (guide stage 2), revised
+// Note from Henrik: the crash is not the opening. Start with quiet dialog on
+// the boat - the player must get to know the companions first - then let the
+// tension build gradually towards the crash on the reef. Only then is the
+// "who do you grab" decision meaningful.
 // Structure per the guide: numbered main path with one choice per section,
 // a main decision with consequence choices, ending section with no choices.
 // Skeleton text only - basic text and effects come in later stages.
 // Ends with night; the first day continues in the firstday event.
 
-// --- MAIN PATH ---
+// --- QUIET START - get to know the companions ---
 
 §10
 // SET THE SCENE - opening text of the game.
-Scene: dark evening, crowded refugee boat with families, days of rowing since
-the sail was destroyed, everyone exhausted, storm building. The boat hits a
-reef and tears open.
-Question: Who do you grab and hold onto in the waves?
+Scene: dark is falling on the last evening of the voyage. The sail was
+destroyed days ago; everyone has been taking turns at the oars. The refugee
+boat is crowded with families, most of them resting after the evening meal.
+Nothing happens yet - just tiredness, salt, and the sound of the oars.
+Question: Who do you sit next to while you rest?
 #20 <A>
 #30 <B>
 #40 <C>
 
 §20
-// A moment: <A> refuses to let go of you, drags you both toward the shore.
-Insert moment here.
+// A moment: proud, determined <A> - talk about the future, the leader's
+// dream of the unknown land. Insert dialog here.
 #50 Continue
 
 §30
-// B moment: <B> swims with you on the swell, calm as if the sea obeys.
-Insert moment here.
+// B moment: calm, strong <B> - talk about the sea and what lives in it,
+// at ease with the water. Insert dialog here.
 #50 Continue
 
 §40
-// C moment: <C> clings to a floating plank, laughing in despair.
-Insert moment here.
+// C moment: clever, curious <C> - talk about what was left behind, and what
+// might be ahead. Insert dialog here.
 #50 Continue
 
+// --- RISING TENSION - the storm builds ---
+
 §50
-// MAIN DECISION - the one thing still reachable from the wreck.
-Scene: the beach in the dark, wreck settling on the reef behind you,
-refugees stumbling ashore, one badly hurt, others gathering around them.
-Question: One thing from the wreck is still within reach. What do you take?
-#60 Food
-#70 A bundle of silver coins
-#80 An axe
+Scene: the wind picks up. Clouds swallow the last light. The oars bite
+harder; the families wake and hold their children. Someone says they see
+lightning far out at sea. The tension rises, but the boat holds.
+#60 Continue
 
 §60
-// Consequence: food saved from the wreck.
-Insert text here.
-#90 Continue
+// THE CRASH. Now the decision has weight: the player knows these people.
+Scene: the storm is on you in full darkness. A cry goes up - reef! The boat
+grinds over the rocks, the hull tears open, people and belongings spill into
+the waves.
+Question: Who do you grab and hold onto in the waves?
+#70 <A>
+#80 <B>
+#90 <C>
 
 §70
-// Consequence: the silver coins.
-Insert text here.
-#90 Continue
+// A moment: <A> refuses to let go of you, drags you both toward the shore.
+Insert moment here.
+#100 Continue
 
 §80
+// B moment: <B> swims with you on the swell, calm as if the sea obeys.
+Insert moment here.
+#100 Continue
+
+§90
+// C moment: <C> clings to a floating plank, laughing in despair.
+Insert moment here.
+#100 Continue
+
+// --- MAIN DECISION ---
+
+§100
+// The beach in the dark: the wreck settling on the reef behind you,
+// refugees stumbling ashore, one badly hurt, others gathering around them.
+Question: One thing from the wreck is still within reach. What do you take?
+#110 Food
+#120 A bundle of silver coins
+#130 An axe
+
+§110
+// Consequence: food saved from the wreck.
+Insert text here.
+#140 Continue
+
+§120
+// Consequence: the silver coins.
+Insert text here.
+#140 Continue
+
+§130
 // Consequence: the axe.
 Insert text here.
-#90 Continue
+#140 Continue
 
 // --- ENDING - no choices ---
 
-§90
+§140
 // LANDFALL / NIGHT. The cost of arrival sinks in. The wreck groans on the
 // reef. The survivors huddle together on the dark beach, too tired to go on.
 // Night falls - to be continued the next day.
@@ -70,8 +109,11 @@ Insert ending here.
 // STAGE 2 NOTES:
 // - No prerequisites yet: the player starts with no variables, nothing to gate on.
 // - No alternative ending: the voyage always ends on the reef; only the
-//   companion moment and the saved item differ.
+//   companion dialog, the crash moment, and the saved item differ.
 // - The chosen item (food/silver/axe) sets variables in a later stage, and
-//   §90 queues the first day.
-// - Loop check: every section has exactly one choice; §20-§40 and §60-§80 all
-//   funnel into §50/§90; no dead ends, no repeats.
+//   §140 queues the first day.
+// - Loop check: every section has exactly one choice; §20-§40 funnel to §50,
+//   §70-§90 funnel to §100, §110-§130 funnel to §140; no dead ends, no repeats.
+// - Dramatic arc: quiet start (§10-§40) - rising tension (§50) - climax and
+//   companion decision (§60-§90) - falling action and main decision (§100-§130)
+//   - night (§140).
