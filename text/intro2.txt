@@ -1,0 +1,58 @@
+// INTRO2 - FIRST DRAFT: OUTLINE (guide stage 1)
+// Like intro.txt: assigns roles A/B/C, gives the player two early choices,
+// ends on landfall and queues [event firstday 0].
+// Difference from intro.txt: not a calm rowing trip - a storm and shipwreck arrival.
+
+// When: The final night of the voyage. A storm has been building all evening
+// and breaks just before dawn, with the unknown coast close enough to see.
+
+// Why: You and your friends are refugees who fled the Dragon Emperor by sea,
+// gambling on the uncharted lands across the water. Everything you have is on
+// this boat. The intro must establish the peril, the friendship, and the cost
+// of arriving.
+
+// What: The storm drives the boat onto a reef. The boat breaks apart in the
+// surf and the four of you scramble through the water toward the shore in the
+// grey morning light. You all survive, but barely, and you lose most of what
+// you brought.
+
+// How: Same shape as intro.txt: one companion-selection choice (who you grab
+// and hold onto in the waves - leads to a short personal moment), then one
+// what-do-you-save choice (one thing you drag ashore from the wreck).
+// The storm itself is narration, not a choice - the choices are about the
+// people and the one thing you can carry.
+
+// But: The tension is loss and uncertainty. The boat is gone - no way back.
+// You can only save one item, and you do not know what these lands hold:
+// danger, people, or nothing at all. The choice must feel like a real gamble.
+
+// Who: A (proud, determined, a born leader), B (strong, calm, close to nature),
+// C (clever, curious, weaker but quick-witted). Same traits as intro.txt:
+// *A: divinity, -magic  /  *B: life  /  *C: -life, magic
+// The chosen companion talks to you while you catch your breath in the surf.
+
+// Finally: You stand dripping on an unknown beach, everything lost except the
+// one thing you saved and the friends beside you. First day begins:
+// [event firstday 0].
+
+// SECTION SKETCH (guide stage 2 will formalize):
+// S1  - Storm hits at night, boat driven onto reef, waves tear it apart.
+//      "Who do you grab and hold onto?" #A #B #C
+// S2-4 - Short personal moment with chosen companion in the surf:
+//      A: refuses to let go of you, drags you both up (determined leader)
+//      B: swims with you on the swell, calm as if the sea obeys (life)
+//      C: clings to a floating plank, laughing in despair (clever, -life)
+//      Each loops back to S5 with #Continue
+// S5  - On the beach at dawn. The wreck is breaking up in the surf.
+//      "One thing washes ashore that you can still reach. What do you take?"
+//      #Food #Coins #Axe  (vars: food 2 / silver 2 / weapons 2)
+// S6-8 - Item sections, each ends #Continue -> S9
+//      Brought weapons -> [bool broughtweapons true]
+// S9  - Landfall. The cost of arrival sinks in. Queues [event firstday 0].
+//      Variation: <?The rain finally stops.; The rain keeps falling.>
+//      (mirrors intro.txt S9, references <food>/<broughtweapons>)
+
+// OPEN QUESTIONS for Henrik:
+// - Should the storm damage people (e.g. [person C health -10]) or is that
+//   better saved for the firstday event?
+// - Keep the exact same trait lines as intro.txt, or differentiate intro2?
