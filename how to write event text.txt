@@ -13,7 +13,7 @@ Save as a txt file with a descriptive name
 2: Second draft - Structure
 Add the following to the file:
 Event Prerequisite(s) 
-Main path: Sections in order. One # choice per section leading to the next section. Numbered §10 §20 §30 etc to make it easy to insert more sections in between. Write a // one-line comment description for each section.
+Main path: Sections in order. One # choice per section leading to the next section. Sections after §1 numbered §10 §20 §30 etc to make it easy to insert more sections in between. Write a // one-line comment description for each section.
 Main decision: somewhere along the main path,  the player faces a significant decision, problem or dilemma. Describe it in a few // lines.
 Consequences: The main decision must have 2 or 3 choices. Add the sections with a one line comment on each, stating the consequences. 
 Optional alternative ending. One of the main choices may lead away from the main path to its own ending of the event. 
