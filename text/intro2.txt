@@ -1,185 +1,158 @@
-*A: divinity, -magic
-*B: life
-*C: -life, magic
+*A: divinity
+*B: -life
+*C: magic
 
-// INTRO2 - SECOND DRAFT: STRUCTURE (guide stage 2), revised
-// Opening mood: grim. The last remaining boat, damaged and overcrowded,
-// everyone tired, little fresh water left except rain water, no land in
-// sight, no way back. Some are still hopeful and determined. Nothing happens
-// except rowing and the sun setting.
-// Structure: starts at §1, then §10. Each companion is introduced through
-// dialog as their turn at the oars ends and they huddle together to talk.
-// The early choices are WHAT TO SAY, not who to sit with - the player learns
-// who A, B and C are before any choice about them matters.
-// Tension builds gradually towards the crash on the reef, which nobody saw
-// coming. Skeleton text only - basic text and effects come in later stages.
+// INTRO2 - THIRD DRAFT: BASIC TEXT (guide stage 3)
+// Roles: A divinity (undeterred, speaks of destiny and glory), B -life
+// (physically exhausted), C magic (reads stars and omens, plans ahead).
+// Simple concise matter-of-fact prose; effects added where appropriate.
 // Ends with night; the first day continues in the firstday event.
 
-// --- SCENE-SET ---
-
 §1
-// SET THE SCENE - opening text of the game.
-Scene: the sun is setting on another day at the oars. This is the last
-remaining boat - the voyage took the others. It is damaged and overcrowded,
-everyone is tired, and there is little fresh water left except what the
-rains give. There is no land in sight, and no way back. Yet some are still
-hopeful and determined. Nobody knows it is the last day.
+[var food 1]
+The sun is setting on another day at sea. This is the last boat. The voyage took the others. The boat is old and damaged, and crowded with refugees and everything they own. The sail was destroyed days ago, and everyone rows in turns. You are tired. There is little fresh water left, except what the rains give. There is no land in sight, and no way back.
+Your turn at the oars is over. Behind you, the next rowers settle in and the strokes continue. You sit down among the others.
 #10 Continue
 
-// --- QUIET DIALOG - meet A, B and C; choices are what to say ---
-
 §10
-Scene: <A>'s turn at the oars ends. While the next rowers settle in, <A>
-huddles down beside you - proud, determined, still holding on to hope.
-Insert A's thoughts and worries here (through A's own words).
-Question: What do you say?
+<A>'s turn at the oars ends at the same time. <A> drops down beside you and takes a swallow of rainwater from the shared barrel. <A> is not tired, or does not show it.
+"The gods did not carry us this far to drown us," says <A>. "There is a land ahead. I feel it. And when we reach it, it will be ours. We will be the founders of something great. They will tell stories about us."
+<A> looks out over the water, and does not blink.
+What do you say?
 #11 Speak of hope for what lies ahead
 #12 Plan for what may lie ahead, if anything
 #13 Say little - just listen
 
 §11
-// Reaction: hope lifts <A>'s spirits - or <A> lifts yours.
-Insert reaction here.
+"Hope," you say. "You are right. We have come too far to give up."
+<A> nods, and there is fire in <A>'s eyes. "Yes. The storm took our sail, but it did not take us. Nothing out here is stronger than we are."
+The rowing continues behind you. The boat moves on.
+[person A attitude +5]
 #20 Continue
 
 §12
-// Reaction: practical talk - <A> warms to planning, lists what is needed.
-Insert reaction here.
+"Maybe," you say. "But hope will not find us water. If there is a land ahead, we should be ready. We must decide what to do when we get there."
+<A> thinks about that. "Then we plan. First we land. Then we find water and food. Then we build. One thing at a time, until the stories can begin."
+It is not glory yet, but it is a plan.
+[person A attitude +3]
 #20 Continue
 
 §13
-// Reaction: <A> talks on, and being heard is its own comfort.
-Insert reaction here.
+You say nothing. <A> talks on - about the land ahead, the future, the glory waiting for you all. You listen.
+Sometimes being heard is enough. <A> seems calmer when the watch changes.
 #20 Continue
 
 §20
-Scene: <B>'s turn at the oars ends. Strong and calm, <B> settles beside you,
-at ease even on this damaged boat.
-Insert B's thoughts here (through B's own words - the sea, what lives below,
-what the water tells).
-Question: What do you say?
+Later, <B>'s turn at the oars ends. <B> sits down heavily beside you and does not speak for a long time. <B> is the strongest of you, but even the strong break down. The rowing has taken everything.
+"I am empty," <B> finally says. "Not hungry-empty. Empty all the way through."
+<B> looks at <A> across the boat, and then at you.
+What do you say?
 #21 Speak of hope for what lies ahead
 #22 Plan for what may lie ahead, if anything
 #23 Say little - just listen
 
 §21
-// Reaction: hope - <B> answers with quiet confidence.
-Insert reaction here.
+"Hold on," you say. "We are almost there. You will see. One more day, maybe two, and we will be on solid ground again."
+<B> nods slowly. "Maybe. The sea gives, and the sea takes."
+It is not much, but <B> straightens up a little.
+[person B attitude +5]
 #30 Continue
 
 §22
-// Reaction: practical talk - <B> weighs what the sea gives and takes.
-Insert reaction here.
+"When we land, you rest first," you say. "Before anything else. You have carried us this far."
+"And then we build," says <B>. "Water first. Then shelter. Then the rest."
+The plan is small, but it is something to hold.
+[person B attitude +3]
 #30 Continue
 
 §23
-// Reaction: <B> talks on, calm as the swell.
-Insert reaction here.
+You sit close and say nothing. <B> does not talk, the way <A> does. You just share the same silence.
+After a while <B> leans back and closes <B>'s eyes. The noise of the boat goes on around you.
 #30 Continue
 
 §30
-Scene: <C>'s turn at the oars ends. Clever and curious but bone-tired, <C>
-drops down between you, mind still wandering: what was left behind, what
-might be ahead.
-Insert C's thoughts here (through C's own words).
-Question: What do you say?
+Last, <C>'s turn at the oars ends. <C> sits down with you, wraps a blanket around both of you, and looks up at the sky where the first stars come out between the clouds.
+"I have been counting the days," says <C>. "And watching the stars. If the maps I remember are right, there should be a coast somewhere south of us. If they are wrong, there is nothing. But the birds went south yesterday, and the water is greener now. Birds do not fly over nothing. Green water is shallow water."
+<C> pauses. "I think we are close. I cannot promise it."
+What do you say?
 #31 Speak of hope for what lies ahead
 #32 Plan for what may lie ahead, if anything
 #33 Say little - just listen
 
 §31
-// Reaction: hope - <C> laughs at the idea, then admits to wanting it.
-Insert reaction here.
+"The birds, the green water - that sounds like land to me," you say. "You said it yourself. We are close."
+<C> smiles a tired smile. "Maybe. The stars are hard to read tonight, and the sky is getting worse. But yes. Maybe."
+For the first time in days, the word maybe sounds like hope.
+[person C attitude +5]
 #40 Continue
 
 §32
-// Reaction: practical talk - <C> brightens; here is a game worth playing.
-Insert reaction here.
+"Good," you say. "If we are close, we must be ready. If we hit land in the dark, we must not break the boat on a shore. When you think we are near, you say so, and we take the oars in slowly."
+<C> nods seriously. "And we must all watch for reefs. And keep the children away from the rails."
+The plan is set. Now the sea must cooperate.
+[person C attitude +3]
 #40 Continue
 
 §33
-// Reaction: <C> rambles on, and the talking keeps despair at bay.
-Insert reaction here.
+You say nothing. <C> goes on talking quietly - about stars, and old maps, and birds, and the color of the water. The talking seems to keep the fear away.
+You listen until the clouds cover the stars.
 #40 Continue
 
-// --- RISING TENSION - the storm builds ---
-
 §40
-Scene: the wind picks up. Clouds swallow the last light. The oars bite
-harder; the families wake and hold their children. Someone says they see
-lightning far out at sea. The tension rises, but the boat holds - for now.
+The wind picks up. Clouds swallow the last light, and the stars go out. The oars bite harder, and the boat begins to pitch. The families wake and hold their children. Someone says they see lightning far out at sea.
+You look at <C>, and <C> is not counting stars anymore. <C> is listening to the wind.
 #50 Continue
 
 §50
-// THE CRASH - which nobody saw coming. Now the choice has weight.
-Scene: the storm is on you in full darkness. A cry goes up - reef! The boat
-grinds over the rocks, the hull tears open, people and belongings spill into
-the waves.
-Question: Who do you grab and hold onto in the waves?
+The storm is on you in full darkness. Rain hammers the deck, and the waves throw the boat around like a toy. People shout. Somewhere a child is crying.
+Then a cry goes up from the front - "REEF!"
+The boat grinds over the rocks. The hull tears open with a sound like a living thing dying. People and belongings spill into the black water.
+Who do you grab and hold onto?
 #51 <A>
 #52 <B>
 #53 <C>
 
 §51
-// A moment: <A> refuses to let go of you, drags you both toward the shore.
-Insert moment here.
+You reach for <A>. <A> grabs your arm and refuses to let go. Together you go under, and together you come up. <A> coughs, spits seawater, and shouts words you cannot hear over the storm. Then <A> pulls, and you pull, and somehow you are both moving through the waves toward a black line of shore.
 #60 Continue
 
 §52
-// B moment: <B> swims with you on the swell, calm as if the sea obeys.
-Insert moment here.
+You reach for <B>. <B> takes you under one arm as if you weigh nothing, even now. <B> swims with the swell instead of fighting it, calm and certain, as if the sea obeys. The shore comes closer with every wave.
 #60 Continue
 
 §53
-// C moment: <C> clings to a floating plank, laughing in despair.
-Insert moment here.
+You reach for <C>. <C> clings to a floating plank with one arm and to you with the other, and laughs - a wild, desperate laugh. "Green water!" <C> shouts into the rain. "I said the water was green!" You swim for the shore together.
 #60 Continue
 
-// --- MAIN DECISION ---
-
 §60
-// The beach in the dark: the wreck settling on the reef behind you,
-// refugees stumbling ashore, one badly hurt, others gathering around them.
-Question: One thing from the wreck is still within reach. What do you take?
+You crawl out of the surf onto wet sand and fall down, breathing hard. Around you, others stumble out of the dark - mothers calling for children, men dragging bundles, an old man on his knees. One of the refugees lies moaning on the sand, badly hurt, and the others gather around.
+Behind you, the wreck settles on the reef. The boat is broken - but it is still there, groaning with every wave.
+One thing from the wreck is still within reach, washed against the rocks. What do you take?
 #61 Food
 #62 A bundle of silver coins
 #63 An axe
 
 §61
-// Consequence: food saved from the wreck.
-Insert text here.
+[var food 2]
+You wade back and grab the sacks of food from the wreck before the sea takes them. Some grain, dried fish, and hard bread. It is not much for so many people, but it is what there is.
+You drag it up onto the sand, above the reach of the waves.
 #70 Continue
 
 §62
-// Consequence: the silver coins.
-Insert text here.
+[var silver 2]
+You wade back and pull a bundle from the wreck - a heavy bundle of silver coins, the savings of families who will never see their homes again. Silver will not fill a stomach. But if there are people on these lands, it might buy what you need.
+You carry it up onto the sand.
 #70 Continue
 
 §63
-// Consequence: the axe.
-Insert text here.
+[var weapons 2]
+[bool broughtweapons true]
+You wade back and pull an axe from the wreck - a good one, with a strong haft. With it you can cut wood, build, and defend yourself if these lands hold danger.
+You carry it up onto the sand.
 #70 Continue
 
-// --- ENDING - no choices ---
-
 §70
-// LANDFALL / NIGHT. The cost of arrival sinks in. The wreck groans on the
-// reef. The survivors huddle together on the dark beach, too tired to go on.
-// Night falls - to be continued the next day.
-Insert ending here.
-
-// STAGE 2 NOTES:
-// - Starts at §1 (scene-set), then §10 (A), §20 (B), §30 (C).
-// - Every companion gets: an intro section (through their own words) with a
-//   what-do-you-say choice of three options (hope / plan / listen), and each
-//   option has its own short reaction section before moving on.
-// - No prerequisites yet: the player starts with no variables.
-// - No alternative ending: the voyage always ends on the reef.
-// - The chosen item (food/silver/axe) sets variables in a later stage, and
-//   §70 queues the first day.
-// - Loop check: every section has exactly one choice (§1 and §70 by design:
-//   §1 only continues, §70 ends); §11-§13 funnel to §20, §21-§23 to §30,
-//   §31-§33 to §40, §51-§53 to §60, §61-§63 to §70; no dead ends, no repeats.
-// - Dramatic arc: grim quiet and introductions (§1-§33) - rising tension
-//   (§40) - climax and companion decision (§50-§53) - falling action and
-//   main decision (§60-§63) - night (§70).
+The rain goes on. You count the others - everyone made it ashore. The injured one is being cared for. The wreck groans on the reef behind you, breaking a little more with every wave, but still holding together. There is no going back now, and nowhere else to go.
+The survivors huddle together on the dark beach. Someone starts a small fire of driftwood. Nobody speaks. Everyone is too tired.
+The night comes down on the first day of the rest of your lives.
+[event firstday 0]
