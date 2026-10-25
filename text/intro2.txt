@@ -1,58 +1,76 @@
 // INTRO2 - FIRST DRAFT: OUTLINE (guide stage 1)
-// Like intro.txt: assigns roles A/B/C, gives the player two early choices,
+// Like intro.txt: assigns roles A/B/C, gives the player early choices,
 // ends on landfall and queues [event firstday 0].
-// Difference from intro.txt: not a calm rowing trip - a storm and shipwreck arrival.
+// Difference from intro.txt: storm and shipwreck arrival, and a larger
+// boat - a refugee boat, not a rowboat.
 
-// When: The final night of the voyage. A storm has been building all evening
-// and breaks just before dawn, with the unknown coast close enough to see.
+// When: The evening of the final day of the voyage. It is getting dark and a
+// storm has been building all evening. Days ago the sail was destroyed, and
+// since then everyone has been taking turns at the oars. Everyone is tired.
 
-// Why: You and your friends are refugees who fled the Dragon Emperor by sea,
-// gambling on the uncharted lands across the water. Everything you have is on
-// this boat. The intro must establish the peril, the friendship, and the cost
-// of arriving.
+// Why: You and your friends are among a larger group of refugees who fled the
+// Dragon Emperor by sea - families, children, old people, all gambling on the
+// uncharted lands across the water. The boat is crowded and carrying
+// everything everyone owns. The intro must establish the peril, the
+// community, and the cost of arriving.
 
-// What: The storm drives the boat onto a reef. The boat breaks apart in the
-// surf and the four of you scramble through the water toward the shore in the
-// grey morning light. You all survive, but barely, and you lose most of what
-// you brought.
+// What: In the dark, the storm drives the boat onto a reef. The hull tears
+// open and the boat grinds over the rocks toward the unknown shore. Everyone
+// scrambles through the surf and up the beach in the storm-lit evening. All
+// survive, but exhausted, and much is lost in the water.
 
-// How: Same shape as intro.txt: one companion-selection choice (who you grab
-// and hold onto in the waves - leads to a short personal moment), then one
-// what-do-you-save choice (one thing you drag ashore from the wreck).
-// The storm itself is narration, not a choice - the choices are about the
-// people and the one thing you can carry.
+// How: S1 is the first thing the player reads - it must SET THE SCENE: dark
+// evening, tired rowers, a crowded refugee boat with families, building
+// storm, the sail destroyed days ago. The grounding is narration, not a
+// choice. First choice: who do you grab and hold onto in the waves when the
+// boat breaks open? Leads to a short personal moment. Second choice: one
+// thing you can still reach before the wreck settles - what do you take?
 
-// But: The tension is loss and uncertainty. The boat is gone - no way back.
-// You can only save one item, and you do not know what these lands hold:
-// danger, people, or nothing at all. The choice must feel like a real gamble.
+// But: The tension is loss and uncertainty. You can only save one item, and
+// you do not know what these lands hold: danger, people, or nothing at all.
+// The choice must feel like a real gamble. But the boat is NOT completely
+// gone - it is wrecked on the reef, battered but still there. Much later in
+// the game this leads to a choice: salvage what remains of the boat, or
+// attempt to repair it.
 
-// Who: A (proud, determined, a born leader), B (strong, calm, close to nature),
-// C (clever, curious, weaker but quick-witted). Same traits as intro.txt:
-// *A: divinity, -magic  /  *B: life  /  *C: -life, magic
+// Who: A (proud, determined, a born leader), B (strong, calm, close to
+// nature), C (clever, curious, weaker but quick-witted). Same traits as
+// intro.txt: *A: divinity, -magic  /  *B: life  /  *C: -life, magic
+// Also present: the other refugees - families with children, the old, the
+// tired. They are the community you arrive with and will matter later.
 // The chosen companion talks to you while you catch your breath in the surf.
 
-// Finally: You stand dripping on an unknown beach, everything lost except the
-// one thing you saved and the friends beside you. First day begins:
+// Finally: You stand dripping on an unknown beach in the dark, everything
+// lost except the one thing you saved, surrounded by tired survivors, with
+// the wreck of the boat groaning on the reef behind you. First day begins:
 // [event firstday 0].
 
 // SECTION SKETCH (guide stage 2 will formalize):
-// S1  - Storm hits at night, boat driven onto reef, waves tear it apart.
-//      "Who do you grab and hold onto?" #A #B #C
+// S1  - SET THE SCENE (opening text of the game): dark evening, crowded
+//      refugee boat with families, days of rowing since the sail was
+//      destroyed, everyone exhausted, storm building. Boat hits a reef and
+//      tears open. "Who do you grab and hold onto?" #A #B #C
 // S2-4 - Short personal moment with chosen companion in the surf:
 //      A: refuses to let go of you, drags you both up (determined leader)
 //      B: swims with you on the swell, calm as if the sea obeys (life)
 //      C: clings to a floating plank, laughing in despair (clever, -life)
 //      Each loops back to S5 with #Continue
-// S5  - On the beach at dawn. The wreck is breaking up in the surf.
-//      "One thing washes ashore that you can still reach. What do you take?"
+// S5  - On the beach in the dark. The wreck settles on the reef behind you.
+//      Other refugees stumble ashore around you. One thing is still
+//      reachable from the wreck. "What do you take?"
 //      #Food #Coins #Axe  (vars: food 2 / silver 2 / weapons 2)
 // S6-8 - Item sections, each ends #Continue -> S9
 //      Brought weapons -> [bool broughtweapons true]
-// S9  - Landfall. The cost of arrival sinks in. Queues [event firstday 0].
+// S9  - Landfall. The cost of arrival sinks in; the wreck groans on the reef
+//      in the dark. Queues [event firstday 0].
 //      Variation: <?The rain finally stops.; The rain keeps falling.>
 //      (mirrors intro.txt S9, references <food>/<broughtweapons>)
 
 // OPEN QUESTIONS for Henrik:
-// - Should the storm damage people (e.g. [person C health -10]) or is that
+// - Should the storm damage anyone (e.g. [person C health -10]) or is that
 //   better saved for the firstday event?
 // - Keep the exact same trait lines as intro.txt, or differentiate intro2?
+// - Should a [bool boatwreck true] be set in S1/S9 so the later
+//   salvage-or-repair choice can be gated on having played intro2?
+// - Do the other refugees need names/roles now, or later when the camp
+//   community is designed?
