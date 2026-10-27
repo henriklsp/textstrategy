@@ -12,17 +12,20 @@
 // Roles: A divinity (undeterred, destiny and glory), B -life (physically
 // exhausted), C magic (stars, omens, plans). D has no trait yet - decided
 // later; D sleeps through the intro, mentioned but not introduced.
-// Revised after read-through: the opening now establishes context for a
-// cold reader (fled the Empire of the Dragon, last of three ships, three
-// friends named before D is called the fourth). Meta/writer-voice phrases
-// removed. Contradiction in §65 fixed.
+// Exposition is distributed, not dumped: §1 keeps only the scene and the
+// bare "last boat" image. A carries the uprising and the Dragon Emperor
+// (§10), B carries its cost (§20), C carries the fate of the three ships
+// (§30) - all in dialog, and all before the storm, where past events still
+// have room; after the reef crash everyone focuses on right now. The
+// parents and the Emperor's retribution are saved for later events.
+// D is a friend - the fourth of four - which is why D is mentioned at all
+// among all the other people on the boat.
 // Ends with night; the first day continues in the firstday event.
 
 §1
 [var food 1]
 The sun is setting on another day at sea.
-You are a refugee. Weeks ago the people of your home province rose against the Empire of the Dragon, and were broken for it. The survivors fled across the Western Ocean in three ships, toward lands that may not even exist. One ship was lost in a storm. Another was sunk by the Emperor's warships - her people were barely rescued onto yours. Now this is the last boat: old, damaged, and crowded with a hundred refugees and everything they own.
-The sail was destroyed days ago, and everyone rows in turns. You are tired. There is little fresh water left, except what the rains give. There is no land in sight, and no way back - the Empire does not forgive those who fought it.
+This is the last boat: old, damaged, and crowded with refugees and everything they own. The sail was destroyed days ago, and everyone rows in turns. You are tired. There is little fresh water left, except what the rains give. There is no land in sight, and no way back.
 By your bench your three friends rest from their turns at the oars: <A>, <B>, and <C>. Your fourth friend, <D>, sleeps under a tarp, worn out. You decide not to wake <D>.
 Your own turn at the oars is over. Behind you, the next rowers settle in and the strokes continue.
 #5 Watch the darkening sea and sky
@@ -45,7 +48,7 @@ You look into the water barrel. Little enough. The rain barrel is half full, and
 
 §10
 <A>'s turn at the oars ends at the same time. <A> drops down beside you and takes a swallow of rainwater from the shared barrel. <A> is not tired, or does not show it.
-"The gods did not carry us this far to drown us," says <A>. "There is a land ahead. I feel it. And when we reach it, it will be ours. We will be the founders of something great. They will tell stories about us."
+"The gods did not carry us this far to drown us," says <A>. "We rose against the Dragon Emperor knowing what it would cost, and the gods watched us do it. They will not waste us on the sea. There is a land ahead. I feel it. And when we reach it, it will be ours. We will be the founders of something great. They will tell stories about us."
 <A> looks out over the water, and does not blink.
 What do you say?
 #11 Speak of hope for what lies ahead
@@ -92,6 +95,7 @@ Sometimes being heard is enough. <A> seems calmer when the watch changes.
 §20
 Later, <B>'s turn at the oars ends. <B> sits down heavily beside you and does not speak for a long time. The rowing has taken everything; <B> is empty all the way through.
 "I am done," <B> finally says. "Not tired-done. Done all the way through."
+"Maybe we should have knelt while we still could," <B> says. "The Emperor would have left us our village. Instead we have an ocean."
 <B> looks at <A> across the boat, and then at you.
 What do you say?
 #21 Speak of hope for what lies ahead
@@ -130,7 +134,8 @@ After a while <B> leans back and closes <B>'s eyes. The noise of the boat goes o
 
 §30
 Last, <C>'s turn at the oars ends. <C> sits down with you, wraps a blanket around both of you, and looks up at the sky where the first stars come out between the clouds.
-"I have been counting the days," says <C>. "And watching the stars. If the maps I remember are right, there should be a coast somewhere south of us. If they are wrong, there is nothing. But the birds went south yesterday, and the water is greener now. Birds do not fly over nothing. Green water is shallow water."
+"I have been counting the days," says <C>. "And the ships. Three left home together. The storm took the Wave Dancer. The Emperor's warship took the Dawn Chaser - but her people were pulled onto this boat, so the sea did not get them all."
+"And I have been watching the stars. If the maps I remember are right, there should be a coast somewhere south of us. If they are wrong, there is nothing. But the birds went south yesterday, and the water is greener now. Birds do not fly over nothing. Green water is shallow water."
 <C> pauses. "I think we are close. I cannot promise it."
 What do you say?
 #31 Speak of hope for what lies ahead
