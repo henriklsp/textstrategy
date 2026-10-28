@@ -1,0 +1,115 @@
+// STYLE PROBES: intro2 sections 1, 30 and 52 in six candidate voices
+// ---------------------------------------------------------------------
+// Same facts, same present tense, same second person, same silent
+// protagonist, no gendered pronouns for A/B/C/D. Choices omitted.
+// Sections chosen: 1 = scene-setting, 30 = dialog/character, 52 = action.
+// Judge each voice on: mood, readability over a whole game, fit with the
+// parser's plain text, and how it handles the exceptions (storm, wonder).
+// Open question for each voice: one voice throughout, or split voice
+// (terse for people, wonder for nature)?
+// ---------------------------------------------------------------------
+
+// ===== 1. SAGA (flat, understated; feelings shown by deeds, not words) ====
+
+§1
+The sun goes down in the west. This is the last boat. The sail was destroyed days ago, and since then everyone rows in turns. The boat is old and carries too much. There is little fresh water, and only what the rain gives. There is no land in sight. There is no way back.
+You are tired. By your bench sit your three friends, <A>, <B>, and <C>, resting from the oars. Your fourth friend, <D>, sleeps under a tarp. You do not wake <D>. Your own turn at the oars is over. Behind you the next rowers settle in, and the oars go on.
+
+§30
+Last, <C>'s turn at the oars ends. <C> sits down with you under one blanket and looks at the sky, where the first stars come out between the clouds.
+"I have been counting the days," says <C>. "And the ships. Three left home together. The storm took the Wave Dancer. The Emperor's warship took the Dawn Chaser, but her people were pulled onto this boat. So the sea did not get them all." <C> is quiet a while. "And I have been watching the stars. If the maps I remember are right, there is a coast south of us. If they are wrong, there is nothing. But the birds went south yesterday, and the water is greener now. Birds do not fly over nothing. Green water is shallow water. I think we are close. I cannot promise it."
+You do not say anything yet.
+
+§52
+You reach for <B>. <B> has nothing left. "Go," says <B>. You do not go. You lock your arm around <B> and kick for the shore. It is slow. You swallow seawater twice. <B> holds on to you, and you hold on to <B>. After a long time there is sand under your feet, and after that, shore.
+
+// ===== 2. LE GUIN (flowing, precise images; wonder without ornament) ====
+
+§1
+The sun is going down into the western sea, and the water drinks its fire until only embers remain.
+This is the last boat. She is old, her hull is tired, and she carries more than she was ever meant to carry: refugees and everything they own, cooking pots and sleeping children, the living freight of a drowned hope. The sail was destroyed days ago — the storm took it the way a thief takes a purse, quickly, leaving no way to argue — and since then everyone rows, turn upon turn, and the oars keep their slow heartbeat on the water.
+You are tired in a way that has stopped being a feeling and become a place you live. By your bench your three friends rest from their turns at the oars: <A>, <B>, and <C>. Your fourth friend, <D>, sleeps beneath a tarp, worn hollow. You decide not to wake <D>. Let the sleeping sleep; the sea owes them that much.
+
+§30
+Last, <C>'s turn at the oars ends. <C> sits down with you, wraps a blanket around the two of you like a shared coat, and looks up at the sky, where the first stars come out between the clouds, shy as survivors.
+"I have been counting the days," says <C>. "And the ships. Three left home together. The storm took the Wave Dancer. The Emperor's warship took the Dawn Chaser — but her people were pulled onto this boat, so the sea did not get them all." <C> pauses, and the names of the ships go out over the water like something given to the deep. "And I have been watching the stars. If the maps I remember are right, there should be a coast somewhere south of us. If they are wrong, there is nothing. But the birds went south yesterday, all of them, and the water is greener now than it was. Birds do not fly over nothing. Green water is shallow water. I think we are close. I cannot promise it. The stars keep their promises slowly."
+
+§52
+You reach for <B>, and <B> has nothing left to hold with. "Go," <B> gasps — the first order <B> has given in days, and an order you refuse. You lock your arm around <B> and kick for the shore, hauling dead weight through the living sea. It is slow, and heavy, and you swallow seawater twice, and the storm laughs its big cold laugh. But <B> holds on to you, and you hold on to <B>, and the shore comes anyway — the way shores do: eventually, and without mercy in the meantime.
+
+// ===== 3. TOLKIEN (archaic weight, long periods, songlike cadence) ====
+
+§1
+The sun sinks westward into the sea, and its gold is swallowed, and the water is dark as bronze gone old.
+This is the last of the boats. Old is she, and weary, and laden beyond the measure of her builders with the goods and the griefs of a wandering folk; and her sail, that once had borne her over many waters, the storm took from her many days ago, so that now her children bend their backs to the oars, and the oars keep time as a heart keeps time. Little fresh water remains save what the rain is pleased to grant, and the rain grants grudgingly; and no land may any eye descry, and back there is no returning.
+Weary are you beyond weariness. By your bench rest your friends three, <A> and <B> and <C>, from their labour at the oars; and your fourth friend, <D>, sleeps beneath a tarp and is not woken, for the sea owes sleep to some, and has paid it.
+
+§30
+Then <C>'s turn at the oars came to its end, and <C> came and sat beside you and drew a blanket about you both, and looked up, where stars came forth between the clouds, as lights from out of a dark hall through opening doors.
+"Long have I counted the days," said <C>, "and the ships also. Three sailed from home together. The storm took the Wave Dancer, and the Emperor's warship took the Dawn Chaser; yet her people were drawn onto this boat, and so the sea was cheated of them all." And <C> was silent a while, and gave the names of the ships to the water. "The stars also have I watched. If the maps that I remember speak true, a coast should lie south of us; and if they speak false, then lies nothing. Yet south went the birds yesterday, every one, and greener grows the water. Over nothing birds do not fly, and green water is shallow water. I think that we draw near. This I cannot promise; slowly do the stars keep their promises."
+
+§52
+Then you reached for <B>, and <B> had no strength remaining; for the oars had taken it all, every coin of it. "Go," said <B>; but you did not go, for that was an order you would not obey. About <B> you locked your arm, and for the shore you kicked, through the black hills of water; and twice the sea entered your mouth, and the storm laughed aloud. Yet <B> held to you, and you to <B>, and the shore came at the last, as shores come: slowly, and with no mercy on the road.
+
+// ===== 4. JEMISIN (fierce, intimate second person; broken, urgent lines) ====
+
+§1
+The sun dies in the west and you watch it go, because watching is free.
+Last boat. The others are gone. Old hull, tired wood, too many people, and everything they own lashed down and soaking: this is what's left of your world, and it leaks.
+The sail went days ago. So now you row, all of you, turns on turns, and the oars keep going the way your heart keeps going, because the alternative is stopping.
+You are tired past the place where tired is a feeling. No land. No way back. By your bench your three friends rest: <A>, <B>, <C> — what's left of your luck, all of it sitting in one place, which is either faith or stupidity. And <D> sleeps under a tarp, worn down to the wick. You let <D> sleep. Maybe the sea owes one of you that.
+
+§30
+<C> drops down beside you, pulls a blanket over the two of you, looks up. Stars, coming out between the clouds like they're sorry.
+"I've been counting the days," says <C>. "And the ships. Three left home together. The storm took the Wave Dancer. The Emperor's warship took the Dawn Chaser — but her people are on this boat with us. So the sea didn't get them all." A breath. The ship-names go out over the water, and the water keeps them now.
+"And I've been watching the stars. If the maps I remember are right, there's a coast south of us. If they're wrong, there's nothing. But the birds went south yesterday. All of them. And the water's greener. Birds don't fly over nothing. Green water is shallow water." <C> looks at you. "I think we're close. I can't promise it. The stars keep their promises slow."
+
+§52
+You reach for <B>, and there's nothing left in <B> to reach back with.
+"Go," <B> gasps. First order <B> has given in days, and you refuse it.
+You lock your arm around <B> and kick for the shore, dragging dead weight through living sea. Slow. Heavy. Seawater twice. The storm laughs, big and cold and happy. But <B> holds on to you, and you hold on to <B>, and the shore comes anyway. Shores always come. Eventually. Nobody says the road there is kind.
+
+// ===== 5. CORNWELL / LONDON (survival grit: cold, body, grip, hard verbs) ====
+
+§1
+The sun bleeds out in the west and the light goes with it.
+Last boat. Her hull is salt-scoured, her seams weep, and she sits low in the water with the weight of people and everything they own: bundles, children, cooking pots, the whole stupid wreckage of ordinary lives. The sail went days ago, torn out of its lashings like a rotten tooth, so now every soul aboard takes a turn at the oars and the sweat runs cold.
+Fresh water is down to the rain barrel's dregs. No land. No way back. Your hands have split at the bases of three fingers where the oar shafts worked them raw. By the bench your friends <A>, <B> and <C> sit getting the feeling back into their shoulders, and <D> sleeps under a tarp, hollow-eyed even in sleep. You leave <D> alone. Kindness is rationed like everything else.
+
+§30
+<C>'s turn at the oars ends and <C> comes and sits, dragging a blanket over the pair of you, breath steaming, eyes on the sky where the first stars burn through the cloud gaps.
+"I've been counting the days," <C> says. "And the ships. Three left home together. The storm took the Wave Dancer. The Emperor's warship took the Dawn Chaser, but her people were pulled onto this boat, so the sea didn't get them all." <C> spits over the side, an old habit against bad luck. "And the stars. If the maps I remember are right, there's a coast south of us. If they're wrong, there's nothing. But the birds went south yesterday, every last one of them, and the water's gone green. Birds don't fly over nothing. Green water is shallow water. I think we're close. I can't promise it."
+Your feet are numb in your wet boots. You say nothing yet.
+
+§52
+You reach for <B> and get loose cloth and dead weight. <B> is finished; the rowing took the last of it.
+"Go," <B> gasps, and the sea slaps the word away.
+You don't go. You get an arm around <B>, lock your grip across salt-slick cloth, and kick for the shore through water that lifts you and slams you down. Seawater twice, burning down your throat. The cold works into your fingers and your fingers don't care; you kick, and haul, and the black line of the beach comes up slow as a promise. <B> holds on to you. You hold on to <B>. That's the whole trick: grip.
+
+// ===== 6. ATTENBOROUGH (nature register: documentary wonder; note: for a
+// split voice, this probe covers land, sea and wildlife passages, while
+// dialog would stay terse in another voice) ====
+
+§1
+Here, at the western edge of the ocean, the day ends as it has ended for three weeks: in fire and in dark. The sun sinks, and the sea turns from bronze to black, and aboard the last boat a hundred tired lives grow quiet.
+She is an old vessel, this one, her timber pale with salt, and she labours under her cargo: a refugee people and everything they own. The sail was destroyed days ago, and so her passengers have become her engine — creatures of land, hauling at the oars in patient shifts, as tireless and as tireless as tide. Fresh water is scarce here; this ocean gives its rain grudgingly. No land is in sight. Nothing on the horizon but water, and the creatures on the water.
+Among them, by the bench, rest three friends: <A>, <B>, and <C>. And beneath a tarp — one more of the boat's quiet passengers — sleeps your fourth friend, <D>, undisturbed. Even here, at the end of the world, there is sleep.
+
+§30
+Last, <C>'s turn at the oars ends, and <C> comes to sit with you beneath a shared blanket. Above the boat, the first stars are appearing between the clouds — and there are few spectacles in the natural world more ancient, or more indifferent, than this.
+"I have been counting the days," says <C>. "And the ships. Three left home together. The storm took the Wave Dancer. The Emperor's warship took the Dawn Chaser — but her people were pulled onto this boat, so the sea did not get them all." A pause; the names go out over the water. "And I have been watching the stars. If the maps I remember are right, there should be a coast somewhere south of us. If they are wrong, there is nothing. But the birds went south yesterday, all of them, and the water is greener now than it was. Birds do not fly over nothing. Green water is shallow water. I think we are close. I cannot promise it."
+The birds knew, of course. The birds always know.
+
+§52
+You reach for <B>, and <B> — poor, worn creature — has nothing left to hold with. "Go," <B> gasps. You do not go.
+You lock your arm around <B> and kick for the shore. It is a remarkable thing, the body, that it can do this: haul another through mountains of black water on nothing but stubbornness. Twice the sea forces its way into your mouth, salt and cold. But <B> holds on to you, and you hold on to <B>, and there, at last — as it has been for every creature that ever swam for it — the shore comes.
+
+// ---------------------------------------------------------------------
+// HOW TO JUDGE (suggested criteria):
+// - Which voice would you not tire of over 30+ events?
+// - Which reads best in plain parser text (no fonts, no page design)?
+// - Which handles the emotional exceptions (storm, grief, wonder) best?
+// - Which is easiest to keep CONSISTENT across many events?
+// - One voice throughout, or a split voice (e.g. saga for people,
+//   Attenborough for nature and wildlife passages)?
+// ---------------------------------------------------------------------
