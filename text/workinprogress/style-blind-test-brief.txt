@@ -1,0 +1,62 @@
+TASK: Rewrite three passages of a text-adventure game in prose form.
+
+Work only from this brief. Do not read any other files, repos, or knowledge.
+This is a style test.
+
+Context (all you need to know): A fantasy game, Dark Age setting,
+Norse-flavored refugees fleeing an empire by boat. Second-person, present
+tense. <A>, <B>, <C>, <D> are placeholders for the names of the player's
+four friends - use them as they are; never use gendered pronouns for these
+four. The player's character is a silent protagonist, present but rarely
+described. The player's own speech may be described briefly but not quoted
+at length.
+
+Style rules:
+1. Elevated, dignified register - but no archaic words, no modern slang, no
+   "thee/save/'tis"-style costume.
+2. Everything in present tense, always.
+3. Emotions are never named directly. They are shown through image, action,
+   or silence. (Not: "you feel dread." Instead: show what the dread does.)
+4. Nature has agency: the sea, the storm, the sun, the birds act and take
+   and give. The characters' own saying is "The sea gives, and the sea
+   takes."
+5. Wonder comes from precise observation presented as remarkable - a
+   noticing eye - not from ornament or exclamations.
+6. Similes are rationed: at most one per passage, and it must carry weight.
+   Every metaphor and simile must be one the characters themselves could
+   have imagined - drawn from their world: sea, weather, fire, tools,
+   animals, gods, seafaring. Nothing from outside their world, nothing cute
+   or sentimental.
+7. Sentence music: flowing periods; parallel structure ("and X, and Y, and
+   Z") reserved for the gravest beats.
+8. Focus on behavior, speech, and mood. Minimal physical description of
+   people.
+9. 100-250 words per passage.
+
+Passage 1 (opening scene of the game): The sun is setting on another day at
+sea. This is the last boat: old, damaged, crowded with refugees and
+everything they own. The sail was destroyed days ago; everyone rows in
+turns. Everyone is tired. Little fresh water except rain. No land in sight,
+no way back. By the player's bench rest three friends, A, B, and C. A fourth
+friend, D, sleeps under a tarp; the player decides not to wake D. The
+player's own turn at the oars is over; behind them the next rowers settle in.
+
+Passage 2 (dialog scene): C's turn at the oars ends. C sits down with the
+player under a shared blanket and watches the first stars come out between
+the clouds. C says: "I have been counting the days. And the ships. Three
+left home together. The storm took the Wave Dancer. The Emperor's warship
+took the Dawn Chaser - but her people were pulled onto this boat, so the
+sea did not get them all. And I have been watching the stars. If the maps I
+remember are right, there is a coast south of us. If they are wrong, there
+is nothing. But the birds went south yesterday, all of them, and the water
+is greener now. Birds do not fly over nothing. Green water is shallow
+water. I think we are close. I cannot promise it."
+
+Passage 3 (action scene): A shipwreck at night in a storm. The player reaches
+for B, who is physically exhausted from days of rowing and has nothing
+left. B gasps "Go." The player refuses to leave, locks an arm around B, and
+kicks for the shore through the waves, hauling B's dead weight. It is slow
+and heavy; the player swallows seawater twice. B holds on to the player;
+the player holds on to B; the shore comes anyway.
+
+Write the three rewritten passages. Nothing else.
