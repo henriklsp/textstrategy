@@ -52,12 +52,14 @@ Ethical and moral themes revolve around human emotions, quirks and vices such as
 Everything happens in the present tense.
 The story is always told from the player's perspective. The player as the main character is referred to as 'you'. The reader only knows what the main character can see, hear and feel and remember. The player's character is mostly a silent protagonist, rarely described, but always present. 
 Be careful not to describe facts, which may contradict the actual game state. Check designdocument backstory section to keep facts consistent. Keep descriptions of person physical traits to a minimum, but focus on their behaviour, actions, speech, and mood. Use role traits as guidelines for personalities.
+In dialog, be sure to check what each character knows. When giving information to the player that they players character ('you') already knows they will talk accordingly.
+In dialog, keep their character traits in mind.
 On rare occasions, characters may mention past game events by using the <x?a;b> syntax where x is a tag that may or may not have been set in earlier events with [bool x true]. If x happened then they say 'a', if it didn't they say 'b'.
 Aim for 100 to 500 words per section.
 
 6: Complete text - final version
 Add variable text substitution.
-Use <?abc;def> syntax to add variation for remarkable details, particularly useful for the first paragraph. 
+Use <?abc;def> syntax to add variation and remarkable details, particularly useful for the first paragraph. 
 Use <A life?a;b> syntax to add personality for other traits than the role selection traits. 
 Replace all gender pronouns with <A He> <him> <his> etc. 
 
