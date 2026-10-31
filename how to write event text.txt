@@ -27,6 +27,7 @@ Write the §1 introduction in simple concise matter-of-fact prose.
 Set the scene. Where and when. what is going on. Who is present apart from the player.
 Fill the other sections with basic story text similarly.
 Write all sections as plain just-the-facts text: what happens, what is visible, who says and does what — nothing more. No similes, no metaphors, no atmosphere, no descriptions or details. This text will be replaced in stage 5, so do not polish it.
+Use gendered pronouns arbitrarily - they will be replaced later to match each person's actual gender.
 Add effects to sections as appropriate. Examples of typical effects could be: 
 [person A health -5] : A suffers a minor injury.
 [person B attitude +5] : B is pleased
@@ -46,14 +47,14 @@ Choices can be made mutually exclusive with the 'not' operator, if results shoul
 
 5: Final draft - prose text
 Rewrite all basic text in prose form.
-Aim for a mythical style inspired by fantasy authors. Use lyrical descriptions, especially for passages setting the scene or depictions of nature, invoking a sense of wonder.
+Aim for a mythical style inspired by fantasy authors. Use scenic descriptions inspired by David Attenborough, especially for passages setting the scene or depictions of nature, invoking a sense of wonder.
 Include sensory detail and vivid impressions.
 Ethical and moral themes revolve around human emotions, quirks and vices such as temptation, pride, courage, folly and hope and the dream of freedom.
 Everything happens in the present tense.
 The story is always told from the player's perspective. The player as the main character is referred to as 'you'. The reader only knows what the main character can see, hear and feel and remember. The player's character is mostly a silent protagonist, rarely described, but always present. 
 Be careful not to describe facts, which may contradict the actual game state. Check designdocument backstory section to keep facts consistent. Keep descriptions of person physical traits to a minimum, but focus on their behaviour, actions, speech, and mood. Use role traits as guidelines for personalities.
 In dialog, be sure to check what each character knows. When giving information to the player that they players character ('you') already knows they will talk accordingly.
-In dialog, keep their character traits in mind.
+In dialog, keep character traits in mind.
 On rare occasions, characters may mention past game events by using the <x?a;b> syntax where x is a tag that may or may not have been set in earlier events with [bool x true]. If x happened then they say 'a', if it didn't they say 'b'.
 Aim for 100 to 500 words per section.
 
