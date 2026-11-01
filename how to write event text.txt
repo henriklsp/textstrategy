@@ -39,7 +39,7 @@ See dialogparsing.txt for the whole list of possible effects.
 
 4: Fourth draft - Complete dialog tree
 Add more sections, choices and additional branching paths, so that each section has at least two choices. Most choices lead back to the main path. 
-Add plain basic text to new sections — do not add story details or style at this stage.
+Add plain basic text to new sections — do not add story details or style at this stage. Aim for 50 to 100 words per section.
 Add some choices with prerequisites. Some examples:  
 (silver 1?) check that the player has resources to spend. 
 (A magic) a character has a certain trait
@@ -47,15 +47,14 @@ Choices can be made mutually exclusive with the 'not' operator, if results shoul
 
 5: Final draft - prose text
 Rewrite all basic text in prose form.
-Aim for a mythical style inspired by fantasy authors. Use scenic descriptions inspired by David Attenborough, especially for passages setting the scene or depictions of nature, invoking a sense of wonder.
-Include sensory detail and vivid impressions.
+Aim for a mythical style inspired by fantasy authors, such as J.R.R. Tolkien, U.K. Le Guin, N.K. Jemisin. Include sensory detail and vivid impressions of scenery, atmosphere, and nature, and objects. Use scenic descriptions inspired by David Attenborough, especially for passages setting the scene or depictions of nature, invoking a sense of wonder.
+The goal is to make the reader feel that they are experiencing extraordinary places and events first hand, and that their deeds and adventures will become legendary.
 Ethical and moral themes revolve around human emotions, quirks and vices such as temptation, pride, courage, folly and hope and the dream of freedom.
-Everything happens in the present tense.
 The story is always told from the player's perspective. The player as the main character is referred to as 'you'. The reader only knows what the main character can see, hear and feel and remember. The player's character is mostly a silent protagonist, rarely described, but always present. 
 Be careful not to describe facts, which may contradict the actual game state. Check designdocument backstory section to keep facts consistent. Keep descriptions of person physical traits to a minimum, but focus on their behaviour, actions, speech, and mood. Use role traits as guidelines for personalities.
 In dialog, be sure to check what each character knows. When giving information to the player that they players character ('you') already knows they will talk accordingly.
-In dialog, keep character traits in mind.
 On rare occasions, characters may mention past game events by using the <x?a;b> syntax where x is a tag that may or may not have been set in earlier events with [bool x true]. If x happened then they say 'a', if it didn't they say 'b'.
+Always write in the present tense, except in dialog when characters may speak in past, present or future tense.
 Aim for 100 to 500 words per section.
 
 6: Complete text - final version
