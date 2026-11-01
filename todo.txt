@@ -3,8 +3,7 @@
 - Person skill and skill progression and natural aptitude
 - Event queue is ordered by due date.
 - Persistence: use browser localstorage for datamodel, eventqueue and current position in dialog
-- Data model: Buildings
-- Assign wounded people to rest.
+- Data model: Buildings. Building task slots, efficiency bonus and other building effects.
 - starvation or low health triggers events
 - Recurring event "Council" allows storage summary and event summary.
 - character death
