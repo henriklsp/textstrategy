@@ -161,7 +161,7 @@ Person traits, personalities and abilities largely depend on the god they follow
  - Magic: those delving in magic are thinkers who plan ahead and prefer to use cunning and intelligence over brute force.
  - Negative magic: simple, physical people who prefer straightforward tasks and brute force solutions.
  - Life: those following the gods of life are blessed with health, strength and fertility. They are in touch with nature, plants and animals.
- - Negative life: followers of the death gods are cold and cynical.
+ - Negative life: followers of the death gods are cold and cynical. Glum and unsentimental.
  - Harmony: those blessed with harmony bind society together and keep things in order. They are cooperative, serene, peaceful and easy to get along with.
  - Negative harmony: followers of the chaos gods thrive in conflict, war and danger. Their can be reckless and impatient.
 
