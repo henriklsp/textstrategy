@@ -1,0 +1,48 @@
+TASK: Rewrite three passages of a text-adventure game in prose form.
+
+Work only from this brief. Do not read any other files, repos, or knowledge.
+This is a style test.
+
+STYLE INSTRUCTIONS:
+Rewrite all basic text in prose form.
+Aim for a mythical style inspired by fantasy authors, such as J.R.R.
+Tolkien, U.K. Le Guin, N.K. Jemisin. Include sensory detail and vivid
+impressions of scenery, atmosphere, and nature, and objects. Use scenic
+descriptions inspired by David Attenborough, especially for passages
+setting the scene or depictions of nature, invoking a sense of wonder.
+The goal is to make the reader feel that they are experiencing
+extraordinary places and events first hand, and that their deeds and
+adventures will become legendary.
+Ethical and moral themes revolve around human emotions, quirks and vices
+such as temptation, pride, courage, folly and hope and the dream of
+freedom.
+The story is always told from the player's perspective. The player as
+main character is referred to as 'you'. The reader only knows what the
+main character can see, hear and feel and remember. The player's
+character is mostly a silent protagonist, rarely described, but always
+present.
+Be careful not to describe facts which may contradict the actual game
+state. Keep descriptions of person physical traits to a minimum, but
+focus on their behaviour, actions, speech, and mood. Use role traits as
+guidelines for personalities.
+In dialog, be sure to check what each character knows. When giving
+information to the player that the players character ('you') already
+knows they will talk accordingly.
+Always write in the present tense, except in dialog when characters may
+speak in past, present or future tense.
+Aim for 100 to 500 words per section.
+
+CONTEXT: A fantasy game, Dark Age setting, Norse-flavored refugees
+fleeing an empire by boat. A, B, C, D are the names of the player's four
+friends.
+
+PASSAGE 1 (opening scene):
+The sun is setting. This is the last boat. It is old and damaged, and crowded with refugees and their belongings. The sail was destroyed days ago. Everyone rows in turns. Everyone is tired. There is little fresh water left, except what the rains give. There is no land in sight, and no way back. Near you, your fourth friend D sleeps under a tarp. You decide not to wake her. Your turn at the oars is over. Behind you, the next rowers settle in and the strokes continue.
+
+PASSAGE 2 (dialog scene):
+Last, C's turn at the oars ends. He sits down with you, puts a blanket over the two of you, and looks at the sky, where the first stars come out between the clouds. "Weed in the water today," says C. "Fresh weed, torn off rocks, not old floating stuff. And gulls at noon - gulls do not come this far out unless there is land. I think there is a coast south of us. I cannot promise it."
+
+PASSAGE 3 (action scene):
+You reach for B. She has nothing left. "Go," she gasps, but you do not go. You lock your arm around her and kick for the shore, pulling her through the waves. It is slow, and you swallow seawater twice. But she holds on to you, and you hold on to her, and the shore comes.
+
+Write the three rewritten passages. Nothing else.
