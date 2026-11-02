@@ -1,0 +1,29 @@
+TASK: Rewrite three passages of a text-adventure game in prose form.
+
+Work only from this brief. Do not read any other files, repos, or knowledge.
+This is a style test.
+
+STYLE INSTRUCTIONS:
+Write in the prose style of Kazuo Ishiguro (as in "The Buried Giant" and
+"Never Let Me Go"): quiet, restrained, precise; wonder and dread arrive
+through what is not said; long calm sentences that observe more than they
+reveal; emotions present but never named; a patient, slightly formal
+voice; understatement even in danger and grief.
+Technical constraints: present tense, second person ("you"), the player's
+character is a silent protagonist, rarely described. Keep facts exactly
+as given - add no new story facts. In dialog, characters never explain
+what they both already know. 100-500 words per passage.
+
+CONTEXT: A fantasy game, Dark Age setting, Norse-flavored refugees fleeing
+an empire by boat. A, B, C, D are the names of the player's four friends.
+
+PASSAGE 1 (opening scene):
+The sun is setting. This is the last boat. It is old and damaged, and crowded with refugees and their belongings. The sail was destroyed days ago. Everyone rows in turns. Everyone is tired. There is little fresh water left, except what the rains give. There is no land in sight, and no way back. Near you, your fourth friend D sleeps under a tarp. You decide not to wake her. Your turn at the oars is over. Behind you, the next rowers settle in and the strokes continue.
+
+PASSAGE 2 (dialog scene):
+Last, C's turn at the oars ends. He sits down with you, puts a blanket over the two of you, and looks at the sky, where the first stars come out between the clouds. "Weed in the water today," says C. "Fresh weed, torn off rocks, not old floating stuff. And gulls at noon - gulls do not come this far out unless there is land. I think there is a coast south of us. I cannot promise it."
+
+PASSAGE 3 (action scene):
+You reach for B. She has nothing left. "Go," she gasps, but you do not go. You lock your arm around her and kick for the shore, pulling her through the waves. It is slow, and you swallow seawater twice. But she holds on to you, and you hold on to her, and the shore comes.
+
+Write the three rewritten passages. Nothing else.
