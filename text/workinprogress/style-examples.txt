@@ -31,7 +31,7 @@ EXAMPLE 3 - The hunt (action)
 PLAIN:
 You follow the deer tracks. The deer is ahead. You draw your bow. You shoot and miss. The deer runs away.
 STYLED:
-The tracks go on ahead of you, printed small and neat in the mud, each one a sentence in a story about where the deer has been. You move the way C taught you: knees soft, breath low, the bow held quiet in your fist. Then the trees open, and there is the deer, head down, drinking. Your heart forgets its place. The arrow goes wide. The sound of the deer leaving is like the forest closing a door.
+You press forward, your gaze locked upon the cloven impressions freshly pressed into the loam—a silent script written by the forest’s most elusive inhabitant. Ahead, half-veiled by ancient ferns, the stag stands motionless, a masterpiece of sinew and quiet vigilance. You draw the yew bow; the string sings a low, sharp note. The arrow looses, a fleeting shadow, but parts the empty air alone, striking only moss. Instantly, the spell of stillness shatters. With a sudden, explosive burst of muscle and magnificent antlers, the creature vanishes into the green twilight, swallowed by the wild.
 
 EXAMPLE 4 - Winter morning (hardship)
 PLAIN:
