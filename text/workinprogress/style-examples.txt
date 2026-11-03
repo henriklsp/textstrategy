@@ -19,13 +19,13 @@ EXAMPLE 1 - The night camp (atmosphere, warmth)
 PLAIN:
 It is night. The fire burns low. You sit by the fire. The others sleep. You are cold.
 STYLED:
-The fire has burned down to embers, and they move like slow red animals. Around you the camp sleeps: breathing, turning, a child's voice dreaming out loud. The cold sits against your back like a hand you have stopped noticing. You feed one more branch to the embers and watch the sparks climb into the dark, and the dark takes every one of them.
+Night gathers around your camp, drawing its dark mantle across the sleeping wilderness. Before you, the fire dwindles to a handful of glowing embers, its once-proud flames now little more than flickering tongues of orange against the gloom. You sit alone beside it, watching the last sparks rise and vanish into the starless canopy above. Around you, your companions lie motionless beneath their blankets, surrendered to the quiet embrace of sleep. Beyond the circle of firelight, the forest stirs with unseen life. You draw your cloak tighter. The cold creeps closer, patient and unrelenting, as though the night itself has begun to hunt you.
 
 EXAMPLE 2 - The forest (nature, wonder)
 PLAIN:
 The forest is large. The trees are tall. There are many birds. The men do not want to go in.
 STYLED:
-The forest stands where the fields end, and it does not begin so much as arrive: one step, and the sky is gone, and the air is green and moving. The pines go up and up until they seem to hold the clouds in place. Somewhere far inside, birds call to one another, small voices in a huge silence. No one speaks. Whatever lives in there has not yet decided what you are.
+Before you rises the forest, vast and ancient, its boundaries lost in a wilderness of towering trunks and tangled boughs. The great trees stand like the pillars of some forgotten kingdom, their crowns woven together so tightly that little daylight finds its way to the earth below. All about you, the forest teems with life. Birds flit between the branches, calling to one another in a hundred strange voices, though their songs offer little comfort. Your companions stand at the edge of the trees, reluctant to venture further. For beyond this green threshold lies a world they cannot see, and do not care to know.
 
 EXAMPLE 3 - The hunt (action)
 PLAIN:
