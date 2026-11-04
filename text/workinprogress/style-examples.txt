@@ -43,7 +43,12 @@ EXAMPLE 5 - The council argument (dialog)
 PLAIN:
 A and B argue. A wants to hunt. B wants to build. They look at you. You must decide.
 STYLED:
-A wants the hunt - says it plainly, the way a person states something they were born saying. B answers slowly, and every word is heavy: the walls are not yet walls, the winter will not wait for deer, and hunts fail. They have said all this before, in other words, on other days. Now they are both quiet, and both looking at you. The fire cracks. Somewhere the settlement goes on breathing.
+“The hunt cannot wait!” A declares, his hand resting upon the haft of his spear. “The stores grow thin, and the forest is rich with game.”
+“Nor can the fence!” B retorts, her brow darkening. “A broken barrier invites every hungry beast and ill-meaning stranger within. All must labour, and none more so than you, A!”
+
+You watch as their voices rise, each one unmoved by the other's argument. Such disputes are not uncommon among a people whose survival rests upon both the hunt and the strength of their walls.
+At last, they turn to you.
+Their eyes await your judgement. What do you command?
 
 EXAMPLE 6 - The first house is finished (hope)
 PLAIN:
