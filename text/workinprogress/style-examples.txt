@@ -54,7 +54,7 @@ EXAMPLE 6 - The first house is finished (hope)
 PLAIN:
 The house is finished. It is small. Everyone helps to raise the roof. You stand inside. It smells of new wood.
 STYLED:
-The roof goes up in a morning: twenty hands, one long push, and the ridge-pole slides home with a sound like a struck string. Afterward you stand inside the little house alone. It smells of cut wood and cold air and nothing yet - no smoke, no years, no names. Give it a winter. It will remember. [edge: last sentence is a wink - judge it]
+The roof goes up in a morning: twenty hands, one long push, and the ridge-pole slides home with a sound like a struck string. Afterward you stand inside the little house alone. It smells of cut wood and cold air and nothing yet - no smoke, no years, no names. Give it a winter. It will remember.
 
 EXAMPLE 7 - Enemy sails (fear)
 PLAIN:
@@ -78,7 +78,9 @@ EXAMPLE 10 - The wolf (pain, action)
 PLAIN:
 The wolf bites your arm. It hurts. You hit the wolf with your axe. The wolf runs away. Your arm is bleeding.
 STYLED:
-The wolf's teeth find your arm, and the world goes white and narrow. Somewhere inside the whiteness your hand still holds the axe, and the axe comes around, and the weight is gone from your arm. You sit down in the snow, holding the arm, watching the blood find its way between your fingers, and think, from a long way off: so this is what the stories leave out. [edge: meta - judge it]
+The wolf lunges with startling ferocity, its jaws closing upon your arm. Pain shoots through you as its teeth find their mark. You cry out and bring your axe crashing down upon the beast. The blow strikes true. With a sharp yelp, the creature recoils and vanishes into the undergrowth, its grey form swallowed by the shadows.
+
+For a moment, the forest falls silent. You look down. Blood runs freely from the wound, staining your sleeve a dark crimson. The wolf is gone, but its parting gift remains.
 
 
 PART 2: NOT LIKE THIS (anti-examples, each labeled with its failure)
