@@ -148,3 +148,48 @@ PASSAGE 3 (action scene):
 You reach for B. She has nothing left. "Go," she gasps, but you do not go. You lock your arm around her and kick for the shore, pulling her through the waves. It is slow, and you swallow seawater twice. But she holds on to you, and you hold on to her, and the shore comes.
 
 Write the three rewritten passages, in the style of the examples. Nothing else.
+
+============================================
+
+RESULT - THREE REWRITTEN PASSAGES (style test, appended)
+=====================================================
+
+PASSAGE 1 (opening scene)
+
+The sun goes down ahead of you, into the sea, and takes the last of the daylight with it. Where it went there is nothing: no land, no coast, no sail but your own - and your own is gone.
+
+This is the last boat. It is old, and it is hurt, and it carries more than it was ever meant to carry: refugees, their belongings, what is left of the fresh water. The sail tore days ago. Since then the boat goes only where the oars push it, and everyone rows, in turns, because there is no one to spare. Everyone is tired. Tired is not a mood on this boat anymore; it is the ground everything stands on.
+
+You let go of your oar. Your turn is over. Behind you the next rowers settle onto the benches, find each other's rhythm, and the strokes go on without you - slow, even, patient, past what anyone has left to give.
+
+Near you, under a tarp, D sleeps. You could wake her; she would insist it was her turn again. You leave her the tarp, the warmth of it, what rest there is.
+
+There is little fresh water. What there is, the rains gave, and the rains owe you nothing. There is no land in sight. There is no way back either; back is the Empire. You look west, where the sun went down, and north, where nothing is. Then you sit down among the others, and the oars creak, and the boat goes on.
+
+---
+
+PASSAGE 2 (dialog scene)
+
+Last of all, C's turn at the oars ends. He makes his way to you, sits down close, and draws the blanket over the two of you. Above, between the clouds, the first stars are coming out. He looks at them a long time before he speaks.
+
+"Weed in the water today," says C. "Fresh weed, torn off rocks, not old floating stuff." A stroke, two strokes, the creak of the oars behind you. "And gulls at noon - gulls do not come this far out unless there is land."
+
+He keeps his voice level, the way a man carries water so that none is spilled. These are small things - a torn-off weed, a bird at noon - and he sets them down between you like the last of the food, and waits to see if you can live on them.
+
+"I think there is a coast south of us." A pause. The stars move a little between the clouds. "I cannot promise it."
+
+That is all he has, and he gives it to you straight: what he saw, and what it might mean, and the honest weight of the might. You look south, where the black water hides whatever it hides. The blanket is warmer with two under it. The oars keep their time behind you.
+
+---
+
+PASSAGE 3 (action scene)
+
+You reach for B. She has nothing left; the sea has taken everything but the holding on. "Go," she gasps, and the word costs her what little breath there is.
+
+You do not go.
+
+You lock your arm around her and turn for the shore and kick. The waves have their own will about it: they lift the two of you, turn you, set you down a little nearer or a little farther, and each one takes its time. It is slow. Twice the sea finds your mouth, and you swallow it, and cough away seconds you cannot spare. Between waves there is only the arm locked, the kicking, and the shore that does not come.
+
+But she holds on to you, and you hold on to her. One thing, under everything else, that the waves do not get to decide.
+
+And then the shore comes.
