@@ -126,10 +126,10 @@ BAD:
 The ineffable cerulean vastness stretches infinitely toward the ethereal horizon, a symphony of azure magnificence.
 (Failure: adjectives do all the work; nothing is actually seen; the words point at other words.)
 
-ANTI-EXAMPLE 9 - Modern register and slang
+ANTI-EXAMPLE 9 - Inventing facts that can contradict the game state
 BAD:
-The kids are totally exhausted, and B is like, honestly done. The boat trip has been a nightmare.
-(Failure: the voice belongs to a different century and world - modern slang, modern idiom.)
+The forty refugees crowd around you as you wipe the rain from your long red braids, and B, a tall woman with a scar over her left eye, hands you back your iron axe with the wolf-blood still on it.
+(Failure: invents specific numbers, physical attributes and past events that the game state may contradict - the engine may count fifty people, B may be short with no scar, and the wolf attack may never have happened in this playthrough. Style never adds facts; it can only describe what the game state actually holds.)
 
 ANTI-EXAMPLE 10 - Over-specifying the protagonist
 BAD:
