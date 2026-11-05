@@ -35,8 +35,10 @@ interface SectionData {
 //   [task rolename tasktype] → AssignTaskEffect to assign role to a task
 //   [build buildingtype days] → StartConstructionEffect to start building construction
 //   #2 text → Choice: display a user dialog option to go to Section number x
-//   One or more (cond?) groups before the choice text are optional prerequisites;
-//   the choice is shown only when all are met, e.g. #9 (wood 5?)(not built farm) Farm
+//   One or more (cond?) groups before or after the choice text are optional
+//   prerequisites; the choice is shown only when all are met,
+//   e.g. #9 (wood 5?)(not built farm) Farm or #9 Farm (wood 5?)(not built farm).
+//   A trailing parenthetical that is not a valid condition stays display text.
 //   #n pointing to a section that does not exist ends the dialog.
 //   Text lines are kept as written (joined with '\n', blank lines included);
 //   how they are laid out is up to the UI.
@@ -195,9 +197,10 @@ export class EventParser {
                 let choiceText = choiceMatch[2].trim();
                 const prerequisites: Prerequisite[] = [];
 
-                // Optional prerequisites at the start: one or more (cond?) groups,
-                // e.g. (wood 5?)(not built farm). Uses the same PrerequisiteParser.parseCondition
-                // as text substitution conditionals, so every prerequisite type works in both places.
+                // Optional prerequisites at the start or end: one or more (cond?) groups,
+                // e.g. (wood 5?)(not built farm) Farm or Farm (wood 5?)(not built farm).
+                // Uses the same PrerequisiteParser.parseCondition as text substitution
+                // conditionals, so every prerequisite type works in both places.
                 // The choice is only shown when ALL groups are met.
                 let prerequisitesValid = true;
                 while (prerequisitesValid) {
@@ -214,6 +217,26 @@ export class EventParser {
                         this.addIssue(lineNumber, `Invalid choice condition '(${innerContent})'`);
                         // Leave the invalid group visible in the choice text
                         prerequisitesValid = false;
+                    }
+                }
+
+                // Optional prerequisites at the end of the line: one or more (cond?)
+                // groups after the choice text, e.g. "Search the surf (not broughtweapons)".
+                // A trailing parenthetical that does not parse as a condition is kept
+                // as display text (no issue): it may be an ordinary parenthetical,
+                // e.g. "Build nothing yet (wood is needed for bigger buildings)".
+                let trailingValid = true;
+                while (trailingValid) {
+                    const trailingMatch = choiceText.match(/\(([^()]+)\)\s*$/);
+                    if (!trailingMatch) break;
+                    const innerContent = trailingMatch[1].trim();
+
+                    const prerequisite = PrerequisiteParser.parseCondition(innerContent);
+                    if (prerequisite) {
+                        prerequisites.push(prerequisite);
+                        choiceText = choiceText.substring(0, trailingMatch.index).trim();
+                    } else {
+                        trailingValid = false;
                     }
                 }
                 section.choiceConfigs.push({ line: lineNumber, targetSectionNumber, choiceText, prerequisites });
