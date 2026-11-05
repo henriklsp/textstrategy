@@ -1,31 +1,48 @@
 *A: divinity
 *B: -life
 *C: magic
+*D: rest
 
-// INTRO2 - FIFTH DRAFT: PROSE TEXT (guide stage 5)
-// All basic text rewritten in prose form: mythical style, sensory detail,
-// nature described with wonder. Similes with "like"/"as" are avoided -
-// direct metaphors are used sparingly. See text/style-examples.txt for the
-// approved examples and anti-examples behind this style.
+// INTRO2 - SIXTH DRAFT: PROSE TEXT WITH MECHANICAL FIXES
+// Prose per guide stage 5: mythical style inspired by Tolkien, Le Guin and
+// Jemisin; nature described with wonder in the manner of Attenborough; no
+// "like"/"as" similes, direct metaphors sparingly. See text/style-examples.txt
+// for the approved examples and anti-examples.
 // Present tense (dialog excepted), second person, silent protagonist.
-// Gendered pronouns arbitrary (A he, B she, C he, D she) - replaced with
-// substitution tags in stage 6. Dialog content kept from the basic text.
-// Structure, choices, prerequisites and effects unchanged from the fourth
-// draft. Ends with night; the first day continues in the firstday event.
+// All four friends are introduced in section 1 and written as name tags
+// <A> <B> <C> <D> in text and choice labels. Bare letters appear only in
+// effect and prerequisite syntax: [person A attitude +5], (A divinity).
+// Roles: <A> divinity (undeterred, destiny and glory), <B> -life (physically
+// exhausted), <C> magic (counts days, reads signs). <D> has no personality
+// trait yet (as decided in the fourth draft), so D is selected by task: the
+// person best suited to rest, which is all D does in this event.
+// Choice prerequisites stand at the START of the choice line, e.g.
+// "#14 (A divinity) Ask <A> about the gods". The parser does not read
+// trailing prerequisite parentheses; it shows them as button text.
+// Food: a new game starts with food 0 (DataModel default), so section 1
+// records the boat's remaining provisions: [var food 1], one basket. Taking
+// the sacks from the wreck adds one basket: [var food +1] in section 61.
+// (The fifth draft's [var food 2] would have added two.) The (food 1?) check
+// on counting the food was always true and is removed.
+// Timeline: late afternoon (1-7), sunset and dusk (10-36), night and storm
+// (40-70). Time moves forward only.
+// Gendered pronouns are arbitrary (A he, B she, C he, D she) - to be replaced
+// with pronoun tags (<A He> etc.) along with <?...> variation tags in stage 6.
+// Ends with night; the first day continues in the firstday event.
 
 §1
 [var food 1]
-The sun is setting in the west, and the sea beneath it turns to bronze, then to iron, then to dark.
+The sun is low in the west, and the sea beneath it turns from bronze to iron. The light is going, but slowly; the evening will be long.
 This is the last boat. She is old and salt-blanched, and she carries more than she was built to carry: refugees and everything they own, bundles and children and cooking pots lashed down between the benches. The sail was destroyed days ago; the storm took it, and the sea kept it. Since then everyone rows in turns, and the oars keep their slow rhythm on the water, hour upon hour, patient beyond the patience of any crew.
-Everyone is tired. The fresh water is nearly gone; there is only what the rains give, and the rains have been few. There is no land in sight, in any direction. There is no way back.
-Near you, your fourth friend D sleeps under a tarp, worn hollow by the voyage. You decide not to wake her. Let the sleeping sleep.
+Everyone is tired. The fresh water is nearly gone; there is only what the rains give, and the rains have been few. The food is nearly gone too: grain, dried fish and hard bread lashed under the ropes, a few days of small meals for all these people. There is no land in sight, in any direction. There is no way back.
+Among the rowers are your three friends: proud and certain <A>, who speaks of destiny; strong, stubborn <B>, who says little; and quiet, watchful <C>, who counts the days and reads the sky. Near you, your fourth friend <D> sleeps under a tarp, worn hollow by the voyage. You decide not to wake her. Let the sleeping sleep.
 Your own turn at the oars is over. Behind you, the next rowers settle into their seats, and the strokes go on.
 #5 Watch the darkening sea and sky
 #10 Sit down among the others
 
 §5
-You stand at the side and watch the dark come on. The water is black and immense, lifting the boat and setting it down again in long, unhurried swells. Far off, lightning flickers inside the clouds: silent, slow, a light from a storm that has not reached you yet. You search the horizon and find nothing. No sail, no shore, no bird. Only the sea, and the last of the evening, and the wind on your face carrying the smell of coming rain.
-#6 Count the remaining food (food 1?)
+You stand at the side and watch the evening come on. The water is dark and immense, lifting the boat and setting it down again in long, unhurried swells. Far off, lightning flickers inside the clouds: silent, slow, a light from a storm that has not reached you yet. You search the horizon and find nothing. No sail, no shore, no bird. Only the sea, and the last of the evening, and the wind on your face carrying the smell of coming rain.
+#6 Count the remaining food
 #10 Sit down among the others
 
 §6
@@ -39,133 +56,133 @@ You look into the water barrel and see the bottom looking back at you. There is 
 #10 Sit down among the others
 
 §10
-A's turn at the oars ends at the same time. He drops down beside you, takes a swallow of rainwater from the shared barrel, and looks out west, where the sun is going down. He is not tired. Or he will not show it, which on this boat comes to the same thing.
-"The gods did not carry us this far to drown us," says A. "We rose against the Dragon Emperor knowing what it would cost, and the gods watched us do it. They will not waste us on the sea. There is a land ahead. And when we reach it, it will be ours. We will be the founders of something great. They will tell stories about us."
+<A>'s turn at the oars ends at the same time. He drops down beside you, takes a swallow of rainwater from the shared barrel, and looks out west, where the sun is going down. He is not tired. Or he will not show it, which on this boat comes to the same thing.
+"The gods did not carry us this far to drown us," says <A>. "We rose against the Dragon Emperor knowing what it would cost, and the gods watched us do it. They will not waste us on the sea. There is a land ahead. And when we reach it, it will be ours. We will be the founders of something great. They will tell stories about us."
 He looks out over the water and does not blink, and there is something in his stillness that demands the land appear.
 What do you say?
 #11 Speak of hope for what lies ahead
 #12 Plan for what may lie ahead, if anything
 #13 Say little - just listen
-#14 Ask A about the gods (A divinity)
+#14 (A divinity) Ask <A> about the gods
 
 §11
 You say that you have come too far to give up.
-A nods, and his eyes take light. "The storm took our sail, but it did not take us. Nothing out here is stronger than we are."
+<A> nods, and his eyes take light. "The storm took our sail, but it did not take us. Nothing out here is stronger than we are."
 Behind you the rowing goes on, and the boat moves west through the darkening water, and for a moment the sea is not a prison. It is a road.
 [person A attitude +5]
 #20 Continue
-#14 Ask A about the gods (A divinity)
+#14 (A divinity) Ask <A> about the gods
 
 §12
 You say that hope will not find water, and that you must be ready for land before land is ready for you.
-A is quiet for a moment, weighing it. Then he nods slowly. "Then we plan. First we land. Then we find water and food. Then we build. One thing at a time, until the stories can begin."
+<A> is quiet for a moment, weighing it. Then he nods slowly. "Then we plan. First we land. Then we find water and food. Then we build. One thing at a time, until the stories can begin."
 It is not glory yet. But it is a road that leads there.
 [person A attitude +3]
 #20 Continue
-#14 Ask A about the gods (A divinity)
+#14 (A divinity) Ask <A> about the gods
 
 §13
 You say nothing, and let him talk: the land ahead, the future, the glory that waits for you all. He speaks of it quietly, and then louder, and the words carry along the benches, and people listen who did not mean to. When the watch changes he seems calmer. The hope he gave away has left room for more.
 #20 Continue
-#14 Ask A about the gods (A divinity)
+#14 (A divinity) Ask <A> about the gods
 
 §14
 You ask whether the gods sent you out here.
-A is quiet. The oars fill the silence with their patient rhythm.
+<A> is quiet. The oars fill the silence with their patient rhythm.
 "I think they opened a door and pushed us through it," he says. "What we do on the other side is ours. That is the whole point of us."
 #15 Ask whether the gods sent the storm
 #20 Let it rest
 
 §15
 You ask about the storm that took the sail.
-"Maybe it was a test," says A. "Or a slap, to wake us up. The gods do not hand out destinies to people who sleep through them."
+"Maybe it was a test," says <A>. "Or a slap, to wake us up. The gods do not hand out destinies to people who sleep through them."
 He grins, and the grin has no doubt in it, and some of it reaches you before you can stop it.
 [person A attitude +3]
 #20 Let it rest
 #12 Turn the talk to planning
 
 §20
-Later, B's turn at the oars ends. She sits down heavily beside you and does not speak for a long time. Her hands lie open in her lap, and they do not move. The rowing has taken everything; there is nothing left in her, and she makes no pretense otherwise.
+Later, <B>'s turn at the oars ends. She sits down heavily beside you and does not speak for a long time. Her hands lie open in her lap, and they do not move. The rowing has taken everything; there is nothing left in her, and she makes no pretense otherwise.
 "I am done," she finally says. "Not tired-done. Done all the way through."
 She is quiet again. Then she says: "Maybe we should have knelt while we could. The Emperor would have left us our village. Instead we have this boat."
-She looks at A across the deck, at all that undimmed certainty. Then at you.
+She looks at <A> across the deck, at all that undimmed certainty. Then at you.
 What do you say?
 #21 Speak of hope for what lies ahead
 #22 Plan for what may lie ahead, if anything
 #23 Say little - just listen
-#24 Ask what B needs
+#24 Ask what <B> needs
 
 §21
 You say that you are almost there. One more day, maybe two, and solid ground under her feet again: ground that does not move, that owes nothing to any storm.
-B nods slowly. "Maybe. The sea gives, and the sea takes."
+<B> nods slowly. "Maybe. The sea gives, and the sea takes."
 It is not much. But she straightens up a little, and that is not nothing.
 [person B attitude +5]
 #30 Continue
-#24 Ask what B needs
+#24 Ask what <B> needs
 
 §22
-You say that when you land, B rests first. Before the fires, before the carrying, before the world remembers to be hard again.
+You say that when you land, <B> rests first. Before the fires, before the carrying, before the world remembers to be hard again.
 "And then we build," she says, and something in her voice warms despite her. "Water first. Then shelter. Then the rest."
 The plan is small. Small plans fit in tired hands, and tired hands are what you have.
 [person B attitude +3]
 #30 Continue
-#24 Ask what B needs
+#24 Ask what <B> needs
 
 §23
-You sit close and say nothing. B does not talk the way A talks; words cost her something. So you share the silence instead, the old kind, the kind that does not need filling. After a while she leans back and closes her eyes, and the sounds of the boat go on around you both: oar, rope, sea, breath.
+You sit close and say nothing. <B> does not talk the way <A> talks; words cost her something. So you share the silence instead, the old kind, the kind that does not need filling. After a while she leans back and closes her eyes, and the sounds of the boat go on around you both: oar, rope, sea, breath.
 #30 Continue
-#24 Ask what B needs
+#24 Ask what <B> needs
 
 §24
 You ask what she needs.
-"Rest," says B. "Real rest. Not this half-sleep with an oar in my hands." She looks down the crowded deck, at the sleeping families, at all the people the voyage has not yet finished with. "And for them to get there. That is all I need now."
+"Rest," says <B>. "Real rest. Not this half-sleep with an oar in my hands." She looks down the crowded deck, at the sleeping families, at all the people the voyage has not yet finished with. "And for them to get there. That is all I need now."
 It is the longest thing she has said all day, and you promise yourself to remember it.
 [person B attitude +3]
 #21 Speak of hope for what lies ahead
 #30 Continue
 
 §30
-Last, C's turn at the oars ends. He sits down beside you, pulls a blanket over you both, and looks up at the sky, where the first stars come out between the clouds.
-"Weed in the water today," says C. "Fresh weed, torn off rocks, not old floating stuff. And gulls at noon - gulls do not come this far out unless there is land. I think there is a coast south of us. I cannot promise it."
+Last, <C>'s turn at the oars ends. He sits down beside you, pulls a blanket over you both, and looks up at the sky, where the first stars come out between the clouds.
+"Weed in the water today," says <C>. "Fresh weed, torn off rocks, not old floating stuff. And gulls at noon - gulls do not come this far out unless there is land. I think there is a coast south of us. I cannot promise it."
 The words settle over the benches. Somewhere behind you, someone repeats them, quietly, to someone else. Hope moves through this boat the same way: one bench at a time.
 What do you say?
 #31 Speak of hope for what lies ahead
 #32 Plan for what may lie ahead, if anything
 #33 Say little - just listen
-#34 Ask how C can tell (C magic)
+#34 (C magic) Ask how <C> can tell
 #36 Ask about the other ships
 
 §31
 You say that weed and gulls can only mean land.
-C nods. "Maybe. The sky is closing, and I cannot see much tonight. But yes. Maybe."
+<C> nods. "Maybe. The sky is closing, and I cannot see much tonight. But yes. Maybe."
 The word maybe travels from bench to bench, and gathers weight wherever it lands.
 [person C attitude +5]
 #40 Continue
-#34 Ask how C can tell (C magic)
+#34 (C magic) Ask how <C> can tell
 
 §32
-You say that if the coast is close, you must not meet it in the dark and die of it. When C thinks you are near, he says so, and the oars come in slow, and every eye watches for reefs.
-C nods seriously. "And keep the children away from the rails."
+You say that if the coast is close, you must not meet it in the dark and die of it. When <C> thinks you are near, he says so, and the oars come in slow, and every eye watches for reefs.
+<C> nods seriously. "And keep the children away from the rails."
 The plan is set. Now the sea must cooperate, and the sea has never read a plan.
 [person C attitude +3]
 #40 Continue
-#34 Ask how C can tell (C magic)
+#34 (C magic) Ask how <C> can tell
 
 §33
-You say nothing. C goes on talking quietly: the weed, the gulls, the stars, the days behind you and the days ahead. The talking keeps the fear at arm's length, a small lamp against the dark. You listen until the clouds cover the last of the stars, and his voice goes on a while anyway, out of habit, or out of courage.
+You say nothing. <C> goes on talking quietly: the weed, the gulls, the stars, the days behind you and the days ahead. The talking keeps the fear at arm's length, a small lamp against the dark. You listen until the clouds cover the last of the stars, and his voice goes on a while anyway, out of habit, or out of courage.
 #40 Continue
-#34 Ask how C can tell (C magic)
+#34 (C magic) Ask how <C> can tell
 
 §34
 You ask how he can tell.
-"I count the days, and I watch the wind," says C. "We have had the wind against us fewer days than it feels. And the sea is different near land: the weed, the birds. I have sailed before. The signs are small, but they are there."
+"I count the days, and I watch the wind," says <C>. "We have had the wind against us fewer days than it feels. And the sea is different near land: the weed, the birds. I have sailed before. The signs are small, but they are there."
 He says it plainly, and does not make the signs larger than they are.
-#35 Ask what happens if C is wrong
+#35 Ask what happens if <C> is wrong
 #40 Let it rest
 
 §35
 You ask what happens if he is wrong.
-"Then we keep rowing," says C. "The signs can be wrong. That is why they are signs and not promises. But today I would take a wrong sign over none."
+"Then we keep rowing," says <C>. "The signs can be wrong. That is why they are signs and not promises. But today I would take a wrong sign over none."
 He looks at the clouds coming in from the west, and the eyes that count stars are, for a moment, only tired.
 [person C attitude +3]
 #40 Let it rest
@@ -173,24 +190,24 @@ He looks at the clouds coming in from the west, and the eyes that count stars ar
 
 §36
 You ask about the other ships.
-C is quiet for a moment. Behind you, the oars keep their rhythm.
+<C> is quiet for a moment. Behind you, the oars keep their rhythm.
 "The storm took the Wave Dancer," he says then. "The Emperor's warship took the Dawn Chaser. Her people are on this boat with us." He looks out over the water. "We are all that is left. So we have to get there."
 The names go out over the sea. The sea keeps what it is given.
 #40 Continue
 
 §40
-The wind picks up, and the evening changes its mind. Clouds swallow the last light, and the stars go out. The oars bite harder, and the boat begins to pitch and lean. The families wake and hold their children. Someone says they see lightning, far out at sea, and no one answers, because there is nothing to answer.
-You look at C. He is not watching the stars any longer. He is listening to the wind.
+The wind picks up, and the night closes in. The clouds swallow the stars, one by one, and the sky goes black. The oars bite harder, and the boat begins to pitch and lean. The families wake and hold their children. Someone says they see lightning, far out at sea, and no one answers, because there is nothing to answer.
+You look at <C>. He is not watching the stars any longer. He is listening to the wind.
 #50 Take your place at the oars
 #41 Help bail the water out
 
 §41
 You take a bucket and get in line with the bailers. The sea comes over the side faster than tired arms can throw it back. The deck grows slick, and the bundles strain at their ropes. You bail, and bail, and the ocean waits beyond all patience for you to stop. Your arms burn, and then they go beyond burning.
-#42 Check on D and the families
+#42 Check on <D> and the families
 #50 Take your place at the oars
 
 §42
-You make your way along the crowded deck, between sleeping families and wakeful ones, which are often the same. The children lie pressed close beneath the tarps, small warm weights in the dark. When you touch the tarp, D stirs, half-wakes, holds the smallest child tighter, and sleeps again. There is nothing you can do here that sleep is not already doing. You move on.
+You make your way along the crowded deck, between sleeping families and wakeful ones, which are often the same. The children lie pressed close beneath the tarps, small warm weights in the dark. When you touch the tarp, <D> stirs, half-wakes, holds the smallest child tighter, and sleeps again. There is nothing you can do here that sleep is not already doing. You move on.
 #41 Back to the bailing
 #50 Take your place at the oars
 
@@ -199,24 +216,24 @@ The storm arrives in full darkness, sudden and total. Rain hammers the deck. The
 Then a cry goes up from the front, one word that cuts through everything: "REEF!"
 The boat grinds over the rocks, and the hull tears open. People and belongings spill into the black water together, and the water does not care which is which.
 Who do you grab and hold onto?
-#51 A
-#52 B
-#53 C
+#51 <A>
+#52 <B>
+#53 <C>
 
 §51
-You reach for A. He takes your arm with a grip that refuses everything the sea has to offer, and together you go under, and together you come up, mouths full of salt. He coughs, spits, shouts words the storm devours. Then he pulls, and you pull, and by hands and stubbornness you are both moving through the mountains of water toward a dark line that must be shore. It must be.
+You reach for <A>. He takes your arm with a grip that refuses everything the sea has to offer, and together you go under, and together you come up, mouths full of salt. He coughs, spits, shouts words the storm devours. Then he pulls, and you pull, and by hands and stubbornness you are both moving through the mountains of water toward a dark line that must be shore. It must be.
 #54 Shout to the others to hold together
 #60 Continue to the shore
 
 §52
-You reach for B, and she has nothing left to hold with. "Go," she gasps. It is the first order she has given in days, and you refuse it.
+You reach for <B>, and she has nothing left to hold with. "Go," she gasps. It is the first order she has given in days, and you refuse it.
 You lock your arm around her and kick for the shore, hauling dead weight through living sea. It is slow. It is heavy. Twice the ocean forces its way down your throat. But she holds on to you, and you hold on to her, and the shore comes anyway, slowly, and without mercy in the meantime.
 [person B attitude +3]
 #54 Shout to the others to hold together
 #60 Continue to the shore
 
 §53
-You reach for C. He clings to a floating plank with one arm and to you with the other, and laughs, wild and desperate, the sound of a mind that refuses to drown politely. "Weed and gulls!" he shouts into the rain. "I said there was land!" Proof, after a fashion. You swim for the shore together, the plank between you.
+You reach for <C>. He clings to a floating plank with one arm and to you with the other, and laughs, wild and desperate, the sound of a mind that refuses to drown politely. "Weed and gulls!" he shouts into the rain. "I said there was land!" Proof, after a fashion. You swim for the shore together, the plank between you.
 #54 Shout to the others to hold together
 #60 Continue to the shore
 
@@ -227,7 +244,7 @@ And the dark answers. Voices take up the word. Hands find hands. Somewhere a rop
 
 §60
 You crawl out of the surf onto wet sand and fall down, breathing hard. The sand holds you, solid and unmoving, the first thing in weeks that has not moved beneath you.
-Around you, others stumble out of the dark: mothers calling names into the roar, men dragging bundles, an old man on his knees with both hands pressed to the ground. One of the refugees lies moaning on the sand, badly hurt, and the others gather around. D is helped ashore, still half-asleep, awake enough to walk, not to talk.
+Around you, others stumble out of the dark: mothers calling names into the roar, men dragging bundles, an old man on his knees with both hands pressed to the ground. One of the refugees lies moaning on the sand, badly hurt, and the others gather around. <D> is helped ashore, still half-asleep, awake enough to walk, not to talk.
 Behind you, the wreck settles on the reef, groaning with every wave, refusing even now to finish.
 One thing from the wreck is still within reach, washed against the rocks. What do you take?
 #61 Food
@@ -235,7 +252,7 @@ One thing from the wreck is still within reach, washed against the rocks. What d
 #63 An axe
 
 §61
-[var food 2]
+[var food +1]
 You wade back, and the sea lets you, this once. The food sacks are caught against the rocks, and you pull them free before the water can change its mind: grain, dried fish, hard bread. It is not much for so many mouths. But mouths do not ask for much when the only other choice is the sea's. You drag the sacks up beyond the reach of the waves and stand over them, your body between the wind and the food.
 #64 Look after the others
 #70 Let the night come
@@ -254,10 +271,10 @@ You wade back and pull an axe from the wreck: your great-grandfather's axe, its 
 #70 Let the night come
 
 §64
-The storm loses its voice slowly, pretending all the while that it meant to stop. Down the dark beach, the survivors drift together toward the first small fire of driftwood. There is still work to be done before the night can be allowed to arrive.
+The storm loses its voice slowly, pretending all the while that it meant to stop. Down the dark beach, the survivors drift together toward the first small fire of driftwood. There is still work to be done before anyone can sleep.
 #65 Check on the badly hurt refugee
 #66 See to the children and families
-#67 Search the surf for something to defend yourselves with (not broughtweapons)
+#67 (not broughtweapons) Search the surf for something to defend yourselves with
 #70 Let the night come
 
 §65
@@ -278,6 +295,6 @@ You search the surf with numb hands, feeling in the shallows where the wreckage 
 
 §70
 The rain goes on, softer now, the storm having spent itself on your arrival. You count the others, and the count comes out: everyone made it ashore. The injured one is being cared for. The wreck groans on the reef behind you, breaking a little more with every wave, but still holding together. There is no going back now, and nowhere else to go. On this beach, tonight, that is not a threat. It is a fact, and facts can be built on.
-The survivors huddle together on the dark sand around the small fire. Someone feeds it driftwood. Nobody speaks. D sleeps again by the fire.
-Night falls. The first day ashore waits for morning.
+The survivors huddle together on the dark sand around the small fire. Someone feeds it driftwood. Nobody speaks. <D> sleeps again by the fire.
+The night deepens. The first day ashore waits for morning.
 [event firstday 0]
