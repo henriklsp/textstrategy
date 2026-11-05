@@ -19,7 +19,7 @@ export class Main {
         const dataModel = this.gameLoop.getDataModel();
         dataModel.setCurrentDay(1);
         dataModel.set('population', 5);
-        dataModel.set('food', 10);
+        dataModel.set('food', 1);
         dataModel.set('wood', 5);
         dataModel.setBounty(10); // Initialize bounty to maximum (10)
 
