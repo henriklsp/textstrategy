@@ -49,6 +49,7 @@ Choices can be made mutually exclusive with the 'not' operator, if results shoul
 Rewrite all basic text in prose form.
 Aim for a mythical style inspired by fantasy authors, such as J.R.R. Tolkien, U.K. Le Guin, N.K. Jemisin. Include sensory detail and vivid impressions of scenery, atmosphere, and nature, and objects. Use scenic descriptions inspired by David Attenborough, especially for passages setting the scene or depictions of nature, invoking a sense of wonder.
 The goal is to make the reader feel that they are experiencing extraordinary places and events first hand, and that their deeds and adventures will become legendary.
+Avoid similes with "like" and "as".
 Ethical and moral themes revolve around human emotions, quirks and vices such as temptation, pride, courage, folly and hope and the dream of freedom.
 The story is always told from the player's perspective. The player as the main character is referred to as 'you'. The reader only knows what the main character can see, hear and feel and remember. The player's character is mostly a silent protagonist, rarely described, but always present. 
 Be careful not to describe facts, which may contradict the actual game state. Check designdocument backstory section to keep facts consistent. Keep descriptions of person physical traits to a minimum, but focus on their behaviour, actions, speech, and mood. Use role traits as guidelines for personalities.
