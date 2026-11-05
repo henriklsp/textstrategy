@@ -9,6 +9,7 @@ Dialog Parsing Quick Reference Cheat Sheet
 *A: -Trait : Select person with negative trait for dialog role A
 *A: Trait, Trait2 : Select person with both traits for dialog role A (max two)
 *A: scavenge : Select person best suited for task (scavenge, build, hunting, fishing, farming, woodcutting, mining, craft, storage)
+*D: : Traitless role: no requirements, any person is equally good for the role
 
 (cond?) : Event prerequisite. Before the first section.
  (weapons 1?) : The event only happens if player has at least 1 weapons.
@@ -31,6 +32,9 @@ Dialog Parsing Quick Reference Cheat Sheet
                      fit for work and not already doing it (task requirements included)
  #2 (A life?) abc : visible if the person in dialog role A has positive trait life
  #2 (B -magic?) abc : visible if the person in dialog role B has negative trait magic
+ #2 abc (x?) : prerequisite groups may also stand at the END of the choice line (one or more,
+                mixed with leading groups if you like). A trailing parenthetical that is not
+                a valid condition is shown as button text, e.g. "#2 abc (wood is needed)".
  #n pointing to a section that does not exist ends the dialog.
  A section with no visible choices is the end of the dialog (the UI shows "Continue").
 
