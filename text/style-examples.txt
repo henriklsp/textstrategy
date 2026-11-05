@@ -1,0 +1,138 @@
+STYLE EXAMPLES
+=====================================
+Approved examples and anti-examples for the game's prose style (guide
+stage 5). Ten rewrite-like-this pairs (plain basic text first, then the
+styled version) and ten not-like-this anti-examples (each labeled with
+its failure mode). Curated by Henrik after the style experiments.
+The plain side of each pair follows guide stage 3 (just-the-facts).
+The styled side follows guide stage 5 (mythical, sensory, wonder).
+The plain side of each pair follows guide stage 3 (just-the-facts).
+The styled side follows guide stage 5 (mythical, sensory, Attenborough
+nature, emotions shown, present tense, second person).
+Note: some styled examples deliberately test boundaries (marked [edge]) -
+strike any that feel wrong.
+
+
+PART 1: REWRITE LIKE THIS (plain -> styled)
+=============================================
+
+EXAMPLE 1 - The night camp (atmosphere, warmth)
+PLAIN:
+It is night. The fire burns low. You sit by the fire. The others sleep. You are cold.
+STYLED:
+Night gathers around your camp, drawing its dark mantle across the sleeping wilderness. Before you, the fire dwindles to a handful of glowing embers, its once-proud flames now little more than flickering tongues of orange against the gloom. You sit alone beside it, watching the last sparks rise and vanish into the starless canopy above. Around you, your companions lie motionless beneath their blankets, surrendered to the quiet embrace of sleep. Beyond the circle of firelight, the forest stirs with unseen life. You draw your cloak tighter. The cold creeps closer, patient and unrelenting, as though the night itself has begun to hunt you.
+
+EXAMPLE 2 - The forest (nature, wonder)
+PLAIN:
+The forest is large. The trees are tall. There are many birds. The men do not want to go in.
+STYLED:
+Before you rises the forest, vast and ancient, its boundaries lost in a wilderness of towering trunks and tangled boughs. The great trees stand like the pillars of some forgotten kingdom, their crowns woven together so tightly that little daylight finds its way to the earth below. All about you, the forest teems with life. Birds flit between the branches, calling to one another in a hundred strange voices, though their songs offer little comfort. Your companions stand at the edge of the trees, reluctant to venture further. For beyond this green threshold lies a world they cannot see, and do not care to know.
+
+EXAMPLE 3 - The hunt (action)
+PLAIN:
+You follow the deer tracks. The deer is ahead. You draw your bow. You shoot and miss. The deer runs away.
+STYLED:
+You press forward, your gaze locked upon the cloven impressions freshly pressed into the loam—a silent script written by the forest’s most elusive inhabitant. Ahead, half-veiled by ancient ferns, the stag stands motionless, a masterpiece of sinew and quiet vigilance. You draw the yew bow; the string sings a low, sharp note. The arrow looses, a fleeting shadow, but parts the empty air alone, striking only moss. Instantly, the spell of stillness shatters. With a sudden, explosive burst of muscle and magnificent antlers, the creature vanishes into the green twilight, swallowed by the wild.
+
+EXAMPLE 4 - Winter morning (hardship)
+PLAIN:
+It is morning. There is snow on everything. The river is frozen. The food stores are low.
+STYLED:
+Morning comes white. Snow has come in the night and laid itself over everything - roofs, firewood, the sleeping forms of the goats - with the evenness of something that owed no one anything. The river has stopped, frozen from bank to bank, its last sounds held in the ice. You count the sacks again, as if counting could change them. The food is low. The winter is not.
+
+EXAMPLE 5 - The council argument (dialog)
+PLAIN:
+A and B argue. A wants to hunt. B wants to build. They look at you. You must decide.
+STYLED:
+“The hunt cannot wait!” A declares, his hand resting upon the haft of his spear. “The stores grow thin, and the forest is rich with game.”
+“Nor can the fence!” B retorts, her brow darkening. “A broken barrier invites every hungry beast and ill-meaning stranger within. All must labour, and none more so than you, A!”
+
+You watch as their voices rise, each one unmoved by the other's argument. Such disputes are not uncommon among a people whose survival rests upon both the hunt and the strength of their walls.
+At last, they turn to you.
+Their eyes await your judgement. What do you command?
+
+EXAMPLE 6 - The first house is finished (hope)
+PLAIN:
+The house is finished. It is small. Everyone helps to raise the roof. You stand inside. It smells of new wood.
+STYLED:
+The roof goes up in a morning: twenty hands, one long push, and the ridge-pole slides home with a sound like a struck string. Afterward you stand inside the little house alone. It smells of cut wood and cold air and nothing yet - no smoke, no years, no names. Give it a winter. It will remember.
+
+EXAMPLE 7 - Enemy sails (fear)
+PLAIN:
+You see sails on the water. They are far away. The sails are red. The dragon symbol is on them. The people are afraid.
+STYLED:
+The lookout's voice comes down like something dropped from a height. You run to the headland and see them: sails, far out, too many - and red, red as the thing they came for. Even at this distance the golden dragon shows on the lead sail, bright as a brand. Behind you the settlement has gone quiet the way animals go quiet before weather. The boats of the Empire have crossed the ocean. They found you anyway.
+
+EXAMPLE 8 - The burial (grief)
+PLAIN:
+You bury the dead man. You dig the grave. The old woman says words to the gods. Everyone is quiet. Then you go back to work.
+STYLED:
+You dig through the dark topsoil and into the stony ground beneath, and the ground takes your whole morning, and that is as it should be. The old woman speaks the words slowly, the way one carries water, so that none is spilled. Then everyone stands a moment with their hats in their hands, in the wind, looking at the wrapped shape of the man who will not see the spring. Then the work calls, as it always does, and you go.
+
+EXAMPLE 9 - The seeds sprout (hope, wonder)
+PLAIN:
+The seeds have grown. Small green plants come up in the field. Everyone is happy. The food will come.
+STYLED:
+They came up overnight, it seems: small green points in the black rows, hundreds of them, every one alive. People kneel in the dirt of the field they cleared with their own blistered hands, touching the leaves as you would touch a sleeping child. Nothing in this land has promised you anything yet. But the field is green, and green is a promise all the same.
+
+EXAMPLE 10 - The wolf (pain, action)
+PLAIN:
+The wolf bites your arm. It hurts. You hit the wolf with your axe. The wolf runs away. Your arm is bleeding.
+STYLED:
+The wolf lunges with startling ferocity, its jaws closing upon your arm. Pain shoots through you as its teeth find their mark. You cry out and bring your axe crashing down upon the beast. The blow strikes true. With a sharp yelp, the creature recoils and vanishes into the undergrowth, its grey form swallowed by the shadows.
+
+For a moment, the forest falls silent. You look down. Blood runs freely from the wound, staining your sleeve a dark crimson. The wolf is gone, but its parting gift remains.
+
+
+PART 2: NOT LIKE THIS (anti-examples, each labeled with its failure)
+====================================================================
+
+ANTI-EXAMPLE 1 - Telling the emotion instead of showing it
+BAD:
+You feel terrified and alone as the storm rages. You are overwhelmed by despair, but also feel a flicker of hope.
+(Failure: names feelings directly. The reader is told what to feel instead of feeling it.)
+
+ANTI-EXAMPLE 2 - Similes from outside the characters' world
+BAD:
+The waves toss the boat around like a toy in a bathtub. C's laugh sounds like a faulty engine.
+(Failure: bathtub and engine are objects the settlers have never seen. A simile must be imaginable on the boat.)
+
+ANTI-EXAMPLE 3 - Stacked similes / overwrought ornament
+BAD:
+The sea, like a ravenous beast, devours the dying light like a starving wolf devours prey, and the sky above, like a bruised face, darkens like ink spilled on old parchment.
+(Failure: three similes in one sentence, all straining. Nothing is being seen anymore, only decorated.)
+
+ANTI-EXAMPLE 4 - Archaic costume
+BAD:
+Lo, the sun falleth into the western deep, and verily the sea is dark and foreboding.
+(Failure: costume-jewelry antiquity - "lo/verily/-eth" replace actual weight with fake weight.)
+
+ANTI-EXAMPLE 5 - Narrator editorializing or joking
+BAD:
+The storm, which frankly could have picked a better time, decides to show up. Spoiler: it gets worse.
+(Failure: the narrator becomes a stand-up comedian. There is no narrator persona in this game - only what you see, hear, and feel.)
+
+ANTI-EXAMPLE 6 - Inventing the player's memories and tears
+BAD:
+You remember how your father taught you to swim in the river near your childhood home, and tears fill your eyes as you recall his face.
+(Failure: invents a backstory and emotional display for the silent protagonist, and risks contradicting the game state.)
+
+ANTI-EXAMPLE 7 - Documentary register in the wrong place
+BAD:
+Here we observe the fascinating struggle of the drowning specimen as it attempts to reach the shore, a remarkable display of mammalian determination.
+(Failure: Attenborough voice is for nature and setting, never for people in action or danger.)
+
+ANTI-EXAMPLE 8 - Purple nature with no function
+BAD:
+The ineffable cerulean vastness stretches infinitely toward the ethereal horizon, a symphony of azure magnificence.
+(Failure: adjectives do all the work; nothing is actually seen; the words point at other words.)
+
+ANTI-EXAMPLE 9 - Inventing facts that can contradict the game state
+BAD:
+The forty refugees crowd around you as you wipe the rain from your long red braids, and B, a tall woman with a scar over her left eye, hands you back your iron axe with the wolf-blood still on it.
+(Failure: invents specific numbers, physical attributes and past events that the game state may contradict - the engine may count fifty people, B may be short with no scar, and the wolf attack may never have happened in this playthrough. Style never adds facts; it can only describe what the game state actually holds.)
+
+ANTI-EXAMPLE 10 - Over-specifying the protagonist
+BAD:
+You look down at your long blond hair and muscular arms, and you cheerfully shout encouragement to the crew.
+(Failure: fixes physical traits the game leaves open, genders the player, assigns emotion and speech the player never chose.)
