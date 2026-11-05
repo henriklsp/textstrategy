@@ -9,6 +9,7 @@ Dialog Parsing Quick Reference Cheat Sheet
 *A: -Trait : Select person with negative trait for dialog role A
 *A: Trait, Trait2 : Select person with both traits for dialog role A (max two)
 *A: scavenge : Select person best suited for task (scavenge, build, hunting, fishing, farming, woodcutting, mining, craft, storage)
+*A:  (no traits - pick anyone)
 
 (cond?) : Event prerequisite. Before the first section.
  (weapons 1?) : The event only happens if player has at least 1 weapons.
