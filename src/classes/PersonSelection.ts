@@ -12,6 +12,7 @@ export class TraitRequirement {
 // Represents a role selection requirement for dialog.
 // Parsed from lines like *A: magic or *B: -magic or *C: magic, life
 // Can also be task-based: *A: scavenge or *B: build
+// Or traitless: *D: with no requirements - any person is equally good for the role
 // When Dialog enters a Section with PersonSelections, it resolves them
 // by finding the best overall assignment of Persons from DataModel's castOfCharacters.
 export class PersonSelection {
@@ -148,16 +149,23 @@ export class PersonSelection {
         return score;
     }
 
-    // Parse a PersonSelection from text like "A: magic" or "B: -magic" or "C: magic, life" or "A: scavenge"
-    // Supports up to two comma-separated trait requirements, or a single task type
+    // Parse a PersonSelection from text like "A: magic" or "B: -magic" or "C: magic, life" or "A: scavenge" or "D:" (no requirements)
+    // Supports up to two comma-separated trait requirements, or a single task type,
+    // or nothing at all: a traitless role (e.g. *D:) has no requirements and any
+    // person is equally good for it.
     public static parse(text: string): PersonSelection | null {
-        // Match pattern: RoleName: something
-        const match = text.match(/^([A-Za-z]\w*):\s*(.+)$/);
+        // Match pattern: RoleName: something (the something may be empty)
+        const match = text.match(/^([A-Za-z]\w*):\s*(.*)$/);
         if (!match) {
             return null;
         }
         const roleName = match[1];
         const contentText = match[2].trim();
+
+        // Traitless role selection (e.g. "D:"): no requirements, any person fits
+        if (contentText === '') {
+            return new PersonSelection(roleName, []);
+        }
 
         // Check if this is a task-based selection (single word that normalizes
         // to a task type, e.g. "fish" or "woodcut" as well as "fishing")
