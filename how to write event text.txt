@@ -28,6 +28,7 @@ Set the scene. Where and when. what is going on. Who is present apart from the p
 Fill the other sections with basic story text similarly.
 Write all sections as plain just-the-facts text: what happens, what is visible, who says and does what — nothing more. No similes, no metaphors, no atmosphere, no descriptions or details. This text will be replaced in stage 5, so do not polish it.
 Use gendered pronouns arbitrarily - they will be replaced later to match each person's actual gender.
+All person names must be in tags <A>, <B> etc.
 Add effects to sections as appropriate. Examples of typical effects could be: 
 [person A health -5] : A suffers a minor injury.
 [person B attitude +5] : B is pleased
@@ -58,6 +59,7 @@ On rare occasions, characters may mention past game events by using the <x?a;b> 
 Always write in the present tense, except in dialog when characters may speak in past, present or future tense.
 See style-examples.txt for approved examples and anti-examples.
 Aim for 100 to 500 words per section.
+Verify that nothing important was lost in the rewrite from the fourth draft.
 
 6: Complete text - final version
 Add variable text substitution.
