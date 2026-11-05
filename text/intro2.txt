@@ -1,9 +1,9 @@
 *A: divinity
 *B: -life
 *C: magic
-*D: rest
+*D:
 
-// INTRO2 - SIXTH DRAFT: PROSE TEXT WITH MECHANICAL FIXES
+// INTRO2 - SEVENTH DRAFT: PROSE TEXT WITH MECHANICAL FIXES
 // Prose per guide stage 5: mythical style inspired by Tolkien, Le Guin and
 // Jemisin; nature described with wonder in the manner of Attenborough; no
 // "like"/"as" similes, direct metaphors sparingly. See text/style-examples.txt
@@ -14,16 +14,15 @@
 // effect and prerequisite syntax: [person A attitude +5], (A divinity).
 // Roles: <A> divinity (undeterred, destiny and glory), <B> -life (physically
 // exhausted), <C> magic (counts days, reads signs). <D> has no personality
-// trait yet (as decided in the fourth draft), so D is selected by task: the
-// person best suited to rest, which is all D does in this event.
-// Choice prerequisites stand at the START of the choice line, e.g.
-// "#14 (A divinity) Ask <A> about the gods". The parser does not read
-// trailing prerequisite parentheses; it shows them as button text.
-// Food: a new game starts with food 0 (DataModel default), so section 1
-// records the boat's remaining provisions: [var food 1], one basket. Taking
-// the sacks from the wreck adds one basket: [var food +1] in section 61.
-// (The fifth draft's [var food 2] would have added two.) The (food 1?) check
-// on counting the food was always true and is removed.
+// trait yet (as decided in the fourth draft), so *D: is a traitless role:
+// any person is equally good for it. All D does in this event is sleep.
+// Choice prerequisites may stand at the START or the END of the choice line,
+// e.g. "#14 (A divinity) Ask <A> about the gods". A trailing parenthetical
+// that is not a valid condition stays display text.
+// Food: a new game starts with food 1 (set in Main.initialize). Section 1 no
+// longer modifies food (the old [var food 1] was a free basket the player
+// never chose). Taking the sacks from the wreck adds two baskets:
+// [var food 2] in section 61, making 3 in total.
 // Timeline: late afternoon (1-7), sunset and dusk (10-36), night and storm
 // (40-70). Time moves forward only.
 // Gendered pronouns are arbitrary (A he, B she, C he, D she) - to be replaced
@@ -31,11 +30,10 @@
 // Ends with night; the first day continues in the firstday event.
 
 §1
-[var food 1]
 The sun is low in the west, and the sea beneath it turns from bronze to iron. The light is going, but slowly; the evening will be long.
 This is the last boat. She is old and salt-blanched, and she carries more than she was built to carry: refugees and everything they own, bundles and children and cooking pots lashed down between the benches. The sail was destroyed days ago; the storm took it, and the sea kept it. Since then everyone rows in turns, and the oars keep their slow rhythm on the water, hour upon hour, patient beyond the patience of any crew.
 Everyone is tired. The fresh water is nearly gone; there is only what the rains give, and the rains have been few. The food is nearly gone too: grain, dried fish and hard bread lashed under the ropes, a few days of small meals for all these people. There is no land in sight, in any direction. There is no way back.
-Among the rowers are your three friends: proud and certain <A>, who speaks of destiny; strong, stubborn <B>, who says little; and quiet, watchful <C>, who counts the days and reads the sky. Near you, your fourth friend <D> sleeps under a tarp, worn hollow by the voyage. You decide not to wake her. Let the sleeping sleep.
+Among the rowers are your three friends: proud and determined <A>, glum and cynical <B>, and clever <C>. Near you, your fourth friend <D> sleeps under a tarp, worn hollow by the voyage. You decide not to wake her. Let the sleeping sleep.
 Your own turn at the oars is over. Behind you, the next rowers settle into their seats, and the strokes go on.
 #5 Watch the darkening sea and sky
 #10 Sit down among the others
@@ -252,7 +250,7 @@ One thing from the wreck is still within reach, washed against the rocks. What d
 #63 An axe
 
 §61
-[var food +1]
+[var food 2]
 You wade back, and the sea lets you, this once. The food sacks are caught against the rocks, and you pull them free before the water can change its mind: grain, dried fish, hard bread. It is not much for so many mouths. But mouths do not ask for much when the only other choice is the sea's. You drag the sacks up beyond the reach of the waves and stand over them, your body between the wind and the food.
 #64 Look after the others
 #70 Let the night come
