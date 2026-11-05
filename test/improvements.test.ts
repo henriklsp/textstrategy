@@ -33,8 +33,9 @@ function render(text: string, dataModel = new DataModel()): string {
 
 describe('Content files', () => {
     const textDir = path.join(__dirname, '..', 'text');
-    // pool.txt is a pool manifest (event names, comments only), not an event file
-    const files = fs.readdirSync(textDir).filter(f => f.endsWith('.txt') && f !== 'pool.txt');
+    // pool.txt is a pool manifest (event names, comments only), not an event file;
+    // style-examples.txt is the prose style guide companion, not an event file
+    const files = fs.readdirSync(textDir).filter(f => f.endsWith('.txt') && f !== 'pool.txt' && f !== 'style-examples.txt');
 
     test.each(files)('text/%s parses without issues', file => {
         const parser = new EventParser();
@@ -393,7 +394,10 @@ describe('GameLoop and startup', () => {
         await main.initialize();
         const g = main.getGameLoop();
         expect(g.getDataModel().getCurrentDay()).toBe(1);
-        expect(g.getDataModel().get('food')).toBe(11); // 10 + [var food 1] in intro §1
+        // Main starts food at 1; intro.txt's §1 still adds [var food 1].
+        // When intro2.txt replaces intro.txt, §1 no longer modifies food and
+        // the intro leaves it at 1 (intro2's §61 adds 2 when grabbing the sacks).
+        expect(g.getDataModel().get('food')).toBe(2); // 1 + [var food 1] in intro §1
         expect(g.getCurrentDialog()?.getCurrentText()).toContain('You are on a boat.');
     });
 });
