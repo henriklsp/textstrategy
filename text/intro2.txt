@@ -3,7 +3,7 @@
 *C: magic
 *D:
 
-// INTRO2 - EIGHTH DRAFT: REVIEW FIXES AFTER THE FULL READ-THROUGH
+// INTRO2 - NINTH DRAFT: MINOR WORDING FIXES AFTER THE READ-THROUGH REVIEW
 // Prose per guide stage 5: mythical style inspired by Tolkien, Le Guin and
 // Jemisin; nature described with wonder in the manner of Attenborough; no
 // "like"/"as" similes, direct metaphors sparingly. See text/style-examples.txt
@@ -52,12 +52,12 @@ You check the food sacks, untying and tying them again, counting what should not
 #10 Sit down among the others
 
 §7
-You look into the water barrel and see the bottom looking back at you. There is little left. The rain barrel is half full, the one mercy of the week, and the clouds are gathering again tonight, heavy and dark. They may give water. They may give nothing. You have learned to take what falls and be glad.
+You look into the water barrel and see the bottom looking back at you. What is left is rain water, the one mercy of the week, and the clouds are gathering again tonight, heavy and dark. They may give water. They may give nothing. You have learned to take what falls and be glad.
 #5 Look at the sea again
 #10 Sit down among the others
 
 §10
-<A>'s turn at the oars ends at the same time. He drops down beside you, takes a swallow of rainwater from the shared barrel, and looks out west, where the sun is going down. He is not tired. Or he will not show it, which on this boat comes to the same thing.
+Before long, <A>'s turn at the oars ends. He drops down beside you, takes a swallow of rainwater from the shared barrel, and looks out west, where the sun is going down. He is not tired. Or he will not show it, which on this boat comes to the same thing.
 "The gods did not carry us this far to drown us," says <A>. "We rose against the Dragon Emperor knowing what it would cost, and the gods watched us do it. They will not waste us on the sea. There is a land ahead. And when we reach it, it will be ours. We will be the founders of something great. They will tell stories about us."
 He looks out over the water and does not blink, and there is something in his stillness that demands the land appear.
 What do you say?
@@ -213,7 +213,7 @@ You make your way along the crowded deck, between sleeping families and wakeful 
 #50 Take your place at the oars
 
 §50
-The storm arrives in full darkness, sudden and total. Rain hammers the deck. The waves take the boat and throw it, and the boat, old creature, takes the punishment. People shout. Somewhere a child is crying, and someone is singing to the child, and both sound equally desperate.
+The storm arrives in full darkness, at last, and total. Rain hammers the deck. The waves take the boat and throw it, and the boat, old creature, takes the punishment. People shout. Somewhere a child is crying, and someone is singing to the child, and both sound equally desperate.
 Then a cry goes up from the front, one word that cuts through everything: "REEF!"
 The boat grinds over the rocks, and the hull tears open. People and belongings spill into the black water together, and the water does not care which is which.
 Who do you grab and hold onto?
@@ -247,7 +247,7 @@ And the dark answers. Voices take up the word. Hands find hands. Somewhere a rop
 You crawl out of the surf onto wet sand and fall down, breathing hard. The sand holds you, solid and unmoving, the first thing in weeks that has not moved beneath you.
 Around you, others stumble out of the dark: mothers calling names into the roar, men dragging bundles, an old man on his knees with both hands pressed to the ground. One of the refugees lies moaning on the sand, badly hurt, and the others gather around. <D> is helped ashore, still half-asleep, awake enough to walk, not to talk.
 Behind you, the wreck settles on the reef, groaning with every wave, refusing even now to finish.
-One thing from the wreck is still within reach, washed against the rocks. What do you take?
+One thing worth wading for is still within reach, washed against the rocks. What do you take?
 #61 Food
 #62 A bundle of silver coins
 #63 An axe
@@ -291,7 +291,7 @@ You walk among the families. The children are wrapped in blankets, wet but whole
 
 §67
 [var weapons 1]
-You search the surf with numb hands, feeling in the shallows where the wreckage washes. The sea gives up a length of broken oar: its last gift, and a poor one. You wade it ashore and stand it in the sand beside the fire. A poor weapon, but a weapon.
+You search the surf with numb hands, feeling in the shallows where the wreckage washes. The sea gives up a length of broken oar: its last gift, and a poor one. You wade ashore with it and stand it in the sand beside the fire. A poor weapon, but a weapon.
 #66 See to the children and families
 #70 Let the night come
 
