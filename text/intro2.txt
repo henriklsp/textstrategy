@@ -3,40 +3,6 @@
 *C: magic
 *D:
 
-// INTRO2 - TENTH DRAFT: STAGE 6 - PRONOUN, VARIATION AND PERSONALITY TAGS
-// Prose per guide stage 5: mythical style inspired by Tolkien, Le Guin and
-// Jemisin; nature described with wonder in the manner of Attenborough; no
-// "like"/"as" similes, direct metaphors sparingly. See text/style-examples.txt
-// for the approved examples and anti-examples.
-// Present tense (dialog excepted), second person, silent protagonist.
-// All four friends are introduced in section 1 and written as name tags
-// <A> <B> <C> <D> in text and choice labels. Bare letters appear only in
-// effect and prerequisite syntax: [person A attitude +5], (A divinity).
-// Roles: <A> divinity (undeterred, destiny and glory), <B> -life (physically
-// exhausted), <C> magic (counts days, reads signs). <D> has no personality
-// trait yet (as decided in the fourth draft), so *D: is a traitless role:
-// any person is equally good for it. All D does in this event is sleep.
-// Choice prerequisites may stand at the START or the END of the choice line,
-// e.g. "#67 Search the surf (not broughtweapons)". A trailing parenthetical
-// that is not a valid condition stays display text. The always-true
-// role-trait conditions were removed from #14 and #34 in the eighth draft:
-// the role lines already guarantee those traits.
-// Food: a new game starts with food 1 (set in Main.initialize). Section 1 no
-// longer modifies food (the old [var food 1] was a free basket the player
-// never chose). Taking the sacks from the wreck adds two baskets:
-// [var food 2] in section 61, making 3 in total.
-// Timeline: late afternoon (1-7), sunset and dusk (10-36), night and storm
-// (40-70). Time moves forward only.
-// Stage 6 (tenth draft): every person pronoun is a tag - <A he> <A his>,
-// <he>, <B him>, <C he>... - rendered by the gender of the actual cast.
-// Variation tags <?a;b> in sections 1, 5, 41, 42 and 66. Personality tags
-// on D (the traitless role) in 42 (<D life?...>) and 60 (<D harmony?...>).
-// Kept literal on purpose: the boat's "she" in 1, the Dawn Chaser's "Her
-// people" in 36, and the old woman's pronouns in 65 - background figures
-// and ships have no role tags.
-// Ends with night; the first day continues in the firstday event, triggered
-// with [event firstday 1] so it begins the next morning, after the daily update.
-
 §1
 The sun is low in the west, and the sea beneath it turns from bronze to iron. <?The wind smells of coming rain, far off and cold.;The wind is warm and salt, with no rain in it yet.> The light is going, but slowly; the evening will be long.
 This is the last boat. She is old and salt-blanched, and she carries more than she was built to carry: refugees and everything they own, bundles and children and cooking pots lashed down between the benches. The sail was destroyed days ago; the storm took it, and the sea kept it. Since then everyone rows in turns, and the oars keep their slow rhythm on the water, hour upon hour, patient beyond the patience of any crew.
