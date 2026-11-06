@@ -3,7 +3,7 @@
 *C: magic
 *D:
 
-// INTRO2 - SEVENTH DRAFT: PROSE TEXT WITH MECHANICAL FIXES
+// INTRO2 - EIGHTH DRAFT: REVIEW FIXES AFTER THE FULL READ-THROUGH
 // Prose per guide stage 5: mythical style inspired by Tolkien, Le Guin and
 // Jemisin; nature described with wonder in the manner of Attenborough; no
 // "like"/"as" similes, direct metaphors sparingly. See text/style-examples.txt
@@ -17,8 +17,10 @@
 // trait yet (as decided in the fourth draft), so *D: is a traitless role:
 // any person is equally good for it. All D does in this event is sleep.
 // Choice prerequisites may stand at the START or the END of the choice line,
-// e.g. "#14 (A divinity) Ask <A> about the gods". A trailing parenthetical
-// that is not a valid condition stays display text.
+// e.g. "#67 Search the surf (not broughtweapons)". A trailing parenthetical
+// that is not a valid condition stays display text. The always-true
+// role-trait conditions were removed from #14 and #34 in the eighth draft:
+// the role lines already guarantee those traits.
 // Food: a new game starts with food 1 (set in Main.initialize). Section 1 no
 // longer modifies food (the old [var food 1] was a free basket the player
 // never chose). Taking the sacks from the wreck adds two baskets:
@@ -27,7 +29,8 @@
 // (40-70). Time moves forward only.
 // Gendered pronouns are arbitrary (A he, B she, C he, D she) - to be replaced
 // with pronoun tags (<A He> etc.) along with <?...> variation tags in stage 6.
-// Ends with night; the first day continues in the firstday event.
+// Ends with night; the first day continues in the firstday event, triggered
+// with [event firstday 1] so it begins the next morning, after the daily update.
 
 §1
 The sun is low in the west, and the sea beneath it turns from bronze to iron. The light is going, but slowly; the evening will be long.
@@ -61,7 +64,7 @@ What do you say?
 #11 Speak of hope for what lies ahead
 #12 Plan for what may lie ahead, if anything
 #13 Say little - just listen
-#14 (A divinity) Ask <A> about the gods
+#14 Ask <A> about the gods
 
 §11
 You say that you have come too far to give up.
@@ -69,7 +72,7 @@ You say that you have come too far to give up.
 Behind you the rowing goes on, and the boat moves west through the darkening water, and for a moment the sea is not a prison. It is a road.
 [person A attitude +5]
 #20 Continue
-#14 (A divinity) Ask <A> about the gods
+#14 Ask <A> about the gods
 
 §12
 You say that hope will not find water, and that you must be ready for land before land is ready for you.
@@ -77,12 +80,12 @@ You say that hope will not find water, and that you must be ready for land befor
 It is not glory yet. But it is a road that leads there.
 [person A attitude +3]
 #20 Continue
-#14 (A divinity) Ask <A> about the gods
+#14 Ask <A> about the gods
 
 §13
 You say nothing, and let him talk: the land ahead, the future, the glory that waits for you all. He speaks of it quietly, and then louder, and the words carry along the benches, and people listen who did not mean to. When the watch changes he seems calmer. The hope he gave away has left room for more.
 #20 Continue
-#14 (A divinity) Ask <A> about the gods
+#14 Ask <A> about the gods
 
 §14
 You ask whether the gods sent you out here.
@@ -147,16 +150,16 @@ What do you say?
 #31 Speak of hope for what lies ahead
 #32 Plan for what may lie ahead, if anything
 #33 Say little - just listen
-#34 (C magic) Ask how <C> can tell
+#34 Ask how <C> can tell
 #36 Ask about the other ships
 
 §31
 You say that weed and gulls can only mean land.
-<C> nods. "Maybe. The sky is closing, and I cannot see much tonight. But yes. Maybe."
-The word maybe travels from bench to bench, and gathers weight wherever it lands.
+Around you the rowers have gone quiet, listening. <C> nods. "Maybe. The sky is closing, and I cannot see much tonight. But yes. Maybe."
+He lifts his face to the wind and closes his eyes, weighing what only he can read in it. The word maybe travels from bench to bench, and gathers weight wherever it lands. It is not a promise. But tonight the boat is full of people rowing a little straighter.
 [person C attitude +5]
 #40 Continue
-#34 (C magic) Ask how <C> can tell
+#34 Ask how <C> can tell
 
 §32
 You say that if the coast is close, you must not meet it in the dark and die of it. When <C> thinks you are near, he says so, and the oars come in slow, and every eye watches for reefs.
@@ -164,12 +167,12 @@ You say that if the coast is close, you must not meet it in the dark and die of 
 The plan is set. Now the sea must cooperate, and the sea has never read a plan.
 [person C attitude +3]
 #40 Continue
-#34 (C magic) Ask how <C> can tell
+#34 Ask how <C> can tell
 
 §33
 You say nothing. <C> goes on talking quietly: the weed, the gulls, the stars, the days behind you and the days ahead. The talking keeps the fear at arm's length, a small lamp against the dark. You listen until the clouds cover the last of the stars, and his voice goes on a while anyway, out of habit, or out of courage.
 #40 Continue
-#34 (C magic) Ask how <C> can tell
+#34 Ask how <C> can tell
 
 §34
 You ask how he can tell.
@@ -269,7 +272,8 @@ You wade back and pull an axe from the wreck: your great-grandfather's axe, its 
 #70 Let the night come
 
 §64
-The storm loses its voice slowly, pretending all the while that it meant to stop. Down the dark beach, the survivors drift together toward the first small fire of driftwood. There is still work to be done before anyone can sleep.
+The storm loses its voice slowly, pretending all the while that it meant to stop. Down the dark beach, the survivors drift together toward the first small fire of driftwood. Its light is small and orange against the black of the dunes, and every face that passes into it looks worn and strange.
+There is still work to be done before anyone can sleep: the wounded to watch over, the water to carry, the dark to sit out together.
 #65 Check on the badly hurt refugee
 #66 See to the children and families
 #67 (not broughtweapons) Search the surf for something to defend yourselves with
@@ -295,4 +299,4 @@ You search the surf with numb hands, feeling in the shallows where the wreckage 
 The rain goes on, softer now, the storm having spent itself on your arrival. You count the others, and the count comes out: everyone made it ashore. The injured one is being cared for. The wreck groans on the reef behind you, breaking a little more with every wave, but still holding together. There is no going back now, and nowhere else to go. On this beach, tonight, that is not a threat. It is a fact, and facts can be built on.
 The survivors huddle together on the dark sand around the small fire. Someone feeds it driftwood. Nobody speaks. <D> sleeps again by the fire.
 The night deepens. The first day ashore waits for morning.
-[event firstday 0]
+[event firstday 1]
