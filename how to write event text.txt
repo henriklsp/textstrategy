@@ -67,4 +67,12 @@ Use <?abc;def> syntax to add variation and remarkable details, particularly usef
 Use <A life?a;b> syntax to add personality for other traits than the role selection traits. 
 Replace all gender pronouns with <A He> <him> <his> etc. 
 
-Finally, read the whole event text for syntax validation and correctness.
+7: Proofreading
+Finally, read the whole event text for syntax validation and correctness and logical consistency.
+All facts are consistent throughout.
+Things happen in a meaningful order for any path through the sections.
+Character behavior makes sense in the context given their traits. Even irrational behaviour can be explained. 
+Writing matches style guide.
+All character names are in <A> <B> tags.
+All gendered pronouns are in <he> <her> tags.
+Once again, check that all established rules from phase 1 to 6 are still fulfilled. 
