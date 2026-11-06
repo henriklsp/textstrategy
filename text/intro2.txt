@@ -28,7 +28,7 @@ You look into the water barrel and see the bottom looking back at you. What is l
 #10 Sit down among the others
 
 §10
-Before long, <A>'s turn at the oars ends. <He> drops down beside you, takes a swallow of rainwater from the shared barrel, and looks out west, where the sun is going down. <He> is not tired. Or <he> will not show it, which on this boat comes to the same thing.
+Before long, <A>'s turn at the oars ends. <He> drops down beside you, takes a swallow of rain water from the shared barrel, and looks out west, where the sun is going down. <He> is not tired. Or <he> will not show it, which on this boat comes to the same thing.
 "The gods did not carry us this far to drown us," says <A>. "We rose against the Dragon Emperor knowing what it would cost, and the gods watched us do it. They will not waste us on the sea. There is a land ahead. And when we reach it, it will be ours. We will be the founders of something great. They will tell stories about us."
 <He> looks out over the water and does not blink, and there is something in <his> stillness that demands the land appear.
 What do you say?
