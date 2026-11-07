@@ -1,8 +1,10 @@
-import { Person, Gender } from './Person';
-import { PrerequisiteContext } from './Prerequisite';
-import { PrerequisiteParser } from './PrerequisiteParser';
-import { normalizeTaskName } from './DataModel';
-import { WorkerReport } from './WorkerReport';
+import { Person } from './Person.ts';
+import type { Gender } from './Person.ts';
+import type { PrerequisiteContext } from './Prerequisite.ts';
+import { PrerequisiteParser } from './PrerequisiteParser.ts';
+import { normalizeTaskName } from './DataModel.ts';
+import { TaskPhrases } from './TaskPhrases.ts';
+import { WorkerReport } from './WorkerReport.ts';
 
 // What the substitution needs from the Dialog: game state, role assignments,
 // random picks, and captured choice variables.
@@ -142,7 +144,19 @@ export class TextSubstitution {
 
                 // Try choice variable (task, person, etc.)
                 const choiceVar = this.context.getChoiceVariable(name);
-                if (choiceVar !== undefined) return choiceVar;
+                if (choiceVar !== undefined) {
+                    // <task>: render the task's prose phrase ("cutting wood")
+                    // instead of the raw menu label ("Woodcutting"). Values that
+                    // do not name a task are shown unchanged.
+                    if (name === 'task') {
+                        try {
+                            return TaskPhrases.getPhrase(normalizeTaskName(choiceVar), this.context.dataModel);
+                        } catch {
+                            // Not a task label: keep the captured value
+                        }
+                    }
+                    return choiceVar;
+                }
 
                 // Try numeric variable (rounded to whole number for display)
                 const value = this.numericValue(name);

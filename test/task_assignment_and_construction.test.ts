@@ -1,8 +1,8 @@
-import { EventParser } from '../src/classes/EventParser';
-import { GameLoop } from '../src/classes/GameLoop';
-import { DataModel } from '../src/classes/DataModel';
-import { Dialog } from '../src/classes/Dialog';
-import { Person } from '../src/classes/Person';
+import { EventParser } from '../src/classes/EventParser.ts';
+import { GameLoop } from '../src/classes/GameLoop.ts';
+import { DataModel } from '../src/classes/DataModel.ts';
+import { Dialog } from '../src/classes/Dialog.ts';
+import { Person } from '../src/classes/Person.ts';
 
 describe('Task Assignment and Construction', () => {
     let parser: EventParser;
@@ -155,8 +155,8 @@ describe('Task Assignment and Construction', () => {
         const finalText = dialog.getCurrentText();
 
         // Verify the text has correctly substituted both <person> and <task>
-        // task choice was "Hunt", which is stored as-is in the variable
-        expect(finalText).toBe(`${personCName} will Hunt now.`);
+        // task choice "Hunt" renders as the task's prose phrase in text
+        expect(finalText).toBe(`${personCName} will spend the day hunting.`);
 
         // Verify the person is actually assigned to the hunt task
         expect(dataModel.getTaskForPerson(personCName)).toBe('hunting');

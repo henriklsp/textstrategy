@@ -31,7 +31,7 @@ Select person to assign
 // Assign selected Person to selected Task
 [task <person> <task>]
 //Verify that C is assigned to Hunt
-<person> will <task> now.
+<person> will spend the day <task>.
 #999 End 
 
 §5

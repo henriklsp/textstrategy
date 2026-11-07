@@ -1,5 +1,9 @@
-import { Person, SerializedPerson } from './Person';
-import { BuildingType, ResourceCosts, BuildingDefinition, BuildingDefinitions } from './BuildingDefinitions';
+import { Person } from './Person.ts';
+import type { SerializedPerson } from './Person.ts';
+import { BuildingDefinitions } from './BuildingDefinitions.ts';
+import type { ResourceCosts } from './BuildingDefinitions.ts';
+import type { BuildingType } from './BuildingDefinitions.ts';
+import type { BuildingDefinition } from './BuildingDefinitions.ts';
 
 // Global state container. Key-value store using separate maps for numbers and booleans.
 // A name is either a number or a boolean flag, never both.
@@ -67,6 +71,7 @@ export function normalizeTaskName(input: string): TaskType {
         'build': 'build',
         'building': 'build',
         'craft': 'craft',
+        'crafting': 'craft',
         'scav': 'scavenge',
         'scavenge': 'scavenge',
         'scavenging': 'scavenge',
@@ -84,7 +89,10 @@ export function normalizeTaskName(input: string): TaskType {
 }
 
 // Re-export BuildingType from BuildingDefinitions
-export { BuildingType, ResourceCosts, BuildingDefinition, BuildingDefinitions };
+export { BuildingDefinitions };
+export type { ResourceCosts };
+export type { BuildingType };
+export type { BuildingDefinition };
 
 // Information about a building under construction
 interface BuildingConstruction {

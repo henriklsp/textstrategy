@@ -96,7 +96,9 @@ src/browser.ts (browser) or src/index.ts (Node)
   - Conditional logic: `<food 2?a;b>` -> a if food >= 2, else b
   - Random selection: `<?a;b;c>` -> randomly pick one option (once per section visit)
   - Truthy checks: `<x?a;b>` -> a if x is set/non-zero, else b
-  - Choice variables: `<person>`, `<task>` -> captured choice values
+  - Choice variables: `<person>`, `<task>` -> captured choice values;
+    `<task>` renders the task's prose phrase ("cutting wood") instead of
+    the raw menu label, and unknown values unchanged
   Unknown tags are left as-is for visibility during development.
 
 ### Sections & Choices

@@ -103,7 +103,7 @@ What should <A> do tomorrow?
 §10
 [task A <task>]
 [event workinprogress/council 3]
-<A> will <task> tomorrow, and you both agree to tell the others what you saw, and what to watch for.
+<A> will spend tomorrow <task>, and you both agree to tell the others what you saw, and what to watch for.
 <?The forest keeps its secrets, for now;The new land watches you back, and you do not yet know what watches.>
 TODO: camp reactions to what you found, bounty changes, follow-up event with the inhabitants.
 #999 End

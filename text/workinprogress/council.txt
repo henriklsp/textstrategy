@@ -78,7 +78,7 @@ That is all for now. The council will meet again in ten days.
 
 §7
 [task <person> <task>]
-<person> will <task> now. The council turns to other matters.
+<person> will spend the day <task>. The council turns to other matters.
 #1 Back to business
 
 §8
