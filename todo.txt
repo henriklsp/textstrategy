@@ -13,6 +13,7 @@
 - Write high priority events for misc. problems
 - Write low priority filler events
 - Trade event. Someone wants to buy or sell something for silver.
+- standalone PC build
 - dialog event effect: log text to be reported at the next council event. Add variable subsection to show recent events at council.
 - Recurring event "Council" allows storage summary and event summary.
 - Starvation events: trigger a story event when a character's health falls below a threshold, so the crisis appears in prose
