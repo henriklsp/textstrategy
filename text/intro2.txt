@@ -166,6 +166,7 @@ You ask about the other ships.
 "The storm took the Wave Dancer," <he> says then. "The Emperor's warship took the Dawn Chaser. Her people are on this boat with us." <He> looks out over the water. "We are all that is left. So we have to get there."
 The names go out over the sea. The sea keeps what it is given.
 #40 Continue
+#35 Ask what happens if <C> is wrong
 
 §40
 The wind picks up, and the night closes in. The clouds swallow the stars, one by one, and the sky goes black. The oars bite harder, and the boat begins to pitch and lean. The families wake and hold their children. Someone says they see lightning, far out at sea, and no one answers, because there is nothing to answer.
@@ -194,6 +195,7 @@ Who do you grab and hold onto?
 
 §51
 You reach for <A>. <He> takes your arm with a grip that refuses everything the sea has to offer, and together you go under, and together you come up, mouths full of salt. <He> coughs, spits, shouts words the storm devours. Then <he> pulls, and you pull, and by hands and stubbornness you are both moving through the mountains of water toward a dark line that must be shore. It must be.
+[person A attitude +3]
 #54 Shout to the others to hold together
 #60 Continue to the shore
 
@@ -206,6 +208,7 @@ You lock your arm around <him> and kick for the shore, hauling dead weight throu
 
 §53
 You reach for <C>. <He> clings to a floating plank with one arm and to you with the other, and laughs, wild and desperate, the sound of a mind that refuses to drown politely. "Weed and gulls!" <he> shouts into the rain. "I said there was land!" Proof, after a fashion. You swim for the shore together, the plank between you.
+[person C attitude +3]
 #54 Shout to the others to hold together
 #60 Continue to the shore
 
