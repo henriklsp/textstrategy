@@ -394,10 +394,9 @@ describe('GameLoop and startup', () => {
         await main.initialize();
         const g = main.getGameLoop();
         expect(g.getDataModel().getCurrentDay()).toBe(1);
-        // Main starts food at 1; intro.txt's §1 still adds [var food 1].
-        // When intro2.txt replaces intro.txt, §1 no longer modifies food and
-        // the intro leaves it at 1 (intro2's §61 adds 2 when grabbing the sacks).
-        expect(g.getDataModel().get('food')).toBe(2); // 1 + [var food 1] in intro §1
-        expect(g.getCurrentDialog()?.getCurrentText()).toContain('You are on a boat.');
+        // Main starts food at 1; the intro's §1 does not modify food.
+        // §61 adds 2 only if the player grabs the food sacks at landfall.
+        expect(g.getDataModel().get('food')).toBe(1);
+        expect(g.getCurrentDialog()?.getCurrentText()).toContain('The sun is low in the west');
     });
 });

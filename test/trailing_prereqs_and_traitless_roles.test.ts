@@ -73,9 +73,9 @@ describe('Traitless role selections (*D:)', () => {
         expect(parser.getIssues().map(i => i.message)).toContain('Invalid role selection \'*A magic\'');
     });
 
-    test('text/intro2.txt uses a traitless role for D and still assigns everyone', () => {
+    test('text/intro.txt uses a traitless role for D and still assigns everyone', () => {
         const parser = new EventParser();
-        const event = parser.parseFileSync('text/intro2.txt');
+        const event = parser.parseFileSync('text/intro.txt');
         expect(parser.getIssues()).toEqual([]);
 
         const selections = event.getSections()[0].getPersonSelections();

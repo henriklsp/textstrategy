@@ -1,7 +1,8 @@
 // text/firstday.txt
 // The first day ashore: the player decides what to build and who does what,
 // and schedules the first exploration trip (workinprogress/foraging, next day).
-// Triggered at the end of text/intro.txt with [event firstday 0].
+// Triggered at the end of text/intro.txt with [event firstday 1], so the first day
+// begins the next morning, after the daily update.
 // The story text is placeholder quality - we will polish it later.
 
 *A: divinity

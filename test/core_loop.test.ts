@@ -43,13 +43,24 @@ function pick(dialog: Dialog, text: string): void {
     dialog.dialogChoiceSelected(choice!);
 }
 
-// Follow the first available choice until a choice would end the dialog
+// Follow the first choice that leads to a not-yet-visited section (falling
+// back to the first choice when every choice has been visited already), until
+// a choice would end the dialog or the walk is exhausted. The intro has
+// loop-back choices, so a plain first-choice walk would never reach the end.
 function playThrough(dialog: Dialog): void {
-    for (let i = 0; i < 20; i++) {
+    const visited = new Set<number>();
+    for (let i = 0; i < 40; i++) {
         const choices = dialog.getCurrentChoices();
         if (choices.length === 0) break;
-        if (!choices[0].getSection()) break; // this choice ends the dialog
-        dialog.dialogChoiceSelected(choices[0]);
+        const fresh = choices.find(c => {
+            const target = c.getSection();
+            return target !== null && !visited.has(target.getSectionNumber()!);
+        });
+        const choice = fresh ?? choices[0];
+        const target = choice.getSection();
+        if (!target) break; // this choice ends the dialog
+        visited.add(target.getSectionNumber()!);
+        dialog.dialogChoiceSelected(choice);
     }
 }
 
@@ -77,7 +88,7 @@ describe('Core loop wiring', () => {
         const scheduled: Scheduled[] = [];
         const dialog = startEvent('text/intro.txt', dataModel, scheduled);
         playThrough(dialog);
-        expect(scheduled).toContainEqual({ name: 'firstday', delay: 0 });
+        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
     });
 
     test('firstday: order construction and assign a builder', () => {
