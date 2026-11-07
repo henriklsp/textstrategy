@@ -24,7 +24,6 @@ You check the food sacks, untying and tying them again, counting what should not
 
 §7
 You look into the water barrel and see the bottom looking back at you. What is left is rain water, the one mercy of the week, and the clouds are gathering again tonight, heavy and dark. They may give water. They may give nothing. You have learned to take what falls and be glad.
-#5 Look at the sea again
 #10 Sit down among the others
 
 §10
@@ -32,10 +31,10 @@ Before long, <A>'s turn at the oars ends. <He> drops down beside you, takes a sw
 "The gods did not carry us this far to drown us," says <A>. "We rose against the Dragon Emperor knowing what it would cost, and the gods watched us do it. They will not waste us on the sea. There is a land ahead. And when we reach it, it will be ours. We will be the founders of something great. They will tell stories about us."
 <He> looks out over the water and does not blink, and there is something in <his> stillness that demands the land appear.
 What do you say?
-#11 Speak of hope for what lies ahead
-#12 Plan for what may lie ahead, if anything
+#11 We have come too far to give up.
+#12 Hope will not find water.
 #13 Say little - just listen
-#14 Ask <A> about the gods
+#14 Do you think the gods sent us out here?
 
 §11
 You say that you have come too far to give up.
@@ -43,7 +42,7 @@ You say that you have come too far to give up.
 Behind you the rowing goes on, and the boat moves west through the darkening water, and for a moment the sea is not a prison. It is a road.
 [person A attitude +5]
 #20 Continue
-#14 Ask <A> about the gods
+#14 Do you think the gods sent us out here?
 
 §12
 You say that hope will not find water, and that you must be ready for land before land is ready for you.
@@ -51,18 +50,18 @@ You say that hope will not find water, and that you must be ready for land befor
 It is not glory yet. But it is a road that leads there.
 [person A attitude +3]
 #20 Continue
-#14 Ask <A> about the gods
+#14 Do you think the gods sent us out here?
 
 §13
 You say nothing, and let <A him> talk: the land ahead, the future, the glory that waits for you all. <A He> speaks of it quietly, and then louder, and the words carry along the benches, and people listen who did not mean to. When the watch changes <A he> seems calmer. The hope <A he> gave away has left room for more.
 #20 Continue
-#14 Ask <A> about the gods
+#14 Do you think the gods sent us out here?
 
 §14
 You ask whether the gods sent you out here.
 <A> is quiet. The oars fill the silence with their patient rhythm.
 "I think they opened a door and pushed us through it," <he> says. "What we do on the other side is ours. That is the whole point of us."
-#15 Ask whether the gods sent the storm
+#15 And the storm that took the sail - did the gods send that too?
 #20 Let it rest
 
 §15
@@ -71,7 +70,6 @@ You ask about the storm that took the sail.
 <He> grins, and the grin has no doubt in it, and some of it reaches you before you can stop it.
 [person A attitude +3]
 #20 Let it rest
-#12 Turn the talk to planning
 
 §20
 Later, <B>'s turn at the oars ends. <He> sits down heavily beside you and does not speak for a long time. <His> hands lie open in <his> lap, and they do not move. The rowing has taken everything; there is nothing left in <him>, and <he> makes no pretense otherwise.
@@ -79,10 +77,10 @@ Later, <B>'s turn at the oars ends. <He> sits down heavily beside you and does n
 <He> is quiet again. Then <he> says: "Maybe we should have knelt while we could. The Emperor would have left us our village. Instead we have this boat."
 <He> looks at <A> across the deck, at all that undimmed certainty. Then at you.
 What do you say?
-#21 Speak of hope for what lies ahead
-#22 Plan for what may lie ahead, if anything
+#21 We are almost there. One more day, maybe two.
+#22 When we land, you rest first.
 #23 Say little - just listen
-#24 Ask what <B> needs
+#24 What do you need?
 
 §21
 You say that you are almost there. One more day, maybe two, and solid ground under <B his> feet again: ground that does not move, that owes nothing to any storm.
@@ -90,7 +88,7 @@ You say that you are almost there. One more day, maybe two, and solid ground und
 It is not much. But <he> straightens up a little, and that is not nothing.
 [person B attitude +5]
 #30 Continue
-#24 Ask what <B> needs
+#24 What do you need?
 
 §22
 You say that when you land, <B> rests first. Before the fires, before the carrying, before the world remembers to be hard again.
@@ -98,19 +96,18 @@ You say that when you land, <B> rests first. Before the fires, before the carryi
 The plan is small. Small plans fit in tired hands, and tired hands are what you have.
 [person B attitude +3]
 #30 Continue
-#24 Ask what <B> needs
+#24 What do you need?
 
 §23
 You sit close and say nothing. <B> does not talk the way <A> talks; words cost <B him> something. So you share the silence instead, the old kind, the kind that does not need filling. After a while <he> leans back and closes <his> eyes, and the sounds of the boat go on around you both: oar, rope, sea, breath.
 #30 Continue
-#24 Ask what <B> needs
+#24 What do you need?
 
 §24
 You ask what <B he> needs.
 "Rest," says <B>. "Real rest. Not this half-sleep with an oar in my hands." <He> looks down the crowded deck, at the sleeping families, at all the people the voyage has not yet finished with. "And for them to get there. That is all I need now."
 It is the longest thing <he> has said all day, and you promise yourself to remember it.
 [person B attitude +3]
-#21 Speak of hope for what lies ahead
 #30 Continue
 
 §30
@@ -118,11 +115,11 @@ Last, <C>'s turn at the oars ends. <He> sits down beside you, pulls a blanket ov
 "Weed in the water today," says <C>. "Fresh weed, torn off rocks, not old floating stuff. And gulls at noon - gulls do not come this far out unless there is land. I think there is a coast south of us. I cannot promise it."
 The words settle over the benches. Somewhere behind you, someone repeats them, quietly, to someone else. Hope moves through this boat the same way: one bench at a time.
 What do you say?
-#31 Speak of hope for what lies ahead
-#32 Plan for what may lie ahead, if anything
+#31 Weed and gulls can only mean land.
+#32 If the coast is close, we must not meet it in the dark.
 #33 Say little - just listen
-#34 Ask how <C> can tell
-#36 Ask about the other ships
+#34 How can you tell?
+#36 What happened to the other ships?
 
 §31
 You say that weed and gulls can only mean land.
@@ -130,7 +127,7 @@ Around you the rowers have gone quiet, listening. <C> nods. "Maybe. The sky is c
 <He> lifts <his> face to the wind and closes <his> eyes, weighing what only <he> can read in it. The word maybe travels from bench to bench, and gathers weight wherever it lands. It is not a promise. But tonight the boat is full of people rowing a little straighter.
 [person C attitude +5]
 #40 Continue
-#34 Ask how <C> can tell
+#34 How can you tell?
 
 §32
 You say that if the coast is close, you must not meet it in the dark and die of it. When <C> thinks you are near, <he> says so, and the oars come in slow, and every eye watches for reefs.
@@ -138,18 +135,18 @@ You say that if the coast is close, you must not meet it in the dark and die of 
 The plan is set. Now the sea must cooperate, and the sea has never read a plan.
 [person C attitude +3]
 #40 Continue
-#34 Ask how <C> can tell
+#34 How can you tell?
 
 §33
 You say nothing. <C> goes on talking quietly: the weed, the gulls, the stars, the days behind you and the days ahead. The talking keeps the fear at arm's length, a small lamp against the dark. You listen until the clouds cover the last of the stars, and <his> voice goes on a while anyway, out of habit, or out of courage.
 #40 Continue
-#34 Ask how <C> can tell
+#34 How can you tell?
 
 §34
 You ask how <C he> can tell.
 "I count the days, and I watch the wind," says <C>. "We have had the wind against us fewer days than it feels. And the sea is different near land: the weed, the birds. I have sailed before. The signs are small, but they are there."
 <He> says it plainly, and does not make the signs larger than they are.
-#35 Ask what happens if <C> is wrong
+#35 What if you are wrong?
 #40 Let it rest
 
 §35
@@ -158,7 +155,6 @@ You ask what happens if <C he> is wrong.
 <He> looks at the clouds coming in from the west, and the eyes that count stars are, for a moment, only tired.
 [person C attitude +3]
 #40 Let it rest
-#32 Turn the talk to planning
 
 §36
 You ask about the other ships.
@@ -166,7 +162,7 @@ You ask about the other ships.
 "The storm took the Wave Dancer," <he> says then. "The Emperor's warship took the Dawn Chaser. Her people are on this boat with us." <He> looks out over the water. "We are all that is left. So we have to get there."
 The names go out over the sea. The sea keeps what it is given.
 #40 Continue
-#35 Ask what happens if <C> is wrong
+#35 What if you are wrong?
 
 §40
 The wind picks up, and the night closes in. The clouds swallow the stars, one by one, and the sky goes black. The oars bite harder, and the boat begins to pitch and lean. The families wake and hold their children. Someone says they see lightning, far out at sea, and no one answers, because there is nothing to answer.
@@ -181,7 +177,6 @@ You take a bucket and get in line with the bailers. The sea comes over the side 
 
 §42
 You make your way along the crowded deck, between sleeping families and wakeful ones, which are often the same. The children lie pressed close beneath the tarps, small warm weights in the dark. <?A child murmurs a name from a village that no longer exists.;An old man props himself against the mast, awake, watching the water, past the age of fear.> When you touch the tarp, <D> stirs, half-wakes, holds the smallest child tighter, and sleeps again. <D life?It is the sleep of the strong, too deep for storms to reach.;It is the sleep of the worn, taken where it finds them.> There is nothing you can do here that sleep is not already doing. You move on.
-#41 Back to the bailing
 #50 Take your place at the oars
 
 §50
@@ -260,7 +255,6 @@ You kneel by the hurt refugee. The leg is broken by the rocks, the bone near the
 
 §66
 You walk among the families. The children are wrapped in blankets, wet but whole, watching you with wide eyes. A mother touches your hand as you pass, and says nothing, and does not need to. <?A small boy has gathered a heap of wet shells, proud of them already.;Someone presses a piece of hard bread into your hand and will not take it back.> Nobody says much; the day has taken all the words. But the huddle of people grows warmer wherever you go.
-#65 Check on the badly hurt refugee
 #70 Let the night come
 
 §67
