@@ -40,6 +40,7 @@ See dialogparsing.txt for the whole list of possible effects.
 
 4: Fourth draft - Complete dialog tree
 Add more sections, choices and additional branching paths, so that each section has at least two choices. Most choices lead back to the main path. 
+Choices should lead to sections with a higher number, to avoid looping back. 
 Add plain basic text to new sections — do not add story details or style at this stage. Aim for 50 to 100 words per section.
 Add some choices with prerequisites. Some examples:  
 (silver 1?) check that the player has resources to spend. 
@@ -59,6 +60,7 @@ On rare occasions, characters may mention past game events by using the <x?a;b> 
 Always write in the present tense, except in dialog when characters may speak in past, present or future tense.
 See style-examples.txt for approved examples and anti-examples.
 Aim for 100 to 500 words per section.
+Dialog choices should be written as something the player character could say. 
 Verify that nothing important was lost in the rewrite from the fourth draft.
 
 6: Complete text - final version
