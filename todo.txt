@@ -1,20 +1,24 @@
 
 - More roles than Person characters? How to handle?
 - Person skill and skill progression and natural aptitude
-- Event queue is ordered by due date.
+- Event queue is ordered by due date. Only run events for current day.
+- Write more events
 - Persistence: use browser localstorage for datamodel, eventqueue and current position in dialog
 - Data model: Buildings. Building task slots, efficiency bonus and other building effects.
+- Buildings: shelter, tent, shed, hut, house, raft, boat, pier, dock, storage, chicken coop, field, (other farming related buildings?), fence, stockade, watchtower, copper mine, iron mine, smithy, (other mining related buildings)
 - starvation or low health triggers events
-- Recurring event "Council" allows storage summary and event summary.
 - character death
 - game over trigger and text
 - construction complete event
 - Write high priority events for misc. problems
 - Write low priority filler events
-- dialog event: log text to be reported at the next council event. Add variable subsection to show recent events.
+- Trade event. Someone wants to buy or sell something for silver.
+- dialog event effect: log text to be reported at the next council event. Add variable subsection to show recent events at council.
+- Recurring event "Council" allows storage summary and event summary.
 - Starvation events: trigger a story event when a character's health falls below a threshold, so the crisis appears in prose
 - Feast: let the council spend surplus food to raise health and attitude above their baseline
 - Building "tech tree" and prerequisites
+- Events to add more people/characters
 - Combat system
 
 To run:
