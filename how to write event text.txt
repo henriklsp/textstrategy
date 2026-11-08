@@ -39,7 +39,7 @@ Add effects to sections as appropriate. Examples of typical effects could be:
 See dialogparsing.txt for the whole list of possible effects. 
 
 4: Fourth draft - Complete dialog tree
-Add more sections, choices and additional branching paths, so that each section has at least two choices. Most choices lead back to the main path. 
+Add more sections, choices and additional branching paths, so that each section has at least two choices. 
 Choices should lead to sections with a higher number, to avoid looping back. 
 Add plain basic text to new sections — do not add story details or style at this stage. Aim for 50 to 100 words per section.
 Add some choices with prerequisites. Some examples:  
