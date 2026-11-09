@@ -282,9 +282,9 @@ You search the surf with numb hands, feeling in the shallows where the wreckage 
 #70 Let the night come
 
 §68
-You wade back in, and the wreck has less to give than it had. The storm has spent hours taking the boat apart: the bundles are gone, the cargo is gone, the cooking pots and the ropes and the last of everything are gone, carried off by waves that owe you nothing. Only a few deck planks remain, torn loose and jammed among the rocks. Good wood, sound wood, the kind that becomes a floor, or a door, or a wall. The sea does not often hand things back, and it will not hand these back twice.
+You wade back in, and the wreck is still on the reef, groaning with every wave, breaking a little more each time the sea lifts her. But everything loose is gone: the bundles are gone, the cargo is gone, the cooking pots and the ropes and the last of everything are gone, carried off by waves that owe you nothing. <broughtweapons?;Your great-grandfather's axe is gone with them, three generations of iron given to the sea.><silver 1?;And the last of your family's fortune is gone with them too, silver and cloth and generations, carried off to the deep water.> Only a few deck planks remain, torn loose and jammed among the rocks. Good wood, sound wood, the kind that becomes a floor, or a door, or a wall. The sea does not often hand things back, and it will not hand these back twice.
 #69 Salvage the planks
-#70 Let the night come
+#70 Return to shore
 
 §69
 You work the planks loose one by one, and the sea fights you for each of them, pulling at the wood with the whole weight of the storm behind it. You stack them against your chest and body, plank after plank of good wood, heavier in your arms than it looked in the water, and you make the crossing to the shore slowly, on your feet, then knee-deep, then hardly at all. Your legs give out on the wet sand, and you go down with the wood still clutched to you, and you do not get up again tonight. The wreck can break on the reef until it is done. The wood is ashore.

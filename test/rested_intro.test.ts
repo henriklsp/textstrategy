@@ -24,14 +24,19 @@ function pickTo(dialog: Dialog, target: number): void {
     dialog.dialogChoiceSelected(choice!);
 }
 
+function newDataModel(): DataModel {
+    const dataModel = new DataModel();
+    for (const person of createDefaultCharacters()) dataModel.addPerson(person);
+    dataModel.setCurrentDay(1);
+    dataModel.set('population', 5);
+    dataModel.set('food', 10);
+    dataModel.set('wood', 5);
+    return dataModel;
+}
+
 describe('rested bool in intro.txt', () => {
     test('rested: §39 sets the bool, §52 renders the rested branch, §61 offers the second trip, §69 ends with firstday', () => {
-        const dataModel = new DataModel();
-        for (const person of createDefaultCharacters()) dataModel.addPerson(person);
-        dataModel.setCurrentDay(1);
-        dataModel.set('population', 5);
-        dataModel.set('food', 10);
-        dataModel.set('wood', 5);
+        const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startIntro(dataModel, scheduled);
 
@@ -52,6 +57,9 @@ describe('rested bool in intro.txt', () => {
         expect(secondTrip).toBeDefined();
         pickTo(dialog, 68);
         expect(dialog.getCurrentText()).toContain('Only a few deck planks remain');
+        // nothing was salvaged: both conditional loss sentences render
+        expect(dialog.getCurrentText()).toContain('three generations of iron given to the sea');
+        expect(dialog.getCurrentText()).toContain("family's fortune is gone");
         pickTo(dialog, 69);
         expect(dialog.getCurrentText()).toContain('The wood is ashore');
         expect(dialog.getCurrentText()).not.toContain('<ERROR');
@@ -61,12 +69,7 @@ describe('rested bool in intro.txt', () => {
     });
 
     test('unrested: dialog path leaves rested unset, §52 renders the unrested branch, no second trip offered', () => {
-        const dataModel = new DataModel();
-        for (const person of createDefaultCharacters()) dataModel.addPerson(person);
-        dataModel.setCurrentDay(1);
-        dataModel.set('population', 5);
-        dataModel.set('food', 10);
-        dataModel.set('wood', 5);
+        const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startIntro(dataModel, scheduled);
 
@@ -91,5 +94,27 @@ describe('rested bool in intro.txt', () => {
         // the normal exits are still there
         pickTo(dialog, 70);
         expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+    });
+
+    test('§68 conditionals: axe already salvaged means no axe-lost sentence; §70 choice is relabeled', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+        pickTo(dialog, 39);
+        pickTo(dialog, 40);
+        pickTo(dialog, 50);
+        pickTo(dialog, 53);
+        pickTo(dialog, 54);
+        pickTo(dialog, 60);
+        pickTo(dialog, 63); // grab the axe: broughtweapons true
+        pickTo(dialog, 68);
+        expect(dialog.getCurrentText()).toContain('Only a few deck planks remain');
+        // the axe is safe on the beach: no axe-lost sentence
+        expect(dialog.getCurrentText()).not.toContain('three generations of iron given to the sea');
+        // the silver was not grabbed: the fortune-lost sentence still renders
+        expect(dialog.getCurrentText()).toContain("family's fortune is gone");
+        const back = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === 70);
+        expect(back).toBeDefined();
+        expect(back!.getText()).toContain('Return to shore');
     });
 });
