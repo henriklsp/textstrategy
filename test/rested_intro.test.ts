@@ -140,4 +140,119 @@ describe('rested bool in intro.txt', () => {
             pickTo(dialog, 70);
         }
     });
+
+    test('bow: early path - sunset at the bow, B joins, you spot the reef, the shout saves nothing', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        pickTo(dialog, 25);
+        expect(dialog.getCurrentText()).toContain('straight off the bow');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 28);
+        expect(dialog.getCurrentText()).toContain('quiet end of the boat');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 29);
+        expect(dialog.getCurrentText()).toContain('The reef.');
+        expect(dialog.getCurrentText()).toContain('The cry is yours to give');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 43);
+        expect(dialog.getCurrentText()).toContain('BACK WATER');
+        expect(dialog.getCurrentText()).toContain('Who do you grab and hold onto?');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 52);
+        expect(dialog.getCurrentText()).toContain('the first order');
+        pickTo(dialog, 54);
+        pickTo(dialog, 60);
+        pickTo(dialog, 61);
+        // unrested: no second trip offered
+        const secondTrip = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === 68);
+        expect(secondTrip).toBeUndefined();
+        expect(dialog.getCurrentText()).toContain('The perfect theft');
+        pickTo(dialog, 70);
+        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+    });
+
+    test('bow: after B talk - C joins at the bow and hands you the watch; bracing, the wreck, firstday', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        pickTo(dialog, 5);
+        pickTo(dialog, 10);
+        pickTo(dialog, 11);
+        pickTo(dialog, 20);
+        pickTo(dialog, 24);
+        pickTo(dialog, 26);
+        expect(dialog.getCurrentText()).toContain('You leave the benches');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 37);
+        expect(dialog.getCurrentText()).toContain('Weed in the water today');
+        expect(dialog.getCurrentText()).toContain('watch the water');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 29);
+        pickTo(dialog, 44);
+        expect(dialog.getCurrentText()).toContain('knowing is not saving');
+        expect(dialog.getCurrentText()).toContain('Who do you grab and hold onto?');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 53);
+        pickTo(dialog, 54);
+        pickTo(dialog, 60);
+        pickTo(dialog, 62);
+        pickTo(dialog, 70);
+        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+    });
+
+    test('bow: after C talk - keep watch alone, shout, wreck; axe path still ends with firstday', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        pickTo(dialog, 5);
+        pickTo(dialog, 10);
+        pickTo(dialog, 11);
+        pickTo(dialog, 20);
+        pickTo(dialog, 21);
+        pickTo(dialog, 30);
+        pickTo(dialog, 34);
+        pickTo(dialog, 35);
+        pickTo(dialog, 27);
+        expect(dialog.getCurrentText()).toContain('and the dark does not give it up');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 29);
+        pickTo(dialog, 43);
+        expect(dialog.getCurrentText()).toContain('The sea does not balance its books');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 51);
+        pickTo(dialog, 54);
+        pickTo(dialog, 60);
+        pickTo(dialog, 63);
+        pickTo(dialog, 64);
+        pickTo(dialog, 70);
+        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+    });
+
+    test('bow: rested player takes the bow as lookout from the storm build; second trip still offered', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        pickTo(dialog, 39);
+        pickTo(dialog, 40);
+        pickTo(dialog, 29);
+        expect(dialog.getCurrentText()).toContain('The cry is yours to give');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 44);
+        pickTo(dialog, 53);
+        pickTo(dialog, 54);
+        pickTo(dialog, 60);
+        pickTo(dialog, 61);
+        // rested: the second trip is offered even from the bow path
+        const secondTrip = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === 68);
+        expect(secondTrip).toBeDefined();
+        pickTo(dialog, 68);
+        pickTo(dialog, 69);
+        expect(dialog.getCurrentText()).toContain('The wood is ashore');
+        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+    });
 });
