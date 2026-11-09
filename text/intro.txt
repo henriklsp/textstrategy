@@ -210,24 +210,25 @@ You reach for <A>. <He> takes your arm with a grip that refuses everything the s
 
 §52
 You reach for <B>, and <he> has nothing left to hold with. "Go," <he> gasps. It is the first order <he> has given in days, and you refuse it.
-You lock your arm around <him> and kick for the shore, hauling dead weight through living sea. It is slow. It is heavy. Twice the ocean forces its way down your throat. But <he> holds on to you, and you hold on to <him>, and the shore comes anyway, slowly, and without mercy in the meantime.
+You lock your arm around <him> and kick for the shore, hauling dead weight through living sea. It is slow. It is heavy. <rested?The sleep the storm woke you from still holds a little of you together.;You never slept, and every stroke is drawn from somewhere empty.> Twice the ocean forces its way down your throat. But <he> holds on to you, and you hold on to <him>, and the shore comes anyway, slowly, and without mercy in the meantime.
 [person B attitude +3]
 #54 Shout to the others to hold together
 #60 Continue to the shore
 
 §53
-You reach for <C>. <He> clings to a floating plank with one arm and to you with the other, and laughs, wild and desperate, the sound of a mind that refuses to drown politely. "Weed and gulls!" <he> shouts into the rain. "I said there was land!" Proof, after a fashion. You swim for the shore together, the plank between you.
+You reach for <C>. <He> clings to a floating plank with one arm and to you with the other, and laughs, wild and desperate, the sound of a mind that refuses to drown politely. "Weed and gulls!" <he> shouts into the rain. "I said there was land!" Proof, after a fashion. <rested?There is still a bottom to your strength, and you find it with every kick.;The plank does half your swimming for you, and you are glad of the debt.> You swim for the shore together, the plank between you.
 [person C attitude +3]
 #54 Shout to the others to hold together
 #60 Continue to the shore
 
 §54
 "TOGETHER!" you roar into the storm, until your voice breaks. "HOLD TOGETHER!"
+<rested?Sleep stands behind your voice, and the roar comes from somewhere solid.;You have not slept, and the roar wears thin fast, but it is a roar.>
 And the dark answers. Voices take up the word. Hands find hands. Somewhere a rope finds a wrist. The line of survivors swims on, one body with many hearts, and for this moment, at least, the sea does not get to divide the herd.
 #60 Continue to the shore
 
 §60
-You crawl out of the surf onto wet sand and fall down, breathing hard. The sand holds you, solid and unmoving, the first thing in weeks that has not moved beneath you.
+You crawl out of the surf onto wet sand and fall down, breathing hard. The sand holds you, solid and unmoving, the first thing in weeks that has not moved beneath you. <rested?The sleep you caught before the storm is spent now, every hour of it, and you let the sand have what is left.;You never slept, and your body has been running on nothing since the reef, and the sand takes all of you at once.>
 Around you, others stumble out of the dark: mothers calling names into the roar, men dragging bundles, an old man on his knees with both hands pressed to the ground. One of the refugees lies moaning on the sand, badly hurt, and the others gather around. <D> is helped ashore, still half-asleep, awake enough to walk, not to talk. <D harmony?The smallest child rides in the crook of one arm, surrendered to no one.>
 Behind you, the wreck settles on the reef, groaning with every wave, refusing even now to finish.
 One thing worth wading for is still within reach, washed against the rocks. What do you take?
@@ -237,21 +238,24 @@ One thing worth wading for is still within reach, washed against the rocks. What
 
 §61
 [var food 2]
-You wade back, and the sea lets you, this once. The food sacks are caught against the rocks, and you pull them free before the water can change its mind: grain, dried fish, hard bread. It is not much for so many mouths. But mouths do not ask for much when the only other choice is the sea's. You drag the sacks up beyond the reach of the waves and stand over them, your body between the wind and the food.
+You wade back, and the sea lets you, this once. <rested?Your legs still answer when you call them, and there is a little left in them when you are done.;Your legs are past answering, and you keep them moving by will alone.> The food sacks are caught against the rocks, and you pull them free before the water can change its mind: grain, dried fish, hard bread. It is not much for so many mouths. But mouths do not ask for much when the only other choice is the sea's. You drag the sacks up beyond the reach of the waves and stand over them, your body between the wind and the food.
 #64 Look after the others
+#68 (rested) Wade back to the wreck a second time
 #70 Let the night come
 
 §62
 [var silver 2]
-You wade back and pull a bundle from the wreck: a heavy bundle of silver coins, all that remains of your family's fortune. Everything your family owned went to the voyage, or to the sea, or to the fire of the uprising, and this is what is left. Metal in wet cloth, held in your two hands. Silver will not fill a stomach. But if there are people on these lands, it might buy what you need. You carry it up the beach.
+You wade back and pull a bundle from the wreck: a heavy bundle of silver coins, all that remains of your family's fortune. Everything your family owned went to the voyage, or to the sea, or to the fire of the uprising, and this is what is left. Metal in wet cloth, held in your two hands. Silver will not fill a stomach. But if there are people on these lands, it might buy what you need. You carry it up the beach. <rested?The silver is heavy, but your arms are still yours to command.;The silver is heavy, and your arms answer slowly, and you ask them more than once.>
 #64 Look after the others
+#68 (rested) Wade back to the wreck a second time
 #70 Let the night come
 
 §63
 [var weapons 2]
 [bool broughtweapons true]
-You wade back and pull an axe from the wreck: your great-grandfather's axe, its haft strong, its head old and true. Three generations it has outlived, and it means to outlive a fourth. Your family's name may be all that is left of your family's lands, and this is the shape of that name: iron, worn smooth by honest work. With it you can cut wood, build, and defend what you build. You carry it up the beach.
+You wade back and pull an axe from the wreck: your great-grandfather's axe, its haft strong, its head old and true. Three generations it has outlived, and it means to outlive a fourth. Your family's name may be all that is left of your family's lands, and this is the shape of that name: iron, worn smooth by honest work. With it you can cut wood, build, and defend what you build. You carry it up the beach. <rested?The axe rides light on your shoulder, and the shore comes to meet you.;The axe rides your shoulder heavily, and every step up the beach is bargained for.>
 #64 Look after the others
+#68 (rested) Wade back to the wreck a second time
 #70 Let the night come
 
 §64
@@ -276,6 +280,17 @@ You walk among the families. The children are wrapped in blankets, wet but whole
 You search the surf with numb hands, feeling in the shallows where the wreckage washes. The sea gives up a length of broken oar: its last gift, and a poor one. You wade ashore with it and stand it in the sand beside the fire. A poor weapon, but a weapon.
 #66 See to the children and families
 #70 Let the night come
+
+§68
+You wade back in, and the wreck has less to give than it had. The storm has spent hours taking the boat apart: the bundles are gone, the cargo is gone, the cooking pots and the ropes and the last of everything are gone, carried off by waves that owe you nothing. Only a few deck planks remain, torn loose and jammed among the rocks. Good wood, sound wood, the kind that becomes a floor, or a door, or a wall. The sea does not often hand things back, and it will not hand these back twice.
+#69 Salvage the planks
+#70 Let the night come
+
+§69
+You work the planks loose one by one, and the sea fights you for each of them, pulling at the wood with the whole weight of the storm behind it. You stack them against your chest and body, plank after plank of good wood, heavier in your arms than it looked in the water, and you make the crossing to the shore slowly, on your feet, then knee-deep, then hardly at all. Your legs give out on the wet sand, and you go down with the wood still clutched to you, and you do not get up again tonight. The wreck can break on the reef until it is done. The wood is ashore.
+[bool planks true]
+The night closes over the beach, and you sleep where you fell, on the planks, under the rain, too tired to be glad of them yet. The first day ashore waits for morning.
+[event firstday 1]
 
 §70
 The rain goes on, softer now, the storm having spent itself on your arrival. You count the others, and the count comes out: everyone made it ashore. The injured one is being cared for. The wreck groans on the reef behind you, breaking a little more with every wave, but still holding together. There is no going back now, and nowhere else to go. On this beach, tonight, that is not a threat. It is a fact, and facts can be built on.

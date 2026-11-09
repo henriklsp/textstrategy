@@ -1,0 +1,95 @@
+import * as path from 'path';
+import { EventParser } from '../src/classes/EventParser';
+import { Dialog } from '../src/classes/Dialog';
+import { DataModel } from '../src/classes/DataModel';
+import { createDefaultCharacters } from '../src/classes/DefaultCharacters';
+
+const noop = { onDialogEnd: () => {}, onDialogUpdated: () => {} };
+type Scheduled = { name: string; delay: number };
+
+function startIntro(dataModel: DataModel, scheduled: Scheduled[]): Dialog {
+    const parser = new EventParser();
+    const event = parser.parseFileSync(path.join(__dirname, '..', 'text', 'intro.txt'));
+    expect(parser.getIssues()).toEqual([]);
+    const dialog = new Dialog(event, dataModel, noop);
+    dialog.setEffectScheduler((name, delay) => scheduled.push({ name, delay }));
+    dialog.start();
+    return dialog;
+}
+
+// Pick the choice leading to the given section number
+function pickTo(dialog: Dialog, target: number): void {
+    const choice = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === target);
+    expect(choice).toBeDefined();
+    dialog.dialogChoiceSelected(choice!);
+}
+
+describe('rested bool in intro.txt', () => {
+    test('rested: §39 sets the bool, §52 renders the rested branch, §61 offers the second trip, §69 ends with firstday', () => {
+        const dataModel = new DataModel();
+        for (const person of createDefaultCharacters()) dataModel.addPerson(person);
+        dataModel.setCurrentDay(1);
+        dataModel.set('population', 5);
+        dataModel.set('food', 10);
+        dataModel.set('wood', 5);
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        // Sleep path
+        pickTo(dialog, 39);
+        expect(dialog.getCurrentText()).toContain('patient and small');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 40);
+        pickTo(dialog, 50);
+        pickTo(dialog, 52);
+        expect(dialog.getCurrentText()).toContain('sleep the storm woke you from');
+        expect(dialog.getCurrentText()).not.toContain('never slept');
+        pickTo(dialog, 60);
+        expect(dialog.getCurrentText()).toContain('every hour of it');
+        pickTo(dialog, 61);
+        // rested: the second trip is offered
+        const secondTrip = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === 68);
+        expect(secondTrip).toBeDefined();
+        pickTo(dialog, 68);
+        expect(dialog.getCurrentText()).toContain('Only a few deck planks remain');
+        pickTo(dialog, 69);
+        expect(dialog.getCurrentText()).toContain('The wood is ashore');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        // ending section: no choices, firstday scheduled
+        expect(dialog.getCurrentChoices().length).toBe(0);
+        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+    });
+
+    test('unrested: dialog path leaves rested unset, §52 renders the unrested branch, no second trip offered', () => {
+        const dataModel = new DataModel();
+        for (const person of createDefaultCharacters()) dataModel.addPerson(person);
+        dataModel.setCurrentDay(1);
+        dataModel.set('population', 5);
+        dataModel.set('food', 10);
+        dataModel.set('wood', 5);
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        // Full dialog path, no rest
+        pickTo(dialog, 5);
+        pickTo(dialog, 10);
+        pickTo(dialog, 11);
+        pickTo(dialog, 20);
+        pickTo(dialog, 21);
+        pickTo(dialog, 30);
+        pickTo(dialog, 31);
+        pickTo(dialog, 40);
+        pickTo(dialog, 50);
+        pickTo(dialog, 52);
+        expect(dialog.getCurrentText()).toContain('drawn from somewhere empty');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 60);
+        pickTo(dialog, 61);
+        // unrested: no §68 choice
+        const secondTrip = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === 68);
+        expect(secondTrip).toBeUndefined();
+        // the normal exits are still there
+        pickTo(dialog, 70);
+        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+    });
+});
