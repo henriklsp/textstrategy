@@ -138,21 +138,15 @@ You sit down against the stem and look back the way you came. The whole boat is 
 §27
 You go to the bow. The deck is full of sleep now, and your feet learn the way through it, over bundles, past cooking pots, along the dark lane between the benches. Up here the night is wide open, and colder for it. Most of the stars are gone behind cloud, and the wind has changed since sundown, harder, with weather in it.
 You sit down against the stem and look south, the way <C> said, where a coast might be, and the dark does not give it up. Maybe it is there. Maybe it is close. The boat rows on into the black water, carrying everyone you know, and you keep your eyes forward, because someone might as well.
-#29 Stay at the bow into the night
+#45 Stay at the bow into the night
 #39 Get some rest
 
 §28
 The light goes. The dark comes on out of the east, unhurried, and you watch it take the water a stroke at a time. Behind you the oars keep their rhythm, and the boat carries its small noises past you and away.
 Later, <B>'s turn at the oars ends, and <he> comes forward along the deck and drops down beside you without a word about why. For a long time <he> says nothing at all, and the two of you watch the dark together, the old kind of quiet, the kind that does not need filling. "You found the quiet end of the boat," <he> says at last. "Smart." When the cold finally wins, <he> stands, and <his> hand rests a moment on your shoulder, and <he> goes back to the bundles to rest.
 [person B attitude +3]
-#29 Stay at the bow into the night
+#45 Stay at the bow into the night
 #39 Get some rest
-
-§29
-The night deepens, and the wind hardens, and the boat leans into the work of the water. The last stars go out. The rain comes, a hiss on the sea first, then a hammer on the deck behind you, and the storm arrives in full darkness, at last, and total. People shout. Somewhere behind you a child is crying, and someone is singing to the child, and both sound equally desperate.
-You stand at the bow and hold the stem and keep your eyes forward, because someone has to, and you gaze into the darkness ahead, black on black, until your eyes learn it. It is almost too late when they learn it: a long line of white water, breaking where no wave should break. The reef. The cry is yours to give, and the sea is already lifting the boat toward it.
-#43 Shout the reef into the storm
-#44 Hold on and brace
 
 §30
 Last, <C>'s turn at the oars ends. <He> sits down beside you, pulls a blanket over you both, and looks up at the sky, where the first stars come out between the clouds.
@@ -213,7 +207,7 @@ The names go out over the sea. The sea keeps what it is given.
 The stars wheel over the water, and the clouds come in from the west and take them back a few at a time. The wind has an edge now that it did not have at sundown.
 Last, <C>'s turn at the oars ends, and <he> finds <his> way forward along the deck and drops down beside you at the bow. "You are keeping the watch nobody asked for," <he> says, and there is no mocking in it. "Weed in the water today. Gulls at noon. I think there is a coast south of us, and I cannot promise it. If you mean to sit out here, watch the water." Then <he> goes, back down the deck toward sleep, and leaves you the watch, and the watching is different now that it has a name.
 [person C attitude +3]
-#29 Stay at the bow into the night
+#45 Stay at the bow into the night
 #39 Get some rest
 
 §39
@@ -228,7 +222,7 @@ The wind picks up, and the night closes in. The clouds swallow the stars, one by
 You look at <C>. <He> is not watching the stars any longer. <He> is listening to the wind.
 #50 Take your place at the oars
 #41 Help bail the water out
-#29 Go to the bow as lookout
+#45 Go to the bow as lookout
 
 §41
 You take a bucket and get in line with the bailers. The sea comes over the side faster than tired arms can throw it back. The deck grows slick, and the bundles strain at their ropes. <?The lightning shows the work in white flashes: bent backs, flying water.;The rain drives sideways, stinging the eyes of the people working beside you.> You bail, and bail, and the ocean waits beyond all patience for you to stop. Your arms burn, and then they go beyond burning.
@@ -238,19 +232,22 @@ You take a bucket and get in line with the bailers. The sea comes over the side 
 §42
 You make your way along the crowded deck, between sleeping families and wakeful ones, which are often the same. The children lie pressed close beneath the tarps, small warm weights in the dark. <?A child murmurs a name from a village that no longer exists.;An old man props himself against the mast, awake, watching the water, past the age of fear.> When you touch the tarp, <D> stirs, half-wakes, holds the smallest child tighter, and sleeps again. <D life?It is the sleep of the strong, too deep for storms to reach.;It is the sleep of the worn, taken where it finds them.> There is nothing you can do here that sleep is not already doing. You move on.
 #50 Take your place at the oars
-#29 Go to the bow as lookout
+#45 Go to the bow as lookout
 
-§43
-"REEF!" The word tears out of you, and the wind tears it aft, and the boat wakes around your voice. "BACK WATER! HARD!" The oars fight for her, every tired arm giving what it does not have, and for one breath the bow actually swings, and hope stands up in you, tall and brief.
-It is not enough. The sea lifts her one more time, higher than the last, and sets her down on the rocks, and the hull tears open from the stem aft with a long, splitting sound that no shout can reach. People and belongings spill into the black water together, and the water does not care which is which. You tried. The sea does not balance its books.
-Who do you grab and hold onto?
-#51 <A>
-#52 <B>
-#53 <C>
+§45
+The night deepens, and the wind hardens, and the boat leans into the work of the water. The last stars go out. The rain comes, a hiss on the sea first, then a hammer on the deck behind you, and the storm arrives in full darkness, at last, and total. People shout. Somewhere behind you a child is crying, and someone is singing to the child, and both sound equally desperate.
+You stand at the bow and hold the stem and keep your eyes forward, because someone has to, and you gaze into the darkness ahead, black on black, until your eyes learn it. It is almost too late when they learn it: a long line of white water, breaking where no wave should break. The reef. The cry is yours to give, and the whole length of the boat lies between you and the oars, and the sea is already lifting her toward it.
+#46 Stay and try to save the ship
+#47 Rush back to your friends
 
-§44
-You wrap your arms around the stem and press yourself low, and you have one breath to be sorry for every quiet thing you never said. The breath goes fast.
-Then the reef takes her. The bow rises, hangs, and comes down on the rock with a sound that no boat should make, and the hull tears open beneath you, and the sea is aboard all at once. Behind you someone screams the word you swallowed: "REEF!" People and belongings spill into the black water together, and the water does not care which is which. You knew it first, and knowing is not saving, and the dark takes that thought under with everything else.
+§46
+"REEF!" The word tears out of you, and the wind tears it aft, and the storm eats half of it before it passes the mast. A few hear it, and only a few: one calls the reef forward, another asks what, a third cries back water, and the oars muddle against each other, panicked shouting standing in for a plan, confused rowing for an answer. There is no whole left in the boat to save.
+Then the reef takes her anyway. The bow rises, hangs, and comes down on the rock with a sound that no boat should make, and the hull tears open beneath your feet, and the sea is aboard all at once. The deck drops away under you, and you are in the black water alone, ahead of everyone, the cries of the boat suddenly far off behind you.
+#60 Fight for the shore alone
+
+§47
+You leave the bow and run the length of her, over bundles and between rowers, deck rising, deck falling, shouting the word as you go: "REEF! BACK WATER!" The warning runs the benches faster than you do, voice to voice, and for a moment there is a chance the boat can still answer.
+Then the reef takes her anyway. The hull tears open from the stem aft, and the boat rolls, and people and belongings spill into the black water together, and the water does not care which is which. You go in among them, into the cold and the shouting and the arms.
 Who do you grab and hold onto?
 #51 <A>
 #52 <B>
