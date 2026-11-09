@@ -8,7 +8,7 @@ The sun is low in the west, and the sea beneath it turns from bronze to iron. <?
 This is the last boat. She is old and salt-blanched, and she carries more than she was built to carry: refugees and everything they own, bundles and children and cooking pots lashed down between the benches. The sail was destroyed days ago; the storm took it, and the sea kept it. Since then everyone rows in turns, and the oars keep their slow rhythm on the water, hour upon hour, patient beyond the patience of any crew.
 Everyone is tired. The fresh water is nearly gone; there is only what the rains give, and the rains have been few. The food is nearly gone too: grain, dried fish and hard bread lashed under the ropes, a few days of small meals for all these people. There is no land in sight, in any direction. There is no way back.
 Among the rowers are your three friends: proud and determined <A>, glum and cynical <B>, and clever <C>. Near you, your fourth friend <D> sleeps under a tarp, worn hollow by the voyage. You decide not to wake <him>. Let the sleeping sleep.
-Your own turn at the oars is over, and <A>'s turn has ended too. Behind you, the next rowers settle into their seats, and the strokes go on.
+Your own turn at the oars is over, and <A>'s turn has ended too. <He> is exhausted, but too proud to show it and keeps rowing, reluctant to hand over the oar. Behind you, the next rowers settle into their seats, and the strokes go on.
 #5 Watch the darkening sea and sky
 #10 Wait for <A>
 #39 Get some rest
