@@ -52,6 +52,9 @@ describe('rested bool in intro.txt', () => {
         pickTo(dialog, 60);
         expect(dialog.getCurrentText()).toContain('every hour of it');
         pickTo(dialog, 61);
+        // B is greatly impressed by the perfect theft
+        expect(dialog.getCurrentText()).toContain('The perfect theft');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
         // rested: the second trip is offered
         const secondTrip = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === 68);
         expect(secondTrip).toBeDefined();

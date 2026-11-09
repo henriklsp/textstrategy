@@ -239,6 +239,9 @@ Three things are still within reach, washed against the rocks, and you can bring
 §61
 [var food 2]
 You wade back, and the sea lets you, this once. <rested?Your legs still answer when you call them, and there is a little left in them when you are done.;Your legs are past answering, and you keep them moving by will alone.> The food sacks are caught against the rocks, and you pull them free before the water can change its mind: the morning's catch of small fish, all the food there is. It is not much. The boat held everyone together, and you doubt the sharing will outlast its wreck; what cannot feed a beach full of strangers can still keep the five of you alive. You are not taking it for the beach, and you do not pretend otherwise. You drag the sacks up beyond the reach of the waves and stand over them, your body between the wind and the food.
+<B> drops down beside you in the wet sand, and the grin on <his> face is the first honest one in weeks. "The perfect theft," <he> says. "Look at them. Everyone busy being alive, nobody counting sacks in this dark. Come morning, the food will simply have washed away." <His> hands are already moving, piling sand and weed over the sacks, up beyond the tide line, fast and sure. "Nobody grieves for drowned food, and nobody comes looking for what the sea kept."
+[person B attitude +5]
+Between the two of you, the food disappears: buried, covered, unremarkable, waiting.
 #64 Look after the others
 #68 (rested) Wade back to the wreck a second time
 #70 Let the night come
