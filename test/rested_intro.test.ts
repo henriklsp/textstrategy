@@ -218,7 +218,7 @@ describe('rested bool in intro.txt', () => {
         expect(dialog.getCurrentText()).not.toContain('<ERROR');
         pickTo(dialog, 45);
         pickTo(dialog, 46);
-        expect(dialog.getCurrentText()).toContain('no whole left in the boat to save');
+        expect(dialog.getCurrentText()).toContain('the oar breaks');
         expect(dialog.getCurrentText()).not.toContain('<ERROR');
         pickTo(dialog, 60);
         pickTo(dialog, 63);
