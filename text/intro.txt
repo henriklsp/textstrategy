@@ -35,10 +35,10 @@ Before long, <A> drops down beside you, takes a swallow of rain water from the s
 "The gods did not carry us this far to drown us," says <A>. "We rose against the Dragon Emperor knowing what it would cost, and the gods watched us do it. They will not waste us on the sea. There is a land ahead. And when we reach it, it will be ours. We will be the founders of something great. They will tell stories about us."
 <He> looks out over the water and does not blink, and there is something in <his> stillness that demands the land appear.
 What do you say?
-#11 We have come too far to give up.
-#12 Hope will not find water.
+#11 "We have come too far to give up."
+#12 "Hope will not find water."
 #13 Say little - just listen
-#14 Do you think the gods sent us out here?
+#14 "Do you think the gods sent us out here?"
 
 §11
 You say that you have come too far to give up.
@@ -46,7 +46,7 @@ You say that you have come too far to give up.
 Behind you the rowing goes on, and the boat moves west through the darkening water, and for a moment the sea is not a prison. It is a road.
 [person A attitude +5]
 #20 Sit in silence
-#14 Do you think the gods sent us out here?
+#14 "Do you think the gods sent us out here?"
 #39 Get some rest
 
 §12
@@ -55,20 +55,20 @@ You say that hope will not find water, and that you must be ready for land befor
 It is not glory yet. But it is a road that leads there.
 [person A attitude +3]
 #20 Sit in silence
-#14 Do you think the gods sent us out here?
+#14 "Do you think the gods sent us out here?"
 #39 Get some rest
 
 §13
 You say nothing, and let <A him> talk: the land ahead, the future, the glory that waits for you all. <A He> speaks of it quietly, and then louder, and the words carry along the benches, and people listen who did not mean to. When the watch changes <A he> seems calmer. The hope <A he> gave away has left room for more.
 #20 Sit in silence
-#14 Do you think the gods sent us out here?
+#14 "Do you think the gods sent us out here?"
 #39 Get some rest
 
 §14
 You ask whether the gods sent you out here.
 <A> is quiet. The oars fill the silence with their patient rhythm.
 "I think they opened a door and pushed us through it," <he> says. "What we do on the other side is ours. That is the whole point of us."
-#15 And the storm that took the sail - did the gods send that too?
+#15 "And the storm that took the sail - did the gods send that too?"
 #20 Let it rest
 
 §15
@@ -84,10 +84,10 @@ Later, <B>'s turn at the oars ends. <He> sits down heavily beside you and does n
 <He> is quiet again. Then <he> says: "Maybe we should have knelt while we could. The Emperor would have left us our village. Instead we have this boat."
 <He> looks at <A> across the deck, at all that undimmed certainty. Then at you.
 What do you say?
-#21 We are almost there. One more day, maybe two.
-#22 When we land, you rest first.
+#21 "We are almost there. One more day, maybe two."
+#22 "When we land, you rest first."
 #23 Say little - just listen
-#24 What do you need?
+#24 "What do you need?"
 
 §21
 You say that you are almost there. One more day, maybe two, and solid ground under <B his> feet again: ground that does not move, that owes nothing to any storm.
@@ -95,7 +95,7 @@ You say that you are almost there. One more day, maybe two, and solid ground und
 It is not much. But <he> straightens up a little, and that is not nothing.
 [person B attitude +5]
 #30 Sit in silence
-#24 What do you need?
+#24 "What do you need?"
 
 §22
 You say that when you land, <B> rests first. Before the fires, before the carrying, before the world remembers to be hard again.
@@ -103,12 +103,12 @@ You say that when you land, <B> rests first. Before the fires, before the carryi
 The plan is small. Small plans fit in tired hands, and tired hands are what you have.
 [person B attitude +3]
 #30 Sit in silence
-#24 What do you need?
+#24 "What do you need?"
 
 §23
 You sit close and say nothing. <B> does not talk the way <A> talks; words cost <B him> something. So you share the silence instead, the old kind, the kind that does not need filling. After a while <he> leans back and closes <his> eyes, and the sounds of the boat go on around you both: oar, rope, sea, breath.
 #30 Sit in silence
-#24 What do you need?
+#24 "What do you need?"
 
 §24
 You ask what <B he> needs.
@@ -122,11 +122,11 @@ Last, <C>'s turn at the oars ends. <He> sits down beside you, pulls a blanket ov
 "Weed in the water today," says <C>. "Fresh weed, torn off rocks, not old floating stuff. And gulls at noon - gulls do not come this far out unless there is land. I think there is a coast south of us. I cannot promise it."
 The words settle over the benches. Somewhere behind you, someone repeats them, quietly, to someone else. Hope moves through this boat the same way: one bench at a time.
 What do you say?
-#31 Weed and gulls can only mean land.
-#32 If the coast is close, we must not meet it in the dark.
+#31 "Weed and gulls can only mean land."
+#32 "If the coast is close, we must not meet it in the dark."
 #33 Say little - just listen
-#34 How can you tell?
-#36 What happened to the other ships?
+#34 "How can you tell?"
+#36 "What happened to the other ships?"
 
 §31
 You say that weed and gulls can only mean land.
@@ -134,7 +134,7 @@ Around you the rowers have gone quiet, listening. <C> nods. "Maybe. The sky is c
 <He> lifts <his> face to the wind and closes <his> eyes, weighing what only <he> can read in it. The word maybe travels from bench to bench, and gathers weight wherever it lands. It is not a promise. But tonight the boat is full of people rowing a little straighter.
 [person C attitude +5]
 #40 Sit in silence
-#34 How can you tell?
+#34 "How can you tell?"
 
 §32
 You say that if the coast is close, you must not meet it in the dark and die of it. When <C> thinks you are near, <he> says so, and the oars come in slow, and every eye watches for reefs.
@@ -142,18 +142,18 @@ You say that if the coast is close, you must not meet it in the dark and die of 
 The plan is set. Now the sea must cooperate, and the sea has never read a plan.
 [person C attitude +3]
 #40 Sit in silence
-#34 How can you tell?
+#34 "How can you tell?"
 
 §33
 You say nothing. <C> goes on talking quietly: the weed, the gulls, the stars, the days behind you and the days ahead. The talking keeps the fear at arm's length, a small lamp against the dark. You listen until the clouds cover the last of the stars, and <his> voice goes on a while anyway, out of habit, or out of courage.
 #40 Sit in silence
-#34 How can you tell?
+#34 "How can you tell?"
 
 §34
 You ask how <C he> can tell.
 "I count the days, and I watch the wind," says <C>. "We have had the wind against us fewer days than it feels. And the sea is different near land: the weed, the birds. I have sailed before. The signs are small, but they are there."
 <He> says it plainly, and does not make the signs larger than they are.
-#35 What if you are wrong?
+#35 "What if you are wrong?"
 #40 Let it rest
 
 §35
@@ -169,7 +169,7 @@ You ask about the other ships.
 "The storm took the Wave Dancer," <he> says then. "The Emperor's warship took the Dawn Chaser. Her people are on this boat with us." <He> looks out over the water. "We are all that is left. So we have to get there."
 The names go out over the sea. The sea keeps what it is given.
 #40 Sit in silence
-#35 What if you are wrong?
+#35 "What if you are wrong?"
 
 §39
 You find a place among the bundles, pull a corner of sail cloth over you, and let the day go. Sleep comes slowly, and against your will, but it comes. You dream of the village, of doors, of a table with bread on it, and the dreams are uneasy, thin at the edges. Still, the body knows what it needs. Hours pass. The oars go on. The rain, when it starts, drums on the tarp above you, patient and small.
