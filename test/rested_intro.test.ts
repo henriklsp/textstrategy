@@ -117,4 +117,24 @@ describe('rested bool in intro.txt', () => {
         expect(back).toBeDefined();
         expect(back!.getText()).toContain('Return to shore');
     });
+    test('§66 nested conditionals: no raw tags or errors leak into the rendered text', () => {
+        for (const item of [61, 62]) {
+            const dataModel = newDataModel();
+            const scheduled: Scheduled[] = [];
+            const dialog = startIntro(dataModel, scheduled);
+            pickTo(dialog, 39);
+            pickTo(dialog, 40);
+            pickTo(dialog, 50);
+            pickTo(dialog, 52);
+            pickTo(dialog, 54);
+            pickTo(dialog, 60);
+            pickTo(dialog, item);
+            pickTo(dialog, 64);
+            pickTo(dialog, 66);
+            const text = dialog.getCurrentText();
+            expect(text).not.toContain('<food');
+            expect(text).not.toContain('<ERROR');
+            pickTo(dialog, 70);
+        }
+    });
 });

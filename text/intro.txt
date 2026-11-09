@@ -6,7 +6,7 @@
 §1
 The sun is low in the west, and the sea beneath it turns from bronze to iron. <?The wind smells of coming rain, far off and cold.;The wind is warm and salt, with no rain in it yet.> The light is going, but slowly; the evening will be long.
 This is the last boat. She is old and salt-blanched, and she carries more than she was built to carry: refugees and everything they own, bundles and children and cooking pots lashed down between the benches. The sail was destroyed days ago; the storm took it, and the sea kept it. Since then everyone rows in turns, and the oars keep their slow rhythm on the water, hour upon hour, patient beyond the patience of any crew.
-Everyone is tired. The fresh water is nearly gone; there is only what the rains give, and the rains have been few. The food is nearly gone too: the grain and the hard bread are finished, and what is left is the morning's catch of small fish, lashed under the ropes, a few days of small meals for all these people. There is no land in sight, in any direction. There is no way back.
+Everyone is tired. The fresh water is nearly gone; there is only what the rains give, and the rains have been few. The food from home is long gone too: the bread went first, weeks ago, then everything else that could keep, and for a long time now everyone has lived on what the fishing lines bring up, raw fish and rain water, the catch of one day against the hunger of the next. There is no land in sight, in any direction. There is no way back.
 Among the rowers are your three friends: proud and determined <A>, glum and cynical <B>, and clever <C>. Near you, your fourth friend <D> sleeps under a tarp, worn hollow by the voyage. You decide not to wake <him>. Let the sleeping sleep.
 Your own turn at the oars is over, and <A>'s turn has ended too. <He> is exhausted, but too proud to show it and keeps rowing, reluctant to hand over the oar. Behind you, the next rowers settle into their seats, and the strokes go on.
 #5 Watch the darkening sea and sky
@@ -20,7 +20,7 @@ You stand at the side and watch the evening come on. The water is dark and immen
 #39 Get some rest
 
 §6
-You check the food sacks, untying and tying them again, counting what should not need counting. The grain and the hard bread are finished; there is only the fish, caught from the stern this morning, and it is enough for a few days, if everyone eats little and no one eats first. You tie the sacks down carefully, and your hands stay a moment on the knots. This is what stands between these people and the sea's patience.
+You check the food sacks, untying and tying them again, counting what should not need counting. Nothing from home is left in them; the bread went weeks ago. There is only the morning's catch of small fish, still wet from the lines, the shared food of everyone aboard, one small meal apiece, if everyone eats little and no one eats first. You tie the sacks down carefully, and your hands stay a moment on the knots. This is what stands between these people and the sea's patience.
 #7 Check the water barrel
 #10 Wait for <A>
 #39 Get some rest
@@ -231,14 +231,14 @@ And the dark answers. Voices take up the word. Hands find hands. Somewhere a rop
 You crawl out of the surf onto wet sand and fall down, breathing hard. The sand holds you, solid and unmoving, the first thing in weeks that has not moved beneath you. <rested?The sleep you caught before the storm is spent now, every hour of it, and you let the sand have what is left.;You never slept, and your body has been running on nothing since the reef, and the sand takes all of you at once.>
 Around you, others stumble out of the dark: mothers calling names into the roar, men dragging bundles, an old man on his knees with both hands pressed to the ground. One of the refugees lies moaning on the sand, badly hurt, and the others gather around. <D> is helped ashore, still half-asleep, awake enough to walk, not to talk. <D harmony?The smallest child rides in the crook of one arm, surrendered to no one.>
 Behind you, the wreck settles on the reef, groaning with every wave, refusing even now to finish.
-Three things are still within reach, washed against the rocks, and you can bring back only one. The food sacks: fish caught from the stern this morning, the only food between these people and hunger. A bundle of silver coins: the whole of what remains of your family's fortune. Your great-grandfather's axe: the family heirloom, iron that has outlived three generations and means to outlive a fourth. What you leave, the sea will keep. What do you take?
+Three things are still within reach, washed against the rocks, and you can bring back only one. The food sacks: the morning's catch, the shared food of everyone on this beach, the only food between these people and hunger. A bundle of silver coins: all that remains of your family's fortune, and yours alone. Your great-grandfather's axe: your family's heirloom, iron that has outlived three generations and means to outlive a fourth. What you leave, the sea will keep. What do you take?
 #61 Food
 #62 A bundle of silver coins
 #63 An axe
 
 §61
 [var food 2]
-You wade back, and the sea lets you, this once. <rested?Your legs still answer when you call them, and there is a little left in them when you are done.;Your legs are past answering, and you keep them moving by will alone.> The food sacks are caught against the rocks, and you pull them free before the water can change its mind: the morning's catch of small fish, all the food there is. It is not much for so many mouths. But mouths do not ask for much when the only other choice is the sea's. You drag the sacks up beyond the reach of the waves and stand over them, your body between the wind and the food.
+You wade back, and the sea lets you, this once. <rested?Your legs still answer when you call them, and there is a little left in them when you are done.;Your legs are past answering, and you keep them moving by will alone.> The food sacks are caught against the rocks, and you pull them free before the water can change its mind: the morning's catch of small fish, all the food there is, and every soul on this beach has a share in it. It is not much for so many mouths. But mouths do not ask for much when the only other choice is the sea's. You drag the sacks up beyond the reach of the waves and stand over them, your body between the wind and the food.
 #64 Look after the others
 #68 (rested) Wade back to the wreck a second time
 #70 Let the night come
@@ -272,7 +272,7 @@ You kneel by the hurt refugee. The leg is broken by the rocks, the bone near the
 #70 Let the night come
 
 §66
-You walk among the families. The children are wrapped in blankets, wet but whole, watching you with wide eyes. A mother touches your hand as you pass, and says nothing, and does not need to. <?A small boy has gathered a heap of wet shells, proud of them already.;Someone presses a piece of hard bread into your hand and will not take it back.> Nobody says much; the day has taken all the words. But the huddle of people grows warmer wherever you go.
+You walk among the families. The children are wrapped in blankets, wet but whole, watching you with wide eyes. A mother touches your hand as you pass, and says nothing, and does not need to. <?A small boy has gathered a heap of wet shells, proud of them already.;<food 2?Someone presses their own share of the fish into your hand and will not take it back.;Someone presses your hand between both of theirs, and will not let go until the shaking stops.>> Nobody says much; the day has taken all the words. But the huddle of people grows warmer wherever you go.
 #70 Let the night come
 
 §67
@@ -282,7 +282,7 @@ You search the surf with numb hands, feeling in the shallows where the wreckage 
 #70 Let the night come
 
 §68
-You wade back in, and the wreck is still on the reef, groaning with every wave, breaking a little more each time the sea lifts her. But everything loose is gone: the bundles are gone, the cargo is gone, the cooking pots and the ropes and the last of everything are gone, carried off by waves that owe you nothing. <broughtweapons?;Your great-grandfather's axe is gone with them, three generations of iron given to the sea.><silver 1?;And the last of your family's fortune is gone with them too, silver and cloth and generations, carried off to the deep water.> Only a few deck planks remain, torn loose and jammed among the rocks. Good wood, sound wood, the kind that becomes a floor, or a door, or a wall. The sea does not often hand things back, and it will not hand these back twice.
+You wade back in, and the wreck is still on the reef, groaning with every wave, breaking a little more each time the sea lifts her. But everything loose is gone: the bundles are gone, the cargo is gone, the cooking pots and the ropes and the last of everything are gone, carried off by waves that owe you nothing. <broughtweapons?;Your great-grandfather's axe is gone with them, three generations of iron given to the sea.><silver 1?;And the last of your family's fortune is gone with them too, silver and cloth and generations, carried off to the deep water.><food 2?;And the food is gone with them too, the whole catch, every meal the beach was going to have, given to the water.> Only a few deck planks remain, torn loose and jammed among the rocks. Good wood, sound wood, the kind that becomes a floor, or a door, or a wall. The sea does not often hand things back, and it will not hand these back twice.
 #69 Salvage the planks
 #70 Return to shore
 
