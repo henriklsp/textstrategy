@@ -8,26 +8,30 @@ The sun is low in the west, and the sea beneath it turns from bronze to iron. <?
 This is the last boat. She is old and salt-blanched, and she carries more than she was built to carry: refugees and everything they own, bundles and children and cooking pots lashed down between the benches. The sail was destroyed days ago; the storm took it, and the sea kept it. Since then everyone rows in turns, and the oars keep their slow rhythm on the water, hour upon hour, patient beyond the patience of any crew.
 Everyone is tired. The fresh water is nearly gone; there is only what the rains give, and the rains have been few. The food is nearly gone too: grain, dried fish and hard bread lashed under the ropes, a few days of small meals for all these people. There is no land in sight, in any direction. There is no way back.
 Among the rowers are your three friends: proud and determined <A>, glum and cynical <B>, and clever <C>. Near you, your fourth friend <D> sleeps under a tarp, worn hollow by the voyage. You decide not to wake <him>. Let the sleeping sleep.
-Your own turn at the oars is over. Behind you, the next rowers settle into their seats, and the strokes go on.
+Your own turn at the oars is over, and <A>'s turn has ended too. Behind you, the next rowers settle into their seats, and the strokes go on.
 #5 Watch the darkening sea and sky
-#10 Sit down among the others
+#10 Wait for <A>
+#39 Get some rest
 
 §5
 You stand at the side and watch the evening come on. The water is dark and immense, lifting the boat and setting it down again in long, unhurried swells. <?Somewhere below the hull a great fish turns, and the water shivers.;A long rope of weed drifts past, going where the sea goes.> Far off, lightning flickers inside the clouds: silent, slow, a light from a storm that has not reached you yet. You search the horizon and find nothing. No sail, no shore, no bird. Only the sea, and the last of the evening, and the wind on your face carrying the smell of coming rain.
 #6 Count the remaining food
-#10 Sit down among the others
+#10 Wait for <A>
+#39 Get some rest
 
 §6
 You check the food sacks, untying and tying them again, counting what should not need counting. Grain, dried fish, hard bread. There is enough for a few days, if everyone eats little and no one eats first. You tie the sacks down carefully, and your hands stay a moment on the knots. This is what stands between these people and the sea's patience.
 #7 Check the water barrel
-#10 Sit down among the others
+#10 Wait for <A>
+#39 Get some rest
 
 §7
 You look into the water barrel and see the bottom looking back at you. What is left is rain water, the one mercy of the week, and the clouds are gathering again tonight, heavy and dark. They may give water. They may give nothing. You have learned to take what falls and be glad.
-#10 Sit down among the others
+#10 Wait for <A>
+#39 Get some rest
 
 §10
-Before long, <A>'s turn at the oars ends. <He> drops down beside you, takes a swallow of rain water from the shared barrel, and looks out west, where the sun is going down. <He> is not tired. Or <he> will not show it, which on this boat comes to the same thing.
+Before long, <A> drops down beside you, takes a swallow of rain water from the shared barrel, and looks out west, where the sun is going down. <He> is not tired. Or <he> will not show it, which on this boat comes to the same thing.
 "The gods did not carry us this far to drown us," says <A>. "We rose against the Dragon Emperor knowing what it would cost, and the gods watched us do it. They will not waste us on the sea. There is a land ahead. And when we reach it, it will be ours. We will be the founders of something great. They will tell stories about us."
 <He> looks out over the water and does not blink, and there is something in <his> stillness that demands the land appear.
 What do you say?
@@ -163,6 +167,13 @@ You ask about the other ships.
 The names go out over the sea. The sea keeps what it is given.
 #40 Continue
 #35 What if you are wrong?
+
+§39
+You find a place among the bundles, pull a corner of sail cloth over you, and let the day go. Sleep comes slowly, and against your will, but it comes. You dream of the village, of doors, of a table with bread on it, and the dreams are uneasy, thin at the edges. Still, the body knows what it needs. Hours pass. The oars go on. The rain, when it starts, drums on the tarp above you, patient and small.
+[bool rested true]
+Then the wind changes. It hardens, the boat leans, and a rope somewhere slaps the mast, again and again. You wake with your heart already standing, and the boat is not the boat it was.
+#40 Get up
+#50 Go back to sleep
 
 §40
 The wind picks up, and the night closes in. The clouds swallow the stars, one by one, and the sky goes black. The oars bite harder, and the boat begins to pitch and lean. The families wake and hold their children. Someone says they see lightning, far out at sea, and no one answers, because there is nothing to answer.
