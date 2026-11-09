@@ -204,6 +204,7 @@ Who do you grab and hold onto?
 
 §51
 You reach for <A>. <He> takes your arm with a grip that refuses everything the sea has to offer, and together you go under, and together you come up, mouths full of salt. <He> coughs, spits, shouts words the storm devours. Then <he> pulls, and you pull, and by hands and stubbornness you are both moving through the mountains of water toward a dark line that must be shore. It must be.
+<A> spends a breath on you instead of the shore. "You held," <he> shouts into the wind. "The rest is just swimming." It is not. But you both swim better for hearing it.
 [person A attitude +3]
 #54 Shout to the others to hold together
 #60 Continue to the shore
@@ -211,6 +212,7 @@ You reach for <A>. <He> takes your arm with a grip that refuses everything the s
 §52
 You reach for <B>, and <he> has nothing left to hold with. "Go," <he> gasps. It is the first order <he> has given in days, and you refuse it.
 You lock your arm around <him> and kick for the shore, hauling dead weight through living sea. It is slow. It is heavy. <rested?The sleep the storm woke you from still holds a little of you together.;You never slept, and every stroke is drawn from somewhere empty.> Twice the ocean forces its way down your throat. But <he> holds on to you, and you hold on to <him>, and the shore comes anyway, slowly, and without mercy in the meantime.
+Somewhere in the black water <he> finds breath enough to spend on you. "Stubborn," <he> gasps. "Good." From <B>, one word at a time, it is a speech, and it is for you.
 [person B attitude +3]
 #54 Shout to the others to hold together
 #60 Continue to the shore
@@ -239,7 +241,7 @@ Three things are still within reach, washed against the rocks, and you can bring
 §61
 [var food 2]
 You wade back, and the sea lets you, this once. <rested?Your legs still answer when you call them, and there is a little left in them when you are done.;Your legs are past answering, and you keep them moving by will alone.> The food sacks are caught against the rocks, and you pull them free before the water can change its mind: the morning's catch of small fish, all the food there is. It is not much. The boat held everyone together, and you doubt the sharing will outlast its wreck; what cannot feed a beach full of strangers can still keep the five of you alive. You are not taking it for the beach, and you do not pretend otherwise. You drag the sacks up beyond the reach of the waves and stand over them, your body between the wind and the food.
-<B> drops down beside you in the wet sand, and the grin on <his> face is the first honest one in weeks. "The perfect theft," <he> says. "Look at them. Everyone busy being alive, nobody counting sacks in this dark. Come morning, the food will simply have washed away." <His> hands are already moving, piling sand and weed over the sacks, up beyond the tide line, fast and sure. "Nobody grieves for drowned food, and nobody comes looking for what the sea kept."
+<B> drops down beside you in the wet sand, and the grin on <his> face is the first honest one in weeks. "The perfect theft," <he> says. "Look at them. Everyone busy being alive, nobody counting sacks in this dark. Come morning, the food will simply have washed away." <His> hands are already moving, piling sand and weed over the sacks, up beyond the tide line, fast and sure. <He> glances up at you once, sand on <his> knuckles. "Half of them are still on their knees thanking gods who never counted a sack in their lives," <he> says. "You went and collected. I could not have done it better myself, and I am the one among us who would." "Nobody grieves for drowned food, and nobody comes looking for what the sea kept."
 [person B attitude +5]
 Between the two of you, the food disappears: buried, covered, unremarkable, waiting.
 #64 Look after the others
