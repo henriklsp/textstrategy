@@ -241,13 +241,13 @@ You stand at the bow and hold the stem and keep your eyes forward, because someo
 #47 Rush back to your friends
 
 §46
-"REEF!" The word tears out of you, and the wind tears it aft, and the storm eats half of it before it passes the mast. A few hear it, and only a few: one calls the reef forward, another asks what, a third cries back water, and the oars muddle against each other, panicked shouting standing in for a plan, confused rowing for an answer. There is no whole left in the boat to save.
+"REEF!" The word tears out of you, and the wind tears it aft, and the storm eats half of it before it passes the mast. A few hear it, and only a few: one calls the reef forward, another asks what, a third cries back water, row her backwards, and the oars muddle against each other, panicked shouting standing in for a plan, confused rowing for an answer. There is no whole left in the boat to save.
 Then the reef takes her anyway. The bow rises, hangs, and comes down on the rock with a sound that no boat should make, and the hull tears open beneath your feet, and the sea is aboard all at once. The deck drops away under you, and you are in the black water alone, ahead of everyone, the cries of the boat suddenly far off behind you.
 #54 Shout for the others
 #60 Fight for the shore alone
 
 §47
-You leave the bow and run the length of her, over bundles and between rowers, deck rising, deck falling, shouting the words as you go: "REEF! BACK WATER!" The warning runs the benches faster than you do, voice to voice, and for a moment there is a chance the boat can still answer.
+You leave the bow and run the length of her, over bundles and between rowers, deck rising, deck falling, shouting the words as you go: "REEF! BACK WATER!" The warning runs the benches faster than you do, voice to voice, rowers taking up the command and hauling against the boat's own way, and for a moment there is a chance the boat can still answer.
 Then the reef takes her anyway. The hull tears open from the stem aft, and the boat rolls, and people and belongings spill into the black water together, and the water does not care which is which. You go in among them, into the cold and the shouting and the arms.
 Who do you grab and hold onto?
 #51 <A>
