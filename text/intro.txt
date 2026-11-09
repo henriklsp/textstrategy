@@ -250,7 +250,7 @@ Between the two of you, the food disappears: buried, covered, unremarkable, wait
 
 §62
 [var silver 2]
-You wade back and pull a bundle from the wreck: a heavy bundle of silver coins, all that remains of your family's fortune. Everything your family owned went to the voyage, or to the sea, or to the fire of the uprising, and this is what is left. Metal in wet cloth, held in your two hands. Silver will not fill a stomach. But if there are people on these lands, it might buy what you need. You carry it up the beach. <rested?The silver is heavy, but your arms are still yours to command.;The silver is heavy, and your arms answer slowly, and you ask them more than once.>
+You wade back and pull a bundle from the rocks: a heavy bundle of silver coins, all that remains of your family's fortune. Everything your family owned went to the voyage, or to the sea, or to the fire of the uprising, and this is what is left. Metal in wet cloth, held in your two hands. Silver will not fill a stomach. But if there are people on these lands, it might buy what you need. You carry it up the beach. <rested?The silver is heavy, but your arms are still yours to command.;The silver is heavy, and your arms answer slowly, and you ask them more than once.>
 #64 Look after the others
 #68 (rested) Wade back to the wreck a second time
 #70 Let the night come
@@ -258,7 +258,7 @@ You wade back and pull a bundle from the wreck: a heavy bundle of silver coins, 
 §63
 [var weapons 2]
 [bool broughtweapons true]
-You wade back and pull an axe from the wreck: your great-grandfather's axe, its haft strong, its head old and true. Three generations it has outlived, and it means to outlive a fourth. Your family's name may be all that is left of your family's lands, and this is the shape of that name: iron, worn smooth by honest work. With it you can cut wood, build, and defend what you build. You carry it up the beach. <rested?The axe rides light on your shoulder, and the shore comes to meet you.;The axe rides your shoulder heavily, and every step up the beach is bargained for.>
+You wade back and pull an axe from the rocks: your great-grandfather's axe, its haft strong, its head old and true. Three generations it has outlived, and it means to outlive a fourth. Your family's name may be all that is left of your family's lands, and this is the shape of that name: iron, worn smooth by honest work. With it you can cut wood, build, and defend what you build. You carry it up the beach. <rested?The axe rides light on your shoulder, and the shore comes to meet you.;The axe rides your shoulder heavily, and every step up the beach is bargained for.>
 #64 Look after the others
 #68 (rested) Wade back to the wreck a second time
 #70 Let the night come
@@ -277,7 +277,7 @@ You kneel by the hurt refugee. The leg is broken by the rocks, the bone near the
 #70 Let the night come
 
 §66
-You walk among the families. The children are wrapped in blankets, wet but whole, watching you with wide eyes. A mother touches your hand as you pass, and says nothing, and does not need to. <?A small boy has gathered a heap of wet shells, proud of them already.;<food 2?Someone presses one of their own family's fish into your hand and will not take it back.;Someone presses your hand between both of theirs, and will not let go until the shaking stops.>> Nobody says much; the day has taken all the words. But the huddle of people grows warmer wherever you go.
+You walk among the families. The children are wrapped in blankets, wet but whole, watching you with wide eyes. A mother touches your hand as you pass, and says nothing, and does not need to. <?A small boy has gathered a heap of wet shells, proud of them already.;<food 2?Someone presses a blanket into your hand and will not take it back.;Someone presses your hand between both of theirs, and will not let go until the shaking stops.>> Nobody says much; the day has taken all the words. But the huddle of people grows warmer wherever you go.
 #70 Let the night come
 
 §67
