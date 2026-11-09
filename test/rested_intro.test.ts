@@ -251,4 +251,49 @@ describe('rested bool in intro.txt', () => {
         expect(dialog.getCurrentText()).toContain('The wood is ashore');
         expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
     });
+
+    test('bow alone: shouting for the others rejoins the line of survivors at the roar', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        pickTo(dialog, 25);
+        pickTo(dialog, 28);
+        pickTo(dialog, 45);
+        pickTo(dialog, 46);
+        expect(dialog.getCurrentText()).toContain('in the black water alone');
+        pickTo(dialog, 54);
+        expect(dialog.getCurrentText()).toContain('HOLD TOGETHER');
+        expect(dialog.getCurrentText()).toContain('the dark answers');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 60);
+        pickTo(dialog, 61);
+        expect(dialog.getCurrentText()).toContain('The perfect theft');
+        pickTo(dialog, 70);
+        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+    });
+
+    test('§66 second choice: going to sleep ends the intro early, still scheduling firstday', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        pickTo(dialog, 39);
+        pickTo(dialog, 40);
+        pickTo(dialog, 50);
+        pickTo(dialog, 52);
+        pickTo(dialog, 54);
+        pickTo(dialog, 60);
+        pickTo(dialog, 61);
+        pickTo(dialog, 64);
+        pickTo(dialog, 66);
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 71);
+        expect(dialog.getCurrentText()).toContain('before you can count them');
+        expect(dialog.getCurrentText()).toContain('The first day ashore waits for morning');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        // ending section: no choices
+        expect(dialog.getCurrentChoices().length).toBe(0);
+        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+    });
 });

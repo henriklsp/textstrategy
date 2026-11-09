@@ -244,6 +244,7 @@ You stand at the bow and hold the stem and keep your eyes forward, because someo
 "REEF!" The word tears out of you, and the wind tears it aft, and the storm eats half of it before it passes the mast. A few hear it, and only a few: one calls the reef forward, another asks what, a third cries back water, and the oars muddle against each other, panicked shouting standing in for a plan, confused rowing for an answer. There is no whole left in the boat to save.
 Then the reef takes her anyway. The bow rises, hangs, and comes down on the rock with a sound that no boat should make, and the hull tears open beneath your feet, and the sea is aboard all at once. The deck drops away under you, and you are in the black water alone, ahead of everyone, the cries of the boat suddenly far off behind you.
 #60 Fight for the shore alone
+#54 Shout for the others
 
 §47
 You leave the bow and run the length of her, over bundles and between rowers, deck rising, deck falling, shouting the word as you go: "REEF! BACK WATER!" The warning runs the benches faster than you do, voice to voice, and for a moment there is a chance the boat can still answer.
@@ -338,7 +339,8 @@ You kneel by the hurt refugee. The leg is broken by the rocks, the bone near the
 
 §66
 You walk among the families. The children are wrapped in blankets, wet but whole, watching you with wide eyes. A mother touches your hand as you pass, and says nothing, and does not need to. <?A small boy has gathered a heap of wet shells, proud of them already.;<food 2?Someone presses a blanket into your hand and will not take it back.;Someone presses your hand between both of theirs, and will not let go until the shaking stops.>> Nobody says much; the day has taken all the words. But the huddle of people grows warmer wherever you go.
-#70 Let the night come
+#70 Sit with the families
+#71 Go to sleep among them
 
 §67
 [var weapons 1]
@@ -361,4 +363,8 @@ The night closes over the beach, and you sleep where you fell, on the planks, un
 The rain goes on, softer now, the storm having spent itself on your arrival. You count the others, and the count comes out: everyone made it ashore. The injured one is being cared for. The wreck groans on the reef behind you, breaking a little more with every wave, but still holding together. There is no going back now, and nowhere else to go. On this beach, tonight, that is not a threat. It is a fact, and facts can be built on.
 The survivors huddle together on the dark sand around the small fire. Someone feeds it driftwood. Nobody speaks. <D> sleeps again by the fire.
 The night deepens. The first day ashore waits for morning.
+[event firstday 1]
+§71
+You stay where the warmth is. You find a place among the families, between a woman and her sleeping children and an old man already asleep, and you lie down in the sand with the fire small behind you. The rain has gone soft, softer than it has been in weeks, and the voices around you drop to a murmur, and then to breathing, and then to quiet. You are too tired for the night to be long. Sleep takes you where you lie, among the survivors, before you can count them.
+The first day ashore waits for morning.
 [event firstday 1]
