@@ -364,6 +364,7 @@ The rain goes on, softer now, the storm having spent itself on your arrival. You
 The survivors huddle together on the dark sand around the small fire. Someone feeds it driftwood. Nobody speaks. <D> sleeps again by the fire.
 The night deepens. The first day ashore waits for morning.
 [event firstday 1]
+
 §71
 You stay where the warmth is. You find a place among the families, between a woman and her sleeping children and an old man already asleep, and you lie down in the sand with the fire small behind you. The rain has gone soft, softer than it has been in weeks, and the voices around you drop to a murmur, and then to breathing, and then to quiet. You are too tired for the night to be long. Sleep takes you where you lie, among the survivors, before you can count them.
 The first day ashore waits for morning.
