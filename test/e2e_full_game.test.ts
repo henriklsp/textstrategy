@@ -200,5 +200,5 @@ describe('End-to-end: full game with mock UI', () => {
         expect(saved.length).toBeGreaterThan(0);
         expect(steps).toBeGreaterThan(0);
         console.log(`E2E story (${endReason}) written to ${LOG_FILE} (${saved.length} chars)`);
-    }, 300000);
+    }, 3000);
 });
