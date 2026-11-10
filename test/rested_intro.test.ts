@@ -49,8 +49,10 @@ describe('rested bool in intro.txt', () => {
         pickTo(dialog, 52);
         expect(dialog.getCurrentText()).toContain('sleep the storm woke you from');
         expect(dialog.getCurrentText()).not.toContain('never slept');
-        pickTo(dialog, 60);
+        pickTo(dialog, 59);
         expect(dialog.getCurrentText()).toContain('every hour of it');
+        pickTo(dialog, 60);
+        expect(dialog.getCurrentText()).toContain('What do you take?');
         pickTo(dialog, 61);
         // B is greatly impressed by the perfect theft
         expect(dialog.getCurrentText()).toContain('The perfect theft');
@@ -89,6 +91,7 @@ describe('rested bool in intro.txt', () => {
         pickTo(dialog, 52);
         expect(dialog.getCurrentText()).toContain('drawn from somewhere empty');
         expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 59);
         pickTo(dialog, 60);
         pickTo(dialog, 61);
         // unrested: no §68 choice
@@ -108,6 +111,7 @@ describe('rested bool in intro.txt', () => {
         pickTo(dialog, 50);
         pickTo(dialog, 53);
         pickTo(dialog, 54);
+        pickTo(dialog, 59);
         pickTo(dialog, 60);
         pickTo(dialog, 63); // grab the axe: broughtweapons true
         pickTo(dialog, 68);
@@ -130,6 +134,7 @@ describe('rested bool in intro.txt', () => {
             pickTo(dialog, 50);
             pickTo(dialog, 52);
             pickTo(dialog, 54);
+            pickTo(dialog, 59);
             pickTo(dialog, 60);
             pickTo(dialog, item);
             pickTo(dialog, 64);
@@ -160,8 +165,9 @@ describe('rested bool in intro.txt', () => {
         expect(dialog.getCurrentText()).toContain('only a few');
         expect(dialog.getCurrentText()).toContain('in the black water alone');
         expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        pickTo(dialog, 60);
+        pickTo(dialog, 59);
         expect(dialog.getCurrentText()).toContain('The sand holds you');
+        pickTo(dialog, 60);
         pickTo(dialog, 61);
         // unrested: no second trip offered
         const secondTrip = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === 68);
@@ -194,6 +200,7 @@ describe('rested bool in intro.txt', () => {
         expect(dialog.getCurrentText()).not.toContain('<ERROR');
         pickTo(dialog, 53);
         pickTo(dialog, 54);
+        pickTo(dialog, 59);
         pickTo(dialog, 60);
         pickTo(dialog, 62);
         pickTo(dialog, 70);
@@ -220,6 +227,7 @@ describe('rested bool in intro.txt', () => {
         pickTo(dialog, 46);
         expect(dialog.getCurrentText()).toContain('the oar breaks');
         expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 59);
         pickTo(dialog, 60);
         pickTo(dialog, 63);
         pickTo(dialog, 64);
@@ -241,6 +249,7 @@ describe('rested bool in intro.txt', () => {
         expect(dialog.getCurrentText()).toContain('Who do you grab and hold onto?');
         pickTo(dialog, 52);
         pickTo(dialog, 54);
+        pickTo(dialog, 59);
         pickTo(dialog, 60);
         pickTo(dialog, 61);
         // rested: the second trip is offered even from the bow path
@@ -266,6 +275,7 @@ describe('rested bool in intro.txt', () => {
         expect(dialog.getCurrentText()).toContain('HOLD TOGETHER');
         expect(dialog.getCurrentText()).toContain('the dark answers');
         expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 59);
         pickTo(dialog, 60);
         pickTo(dialog, 61);
         expect(dialog.getCurrentText()).toContain('The perfect theft');
@@ -283,6 +293,7 @@ describe('rested bool in intro.txt', () => {
         pickTo(dialog, 50);
         pickTo(dialog, 52);
         pickTo(dialog, 54);
+        pickTo(dialog, 59);
         pickTo(dialog, 60);
         pickTo(dialog, 61);
         pickTo(dialog, 64);
