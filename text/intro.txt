@@ -45,7 +45,6 @@ What do you say?
 #14 "Do you think the gods sent us out here?"
 
 §11
-You say that you have come too far to give up.
 <A> nods, and <his> eyes take light. "The storm took our sail, but it did not take us. Nothing out here is stronger than we are."
 Behind you the rowing goes on, and the boat moves west through the darkening water, and for a moment the sea is not a prison. It is a road.
 [person A attitude +5]
@@ -54,7 +53,6 @@ Behind you the rowing goes on, and the boat moves west through the darkening wat
 #39 Get some rest
 
 §12
-You say that hope will not find water, and that you must be ready for land before land is ready for you.
 <A> is quiet for a moment, weighing it. Then <he> nods slowly. "Then we plan. First we land. Then we find water and food. Then we build. One thing at a time, until the stories can begin."
 It is not glory yet. But it is a road that leads there.
 [person A attitude +3]
@@ -69,14 +67,12 @@ You say nothing, and let <A him> talk: the land ahead, the future, the glory tha
 #39 Get some rest
 
 §14
-You ask whether the gods sent you out here.
 <A> is quiet. The oars fill the silence with their patient rhythm.
 "I think they opened a door and pushed us through it," <he> says. "What we do on the other side is ours. That is the whole point of us."
 #15 "And the storm that took the sail - did the gods send that too?"
 #20 Let it rest
 
 §15
-You ask about the storm that took the sail.
 "Maybe it was a test," says <A>. "Or a slap, to wake us up. The gods do not hand out destinies to people who sleep through them."
 <He> grins, and the grin has no doubt in it, and some of it reaches you before you can stop it.
 [person A attitude +3]
@@ -95,7 +91,6 @@ What do you say?
 #24 "What do you need?"
 
 §21
-You say that you are almost there. One more day, maybe two, and solid ground under <B his> feet again: ground that does not move, that owes nothing to any storm.
 <B> nods slowly. "Maybe. The sea gives, and the sea takes."
 It is not much. But <he> straightens up a little, and that is not nothing.
 [person B attitude +5]
@@ -103,7 +98,6 @@ It is not much. But <he> straightens up a little, and that is not nothing.
 #24 "What do you need?"
 
 §22
-You say that when you land, <B> rests first. Before the fires, before the carrying, before the world remembers to be hard again.
 "And then we build," <he> says, and something in <his> voice warms despite <him>. "Water first. Then shelter. Then the rest."
 The plan is small. Small plans fit in tired hands, and tired hands are what you have.
 [person B attitude +3]
@@ -116,7 +110,6 @@ You sit close and say nothing. <B> does not talk the way <A> talks; words cost <
 #24 "What do you need?"
 
 §24
-You ask what <B he> needs.
 "Rest," says <B>. "Real rest. Not this half-sleep with an oar in my hands." <He> looks down the crowded deck, at the sleeping families, at all the people the voyage has not yet finished with. "And for them to get there. That is all I need now."
 It is the longest thing <he> has said all day, and you promise yourself to remember it.
 [person B attitude +3]
@@ -160,7 +153,6 @@ What do you say?
 #36 "What happened to the other ships?"
 
 §31
-You say that weed and gulls can only mean land.
 Around you the rowers have gone quiet, listening. <C> nods. "Maybe. The sky is closing, and I cannot see much tonight. But yes. Maybe."
 <He> lifts <his> face to the wind and closes <his> eyes, weighing what only <he> can read in it. The word maybe travels from bench to bench, and gathers weight wherever it lands. It is not a promise. But tonight the boat is full of people rowing a little straighter.
 [person C attitude +5]
@@ -168,7 +160,7 @@ Around you the rowers have gone quiet, listening. <C> nods. "Maybe. The sky is c
 #34 "How can you tell?"
 
 §32
-You say that if the coast is close, you must not meet it in the dark and die of it. When <C> thinks you are near, <he> says so, and the oars come in slow, and every eye watches for reefs.
+When <C> thinks you are near, <he> says so, and the oars come in slow, and every eye watches for reefs.
 <C> nods seriously. "And keep the children away from the rails."
 The plan is set. Now the sea must cooperate, and the sea has never read a plan.
 [person C attitude +3]
@@ -181,14 +173,12 @@ You say nothing. <C> goes on talking quietly: the weed, the gulls, the stars, th
 #34 "How can you tell?"
 
 §34
-You ask how <C he> can tell.
 "I count the days, and I watch the wind," says <C>. "We have had the wind against us fewer days than it feels. And the sea is different near land: the weed, the birds. I have sailed before. The signs are small, but they are there."
 <He> says it plainly, and does not make the signs larger than they are.
 #35 "What if you are wrong?"
 #40 Let it rest
 
 §35
-You ask what happens if <C he> is wrong.
 "Then we keep rowing," says <C>. "The signs can be wrong. That is why they are signs and not promises. But today I would take a wrong sign over none."
 <He> looks at the clouds coming in from the west, and the eyes that count stars are, for a moment, only tired.
 [person C attitude +3]
@@ -196,7 +186,6 @@ You ask what happens if <C he> is wrong.
 #27 Go to the bow
 
 §36
-You ask about the other ships.
 <C> is quiet for a moment. Behind you, the oars keep their rhythm.
 "The storm took the Wave Dancer," <he> says then. "The Emperor's warship took the Dawn Chaser. Her people are on this boat with us." <He> looks out over the water. "We are all that is left. So we have to get there."
 The names go out over the sea. The sea keeps what it is given.
