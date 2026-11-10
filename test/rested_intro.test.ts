@@ -365,8 +365,8 @@ describe('rested bool in intro.txt', () => {
         expect(text).toContain('breathing easy');
         expect(text).not.toContain('carries nothing out of the sea');
         // harmony: D gives praise and encouragement
-        expect(text).toContain('praise for the ones still standing');
-        expect(text).toContain('encouragement for the ones still shaking');
+        expect(text).toContain('"Still standing,"');
+        expect(text).toContain('"Still breathing,"');
         expect(text).not.toContain('complaining');
         // no raw tags or errors leak
         expect(text).not.toContain('<D ');
@@ -403,9 +403,9 @@ describe('rested bool in intro.txt', () => {
         expect(text).toContain('rested and wide awake');
         expect(text).not.toContain('a heavy box of tools');
         // no harmony: D complains that nobody bothered to wake them
-        expect(text).toContain('complaining');
-        expect(text).toContain('nobody had bothered to wake');
-        expect(text).not.toContain('praise for the ones still standing');
+        expect(text).toContain('nobody bothered to wake me');
+        expect(text).toContain('A whole shipwreck');
+        expect(text).not.toContain('"Still standing,"');
         // no raw tags or errors leak
         expect(text).not.toContain('<D ');
         expect(text).not.toContain('<ERROR');
