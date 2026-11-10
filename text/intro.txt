@@ -250,6 +250,7 @@ Then the reef takes her anyway. The bow rises, hangs, and comes down on the rock
 §47
 You leave the bow and run the length of her, over bundles and between rowers, deck rising, deck falling, shouting the words as you go: "REEF! BACK WATER!" The warning runs the benches faster than you do, voice to voice, rowers taking up the command and hauling against the boat's own way, and for a moment there is a chance the boat can still answer.
 Then the reef takes her anyway. The hull tears open from the stem aft, and the boat rolls, and people and belongings spill into the black water together, and the water does not care which is which. You go in among them, into the cold and the shouting and the arms.
+The sea sorts nothing and no one: here a mother's arm finds her child, there two strangers lock wrists and become one another's chance. Everyone who can reach someone does, and in this water a swimmer keeps one more person alive, and only one. You know your friends by their voices before your eyes find them: <A> shouting orders nobody can hear, <B>'s curses, <C>'s wild laughing. <D> is already being passed along, hand over hand, from stranger to stranger. In a sea full of people holding people, your three friends hold nothing.
 Who do you grab and hold onto?
 #51 <A>
 #52 <B>
@@ -259,6 +260,8 @@ Who do you grab and hold onto?
 The storm arrives in full darkness, at last, and total. Rain hammers the deck. The waves take the boat and throw it, and the boat, old creature, takes the punishment. People shout. Somewhere a child is crying, and someone is singing to the child, and both sound equally desperate.
 Then a cry goes up from the front, one word that cuts through everything: "REEF!"
 The boat grinds over the rocks, and the hull tears open. People and belongings spill into the black water together, and the water does not care which is which.
+You go in among them, into the cold and the shouting and the arms.
+The sea sorts nothing and no one: here a mother's arm finds her child, there two strangers lock wrists and become one another's chance. Everyone who can reach someone does, and in this water a swimmer keeps one more person alive, and only one. You know your friends by their voices before your eyes find them: <A> shouting orders nobody can hear, <B>'s curses, <C>'s wild laughing. <D> is already being passed along, hand over hand, from stranger to stranger. In a sea full of people holding people, your three friends hold nothing.
 Who do you grab and hold onto?
 #51 <A>
 #52 <B>
