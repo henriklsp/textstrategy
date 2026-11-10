@@ -332,7 +332,7 @@ You pull the axe free from the rocks: your great-grandfather's axe, its haft str
 #70 Let the night come
 
 §64
-The storm loses its voice slowly, pretending all the while that it meant to stop. Down the dark beach, the survivors drift together toward the first small fire of driftwood. Its light is small and orange against the black of the dunes, and every face that passes into it looks worn and strange.
+The storm loses its voice slowly, pretending all the while that it meant to stop. Down the dark beach, the survivors drift together into the lee of the dunes. There is no fire, and there will be none tonight: nothing is dry enough to burn, and nobody owns a way to make a spark. So warmth is borrowed the old way, shoulder against shoulder and wet backs to the wind, and every face that joins the huddle looks worn and strange.
 There is still work to be done before anyone can sleep: the wounded to watch over, the water to carry, the dark to sit out together.
 #65 Check on the badly hurt refugee
 #66 See to the children and families
@@ -368,11 +368,11 @@ The night closes over the beach, and you sleep where you fell, on the planks, un
 
 §70
 The rain goes on, softer now, the storm having spent itself on your arrival. You count the others, and the count comes out: everyone made it ashore. The injured one is being cared for. The wreck groans on the reef behind you, breaking a little more with every wave, but still holding together. There is no going back now, and nowhere else to go. On this beach, tonight, that is not a threat. It is a fact, and facts can be built on.
-The survivors huddle together on the dark sand around the small fire. Someone feeds it driftwood. Nobody speaks. <D> sleeps again by the fire.
+The survivors huddle together on the dark sand in the lee of the dunes, shoulder against shoulder, sharing what warmth the living still carry. Nobody speaks. <D> sleeps again inside the huddle.
 The night deepens. The first day ashore waits for morning.
 [event firstday 1]
 
 §71
-You stay where the warmth is. You find a place among the families, between a woman and her sleeping children and an old man already asleep, and you lie down in the sand with the fire small behind you. The rain has gone soft, softer than it has been in weeks, and the voices around you drop to a murmur, and then to breathing, and then to quiet. You are too tired for the night to be long. Sleep takes you where you lie, among the survivors, before you can count them.
+You stay where the warmth is. You find a place among the families, between a woman and her sleeping children and an old man already asleep, and you lie down in the sand with the wind off your back and the huddle's warmth behind you. The rain has gone soft, softer than it has been in weeks, and the voices around you drop to a murmur, and then to breathing, and then to quiet. You are too tired for the night to be long. Sleep takes you where you lie, among the survivors, before you can count them.
 The first day ashore waits for morning.
 [event firstday 1]
