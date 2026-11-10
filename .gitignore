@@ -3,3 +3,4 @@ Dist/
 dist/
 *.tsbuildinfo
 .coverage
+test-output/

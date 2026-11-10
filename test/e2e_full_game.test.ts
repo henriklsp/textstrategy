@@ -8,7 +8,10 @@
 // player's choice from a seeded PRNG, so the whole story is reproducible.
 //
 // Set E2E_LOG_FILE to control where the story log is written
-// (default: e2e_story.log in the current directory).
+// (default: test-output/e2e_story.log, which is gitignored, so local runs
+// never dirty the repo). To publish a snapshot to the tracked e2e_story.log
+// at the repo root, run the test and then commit the copy:
+//   cp test-output/e2e_story.log e2e_story.log && git commit e2e_story.log
 // Set E2E_DAYS (default 20) and E2E_SEED (default 1) to vary a run.
 
 import { GameLoop } from '../src/classes/GameLoop.ts';
@@ -34,7 +37,7 @@ function mulberry32(seed: number): () => number {
 
 const SEED = parseInt(process.env.E2E_SEED ?? '1', 10);
 const TARGET_DAY = parseInt(process.env.E2E_DAYS ?? '20', 10);
-const LOG_FILE = process.env.E2E_LOG_FILE ?? path.join(process.cwd(), 'e2e_story.log');
+const LOG_FILE = process.env.E2E_LOG_FILE ?? path.join(process.cwd(), 'test-output', 'e2e_story.log');
 
 // Safety guards against runaway / infinite play
 const MAX_STEPS = 100000;          // total player inputs across the run
