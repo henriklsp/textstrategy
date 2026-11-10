@@ -5,6 +5,11 @@ import { DataModel } from '../src/classes/DataModel';
 import { createDefaultCharacters } from '../src/classes/DefaultCharacters';
 import { Person } from '../src/classes/Person';
 
+// Tests for intro.txt as *engine input*: syntax validity (parse issues, no raw
+// tags leaking into rendered text), state (bool effects), choice availability,
+// and scheduled events. They deliberately do NOT assert on prose: the wording
+// belongs to the text file and may change freely.
+
 const noop = { onDialogEnd: () => {}, onDialogUpdated: () => {} };
 type Scheduled = { name: string; delay: number };
 
@@ -35,379 +40,238 @@ function newDataModel(): DataModel {
     return dataModel;
 }
 
-describe('rested bool in intro.txt', () => {
-    test('rested: §39 sets the bool, §52 renders the rested branch, §61 offers the second trip, §69 ends with firstday', () => {
+// No unrendered tags or substitution errors may leak into the text
+function expectClean(text: string): void {
+    expect(text).not.toMatch(/<[A-Za-z!?]/);
+}
+
+// A run of the intro to its end: no choices left, firstday scheduled
+function expectIntroEnded(dialog: Dialog, scheduled: Scheduled[]): void {
+    expect(dialog.getCurrentChoices().length).toBe(0);
+    expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+}
+
+// Walk the common beach path (slept at §39, ashore at §52) to §64
+function walkRestedTo64(dialog: Dialog): void {
+    for (const section of [39, 40, 50, 52, 59, 60, 61, 64]) pickTo(dialog, section);
+}
+
+describe('intro.txt as engine input', () => {
+    test('sleep path: sets the rested bool, offers the second trip at §61, ends with firstday', () => {
         const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startIntro(dataModel, scheduled);
 
-        // Sleep path
         pickTo(dialog, 39);
-        expect(dialog.getCurrentText()).toContain('patient and small');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        expectClean(dialog.getCurrentText());
         pickTo(dialog, 40);
         pickTo(dialog, 50);
         pickTo(dialog, 52);
-        expect(dialog.getCurrentText()).toContain('sleep the storm woke you from');
-        expect(dialog.getCurrentText()).not.toContain('never slept');
+        expect(dataModel.isSet('rested')).toBe(true);
+        expectClean(dialog.getCurrentText());
         pickTo(dialog, 59);
-        expect(dialog.getCurrentText()).toContain('every hour of it');
         pickTo(dialog, 60);
-        expect(dialog.getCurrentText()).toContain('What do you take?');
         pickTo(dialog, 61);
-        // B is greatly impressed by the perfect theft
-        expect(dialog.getCurrentText()).toContain('The perfect theft');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        // rested: the second trip is offered
-        const secondTrip = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === 68);
-        expect(secondTrip).toBeDefined();
+        expectClean(dialog.getCurrentText());
+        // rested: the second trip (§68) is offered
+        expect(dialog.getCurrentChoices().some(c => c.getSection()?.getSectionNumber() === 68)).toBe(true);
         pickTo(dialog, 68);
-        expect(dialog.getCurrentText()).toContain('Only a few deck planks remain');
-        // nothing was salvaged: both conditional loss sentences render
-        expect(dialog.getCurrentText()).toContain('three generations of iron given to the sea');
-        expect(dialog.getCurrentText()).toContain("family's fortune is gone");
+        expectClean(dialog.getCurrentText());
         pickTo(dialog, 69);
-        expect(dialog.getCurrentText()).toContain('The wood is ashore');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        // ending section: no choices, firstday scheduled
-        expect(dialog.getCurrentChoices().length).toBe(0);
-        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+        expectClean(dialog.getCurrentText());
+        expectIntroEnded(dialog, scheduled);
     });
 
-    test('unrested: dialog path leaves rested unset, §52 renders the unrested branch, no second trip offered', () => {
+    test('no-rest path: leaves rested unset, offers no second trip, ends with firstday', () => {
         const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startIntro(dataModel, scheduled);
 
-        // Full dialog path, no rest
-        pickTo(dialog, 5);
-        pickTo(dialog, 10);
-        pickTo(dialog, 11);
-        pickTo(dialog, 20);
-        pickTo(dialog, 21);
-        pickTo(dialog, 30);
-        pickTo(dialog, 31);
-        pickTo(dialog, 40);
-        pickTo(dialog, 50);
-        pickTo(dialog, 52);
-        expect(dialog.getCurrentText()).toContain('drawn from somewhere empty');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        for (const section of [5, 10, 11, 20, 21, 30, 31, 40, 50, 52]) pickTo(dialog, section);
+        expect(dataModel.isSet('rested')).toBe(false);
+        expectClean(dialog.getCurrentText());
         pickTo(dialog, 59);
         pickTo(dialog, 60);
         pickTo(dialog, 61);
         // unrested: no §68 choice
-        const secondTrip = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === 68);
-        expect(secondTrip).toBeUndefined();
-        // the normal exits are still there
+        expect(dialog.getCurrentChoices().some(c => c.getSection()?.getSectionNumber() === 68)).toBe(false);
         pickTo(dialog, 70);
-        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+        expectIntroEnded(dialog, scheduled);
     });
 
-    test('§68 conditionals: axe already salvaged means no axe-lost sentence; §70 choice is relabeled', () => {
-        const dataModel = newDataModel();
-        const scheduled: Scheduled[] = [];
-        const dialog = startIntro(dataModel, scheduled);
-        pickTo(dialog, 39);
-        pickTo(dialog, 40);
-        pickTo(dialog, 50);
-        pickTo(dialog, 53);
-        pickTo(dialog, 54);
-        pickTo(dialog, 59);
-        pickTo(dialog, 60);
-        pickTo(dialog, 63); // grab the axe: broughtweapons true
-        pickTo(dialog, 68);
-        expect(dialog.getCurrentText()).toContain('Only a few deck planks remain');
-        // the axe is safe on the beach: no axe-lost sentence
-        expect(dialog.getCurrentText()).not.toContain('three generations of iron given to the sea');
-        // the silver was not grabbed: the fortune-lost sentence still renders
-        expect(dialog.getCurrentText()).toContain("family's fortune is gone");
-        const back = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === 70);
-        expect(back).toBeDefined();
-        expect(back!.getText()).toContain('Return to shore');
+    test('§68 rendering depends on what was salvaged: broughtweapons state drives different text', () => {
+        // Run A: axe grabbed at §63 -> broughtweapons set
+        const dataModelA = newDataModel();
+        const scheduledA: Scheduled[] = [];
+        const dialogA = startIntro(dataModelA, scheduledA);
+        for (const section of [39, 40, 50, 53, 54, 59, 60, 63, 68]) pickTo(dialogA, section);
+        expect(dataModelA.isSet('broughtweapons')).toBe(true);
+        const textA = dialogA.getCurrentText();
+
+        // Run B: food grabbed at §61, no axe -> broughtweapons unset
+        const dataModelB = newDataModel();
+        const scheduledB: Scheduled[] = [];
+        const dialogB = startIntro(dataModelB, scheduledB);
+        for (const section of [39, 40, 50, 52, 59, 60, 61, 68]) pickTo(dialogB, section);
+        expect(dataModelB.isSet('broughtweapons')).toBe(false);
+        const textB = dialogB.getCurrentText();
+
+        // both runs render cleanly but differently: the conditionals react to state
+        expectClean(textA);
+        expectClean(textB);
+        expect(textA).not.toBe(textB);
     });
-    test('§66 nested conditionals: no raw tags or errors leak into the rendered text', () => {
+
+    test('§66 nested conditionals: no raw tags or errors leak on either item path', () => {
         for (const item of [61, 62]) {
             const dataModel = newDataModel();
             const scheduled: Scheduled[] = [];
             const dialog = startIntro(dataModel, scheduled);
-            pickTo(dialog, 39);
-            pickTo(dialog, 40);
-            pickTo(dialog, 50);
-            pickTo(dialog, 52);
-            pickTo(dialog, 54);
-            pickTo(dialog, 59);
-            pickTo(dialog, 60);
-            pickTo(dialog, item);
-            pickTo(dialog, 64);
-            pickTo(dialog, 66);
-            const text = dialog.getCurrentText();
-            expect(text).not.toContain('<food');
-            expect(text).not.toContain('<ERROR');
+            for (const section of [39, 40, 50, 52, 54, 59, 60, item, 64, 66]) pickTo(dialog, section);
+            expectClean(dialog.getCurrentText());
             pickTo(dialog, 70);
+            expectIntroEnded(dialog, scheduled);
         }
     });
 
-    test('bow: early path - sunset at the bow, B joins, you spot the reef, staying fails and you wash ashore alone', () => {
+    test('bow early path: wash ashore alone, unrested, no second trip, ends with firstday', () => {
         const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startIntro(dataModel, scheduled);
 
-        pickTo(dialog, 25);
-        expect(dialog.getCurrentText()).toContain('straight off the bow');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        pickTo(dialog, 28);
-        expect(dialog.getCurrentText()).toContain('quiet end of the boat');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        pickTo(dialog, 45);
-        expect(dialog.getCurrentText()).toContain('The reef.');
-        expect(dialog.getCurrentText()).toContain('The cry is yours to give');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        pickTo(dialog, 46);
-        expect(dialog.getCurrentText()).toContain('only a few');
-        expect(dialog.getCurrentText()).toContain('in the black water alone');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        pickTo(dialog, 59);
-        expect(dialog.getCurrentText()).toContain('The sand holds you');
-        pickTo(dialog, 60);
-        pickTo(dialog, 61);
-        // unrested: no second trip offered
-        const secondTrip = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === 68);
-        expect(secondTrip).toBeUndefined();
-        expect(dialog.getCurrentText()).toContain('The perfect theft');
-        pickTo(dialog, 70);
-        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
-    });
-
-    test('bow: after B talk - C joins at the bow; rushing back gives the who-to-save choice', () => {
-        const dataModel = newDataModel();
-        const scheduled: Scheduled[] = [];
-        const dialog = startIntro(dataModel, scheduled);
-
-        pickTo(dialog, 5);
-        pickTo(dialog, 10);
-        pickTo(dialog, 11);
-        pickTo(dialog, 20);
-        pickTo(dialog, 24);
-        pickTo(dialog, 26);
-        expect(dialog.getCurrentText()).toContain('You leave the benches');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        pickTo(dialog, 37);
-        expect(dialog.getCurrentText()).toContain('Weed in the water today');
-        expect(dialog.getCurrentText()).toContain('watch the water');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        pickTo(dialog, 45);
-        pickTo(dialog, 47);
-        expect(dialog.getCurrentText()).toContain('Who do you grab and hold onto?');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        pickTo(dialog, 53);
-        pickTo(dialog, 54);
-        pickTo(dialog, 59);
-        pickTo(dialog, 60);
-        pickTo(dialog, 62);
-        pickTo(dialog, 70);
-        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
-    });
-
-    test('bow: after C talk - keep watch alone, stay and fail, wash ashore alone; axe path still ends with firstday', () => {
-        const dataModel = newDataModel();
-        const scheduled: Scheduled[] = [];
-        const dialog = startIntro(dataModel, scheduled);
-
-        pickTo(dialog, 5);
-        pickTo(dialog, 10);
-        pickTo(dialog, 11);
-        pickTo(dialog, 20);
-        pickTo(dialog, 21);
-        pickTo(dialog, 30);
-        pickTo(dialog, 34);
-        pickTo(dialog, 35);
-        pickTo(dialog, 27);
-        expect(dialog.getCurrentText()).toContain('and the dark does not give it up');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        pickTo(dialog, 45);
-        pickTo(dialog, 46);
-        expect(dialog.getCurrentText()).toContain('the oar breaks');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        pickTo(dialog, 59);
-        pickTo(dialog, 60);
-        pickTo(dialog, 63);
-        pickTo(dialog, 64);
-        pickTo(dialog, 70);
-        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
-    });
-
-    test('bow: rested player takes the bow as lookout from the storm build; rushing back, second trip still offered', () => {
-        const dataModel = newDataModel();
-        const scheduled: Scheduled[] = [];
-        const dialog = startIntro(dataModel, scheduled);
-
-        pickTo(dialog, 39);
-        pickTo(dialog, 40);
-        pickTo(dialog, 45);
-        expect(dialog.getCurrentText()).toContain('The cry is yours to give');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        pickTo(dialog, 47);
-        expect(dialog.getCurrentText()).toContain('Who do you grab and hold onto?');
-        pickTo(dialog, 52);
-        pickTo(dialog, 54);
+        for (const section of [25, 28, 45, 46]) {
+            pickTo(dialog, section);
+            expectClean(dialog.getCurrentText());
+        }
+        expect(dataModel.isSet('rested')).toBe(false);
         pickTo(dialog, 59);
         pickTo(dialog, 60);
         pickTo(dialog, 61);
-        // rested: the second trip is offered even from the bow path
-        const secondTrip = dialog.getCurrentChoices().find(c => c.getSection()?.getSectionNumber() === 68);
-        expect(secondTrip).toBeDefined();
+        expect(dialog.getCurrentChoices().some(c => c.getSection()?.getSectionNumber() === 68)).toBe(false);
+        pickTo(dialog, 70);
+        expectIntroEnded(dialog, scheduled);
+    });
+
+    test('bow after B talk: C joins, who-to-save choice, ends with firstday', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        for (const section of [5, 10, 11, 20, 24, 26, 37, 45, 47, 53, 54, 59, 60, 62]) {
+            pickTo(dialog, section);
+            expectClean(dialog.getCurrentText());
+        }
+        pickTo(dialog, 70);
+        expectIntroEnded(dialog, scheduled);
+    });
+
+    test('bow after C talk: keep watch alone, wash ashore, axe path, ends with firstday', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        for (const section of [5, 10, 11, 20, 21, 30, 34, 35, 27, 45, 46, 59, 60, 63, 64]) {
+            pickTo(dialog, section);
+            expectClean(dialog.getCurrentText());
+        }
+        expect(dataModel.isSet('broughtweapons')).toBe(true);
+        pickTo(dialog, 70);
+        expectIntroEnded(dialog, scheduled);
+    });
+
+    test('rested player at the bow: second trip still offered, ends with firstday', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        for (const section of [39, 40, 45, 47, 52, 54, 59, 60, 61]) {
+            pickTo(dialog, section);
+            expectClean(dialog.getCurrentText());
+        }
+        expect(dataModel.isSet('rested')).toBe(true);
+        expect(dialog.getCurrentChoices().some(c => c.getSection()?.getSectionNumber() === 68)).toBe(true);
         pickTo(dialog, 68);
         pickTo(dialog, 69);
-        expect(dialog.getCurrentText()).toContain('The wood is ashore');
-        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+        expectIntroEnded(dialog, scheduled);
     });
 
-    test('bow alone: shouting for the others rejoins the line of survivors at the roar', () => {
+    test('bow alone path: rejoin the survivors, ends with firstday', () => {
         const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startIntro(dataModel, scheduled);
 
-        pickTo(dialog, 25);
-        pickTo(dialog, 28);
-        pickTo(dialog, 45);
-        pickTo(dialog, 46);
-        expect(dialog.getCurrentText()).toContain('in the black water alone');
-        pickTo(dialog, 54);
-        expect(dialog.getCurrentText()).toContain('HOLD TOGETHER');
-        expect(dialog.getCurrentText()).toContain('the dark answers');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        pickTo(dialog, 59);
-        pickTo(dialog, 60);
-        pickTo(dialog, 61);
-        expect(dialog.getCurrentText()).toContain('The perfect theft');
+        for (const section of [25, 28, 45, 46, 54, 59, 60, 61]) {
+            pickTo(dialog, section);
+            expectClean(dialog.getCurrentText());
+        }
         pickTo(dialog, 70);
-        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+        expectIntroEnded(dialog, scheduled);
     });
 
-    test('§66 second choice: going to sleep ends the intro early, still scheduling firstday', () => {
+    test('§66 sleep choice: ends the intro early, still scheduling firstday', () => {
         const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startIntro(dataModel, scheduled);
 
-        pickTo(dialog, 39);
-        pickTo(dialog, 40);
-        pickTo(dialog, 50);
-        pickTo(dialog, 52);
-        pickTo(dialog, 54);
-        pickTo(dialog, 59);
-        pickTo(dialog, 60);
-        pickTo(dialog, 61);
-        pickTo(dialog, 64);
-        pickTo(dialog, 66);
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        for (const section of [39, 40, 50, 52, 54, 59, 60, 61, 64, 66]) pickTo(dialog, section);
+        expectClean(dialog.getCurrentText());
         pickTo(dialog, 71);
-        expect(dialog.getCurrentText()).toContain('before you can count them');
-        expect(dialog.getCurrentText()).toContain('The first day ashore waits for morning');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
-        // ending section: no choices
-        expect(dialog.getCurrentChoices().length).toBe(0);
-        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+        expectClean(dialog.getCurrentText());
+        expectIntroEnded(dialog, scheduled);
     });
 
-    test('§59 alternatives: searching the surf instead of the wreck yields the oar and still ends with firstday', () => {
+    test('§59 offers wreck, surf and night choices; the surf path also ends with firstday', () => {
         const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startIntro(dataModel, scheduled);
 
-        pickTo(dialog, 39);
-        pickTo(dialog, 40);
-        pickTo(dialog, 50);
-        pickTo(dialog, 52);
-        pickTo(dialog, 59);
+        for (const section of [39, 40, 50, 52, 59]) pickTo(dialog, section);
         const choices = dialog.getCurrentChoices();
         expect(choices.length).toBe(3);
         expect(choices.some(c => c.getSection()?.getSectionNumber() === 60)).toBe(true);
         expect(choices.some(c => c.getSection()?.getSectionNumber() === 67)).toBe(true);
         expect(choices.some(c => c.getSection()?.getSectionNumber() === 70)).toBe(true);
         pickTo(dialog, 67);
-        expect(dialog.getCurrentText()).toContain('length of broken oar');
-        expect(dialog.getCurrentText()).toContain('above the tide line');
-        expect(dialog.getCurrentText()).not.toContain('beside the fire');
-        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        expectClean(dialog.getCurrentText());
         pickTo(dialog, 70);
-        expect(dialog.getCurrentText()).toContain('The first day ashore waits for morning');
-        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+        expectIntroEnded(dialog, scheduled);
     });
 
-    test('§64 D traits: life + harmony D hauls the tool box and gives out encouragement', () => {
-        const dataModel = new DataModel();
-        const cast = [
-            new Person('Asger', 'divinity', 'magic', 'harmony'),
-            new Person('Bera', 'harmony', 'life', 'magic'),
-            new Person('Cate', 'magic', 'divinity', 'life'),
-            new Person('Dagny', 'life', 'divinity', 'harmony', 'female'),
-        ];
-        cast[3].addPositiveTrait('harmony');
-        for (const person of cast) dataModel.addPerson(person);
-        dataModel.setCurrentDay(1);
-        dataModel.set('population', 5);
-        dataModel.set('food', 10);
-        dataModel.set('wood', 5);
-        const scheduled: Scheduled[] = [];
-        const dialog = startIntro(dataModel, scheduled);
+    test('§64 rendering depends on the assigned D's life and harmony traits', () => {
+        // Deterministic casts: A/B/C are the only candidates for their roles
+        // (positive divinity / negative life / positive magic), so D is forced.
+        // D has the same name and gender in every cast, so any difference in
+        // the rendered §64 comes from the variation tags, not from pronouns.
+        const castFor = (d: Person): DataModel => {
+            const dataModel = new DataModel();
+            dataModel.addPerson(new Person('Asger', 'divinity', 'magic', 'harmony'));
+            dataModel.addPerson(new Person('Bera', 'harmony', 'life', 'magic'));
+            dataModel.addPerson(new Person('Cate', 'magic', 'divinity', 'life'));
+            dataModel.addPerson(d);
+            dataModel.setCurrentDay(1);
+            dataModel.set('population', 5);
+            dataModel.set('food', 10);
+            dataModel.set('wood', 5);
+            return dataModel;
+        };
+        const render64With = (d: Person): string => {
+            const scheduled: Scheduled[] = [];
+            const dialog = startIntro(castFor(d), scheduled);
+            walkRestedTo64(dialog);
+            const text = dialog.getCurrentText();
+            expectClean(text);
+            return text;
+        };
 
-        pickTo(dialog, 39);
-        pickTo(dialog, 40);
-        pickTo(dialog, 50);
-        pickTo(dialog, 52);
-        pickTo(dialog, 59);
-        pickTo(dialog, 60);
-        pickTo(dialog, 61);
-        pickTo(dialog, 64);
-        const text = dialog.getCurrentText();
-        // life: D is strong and carried a heavy box of tools from the wreck
-        expect(text).toContain('a heavy box of tools');
-        expect(text).toContain('breathing easy');
-        expect(text).not.toContain('carries nothing out of the sea');
-        // harmony: D gives praise and encouragement
-        expect(text).toContain('"Still standing,"');
-        expect(text).toContain('"Still breathing,"');
-        expect(text).not.toContain('complaining');
-        // no raw tags or errors leak
-        expect(text).not.toContain('<D ');
-        expect(text).not.toContain('<ERROR');
-    });
+        const neither = render64With(new Person('Dag'));                          // no traits at all
+        const lifeOnly = render64With(new Person('Dag', 'life', 'magic', 'harmony'));    // positive life only
+        const harmonyOnly = render64With(new Person('Dag', 'harmony', 'magic', 'divinity')); // positive harmony only
 
-    test('§64 D traits: frail D without harmony rests and complains nobody woke them', () => {
-        const dataModel = new DataModel();
-        const cast = [
-            new Person('Asger', 'divinity', 'magic', 'harmony'),
-            new Person('Bera', 'harmony', 'life', 'magic'),
-            new Person('Cate', 'magic', 'divinity', 'life'),
-            new Person('Dag', 'divinity', 'magic', 'harmony'),
-        ];
-        for (const person of cast) dataModel.addPerson(person);
-        dataModel.setCurrentDay(1);
-        dataModel.set('population', 5);
-        dataModel.set('food', 10);
-        dataModel.set('wood', 5);
-        const scheduled: Scheduled[] = [];
-        const dialog = startIntro(dataModel, scheduled);
-
-        pickTo(dialog, 39);
-        pickTo(dialog, 40);
-        pickTo(dialog, 50);
-        pickTo(dialog, 52);
-        pickTo(dialog, 59);
-        pickTo(dialog, 60);
-        pickTo(dialog, 61);
-        pickTo(dialog, 64);
-        const text = dialog.getCurrentText();
-        // no life: D is frail but rested and wide awake
-        expect(text).toContain('carries nothing out of the sea');
-        expect(text).toContain('rested and wide awake');
-        expect(text).not.toContain('a heavy box of tools');
-        // no harmony: D complains that nobody bothered to wake them
-        expect(text).toContain('nobody bothered to wake me');
-        expect(text).toContain('A whole shipwreck');
-        expect(text).not.toContain('"Still standing,"');
-        // no raw tags or errors leak
-        expect(text).not.toContain('<D ');
-        expect(text).not.toContain('<ERROR');
+        // the life branch reacts to D's life trait
+        expect(lifeOnly).not.toBe(neither);
+        // likewise for harmony
+        expect(harmonyOnly).not.toBe(neither);
+        // and the two branches are independent
+        expect(lifeOnly).not.toBe(harmonyOnly);
     });
 });

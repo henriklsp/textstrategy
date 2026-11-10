@@ -3,6 +3,7 @@ import { Dialog } from '../src/classes/Dialog';
 import { DataModel } from '../src/classes/DataModel';
 import { Event } from '../src/classes/Event';
 import { Section } from '../src/classes/Section';
+import { Person } from '../src/classes/Person';
 
 // Mock callback for Dialog
 const mockCallback = {
@@ -211,6 +212,67 @@ describe('Variable Subsection Processing', () => {
 
             const result = dialog.getCurrentText();
             expect(result).toBe('You have 2 sacks of food');
+        });
+    });
+    describe('Role persistence across subsections', () => {
+        test('a conditional subsection mid-text does not break later bare pronouns', () => {
+            dataModel.addPerson(new Person('Person1'));
+            const event = parser.parseText(
+                '*A:\n' +
+                '§1\n' +
+                '<A> waits. <food 2?Low food.;Enough food.> Then <he> nods and takes <his> leave.\n' +
+                '#999 End\n' +
+                '§999\n' +
+                'End.');
+            const dialog = new Dialog(event, dataModel, mockCallback);
+            dialog.start();
+
+            const result = dialog.getCurrentText();
+            expect(result).toContain('Person1 waits.');
+            // the bare pronouns after the conditional still refer to role A
+            expect(result).toContain('Then he nods and takes his leave.');
+            expect(result).not.toContain('<he>');
+            expect(result).not.toContain('<his>');
+        });
+
+        test('a random subsection mid-text does not break later bare pronouns', () => {
+            dataModel.addPerson(new Person('Person1'));
+            const event = parser.parseText(
+                '*A:\n' +
+                '§1\n' +
+                '<A> waits. <?wind;rain> Then <he> nods.\n' +
+                '#999 End\n' +
+                '§999\n' +
+                'End.');
+            const dialog = new Dialog(event, dataModel, mockCallback);
+            dialog.start();
+
+            const result = dialog.getCurrentText();
+            expect(result).toContain('Person1 waits.');
+            expect(result).toContain('Then he nods.');
+            expect(result).not.toContain('<he>');
+        });
+
+        test('a role mentioned inside a subsection becomes the current role afterwards', () => {
+            const person1 = new Person('Person1');
+            person1.addPositiveTrait('magic');
+            dataModel.addPerson(person1);
+            dataModel.addPerson(new Person('Person2'));
+            dataModel.set('food', 10); // <food 2?> is true: the first arm renders
+            const event = parser.parseText(
+                '*A: magic\n*B:\n' +
+                '§1\n' +
+                '<A> waits. <food 2?<B> arrives.;<A> arrives.> Then <He> is here.\n' +
+                '#999 End\n' +
+                '§999\n' +
+                'End.');
+            const dialog = new Dialog(event, dataModel, mockCallback);
+            dialog.start();
+
+            const result = dialog.getCurrentText();
+            // the bare pronoun after the subsection binds to the role named inside it
+            expect(result).toContain('Person2 arrives. Then He is here.');
+            expect(result).not.toContain('<He>');
         });
     });
 });

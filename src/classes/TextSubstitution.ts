@@ -60,8 +60,11 @@ export class TextSubstitution {
         this.context = context;
     }
 
-    public substitute(text: string): string {
-        this.currentRole = null; // Reset current role at the start of each substitution
+    public substitute(text: string, preserveCurrentRole: boolean = false): string {
+        // Reset the current role at the start of each substitution, but keep it
+        // when substituting a variation arm mid-text: bare pronouns (<he>, <his>)
+        // after the arm still refer to the role mentioned before the tag.
+        if (!preserveCurrentRole) this.currentRole = null;
         let output = '';
         let i = 0;
         while (i < text.length) {
@@ -185,7 +188,7 @@ export class TextSubstitution {
 
         // <?a;b;c> random pick
         if (condition === '') {
-            return this.substitute(options[this.context.pickRandom(options.length)]);
+            return this.substitute(options[this.context.pickRandom(options.length)], true);
         }
 
         // <food?> display value (rounded to whole number), or true/false for a flag
@@ -197,7 +200,7 @@ export class TextSubstitution {
 
         // <currentconstruction?a;b>: truthy if something is under construction
         if (condition === 'currentconstruction') {
-            return this.substitute((this.textValue('currentconstruction') ?? '') !== '' ? trueText : falseText);
+            return this.substitute((this.textValue('currentconstruction') ?? '') !== '' ? trueText : falseText, true);
         }
 
         // Check if condition references any unassigned roles (e.g., "A life", "B -magic")
@@ -218,7 +221,7 @@ export class TextSubstitution {
         // <hasDoneIt?a;b>, <food 2?a;b>, <can scavenge?a;b>, ...
         const prerequisite = PrerequisiteParser.parseCondition(condition);
         if (prerequisite) {
-            return this.substitute(prerequisite.isMet(this.context) ? trueText : falseText);
+            return this.substitute(prerequisite.isMet(this.context) ? trueText : falseText, true);
         }
 
         return `<${inner}>`;
