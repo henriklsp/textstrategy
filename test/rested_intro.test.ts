@@ -307,4 +307,29 @@ describe('rested bool in intro.txt', () => {
         expect(dialog.getCurrentChoices().length).toBe(0);
         expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
     });
+
+    test('§59 alternatives: searching the surf instead of the wreck yields the oar and still ends with firstday', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        pickTo(dialog, 39);
+        pickTo(dialog, 40);
+        pickTo(dialog, 50);
+        pickTo(dialog, 52);
+        pickTo(dialog, 59);
+        const choices = dialog.getCurrentChoices();
+        expect(choices.length).toBe(3);
+        expect(choices.some(c => c.getSection()?.getSectionNumber() === 60)).toBe(true);
+        expect(choices.some(c => c.getSection()?.getSectionNumber() === 67)).toBe(true);
+        expect(choices.some(c => c.getSection()?.getSectionNumber() === 70)).toBe(true);
+        pickTo(dialog, 67);
+        expect(dialog.getCurrentText()).toContain('length of broken oar');
+        expect(dialog.getCurrentText()).toContain('above the tide line');
+        expect(dialog.getCurrentText()).not.toContain('beside the fire');
+        expect(dialog.getCurrentText()).not.toContain('<ERROR');
+        pickTo(dialog, 70);
+        expect(dialog.getCurrentText()).toContain('The first day ashore waits for morning');
+        expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+    });
 });
