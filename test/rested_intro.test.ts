@@ -3,6 +3,7 @@ import { EventParser } from '../src/classes/EventParser';
 import { Dialog } from '../src/classes/Dialog';
 import { DataModel } from '../src/classes/DataModel';
 import { createDefaultCharacters } from '../src/classes/DefaultCharacters';
+import { Person } from '../src/classes/Person';
 
 const noop = { onDialogEnd: () => {}, onDialogUpdated: () => {} };
 type Scheduled = { name: string; delay: number };
@@ -331,5 +332,82 @@ describe('rested bool in intro.txt', () => {
         pickTo(dialog, 70);
         expect(dialog.getCurrentText()).toContain('The first day ashore waits for morning');
         expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
+    });
+
+    test('§64 D traits: life + harmony D hauls the tool box and gives out encouragement', () => {
+        const dataModel = new DataModel();
+        const cast = [
+            new Person('Asger', 'divinity', 'magic', 'harmony'),
+            new Person('Bera', 'harmony', 'life', 'magic'),
+            new Person('Cate', 'magic', 'divinity', 'life'),
+            new Person('Dagny', 'life', 'divinity', 'harmony', 'female'),
+        ];
+        cast[3].addPositiveTrait('harmony');
+        for (const person of cast) dataModel.addPerson(person);
+        dataModel.setCurrentDay(1);
+        dataModel.set('population', 5);
+        dataModel.set('food', 10);
+        dataModel.set('wood', 5);
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        pickTo(dialog, 39);
+        pickTo(dialog, 40);
+        pickTo(dialog, 50);
+        pickTo(dialog, 52);
+        pickTo(dialog, 59);
+        pickTo(dialog, 60);
+        pickTo(dialog, 61);
+        pickTo(dialog, 64);
+        const text = dialog.getCurrentText();
+        // life: D is strong and carried a heavy box of tools from the wreck
+        expect(text).toContain('a heavy box of tools');
+        expect(text).toContain('breathing easy');
+        expect(text).not.toContain('carries nothing out of the sea');
+        // harmony: D gives praise and encouragement
+        expect(text).toContain('praise for the ones still standing');
+        expect(text).toContain('encouragement for the ones still shaking');
+        expect(text).not.toContain('complaining');
+        // no raw tags or errors leak
+        expect(text).not.toContain('<D ');
+        expect(text).not.toContain('<ERROR');
+    });
+
+    test('§64 D traits: frail D without harmony rests and complains nobody woke them', () => {
+        const dataModel = new DataModel();
+        const cast = [
+            new Person('Asger', 'divinity', 'magic', 'harmony'),
+            new Person('Bera', 'harmony', 'life', 'magic'),
+            new Person('Cate', 'magic', 'divinity', 'life'),
+            new Person('Dag', 'divinity', 'magic', 'harmony'),
+        ];
+        for (const person of cast) dataModel.addPerson(person);
+        dataModel.setCurrentDay(1);
+        dataModel.set('population', 5);
+        dataModel.set('food', 10);
+        dataModel.set('wood', 5);
+        const scheduled: Scheduled[] = [];
+        const dialog = startIntro(dataModel, scheduled);
+
+        pickTo(dialog, 39);
+        pickTo(dialog, 40);
+        pickTo(dialog, 50);
+        pickTo(dialog, 52);
+        pickTo(dialog, 59);
+        pickTo(dialog, 60);
+        pickTo(dialog, 61);
+        pickTo(dialog, 64);
+        const text = dialog.getCurrentText();
+        // no life: D is frail but rested and wide awake
+        expect(text).toContain('carries nothing out of the sea');
+        expect(text).toContain('rested and wide awake');
+        expect(text).not.toContain('a heavy box of tools');
+        // no harmony: D complains that nobody bothered to wake them
+        expect(text).toContain('complaining');
+        expect(text).toContain('nobody had bothered to wake');
+        expect(text).not.toContain('praise for the ones still standing');
+        // no raw tags or errors leak
+        expect(text).not.toContain('<D ');
+        expect(text).not.toContain('<ERROR');
     });
 });
