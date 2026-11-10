@@ -250,6 +250,8 @@ Then the reef takes her anyway. The bow rises, hangs, and comes down on the rock
 §47
 You leave the bow and run the length of her, over bundles and between rowers, deck rising, deck falling, shouting the words as you go: "REEF! BACK WATER!" The warning runs the benches faster than you do, voice to voice, rowers taking up the command and hauling against the boat's own way, and for a moment there is a chance the boat can still answer.
 Then the reef takes her anyway. The hull tears open from the stem aft, and the boat rolls, and people and belongings spill into the black water together, and the water does not care which is which. You go in among them, into the cold and the shouting and the arms.
+The dark gives you <C> first: laughing, wild, a plank under one arm, needing nobody. <A> is the worry. Struck by the mast when she rolled, <A he> swims hard and swims wrong, out to sea instead of in, and will not call it what it is. And there is <B>, head under and up again, empty, cursing with nothing behind it.
+The families are folding into each other, ring inside ring, and no stranger in this water will stop for your friends. The rest of your own are finding each other in the churn, or being found. The three of them lie in three directions, and the surf is widening every gap.
 Who do you grab and hold onto?
 #51 <A>
 #52 <B>
@@ -259,6 +261,9 @@ Who do you grab and hold onto?
 The storm arrives in full darkness, at last, and total. Rain hammers the deck. The waves take the boat and throw it, and the boat, old creature, takes the punishment. People shout. Somewhere a child is crying, and someone is singing to the child, and both sound equally desperate.
 Then a cry goes up from the front, one word that cuts through everything: "REEF!"
 The boat grinds over the rocks, and the hull tears open. People and belongings spill into the black water together, and the water does not care which is which.
+You go in among them, into the cold and the shouting and the arms.
+<A> has come up shouting, calling names and orders to whoever can hear, needing nobody yet. <B>'s head goes under and comes up empty, and the cursing that follows has no strength in it. Somewhere off in the dark <C> is laughing, wild and thin, a man spending more than <C he> has; <C he> has caught a plank, and both hands want it.
+The families are folding into each other, ring inside ring, and no stranger in this water will stop for your friends. The rest of your own are finding each other in the churn, or being found. The three of them lie in three directions, and the surf is widening every gap.
 Who do you grab and hold onto?
 #51 <A>
 #52 <B>
