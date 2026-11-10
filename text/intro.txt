@@ -293,7 +293,7 @@ You reach for <C>. <He> clings to a floating plank with one arm and to you with 
 §54
 "TOGETHER!" you roar into the storm, until your voice breaks. "HOLD TOGETHER!"
 <rested?Sleep stands behind your voice, and the roar comes from somewhere solid.;You have not slept, and the roar wears thin fast, but it is a roar.>
-And the dark answers. Voices take up the word. Hands find hands. Somewhere a rope finds a wrist. The line of survivors swims on, one body with many hearts, and for this moment, at least, the sea does not get to divide the herd.
+And the dark answers. Not with everyone the sea took: with what is yours. Voice answers voice, closer and closer, until all four of them are near enough to touch, <D> half-carried between the others, thick with sleep. The five of you close up in the black water, and hold. The storm spends itself on the reef, wave after breaking wave, and every wave tries to pull the five of you apart on the rocks, and every wave fails, while one arm in the knot still refuses.
 #59 Continue to the shore
 
 §59
