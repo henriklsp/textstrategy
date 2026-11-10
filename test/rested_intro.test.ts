@@ -237,7 +237,7 @@ describe('intro.txt as engine input', () => {
         expectIntroEnded(dialog, scheduled);
     });
 
-    test('§64 rendering depends on the assigned D's life and harmony traits', () => {
+    test('§64 rendering depends on the assigned D trait branches', () => {
         // Deterministic casts: A/B/C are the only candidates for their roles
         // (positive divinity / negative life / positive magic), so D is forced.
         // D has the same name and gender in every cast, so any difference in
