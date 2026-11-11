@@ -160,7 +160,7 @@ Around you the rowers have gone quiet, listening. <C> nods. "Maybe. The sky is c
 #34 "How can you tell?"
 
 §32
-When <C> says you are near, the oars come in slow, and every eye watches for reefs.
+The boat answers you before anyone does. The oars come in slower, and faces turn from the stroke to the dark ahead, where no coast is, where there may be a coast. The talk takes your words and passes them on, changing as they go: that the water has gone colder since evening, that half the boat has known there was land all along, that nobody should sleep yet. Nobody has seen anything. Everyone is watching.
 <C> nods seriously. "And keep the children away from the rails."
 The plan is set. Now the sea must cooperate, and the sea has never read a plan.
 [person C attitude +3]
