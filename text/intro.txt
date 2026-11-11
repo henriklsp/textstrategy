@@ -130,7 +130,7 @@ You sit down against the stem and look back the way you came. The whole boat is 
 
 §27
 You go to the bow. The deck is full of sleep now, and your feet learn the way through it, over bundles, past cooking pots, along the dark lane between the benches. Up here the night is wide open, and colder for it. Most of the stars are gone behind cloud, and the wind has changed since sundown, harder, with weather in it.
-You sit down against the stem and look south, the way <C> said, where a coast might be, and the dark does not give it up. Maybe it is there. Maybe it is close. The boat rows on into the black water, carrying everyone you know, and you keep your eyes forward, because someone might as well.
+You sit down against the stem and look ahead, the way <C> said, where a coast might be, and the dark does not give it up. Maybe it is there. Maybe it is close. The boat rows on into the black water, carrying everyone you know, and you keep your eyes forward, because someone might as well.
 #45 Stay at the bow into the night
 #39 Get some rest
 
@@ -143,7 +143,7 @@ Later, <B>'s turn at the oars ends, and <he> comes forward along the deck and dr
 
 §30
 Last, <C>'s turn at the oars ends. <He> sits down beside you, pulls a blanket over you both, and looks up at the sky, where the first stars come out between the clouds.
-"Weed in the water today," says <C>. "Fresh weed, torn off rocks, not old floating stuff. And gulls at noon - gulls do not come this far out unless there is land. I think there is a coast south of us. I cannot promise it."
+"Weed in the water today," says <C>. "Fresh weed, torn off rocks, not old floating stuff. And gulls at noon - gulls do not come this far out unless there is land. I think there is a coast ahead of us. I cannot promise it."
 The words settle over the benches. Somewhere behind you, someone repeats them, quietly, to someone else. Hope moves through this boat the same way: one bench at a time.
 What do you say?
 #31 "Weed and gulls can only mean land."
@@ -194,7 +194,7 @@ The names go out over the sea. The sea keeps what it is given.
 
 §37
 The stars wheel over the water, and the clouds come in from the west and take them back a few at a time. The wind has an edge now that it did not have at sundown.
-Last, <C>'s turn at the oars ends, and <he> finds <his> way forward along the deck and drops down beside you at the bow. "You are keeping the watch nobody asked for," <he> says, and there is no mocking in it. "Weed in the water today. Gulls at noon. I think there is a coast south of us, and I cannot promise it. If you mean to sit out here, watch the water." Then <he> goes, back down the deck toward sleep, and leaves you the watch, and the watching is different now that it has a name.
+Last, <C>'s turn at the oars ends, and <he> finds <his> way forward along the deck and drops down beside you at the bow. "You are keeping the watch nobody asked for," <he> says, and there is no mocking in it. "Weed in the water today. Gulls at noon. I think there is a coast ahead of us, and I cannot promise it. If you mean to sit out here, watch the water." Then <he> goes, back down the deck toward sleep, and leaves you the watch, and the watching is different now that it has a name.
 [person C attitude +3]
 #45 Stay at the bow into the night
 #39 Get some rest
