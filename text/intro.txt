@@ -160,7 +160,7 @@ Around you the rowers have gone quiet, listening. <C> nods. "Maybe. The sky is c
 #34 "How can you tell?"
 
 §32
-When <C> thinks you are near, <he> says so, and the oars come in slow, and every eye watches for reefs.
+When <C> says you are near, the oars come in slow, and every eye watches for reefs.
 <C> nods seriously. "And keep the children away from the rails."
 The plan is set. Now the sea must cooperate, and the sea has never read a plan.
 [person C attitude +3]
