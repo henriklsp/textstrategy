@@ -3,12 +3,14 @@
 - Person skill and skill progression and natural aptitude
 - Event queue is ordered by due date. Only run events for current day.
 - Write more events
-- Persistence: use browser localstorage for datamodel, eventqueue and current position in dialog
+- Randomly generated characters
 - Data model: Buildings. Building task slots, efficiency bonus and other building effects.
 - Buildings: shelter, tent, shed, hut, house, raft, boat, pier, dock, storage, chicken coop, field, (other farming related buildings?), fence, stockade, watchtower, copper mine, iron mine, smithy, (other mining related buildings)
 - starvation or low health triggers events
 - character death
 - game over trigger and text
+- Persistence: use browser localstorage for datamodel, eventqueue and current position in dialog
+- Save/load game
 - construction complete event
 - Write high priority events for misc. problems
 - Write low priority filler events
@@ -19,7 +21,8 @@
 - Starvation events: trigger a story event when a character's health falls below a threshold, so the crisis appears in prose
 - Feast: let the council spend surplus food to raise health and attitude above their baseline
 - Building "tech tree" and prerequisites
-- Events to add more people/characters
+- Events to add more people/characters, someone wants to join your group. 
+- events: the boat that was thought lost in a storm arrives. Empire ship arrives and demands subjugation. Skaelings want to trade. Skaeling raid. Exploration. Find chickens, required for chicken coop.
 - Combat system
 
 To run:
