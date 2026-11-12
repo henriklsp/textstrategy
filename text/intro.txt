@@ -93,7 +93,7 @@ What do you say?
 §21
 <B> nods slowly. "Maybe. The sea gives, and the sea takes."
 It is not much. But <he> straightens up a little, and that is not nothing.
-<B divinity?"We paid the toll," <B he> says after a while. "Every soul the sea took on the way. The death gods do not ask a toll twice. They will see us across.";><B magic?<B he> works something out from under <B his> shirt and holds it in <B his> fist, a small woven lucky, crafted to protect the boat. "One more day," <B he> says, to it more than to you.;><B harmony?"My grandfather set keels," <B he> says. "Boats built the old way carry you anywhere you have the oars for. This one was built the old way.";>
+<B divinity?"We paid the toll," <B he> says after a while. "Every soul the sea took on the way. The death gods do not ask a toll twice. They will see us across.";><B magic?<B he> works something out from under <B his> shirt and holds it in <B his> fist, a small woven lucky charm, crafted to protect the boat. "One more day," <B he> says, to it more than to you.;><B harmony?"My grandfather set keels," <B he> says. "Boats built the old way carry you anywhere you have the oars for. This one was built the old way.";>
 [person B attitude +5]
 #30 Sit in silence
 #24 "What do you need?"
@@ -101,14 +101,14 @@ It is not much. But <he> straightens up a little, and that is not nothing.
 §22
 "And then we build," <B he> says, and something in <B his> voice warms despite <B him>. "Water first. Then shelter. Then the rest."
 The plan is small. Small plans fit in tired hands, and tired hands are what you have.
-<B divinity?"And the gods will keep their side," <B he> says. "They have been paid enough to owe us a landing.";><B magic?<B his> hand goes to something on a cord at <B his> neck. "A lucky guards what it is given. When the boat is done, it can learn to guard a house.";><B harmony?"Water first, then shelter," <B he> says again. "My grandfather built in that order, and his father before him. A thing does not become an old order by being wrong.";>
+<B divinity?"And the gods will keep their side," <B he> says. "They have been paid enough to owe us a landing.";><B magic?<B his> hand goes to something on a cord at <B his> neck. "A lucky charm guards what it is given. When the boat is done, it can learn to guard a house.";><B harmony?"Water first, then shelter," <B he> says again. "My grandfather built in that order, and his father before him. A thing does not become an old order by being wrong.";>
 [person B attitude +3]
 #30 Sit in silence
 #24 "What do you need?"
 
 §23
 You sit close and say nothing. <B> does not talk the way <A> talks; words cost <B him> something. So you share the silence instead, the old kind, the kind that does not need filling. After a while <he> leans back and closes <his> eyes, and the sounds of the boat go on around you both: oar, rope, sea, breath.
-<B divinity?Once, quietly, <B he> says a name, one of the ones the sea took, and nothing more.;><B magic?<B his> fingers find something on a cord at <B his> throat, and stay there.;><B harmony?A word or two passes <B his> lips, the old words that go with the setting of a keel, and then <B he> is quiet again.;>
+<B divinity?Once, quietly, <B he> says a name, one of the ones the sea took, and nothing more.;><B magic?But for <B him> the silence does not hold. "I have been thinking," <B he> says, eyes closed, "about the lucky charm my aunt wove. Reed from the home river, and hair from everyone it was meant to guard. She said a charm is a plan the gods can read. You have to make it well, and you have to make it early, before you know you will need it. She made this one before I ever saw the sea." <B he> turns it over and over at <B his> throat, and the words keep coming, soft and unhurried, half to you and half to the water. "A boat is the same, if you think about it. Keel and ribs and tar, a plan laid in wood. This crossing is a plan too, only nobody will show us the writing of it. But I keep coming back to one thing. If we come apart out here, it will not be the charm that failed." And the sound of <B his> voice joins the oar, the rope, the sea, the breath.;><B harmony?A word or two passes <B his> lips, the old words that go with the setting of a keel, and then <B he> is quiet again.;>
 #30 Sit in silence
 #24 "What do you need?"
 
