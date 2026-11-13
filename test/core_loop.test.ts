@@ -136,8 +136,8 @@ describe('Core loop wiring', () => {
 
         pick(dialog, 'Decide nothing today');
 
-        expect(dialog.getCurrentChoices().map(c => c.getText())).toEqual(['End']);
-        dialog.dialogChoiceSelected(dialog.getCurrentChoices()[0]);
+        // §60 is an ending section: no choices left, dialog over
+        expect(dialog.getCurrentChoices().length).toBe(0);
         expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
     });
 

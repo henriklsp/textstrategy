@@ -1,7 +1,8 @@
 // text/firstday.txt
 // The first day ashore, after the shipwreck.
-// Triggered at the end of text/intro.txt with [event firstday 1], so the first day
-// begins the next morning, after the daily update.
+// Event prerequisites: none; firstday is a scheduled event, fired by
+// [event firstday 1] at the end of text/intro.txt, so the first day begins the
+// next morning, after the daily update.
 //
 // Stage 1 - Outline:
 // When: The morning after the night ashore, after the wreck of the boat on the reef.
@@ -14,7 +15,10 @@
 //
 // Stage 2 - Structure:
 // Main path: §1 the morning after -> §30 who searches the surroundings -> §40 the end of the day.
-// Main decision in §1: plan for the long term, focus on immediate needs, or decide nothing.
+// Main decision in §1: the friends pull in different directions and look to the
+// player: plan for the long term, focus on immediate needs, or decide nothing.
+// The dilemma: there is no wood and little food; planning comforts, scavenging feeds,
+// and doing nothing wastes a day but keeps everyone rested.
 // Consequences: §10 plan ahead, §20 immediate needs, §60 alternative ending: nothing is decided, the day passes.
 // §60 is the optional alternative ending away from the main path.
 
@@ -78,7 +82,6 @@ Who should search the surroundings for wood and materials?
 <person> will search the surroundings for wood and materials.
 Tomorrow you will take a closer look at this new land. The others will manage the camp.
 The work of the first day is settled.
-#999 End
 
 §60
 // Alternative ending: nothing is decided today; the day passes; the exploration is still planned.
@@ -87,4 +90,3 @@ You decide nothing today.
 The others drift back to their families and their worries.
 The day passes with the wreck on the reef and the camps quiet along the shore.
 Tomorrow you will take a closer look at this new land.
-#999 End
