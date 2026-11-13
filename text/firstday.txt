@@ -5,7 +5,7 @@
 //
 // Stage 1 - Outline:
 // When: The morning after the night ashore, after the wreck of the boat on the reef.
-// Why: The first day decides the direction of the whole settlement.
+// Why: Establish the resource management and worker allocation mechanics of the game. Strategy over story.
 // What: The group must agree on what matters most now and divide the day's work, with nothing but what they carried ashore.
 // How: Talk it through, then assign who searches the surroundings for wood and materials.
 // But: There is no wood and little food, and the other families share nothing; every choice leaves something undone.
@@ -25,6 +25,7 @@
 
 §1
 // The morning after: the group takes stock; main decision.
+// TODO: set the scene by opening with a dramatic description of the scenery and the sun rising, outlining the reefs and the boat.
 The morning comes grey and wet.
 Everyone has come ashore. Some of the others slept; you all did, in the end, in the huddle behind the dunes.
 There is no fire, and there will be none this morning: nothing is dry enough to burn.
