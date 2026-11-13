@@ -1,9 +1,22 @@
 // text/firstday.txt
-// The first day ashore: the player decides what to build and who does what,
-// and schedules the first exploration trip (workinprogress/foraging, next day).
+// The first day ashore, after the shipwreck.
 // Triggered at the end of text/intro.txt with [event firstday 1], so the first day
 // begins the next morning, after the daily update.
-// The story text is placeholder quality - we will polish it later.
+//
+// Stage 1 - Outline:
+// When: The morning after the night ashore, after the wreck of the boat on the reef.
+// Why: The first day decides the direction of the whole settlement.
+// What: The group must agree on what matters most now and divide the day's work, with nothing but what they carried ashore.
+// How: Talk it through, then assign who searches the surroundings for wood and materials.
+// But: There is no wood and little food, and the other families share nothing; every choice leaves something undone.
+// Who: The four friends: A talks of destiny and what is coming, B plans ahead, C insists on immediate needs, D works for agreement; their interests pull in different directions.
+// Finally: The work of the day is divided and the first exploration trip is planned (workinprogress/foraging, next day).
+//
+// Stage 2 - Structure:
+// Main path: §1 the morning after -> §30 who searches the surroundings -> §40 the end of the day.
+// Main decision in §1: plan for the long term, focus on immediate needs, or decide nothing.
+// Consequences: §10 plan ahead, §20 immediate needs, §60 alternative ending: nothing is decided, the day passes.
+// §60 is the optional alternative ending away from the main path.
 
 *A: divinity
 *B: magic
@@ -11,74 +24,66 @@
 *D: harmony
 
 §1
-[var wood 2]
-Everyone has come ashore.
-Insert description of surroundings here.
-The boat was badly damaged, but at least some planks can be salvaged for building materials.
-Other families have started setting up camp along the shore.
-What to do now?
-<A> <B> <C> <D> discuss.
-<A> talks about destiny to one day rule these lands.
-<C> insists on the need right now to find food and resources.
+// The morning after: the group takes stock; main decision.
+The morning comes grey and wet.
+Everyone has come ashore. Some of the others slept; you all did, in the end, in the huddle behind the dunes.
+There is no fire, and there will be none this morning: nothing is dry enough to burn.
+The wreck lies on the reef and breaks a little more with every wave.
+The other families camp along the shore and keep to their own; nobody shares anything with anyone.
+You have no wood, and little food, and no plan.
+<A>, <B>, <C> and <D> gather around you.
+<A> talks about destiny, and about one day ruling these lands.
+<C> insists on the need right now to find food and materials.
 <B> wants to plan ahead.
-<D> tries to get them all to work together. But they do not agree and look to you.
-#2 Plan for the long term
-#3 Focus on immediate needs
+<D> tries to get them all to work together.
+They do not agree, and look to you.
+#10 Plan for the long term
+#20 Focus on immediate needs
+#60 Decide nothing today
 
-§2
+§10
+// Consequence of planning ahead: agreement on the goal of a settlement, but nothing can be built without wood.
 Everyone except <C> agrees on the need to plan ahead.
-We need to start building.
-#4 What should we build?
+"We should decide what to build first," says <B>.
+"There is nothing to build with," says <C>. "No wood, no dry rope, no tools but what we carry. First we gather, then we build."
+The talk ends there, on first things first.
+#30 Who should search the surroundings for wood and materials?
 
-§3
+§20
+// Consequence of immediate needs: C and D start scavenging right away.
 [task C scavenge]
 [task D scavenge]
-<C> and <D> agree with you on the need to find a source of food quickly.
+<C> and <D> agree with you on the need to find food and materials quickly.
 <A> and <B> reluctantly accept.
-<C> and <D> volunteer to start scavenging the immediate area.
-#4 And what should we build?
+<C> and <D> start scavenging the beach and the dunes right away.
+Still, someone should go further out and look for wood and materials.
+#30 And who should search the surroundings for wood and materials?
 
-§4
-[set building=choice]
-The salvaged planks give us <wood> stacks of wood to build with. What should we build first?
-#5 (wood 1?) Shelter
-#5 Hall
-#5 Workshop
-#5 (wood 5?) Farm
-#5 (wood 8?) Storage
-#5 (wood 10?) Mine
-#5 (wood 15?) Dock
-#7 Build nothing yet. There is much else to do.
-
-§5
-[build <building>]
+§30
+// Main path: choose who searches the surroundings (choice variable).
 [set person=choice]
-Construction of the <building> begins at once. The work will go faster the more hands we set on the build task.
-Who should take charge of the work?
-#6 <A>
-#6 <B>
-#6 <C>
-#6 <D>
+Whoever goes must pick over the dunes, the tide line and the grass beyond the camps, and bring back anything the sea or the land gives.
+The others will hold the camp together and watch the water.
+Who should search the surroundings for wood and materials?
+#40 <A>
+#40 <B>
+#40 <C>
+#40 <D>
 
-§6
-[task <person> build]
-[event workinprogress/foraging 1]
-<person> will take charge of the construction.
-Tomorrow you will take a closer look at this new land. The others will manage the camp.
-#999 End
-
-§7
-There is much else to do before we spend wood on building.
-[set person=choice]
-Who should scour the surroundings for food and materials tomorrow?
-#8 <A>
-#8 <B>
-#8 <C>
-#8 <D>
-
-§8
+§40
+// Main path: the assignment, the plan for tomorrow, and the end of the day.
 [task <person> scavenge]
 [event workinprogress/foraging 1]
-<person> will search the surroundings for food and materials.
+<person> will search the surroundings for wood and materials.
 Tomorrow you will take a closer look at this new land. The others will manage the camp.
+The work of the first day is settled.
+#999 End
+
+§60
+// Alternative ending: nothing is decided today; the day passes; the exploration is still planned.
+[event workinprogress/foraging 1]
+You decide nothing today.
+The others drift back to their families and their worries.
+The day passes with the wreck on the reef and the camps quiet along the shore.
+Tomorrow you will take a closer look at this new land.
 #999 End

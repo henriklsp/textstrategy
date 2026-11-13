@@ -36,7 +36,7 @@ function newDataModel(): DataModel {
     dataModel.setCurrentDay(1);
     dataModel.set('population', 5);
     dataModel.set('food', 10);
-    dataModel.set('wood', 5);
+    dataModel.set('wood', 0);
     return dataModel;
 }
 
@@ -251,7 +251,7 @@ describe('intro.txt as engine input', () => {
             dataModel.setCurrentDay(1);
             dataModel.set('population', 5);
             dataModel.set('food', 10);
-            dataModel.set('wood', 5);
+            dataModel.set('wood', 0);
             return dataModel;
         };
         const render64With = (d: Person): string => {

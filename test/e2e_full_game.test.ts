@@ -99,7 +99,7 @@ describe('End-to-end: full game with mock UI', () => {
         dataModel.setCurrentDay(1);
         dataModel.set('population', 5);
         dataModel.set('food', 1);
-        dataModel.set('wood', 5);
+        dataModel.set('wood', 0);
         dataModel.setBounty(10);
 
         await gameLoop.loadPoolManifest();

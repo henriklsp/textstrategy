@@ -19,7 +19,7 @@ function newDataModel(): DataModel {
     dataModel.setCurrentDay(1);
     dataModel.set('population', 5);
     dataModel.set('food', 10);
-    dataModel.set('wood', 5);
+    dataModel.set('wood', 0);
     return dataModel;
 }
 
@@ -91,51 +91,60 @@ describe('Core loop wiring', () => {
         expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
     });
 
-    test('firstday: order construction and assign a builder', () => {
+    test('firstday: plan for the long term and assign a scavenger', () => {
         const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
 
-        expect(dataModel.get('wood')).toBe(7); // 5 starting + [var wood 2] in §1
+        // No starting wood: the first day begins with nothing to build with
+        expect(dataModel.get('wood')).toBe(0);
         pick(dialog, 'Plan for the long term');
-        pick(dialog, 'What should we build?');
-        pick(dialog, 'Shelter');
+        pick(dialog, 'Who should search the surroundings for wood and materials?');
 
-        // §5: the shelter is under construction and paid for (1 wood)
-        expect(dataModel.isBuildingUnderConstruction('shelter')).toBe(true);
-        expect(dataModel.get('wood')).toBe(6);
-
-        // Pick the first candidate to lead the work
-        const builder = dialog.getCurrentChoices()[0].getText();
+        // §30: pick the first candidate to search the surroundings
+        const searcher = dialog.getCurrentChoices()[0].getText();
         dialog.dialogChoiceSelected(dialog.getCurrentChoices()[0]);
 
-        expect(dataModel.getTaskForPerson(builder)).toBe('build');
+        expect(dataModel.getTaskForPerson(searcher)).toBe('scavenge');
         expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
     });
 
-    test('firstday: focus on immediate needs instead of building', () => {
+    test('firstday: focus on immediate needs instead of planning', () => {
         const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
 
         pick(dialog, 'Focus on immediate needs');
-        // §3 assigns <C> and <D> to scavenging
+        // §20 assigns <C> and <D> to scavenging
         const scavenger = dialog.getPersonForRole('C')!.getName();
         expect(dataModel.getTaskForPerson(scavenger)).toBe('scavenge');
         expect(dataModel.getTaskForPerson(dialog.getPersonForRole('D')!.getName())).toBe('scavenge');
 
-        pick(dialog, 'And what should we build?');
-        pick(dialog, 'Build nothing yet. There is much else to do.');
+        pick(dialog, 'And who should search the surroundings for wood and materials?');
 
-        const forager = dialog.getCurrentChoices()[0].getText();
+        const searcher = dialog.getCurrentChoices()[0].getText();
         dialog.dialogChoiceSelected(dialog.getCurrentChoices()[0]);
 
-        expect(dataModel.getTaskForPerson(forager)).toBe('scavenge');
+        expect(dataModel.getTaskForPerson(searcher)).toBe('scavenge');
+        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+    });
+
+    test('firstday: deciding nothing still ends the day and schedules the trip', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
+
+        pick(dialog, 'Decide nothing today');
+
+        expect(dialog.getCurrentChoices().map(c => c.getText())).toEqual(['End']);
+        dialog.dialogChoiceSelected(dialog.getCurrentChoices()[0]);
         expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
     });
 
     test('council: order construction, assign a task, and adjourn', () => {
         const dataModel = newDataModel();
+        // The council test needs wood to build with; the game starts with none
+        dataModel.set('wood', 5);
         const scheduled: Scheduled[] = [];
         const dialog = startEvent('text/workinprogress/council.txt', dataModel, scheduled);
 
@@ -182,6 +191,7 @@ describe('[build <building>] choice variable', () => {
         expect(parser.getIssues()).toEqual([]);
 
         const dataModel = newDataModel();
+        dataModel.set('wood', 5); // the [build] effect needs wood; the game itself starts with none
         const dialog = new Dialog(event, dataModel, noop);
         dialog.start();
         pick(dialog, 'Shelter');
@@ -197,6 +207,7 @@ describe('[build <building>] choice variable', () => {
 
         // Without a captured choice the effect fails
         const dataModel = newDataModel();
+        dataModel.set('wood', 5);
         expect(() => effect.takeEffect(dataModel)).toThrow(/never set/);
 
         const context = {

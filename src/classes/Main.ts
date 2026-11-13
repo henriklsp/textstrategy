@@ -20,7 +20,7 @@ export class Main {
         dataModel.setCurrentDay(1);
         dataModel.set('population', 5);
         dataModel.set('food', 1);
-        dataModel.set('wood', 5);
+        dataModel.set('wood', 0); // nothing was carried ashore but what the intro gave
         dataModel.setBounty(10); // Initialize bounty to maximum (10)
 
         // Register pool events from the manifest (watched priorities and fillers)
