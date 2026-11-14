@@ -1,4 +1,4 @@
-successfully downloaded text file (SHA: 6a62448424a69009c201ef548795054d77e74428)successfully downloaded text file (SHA: e362ce908203f79c9628d1b98d42741a72005f36)// Interface for all effect types. Requires takeEffect() method.
+// Interface for all effect types. Requires takeEffect() method.
 // Anything that causes a change to the data model implements Effect
 // Effects are usually triggered by a section in the dialog tree.
 import { DataModel } from './DataModel';

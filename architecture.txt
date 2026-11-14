@@ -1,4 +1,4 @@
-successfully downloaded text file (SHA: c17174238c00b8626a18164e98b933d896e9797c)successfully downloaded text file (SHA: bb30e9f4ca67935133d61007867b4cf03ea64773)# TEXT STRATEGY GAME - ARCHITECTURE SUMMARY
+# TEXT STRATEGY GAME - ARCHITECTURE SUMMARY
 
 ## OVERVIEW
 TypeScript text adventure/strategy game. Browser-based (index.html) with Node.js tooling.

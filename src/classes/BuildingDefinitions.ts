@@ -1,4 +1,4 @@
-successfully downloaded text file (SHA: dbd4db1383fb1fc921c646e50fbfa9ed296d7fd2)// Central definitions for all building types in the game.
+// Central definitions for all building types in the game.
 // Each building has resource costs, construction time, and effects.
 
 export type ResourceCosts = {

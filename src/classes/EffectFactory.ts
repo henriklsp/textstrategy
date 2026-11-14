@@ -1,4 +1,4 @@
-successfully downloaded text file (SHA: e4445dc7c047b313db965411e8892f01b9c00e2f)successfully downloaded text file (SHA: 0bd004ac115bb62066a7c28c818ddc21df9d07fd)// Factory for creating Effect objects from parsed text.
+// Factory for creating Effect objects from parsed text.
 // Each effect type is registered with a keyword and a factory function.
 import { Effect } from './Effect';
 import { VarEffect } from './VarEffect';

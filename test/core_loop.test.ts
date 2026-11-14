@@ -1,4 +1,4 @@
-successfully downloaded text file (SHA: 775de5c8bbc3fe397cb0d60e72b1b7beb43427d7)import * as fs from 'fs';
+import * as fs from 'fs';
 import * as path from 'path';
 import { EventParser } from '../src/classes/EventParser';
 import { Dialog } from '../src/classes/Dialog';
