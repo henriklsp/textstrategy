@@ -258,11 +258,11 @@ The core loop is wired through the event files:
 - text/intro.txt ends with [event firstday 0] -> the first day ashore plays on day 1
 - text/firstday.txt: sunrise and inventory of the five friends; main decision: search
   the beach (+1 wood), ask the other families (they sell 2 wood for 1 silver, nothing for
-  free), or make do. Then the work focus: short term (three forage, one builds, or cuts wood
-  if wood is 0) or long term (one or two build, optional woodcutter, rest forage). Building
-  options: shelter (1 wood), fence (1 wood), raft (2 wood). Work is given out with [task role tasktype]
-  (the friend with the life trait always forages); every ending schedules [event workinprogress/foraging 1] -> the
-  exploration trip on day 2
+  free), or make do. Then the work focus: short term (B, C and D forage; A builds, cuts
+  wood if wood is 0, or forages) or long term (needs wood; A builds, B builds or cuts wood,
+  D cuts wood or forages, C always forages). Building options: shelter (1 wood), fence
+  (1 wood), raft (2 wood). Work is given out with [task role tasktype]; every ending
+  schedules [event workinprogress/foraging 1] -> the exploration trip on day 2
 - text/workinprogress/foraging.txt ends with [event workinprogress/council 3] -> first council
 - text/workinprogress/council.txt: reports, construction orders ([build <building>]) and task
   assignment ([task <person> <task>]); every adjournment schedules
