@@ -1,4 +1,4 @@
-// Interface for all effect types. Requires takeEffect() method.
+successfully downloaded text file (SHA: e362ce908203f79c9628d1b98d42741a72005f36)// Interface for all effect types. Requires takeEffect() method.
 // Anything that causes a change to the data model implements Effect
 // Effects are usually triggered by a section in the dialog tree.
 import { DataModel } from './DataModel';
@@ -9,6 +9,8 @@ import { Person } from './Person';
 // Also provides callbacks for effects to interact with the game loop.
 export interface EffectContext {
     getPersonForRole(roleName: string): Person | undefined;
+    // All persons assigned to roles in the current dialog, in role order
+    getRolePersons?(): Person[];
     // Schedule a named event after delayDays days (optional, only provided if needed)
     scheduleEvent?(eventName: string, delayDays: number): void;
     // Store pending choice capture directive from SetChoiceEffect

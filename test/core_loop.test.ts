@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+successfully downloaded text file (SHA: 775de5c8bbc3fe397cb0d60e72b1b7beb43427d7)import * as fs from 'fs';
 import * as path from 'path';
 import { EventParser } from '../src/classes/EventParser';
 import { Dialog } from '../src/classes/Dialog';
@@ -92,73 +92,130 @@ describe('Core loop wiring', () => {
         expect(scheduled).toContainEqual({ name: 'firstday', delay: 1 });
     });
 
-    test('firstday: plan for the long term and assign a scavenger', () => {
+    test('firstday: searching the beach gains a stack of wood', () => {
         const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
 
-        // No starting wood: the first day begins with nothing to build with
         expect(dataModel.get('wood')).toBe(0);
-        pick(dialog, 'Plan for the long term');
-        pick(dialog, 'Who should search the surroundings for wood and materials?');
-
-        // §30: pick the first candidate to search the surroundings
-        const searcher = dialog.getCurrentChoices()[0].getText();
-        dialog.dialogChoiceSelected(dialog.getCurrentChoices()[0]);
-
-        expect(dataModel.getTaskForPerson(searcher)).toBe('scavenge');
-        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
-    });
-
-    test('firstday: focus on immediate needs instead of planning', () => {
-        const dataModel = newDataModel();
-        const scheduled: Scheduled[] = [];
-        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
-
-        pick(dialog, 'Focus on immediate needs');
-        // §20 assigns <C> and <D> to scavenging
-        const scavenger = dialog.getPersonForRole('C')!.getName();
-        expect(dataModel.getTaskForPerson(scavenger)).toBe('scavenge');
-        expect(dataModel.getTaskForPerson(dialog.getPersonForRole('D')!.getName())).toBe('scavenge');
-
-        pick(dialog, 'And who should search the surroundings for wood and materials?');
-
-        const searcher = dialog.getCurrentChoices()[0].getText();
-        dialog.dialogChoiceSelected(dialog.getCurrentChoices()[0]);
-
-        expect(dataModel.getTaskForPerson(searcher)).toBe('scavenge');
-        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
-    });
-
-    test('firstday: indecision sends the group foraging; berries: food over wood', () => {
-        const dataModel = newDataModel();
-        const scheduled: Scheduled[] = [];
-        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
-
-        pick(dialog, 'Decide nothing today');
-        pick(dialog, 'Spend the day gathering berries');
-
-        // §61 ending: 2 food, 1 wood, and the bounty falls with the food scavenged
-        expect(dialog.getCurrentChoices().length).toBe(0);
-        expect(dataModel.get('food')).toBe(12);
+        pick(dialog, 'Search the beach for something useful');
         expect(dataModel.get('wood')).toBe(1);
-        expect(dataModel.getBounty()).toBe(8);
+
+        // The flow continues to the work focus
+        pick(dialog, 'How should the work focus today?');
+        expect(dialog.getCurrentChoices().map(c => c.getText()))
+            .toEqual(['Focus on the short term: three forage, one builds', 'Focus on the long term: building first']);
+    });
+
+    test('firstday: the families sell planks for silver, and only for silver', () => {
+        // Without silver, the offer cannot be taken
+        const broke = newDataModel();
+        const dialog = startEvent('text/firstday.txt', broke, []);
+        pick(dialog, 'Ask the other families for help');
+        expect(broke.get('silver')).toBe(0);
+        expect(dialog.getCurrentChoices().map(c => c.getText()))
+            .not.toContain('Buy the planks');
+    });
+
+    test('firstday: buying the planks trades silver for wood', () => {
+        const dataModel = newDataModel();
+        dataModel.set('silver', 2);
+        const scheduled: Scheduled[] = [];
+        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
+
+        pick(dialog, 'Ask the other families for help');
+        pick(dialog, 'Buy the planks');
+        expect(dataModel.get('silver')).toBe(1);
+        expect(dataModel.get('wood')).toBe(2);
+
+        // The flow continues to the work focus
+        pick(dialog, 'How should the work focus today?');
+    });
+
+    test('firstday: short term with wood - one builds, three forage', () => {
+        const dataModel = newDataModel();
+        dataModel.set('wood', 1);
+        const scheduled: Scheduled[] = [];
+        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
+
+        pick(dialog, 'Make do with what we have');
+        pick(dialog, 'How should the work focus today?');
+        pick(dialog, 'Focus on the short term: three forage, one builds');
+        pick(dialog, 'Shelter');
+
+        // §51 ending: shelter under construction and paid for, one builder,
+        // three foragers, the trip planned, no choices left
+        expect(dialog.getCurrentChoices().length).toBe(0);
+        expect(dataModel.isBuildingUnderConstruction('shelter')).toBe(true);
+        expect(dataModel.get('wood')).toBe(0);
+        expect(dataModel.getPersonsForTask('build')).toHaveLength(1);
+        expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(3);
+        // The life-trait friend always forages
+        expect(dataModel.getPersonsForTask('scavenge'))
+            .toContain(dialog.getPersonForRole('C')!.getName());
         expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
     });
 
-    test('firstday: indecision sends the group foraging; branches: wood over food', () => {
+    test('firstday: short term without wood - one cuts wood instead', () => {
         const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
 
-        pick(dialog, 'Decide nothing today');
-        pick(dialog, 'Spend the day gathering branches');
+        pick(dialog, 'Make do with what we have');
+        pick(dialog, 'How should the work focus today?');
+        pick(dialog, 'Focus on the short term: three forage, one builds');
+        // No wood: nothing to build with, only cutting wood or nothing
+        const labels = dialog.getCurrentChoices().map(c => c.getText());
+        expect(labels).not.toContain('Shelter');
+        expect(labels).toContain('Cut wood instead');
+        pick(dialog, 'Cut wood instead');
 
-        // §62 ending: 2 wood, 1 food, and the bounty falls with the food scavenged
         expect(dialog.getCurrentChoices().length).toBe(0);
-        expect(dataModel.get('wood')).toBe(2);
-        expect(dataModel.get('food')).toBe(11);
-        expect(dataModel.getBounty()).toBe(9);
+        expect(dataModel.getPersonsForTask('woodcutting')).toHaveLength(1);
+        expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(3);
+        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+    });
+
+    test('firstday: long term - two build, one cuts wood, the rest forage', () => {
+        const dataModel = newDataModel();
+        dataModel.set('wood', 2);
+        const scheduled: Scheduled[] = [];
+        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
+
+        pick(dialog, 'Make do with what we have');
+        pick(dialog, 'How should the work focus today?');
+        pick(dialog, 'Focus on the long term: building first');
+        pick(dialog, 'Raft');
+        pick(dialog, 'Two build, two forage');
+        pick(dialog, 'Yes, one to the trees');
+
+        // §66 ending: raft under construction (2 wood paid), two builders,
+        // one woodcutter, one forager
+        expect(dialog.getCurrentChoices().length).toBe(0);
+        expect(dataModel.isBuildingUnderConstruction('raft')).toBe(true);
+        expect(dataModel.get('wood')).toBe(0);
+        expect(dataModel.getPersonsForTask('build')).toHaveLength(2);
+        expect(dataModel.getPersonsForTask('woodcutting')).toHaveLength(1);
+        expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(1);
+        expect(dataModel.getPersonsForTask('scavenge'))
+            .toContain(dialog.getPersonForRole('C')!.getName());
+        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+    });
+
+    test('firstday: long term, nothing yet - one cuts wood, the rest forage', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
+
+        pick(dialog, 'Make do with what we have');
+        pick(dialog, 'How should the work focus today?');
+        pick(dialog, 'Focus on the long term: building first');
+        pick(dialog, 'Build nothing yet');
+        pick(dialog, 'One cuts wood, the rest forage');
+
+        expect(dialog.getCurrentChoices().length).toBe(0);
+        expect(dataModel.getPersonsForTask('woodcutting')).toHaveLength(1);
+        expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(3);
         expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
     });
 

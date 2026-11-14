@@ -7,22 +7,20 @@
 // Stage 1 - Outline:
 // When: The morning after the night ashore, after the wreck of the boat on the reef.
 // Why: Establish the resource management and worker allocation mechanics of the game. Strategy over story.
-// What: The group must agree on what matters most now and divide the day's work, with nothing but what they carried ashore.
-// How: Talk it through, then assign who searches the surroundings for wood and materials.
-// But: There is no wood and little food, and the other families share nothing; every choice leaves something undone.
-// Who: The four friends: A talks of destiny and what is coming, B plans ahead, C insists on immediate needs, D works for agreement; their interests pull in different directions.
-// Finally: The work of the day is divided and the first exploration trip is planned (workinprogress/foraging, next day).
+// What: The five friends have next to nothing; the player must get them through the first day and divide the work.
+// How: Search the beach, ask the other families for help, or make do with what they have; then focus the work on the short or the long term.
+// But: Nobody shares without payment, wood is scarce, food is scarce, and every hand spent on one thing is missing from another.
+// Who: The five friends, including the player. The friends cannot agree, so the player allocates the work; story-wise they volunteer (the engine picks who). The person with the life trait always forages.
+// Finally: The day's work is divided; the first exploration trip is planned (workinprogress/foraging, next day).
 //
 // Stage 2 - Structure:
-// Main path: §1 the morning after -> §30 who searches the surroundings -> §40 the end of the day.
-// Main decision in §1: the friends pull in different directions and look to the
-// player: plan for the long term, focus on immediate needs, or decide nothing.
-// The dilemma: there is no wood and little food; planning comforts, scavenging feeds,
-// and putting off the decision still ends with the day spent on food or wood.
-// Consequences: §10 plan ahead, §20 immediate needs, §60 alternative path away
-// from the main path: the friends reject idleness, the group explores the forest,
-// and the day ends at §61 (berries) or §62 (branches).
-// Endings: §40, §61 and §62 end the dialog with no choices.
+// Main path: §1 -> §40 the work focus -> §50 or §60 -> the ending sections.
+// Main decision in §1: search the beach, ask the other families for help, or make do.
+// §10 search the beach (+1 wood). §20 ask for help: refused, but planks for silver; §21 buy the planks (needs silver). §30 make do.
+// Work focus in §40: short term (§50) or long term (§60).
+// Short term: three forage and one builds (§51); with no wood, one cuts wood instead (§58); or all forage (§59).
+// Long term: choose the building (§60), one or two builders (§61), an optional woodcutter (§62/§63), endings §64-§67; nothing yet: §68 -> §69 one cuts wood / §70 all forage.
+// Endings: choiceless sections end the dialog.
 
 *A: divinity
 *B: magic
@@ -30,92 +28,198 @@
 *D: harmony
 
 §1
-// The morning after: the group takes stock; main decision.
-// TODO: set the scene by opening with a dramatic description of the scenery and the sun rising, outlining the reefs and the boat.
-The morning comes grey and wet.
-Everyone has come ashore. Some of the others slept; you all did, in the end, in the huddle behind the dunes.
-There is no fire, and there will be none this morning: nothing is dry enough to burn.
-The wreck lies on the reef and breaks a little more with every wave.
-The other families camp along the shore and keep to their own; nobody shares anything with anyone.
-You have no wood, and little food, and no plan.
-<A>, <B>, <C> and <D> gather around you.
-<A> talks about destiny, and about one day ruling these lands.
-<C> insists on the need right now to find food and materials.
-<B> wants to plan ahead.
-<D> tries to get them all to work together.
-They do not agree, and look to you.
-#10 Plan for the long term
-#20 Focus on immediate needs
-#60 Decide nothing today
+// Sunrise over the reef and the wreck; the five friends gather and count what they have; main decision.
+The sun rises out of the sea, red through the last of the rain.
+The reef shows dark under the breaking water, and the boat lies on it, broken open, and every wave takes something more off her.
+Along the shore the other families are already up, mending, carrying, keeping to their own.
+You call your friends together: <A>, <B>, <C> and <D>.
+The counting takes no time at all: <food> food, <weapons> weapons, <wood> wood, <silver> silver, a box of tools, two blankets.
+Five people, and next to nothing.
+The talk starts at once: what is here, what can be got, and who will do what today.
+#10 Search the beach for something useful
+#20 Ask the other families for help
+#30 Make do with what we have
 
 §10
-// Consequence of planning ahead: agreement on the goal of a settlement, but nothing can be built without wood.
-Everyone except <C> agrees on the need to plan ahead.
-"We should decide what to build first," says <B>.
-"There is nothing to build with," says <C>. "No wood, no dry rope, no tools but what we carry. First we gather, then we build."
-The talk ends there, on first things first.
-#30 Who should search the surroundings for wood and materials?
+// The beach search: a few hours at the tide line; one stack of usable wood.
+[var wood 1]
+You walk the tide line for a few hours, picking over what the storm has left.
+Most of it is ruin: boards soaked soft, rope gone to weed, things that belonged to somebody.
+But there is wood too, planks and ribs heavy enough to dry and use, and you drag one stack of it above the tide line.
+The sea has given what it will give.
+Back at the camp the talk turns to the work of the day.
+#40 How should the work focus today?
 
 §20
-// Consequence of immediate needs: C and D start scavenging right away.
-[task C scavenge]
-[task D scavenge]
-<C> and <D> agree with you on the need to find food and materials quickly.
-<A> and <B> reluctantly accept.
-<C> and <D> start scavenging the beach and the dunes right away.
-Still, someone should go further out and look for wood and materials.
-#30 And who should search the surroundings for wood and materials?
+// Asking for help: no food is shared, but planks are for sale; no begging or yelling changes anything.
+You walk the camps and ask for help, from family to family.
+The answer is the same everywhere: no food to spare, nothing given without payment.
+One woman, older than the rest, names a price: two stacks of wooden planks, salvaged from the boat in the night, for one silver coin.
+No begging moves anyone. No shouting moves anyone. On this beach, silver speaks, and nothing else does.
+#21 Buy the planks (silver 1?)
+#30 Make do with what we have
+
+§21
+// Buying the planks: silver for wood; the deal is done.
+[var silver -1]
+[var wood 2]
+The coin leaves your hand and does not come back.
+The planks are sound wood, cut and stacked in the night, worth more than the price to people with nothing.
+You carry them back above the tide line, and the woman goes back to her family.
+Back at the camp the talk turns to the work of the day.
+#40 How should the work focus today?
 
 §30
-// Main path: choose who searches the surroundings (choice variable).
-[set person=choice]
-Whoever goes must pick over the dunes, the tide line and the grass beyond the camps, and bring back anything the sea or the land gives.
-The others will hold the camp together and watch the water.
-Who should search the surroundings for wood and materials?
-#40 <A>
-#40 <B>
-#40 <C>
-#40 <D>
+// Making do: no help asked for, nothing searched for; the work of the day waits.
+You look at what you have and decide it will have to be enough.
+Nobody here is coming to save you, and nothing on this beach is free.
+The friends sit close around the box of tools, and the talk turns to the work of the day.
+#40 How should the work focus today?
 
 §40
-// Main path: the assignment, the plan for tomorrow, and the end of the day.
-[task <person> scavenge]
+// The work focus: the main strategic decision of the day.
+The friends do not agree on what the day is for.
+<C> wants food found today, before hunger starts taking its toll.
+<B> wants something built that lasts, before the weather turns again.
+They look to you; they will go where the day is sent.
+#50 Focus on the short term: three forage, one builds
+#60 Focus on the long term: building first
+
+§50
+// Short term: three forage, one builds; what to build, if anything?
+[set building=choice]
+Three of the friends will forage the land for food.
+One will build, if there is anything to build with.
+What should it be?
+#51 (wood 1?) Shelter
+#51 (wood 1?) Fence
+#51 (wood 2?) Raft
+#58 (wood 0?) Cut wood instead
+#59 Build nothing yet
+
+§51
+// Short term ending: one builds, three forage.
+[build <building>]
+[volunteers build 1]
+[volunteers scavenge]
 [event workinprogress/foraging 1]
-<person> will search the surroundings for wood and materials.
-Tomorrow you will take a closer look at this new land. The others will manage the camp.
-The work of the first day is settled.
+One of the friends steps to the build, and the rest scatter into the land to forage.
+The work is set for the day, and the camp is quieter for it.
+Tomorrow you will take a closer look at this new land.
+
+§58
+// Short term ending, no wood: one cuts wood, three forage.
+[volunteers woodcutting 1]
+[volunteers scavenge]
+[event workinprogress/foraging 1]
+There is nothing to build with, so one of the friends goes to the trees: wood today, building another day.
+The rest scatter into the land to forage.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§59
+// Short term ending: nothing built, all four forage.
+[volunteers scavenge]
+[event workinprogress/foraging 1]
+Nothing is built today.
+All four friends go into the land to forage, and food comes before everything else.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
 
 §60
-// Alternative path: the friends reject doing nothing; the obvious next step is to
-// explore the new land; in the forest they find berry bushes and fallen branches; a decision.
-You decide nothing today.
-The others will not have it.
-"There is nothing to eat," says <C>. "Standing here will not change that."
-"Then we look at what this land will give," says <B>.
-<D> nods and stands up. Even <A> wants to see what lies beyond the dunes.
-You walk inland together, and the beach gives way to grass, and the grass to forest.
-The forest gives: berry bushes heavy with fruit, and branches fallen from the trees, dry enough to burn.
-There is time for one, not both.
-#61 Spend the day gathering berries
-#62 Spend the day gathering branches
+// Long term: choose the building; one or two hands on the build.
+[set building=choice]
+The friends agree to put the day into something that lasts.
+Up to two can build, if the hands can be spared from food.
+What should it be?
+#61 (wood 1?) Shelter
+#61 (wood 1?) Fence
+#61 (wood 2?) Raft
+#68 Build nothing yet
 
 §61
-// Ending: the day goes to the berries; food over wood; bounty falls with the food scavenged.
-[var food 2]
-[var wood 1]
-[var bounty -2]
-[event workinprogress/foraging 1]
-You spend the day among the berry bushes with the others, picking into every kind of container anyone can find.
-You eat as you pick, the first meal worth the name since the boat.
-On the way back you each carry a few branches as well, but fewer.
-The camp eats that night, and the bushes will need time to give again.
+// Long term: one or two hands on the build?
+The building is agreed on.
+How many of the friends should build, and how many should keep the food coming?
+#62 One builds, three forage
+#63 Two build, two forage
 
 §62
-// Ending: the day goes to the branches; wood over food; bounty falls with the food scavenged.
-[var wood 2]
-[var food 1]
-[var bounty -1]
+// One builder: should one of the foragers cut wood instead?
+One of the friends takes the build, and three hands are left.
+Should one of them go to the trees for wood instead of foraging?
+#64 Yes, one to the trees
+#65 No, all three forage
+
+§63
+// Two builders: should one of the foragers cut wood instead?
+Two of the friends take the build, and two hands are left.
+Should one of them go to the trees for wood instead of foraging?
+#66 Yes, one to the trees
+#67 No, both forage
+
+§64
+// Long term ending: one builds, one cuts wood, the rest forage.
+[build <building>]
+[volunteers build 1]
+[volunteers woodcutting 1]
+[volunteers scavenge]
 [event workinprogress/foraging 1]
-You spend the day on what the trees have dropped: snapping the fallen branches, dragging them clear, binding them in bundles you can carry.
-You pick berries as you go, and eat more of them than you bring back.
-By evening there is wood stacked beside the camp, a little food for the night, and the bushes will need time to give again.
+The friends take their places: one at the build, one at the trees, the rest into the land for food.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§65
+// Long term ending: one builds, the rest forage.
+[build <building>]
+[volunteers build 1]
+[volunteers scavenge]
+[event workinprogress/foraging 1]
+One of the friends stays at the build, and the rest go into the land for food.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§66
+// Long term ending: two build, one cuts wood, the rest forage.
+[build <building>]
+[volunteers build 2]
+[volunteers woodcutting 1]
+[volunteers scavenge]
+[event workinprogress/foraging 1]
+The friends take their places: two at the build, one at the trees, the rest into the land for food.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§67
+// Long term ending: two build, the rest forage.
+[build <building>]
+[volunteers build 2]
+[volunteers scavenge]
+[event workinprogress/foraging 1]
+Two of the friends stay at the build, and the rest go into the land for food.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§68
+// Long term, nothing built yet: the day can still go to what comes later.
+Nothing is built today: there is not the wood for it, or not the will.
+But the day can still go to what comes later.
+#69 One cuts wood, the rest forage
+#70 Everyone forages
+
+§69
+// Long term ending, no build: one cuts wood, the rest forage.
+[volunteers woodcutting 1]
+[volunteers scavenge]
+[event workinprogress/foraging 1]
+One of the friends goes to the trees for wood, and the rest go into the land for food.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§70
+// Long term ending, no build: all forage.
+[volunteers scavenge]
+[event workinprogress/foraging 1]
+All four friends go into the land for food; building waits for wood and a free day.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
