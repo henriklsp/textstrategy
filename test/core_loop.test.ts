@@ -228,15 +228,38 @@ describe('Core loop wiring', () => {
         expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
     });
 
-    test('firstday: the long term focus needs wood', () => {
+    test('firstday: long term without wood - two cut wood, two forage', () => {
         const dataModel = newDataModel();
-        const dialog = startEvent('text/firstday.txt', dataModel, []);
+        const scheduled: Scheduled[] = [];
+        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
 
         pick(dialog, 'Make do with what we have');
         pick(dialog, 'How should the work focus today?');
-        // With no wood there is nothing to build, so only the short term is offered
-        expect(dialog.getCurrentChoices().map(c => c.getText()))
-            .toEqual(['Focus on the short term: three forage, one builds']);
+        // With no wood the long term still stands: wood today, building tomorrow
+        pick(dialog, 'Focus on the long term: building first');
+
+        // §68 ending: A and B cut wood, C and D forage
+        expect(dialog.getCurrentChoices().length).toBe(0);
+        expect(dataModel.getPersonsForTask('woodcutting')).toHaveLength(2);
+        expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(2);
+        expect(dataModel.getPersonsForTask('scavenge'))
+            .toContain(dialog.getPersonForRole('C')!.getName());
+        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+    });
+
+    test('firstday: decide tomorrow - all four forage', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
+
+        pick(dialog, 'Decide tomorrow');
+
+        // §70 ending: the decision is put off; everyone forages
+        expect(dialog.getCurrentChoices().length).toBe(0);
+        expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(4);
+        expect(dataModel.getPersonsForTask('scavenge'))
+            .toContain(dialog.getPersonForRole('C')!.getName());
+        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
     });
 
     test('council: order construction, assign a task, and adjourn', () => {

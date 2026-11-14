@@ -15,11 +15,13 @@
 //
 // Stage 2 - Structure:
 // Main path: §1 -> §40 the work focus -> §50 or §60 -> the ending sections.
-// Main decision in §1: search the beach, ask the other families for help, or make do.
+// Main decision in §1: search the beach, ask the other families for help, make do, or decide tomorrow (§70).
 // §10 search the beach (+1 wood). §20 ask for help: refused, but planks for silver; §21 buy the planks (needs silver). §30 make do.
-// Work focus in §40: short term (§50) or long term (§60, needs wood).
+// Work focus in §40: short term (§50) or long term (§60 with wood / §68 without wood).
 // Short term: B, C and D forage; with wood, A builds (§51); with no wood, A cuts wood (§58) or forages too (§59).
 // Long term: A builds; choose the building (§60), then B's work (§61 -> §62 build / §63 cut wood), then D's work (cut wood or forage); endings §64-§67. C always forages.
+// Long term without wood (§68): A and B cut wood, planning to build tomorrow; C and D forage.
+// §70: the decision is put off until tomorrow; all four forage.
 // Endings: choiceless sections end the dialog.
 
 *A: divinity
@@ -39,6 +41,7 @@ The talk starts at once: what is here, what can be got, and who will do what tod
 #10 Search the beach for something useful
 #20 Ask the other families for help
 #30 Make do with what we have
+#70 Decide tomorrow
 
 §10
 // The beach search: a few hours at the tide line; one stack of usable wood.
@@ -84,6 +87,7 @@ The friends do not agree on what the day is for.
 They look to you; they will go where the day is sent.
 #50 Focus on the short term: three forage, one builds
 #60 (wood 1?) Focus on the long term: building first
+#68 (not wood 1?) Focus on the long term: building first
 
 §50
 // Short term: B, C and D forage; what of A?
@@ -209,5 +213,31 @@ Tomorrow you will take a closer look at this new land.
 [task D scavenge]
 [event workinprogress/foraging 1]
 One holds the build, one goes to the trees, and two walk into the land for food.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§68
+// Long term ending, no wood: A and B cut wood to build tomorrow, C and D forage.
+[task A woodcutting]
+[task B woodcutting]
+[task C scavenge]
+[task D scavenge]
+[event workinprogress/foraging 1]
+There is no wood to build with, so the long day begins at the trees.
+<A> and <B> cut wood, planning ahead to start building tomorrow, and the stack above the tide line grows.
+<C> and <D> walk into the land for food.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§70
+// The alternate ending: the decision is put off until tomorrow; all four forage.
+[task A scavenge]
+[task B scavenge]
+[task C scavenge]
+[task D scavenge]
+[event workinprogress/foraging 1]
+Not today.
+The friends cannot agree, and you let the question stand: tomorrow, with clearer heads and fuller bellies.
+For today there is only the plain work, and all four walk into the land to forage.
 The work is set for the day.
 Tomorrow you will take a closer look at this new land.
