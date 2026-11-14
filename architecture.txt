@@ -1,4 +1,4 @@
-successfully downloaded text file (SHA: bb30e9f4ca67935133d61007867b4cf03ea64773)# TEXT STRATEGY GAME - ARCHITECTURE SUMMARY
+successfully downloaded text file (SHA: c17174238c00b8626a18164e98b933d896e9797c)successfully downloaded text file (SHA: bb30e9f4ca67935133d61007867b4cf03ea64773)# TEXT STRATEGY GAME - ARCHITECTURE SUMMARY
 
 ## OVERVIEW
 TypeScript text adventure/strategy game. Browser-based (index.html) with Node.js tooling.
@@ -63,9 +63,6 @@ src/browser.ts (browser) or src/index.ts (Node)
     - `[person role|<variable> health|attitude value]` -> PersonStatEffect (adjust person's health or attitude)
     - `[build buildingType|<variable>]` -> StartConstructionEffect (start building construction)
     - `[set variableName=choice]` -> SetChoiceEffect (capture next choice as variable)
-    - `[volunteers taskType [count]]` -> VolunteersEffect (assign up to count free role
-      persons to a task; no count = all free; persons with the positive life trait always
-      forage and are never picked for other task types)
     - `#2 text` -> Choice to Section 2
     - `#2 (condition?) text` -> Conditional Choice (visible only if condition met); several
       (cond?) groups may precede the text: the choice is shown only when ALL are met
@@ -146,12 +143,6 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   - Choice variable reference (<building>) via context.getChoiceVariable(), case-insensitive
 - **SetChoiceEffect.ts**: Captures next player choice. Uses context.setPendingChoiceCapture()
   to set up capture, Dialog stores choice text in choiceVariables map.
-- **VolunteersEffect.ts**: Assigns resting role persons of the current dialog to a task
-  (story-wise they volunteer). Pool: context.getRolePersons() (Dialog returns its role-to-person
-  cast, e.g. roles A-D of firstday; persons outside roles are never touched). Skips persons
-  already assigned to another task. Non-scavenge tasks skip persons with the positive life
-  trait (they always forage). Optional count caps how many are assigned. Throws if the dialog
-  has no role persons.
 - **EffectFactory.ts**: Central factory for parsing effect strings into Effect objects.
   Supports all effect types. Collects ParseIssue[] for error reporting with line numbers.
 
@@ -269,8 +260,8 @@ The core loop is wired through the event files:
   the beach (+1 wood), ask the other families (they sell 2 wood for 1 silver, nothing for
   free), or make do. Then the work focus: short term (three forage, one builds, or cuts wood
   if wood is 0) or long term (one or two build, optional woodcutter, rest forage). Building
-  options: shelter (1 wood), fence (1 wood), raft (2 wood). The engine picks who works
-  ([volunteers ...]); every ending schedules [event workinprogress/foraging 1] -> the
+  options: shelter (1 wood), fence (1 wood), raft (2 wood). Work is given out with [task role tasktype]
+  (the friend with the life trait always forages); every ending schedules [event workinprogress/foraging 1] -> the
   exploration trip on day 2
 - text/workinprogress/foraging.txt ends with [event workinprogress/council 3] -> first council
 - text/workinprogress/council.txt: reports, construction orders ([build <building>]) and task

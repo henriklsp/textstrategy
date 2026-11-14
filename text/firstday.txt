@@ -1,4 +1,4 @@
-// text/firstday.txt
+successfully downloaded text file (SHA: 300d6e7ca3cdec0b1d90ee64c1d4763c1e0db077)// text/firstday.txt
 // The first day ashore, after the shipwreck.
 // Event prerequisites: none; firstday is a scheduled event, fired by
 // [event firstday 1] at the end of text/intro.txt, so the first day begins the
@@ -10,7 +10,7 @@
 // What: The five friends have next to nothing; the player must get them through the first day and divide the work.
 // How: Search the beach, ask the other families for help, or make do with what they have; then focus the work on the short or the long term.
 // But: Nobody shares without payment, wood is scarce, food is scarce, and every hand spent on one thing is missing from another.
-// Who: The five friends, including the player. The friends cannot agree, so the player allocates the work; story-wise they volunteer (the engine picks who). The person with the life trait always forages.
+// Who: The five friends, including the player. The friends cannot agree, so the player allocates the work; The person with the life trait always forages, so the work is given out around them.
 // Finally: The day's work is divided; the first exploration trip is planned (workinprogress/foraging, next day).
 //
 // Stage 2 - Structure:
@@ -100,8 +100,10 @@ What should it be?
 §51
 // Short term ending: one builds, three forage.
 [build <building>]
-[volunteers build 1]
-[volunteers scavenge]
+[task A build]
+[task B scavenge]
+[task C scavenge]
+[task D scavenge]
 [event workinprogress/foraging 1]
 One of the friends steps to the build, and the rest scatter into the land to forage.
 The work is set for the day, and the camp is quieter for it.
@@ -109,8 +111,10 @@ Tomorrow you will take a closer look at this new land.
 
 §58
 // Short term ending, no wood: one cuts wood, three forage.
-[volunteers woodcutting 1]
-[volunteers scavenge]
+[task A woodcutting]
+[task B scavenge]
+[task C scavenge]
+[task D scavenge]
 [event workinprogress/foraging 1]
 There is nothing to build with, so one of the friends goes to the trees: wood today, building another day.
 The rest scatter into the land to forage.
@@ -119,7 +123,10 @@ Tomorrow you will take a closer look at this new land.
 
 §59
 // Short term ending: nothing built, all four forage.
-[volunteers scavenge]
+[task A scavenge]
+[task B scavenge]
+[task C scavenge]
+[task D scavenge]
 [event workinprogress/foraging 1]
 Nothing is built today.
 All four friends go into the land to forage, and food comes before everything else.
@@ -161,9 +168,10 @@ Should one of them go to the trees for wood instead of foraging?
 §64
 // Long term ending: one builds, one cuts wood, the rest forage.
 [build <building>]
-[volunteers build 1]
-[volunteers woodcutting 1]
-[volunteers scavenge]
+[task A build]
+[task B woodcutting]
+[task C scavenge]
+[task D scavenge]
 [event workinprogress/foraging 1]
 The friends take their places: one at the build, one at the trees, the rest into the land for food.
 The work is set for the day.
@@ -172,8 +180,10 @@ Tomorrow you will take a closer look at this new land.
 §65
 // Long term ending: one builds, the rest forage.
 [build <building>]
-[volunteers build 1]
-[volunteers scavenge]
+[task A build]
+[task B scavenge]
+[task C scavenge]
+[task D scavenge]
 [event workinprogress/foraging 1]
 One of the friends stays at the build, and the rest go into the land for food.
 The work is set for the day.
@@ -182,9 +192,10 @@ Tomorrow you will take a closer look at this new land.
 §66
 // Long term ending: two build, one cuts wood, the rest forage.
 [build <building>]
-[volunteers build 2]
-[volunteers woodcutting 1]
-[volunteers scavenge]
+[task A build]
+[task B build]
+[task C scavenge]
+[task D woodcutting]
 [event workinprogress/foraging 1]
 The friends take their places: two at the build, one at the trees, the rest into the land for food.
 The work is set for the day.
@@ -193,8 +204,10 @@ Tomorrow you will take a closer look at this new land.
 §67
 // Long term ending: two build, the rest forage.
 [build <building>]
-[volunteers build 2]
-[volunteers scavenge]
+[task A build]
+[task B build]
+[task C scavenge]
+[task D scavenge]
 [event workinprogress/foraging 1]
 Two of the friends stay at the build, and the rest go into the land for food.
 The work is set for the day.
@@ -209,8 +222,10 @@ But the day can still go to what comes later.
 
 §69
 // Long term ending, no build: one cuts wood, the rest forage.
-[volunteers woodcutting 1]
-[volunteers scavenge]
+[task A woodcutting]
+[task B scavenge]
+[task C scavenge]
+[task D scavenge]
 [event workinprogress/foraging 1]
 One of the friends goes to the trees for wood, and the rest go into the land for food.
 The work is set for the day.
@@ -218,7 +233,10 @@ Tomorrow you will take a closer look at this new land.
 
 §70
 // Long term ending, no build: all forage.
-[volunteers scavenge]
+[task A scavenge]
+[task B scavenge]
+[task C scavenge]
+[task D scavenge]
 [event workinprogress/foraging 1]
 All four friends go into the land for food; building waits for wood and a free day.
 The work is set for the day.

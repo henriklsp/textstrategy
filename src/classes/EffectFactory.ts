@@ -1,4 +1,4 @@
-successfully downloaded text file (SHA: 0bd004ac115bb62066a7c28c818ddc21df9d07fd)// Factory for creating Effect objects from parsed text.
+successfully downloaded text file (SHA: e4445dc7c047b313db965411e8892f01b9c00e2f)successfully downloaded text file (SHA: 0bd004ac115bb62066a7c28c818ddc21df9d07fd)// Factory for creating Effect objects from parsed text.
 // Each effect type is registered with a keyword and a factory function.
 import { Effect } from './Effect';
 import { VarEffect } from './VarEffect';
@@ -6,7 +6,6 @@ import { BoolEffect } from './BoolEffect';
 import { EventEffect } from './EventEffect';
 import { SetChoiceEffect } from './SetChoiceEffect';
 import { AssignTaskEffect } from './AssignTaskEffect';
-import { VolunteersEffect } from './VolunteersEffect';
 import { PersonStatEffect, PERSON_STATS, isPersonStat } from './PersonStatEffect';
 import { StartConstructionEffect } from './StartConstructionEffect';
 import { DataModel, isTaskType, TASK_TYPES } from './DataModel';
@@ -83,20 +82,6 @@ export class EffectFactory {
                 const delta = parseFloat(parts[3]);
                 if (isNaN(delta)) return fail('Value is not a number');
                 return new PersonStatEffect(personRef, stat, delta);
-            }
-            case 'volunteers': {
-                // [volunteers tasktype [count]]
-                if (parts.length < 2) return fail('Expected [volunteers tasktype [count]]');
-                const taskName = parts[1].toLowerCase();
-                if (!isTaskType(taskName)) {
-                    return fail(`Invalid task type: '${taskName}'`);
-                }
-                let count: number | undefined;
-                if (parts.length >= 3) {
-                    count = parseInt(parts[2], 10);
-                    if (isNaN(count) || count < 0) return fail('Count must be a non-negative integer');
-                }
-                return new VolunteersEffect(taskName as any, count);
             }
             case 'build': {
                 if (parts.length < 2) return fail('Expected [build buildingtype] or [build <variable>]');

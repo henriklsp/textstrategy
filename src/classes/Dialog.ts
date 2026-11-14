@@ -1,4 +1,4 @@
-successfully downloaded text file (SHA: 6c8b7ec179ccc6cfb497649e1b26747fce873026)import { Event } from './Event';
+successfully downloaded text file (SHA: 5de71b6034fa7dcf0650f02823bcb371ba7fe3c9)successfully downloaded text file (SHA: 6c8b7ec179ccc6cfb497649e1b26747fce873026)import { Event } from './Event';
 import { Section } from './Section';
 import { Choice } from './Choice';
 import { DataModel } from './DataModel';
@@ -86,11 +86,6 @@ export class Dialog implements EffectContext, TextSubstitutionContext, Prerequis
     // EffectContext / TextRenderContext: the Person selected for a dialog role (A, B, ...)
     public getPersonForRole(roleName: string): Person | undefined {
         return this.roleToPerson.get(roleName);
-    }
-
-    // EffectContext: all persons assigned to roles in this dialog, in role order
-    public getRolePersons(): Person[] {
-        return Array.from(this.roleToPerson.values());
     }
 
     // EffectContext: Set pending choice capture for the next choice
