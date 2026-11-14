@@ -21,7 +21,9 @@
 // Short term: B, C and D forage; with wood, A builds (§51); with no wood, A cuts wood (§58) or forages too (§59).
 // Long term: A builds; choose the building (§60), then B's work (§61 -> §62 build / §63 cut wood), then D's work (cut wood or forage); endings §64-§67. C always forages.
 // Long term without wood (§68): A and B cut wood, planning to build tomorrow; C and D forage.
-// §70: the decision is put off until tomorrow; all four forage.
+// §70: the decision is put off; the friends explore the new land (the forest) and carry back what it gives:
+// §71 berries = food first (+2 food, +1 wood, bounty -2), §72 deadfall branches = wood first (+2 wood, +1 food, bounty -1).
+// Nobody is assigned to any work; they rest after coming back.
 // Endings: choiceless sections end the dialog.
 
 *A: divinity
@@ -230,14 +232,31 @@ The work is set for the day.
 Tomorrow you will take a closer look at this new land.
 
 §70
-// The alternate ending: the decision is put off until tomorrow; all four forage.
-[task A scavenge]
-[task B scavenge]
-[task C scavenge]
-[task D scavenge]
-[event workinprogress/foraging 1]
+// The alternate ending: the work decision is put off; the friends explore the new land, the forest beyond the dunes.
 Not today.
-The friends cannot agree, and you let the question stand: tomorrow, with clearer heads and fuller bellies.
-For today there is only the plain work, and all four walk into the land to forage.
-The work is set for the day.
+The friends cannot agree on the work of the day, and you let the question stand: tomorrow, with clearer heads.
+But they will not sit on the beach and wait, and neither will you, so you go together to look at the new land.
+Past the dunes the ground turns to forest, and the forest is not empty: berry bushes heavy with dark fruit, and fallen deadfall branches, dry enough to burn, unlike the beach.
+Two things are worth carrying back, and there are hands enough for either.
+#71 Pick the berries: food first
+#72 Gather the deadfall branches: wood first
+
+§71
+// The alternate ending, berries: food first; nobody is assigned to any work.
+[var food 2]
+[var wood 1]
+[var bounty -2]
+[event workinprogress/foraging 1]
+The berries fill everything you can carry, sweet and dark, and a few dry branches go on top of the load.
+Back at the camp nobody is assigned to anything: the friends eat a little and rest after the walk, and the question of the day sleeps until tomorrow.
+Tomorrow you will take a closer look at this new land.
+
+§72
+// The alternate ending, branches: wood first; nobody is assigned to any work.
+[var wood 2]
+[var food 1]
+[var bounty -1]
+[event workinprogress/foraging 1]
+The deadfall branches make a heavy stack, and you strip the fullest of the berry bushes on the way back.
+Back at the camp nobody is assigned to anything: the friends eat a little and rest after the walk, and the question of the day sleeps until tomorrow.
 Tomorrow you will take a closer look at this new land.

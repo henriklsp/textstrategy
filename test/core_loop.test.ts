@@ -247,18 +247,43 @@ describe('Core loop wiring', () => {
         expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
     });
 
-    test('firstday: decide tomorrow - all four forage', () => {
+    test('firstday: decide tomorrow - berries: food first, nobody works', () => {
         const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
 
         pick(dialog, 'Decide tomorrow');
+        // They explore the forest and choose what to carry back
+        pick(dialog, 'Pick the berries: food first');
 
-        // §70 ending: the decision is put off; everyone forages
+        // §71 ending: +2 food, +1 wood, bounty reduced by the food scavenged
         expect(dialog.getCurrentChoices().length).toBe(0);
-        expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(4);
-        expect(dataModel.getPersonsForTask('scavenge'))
-            .toContain(dialog.getPersonForRole('C')!.getName());
+        expect(dataModel.get('food')).toBe(12);
+        expect(dataModel.get('wood')).toBe(1);
+        expect(dataModel.getBounty()).toBe(8);
+        // Nobody is assigned to any work; everyone still rests
+        for (const person of dataModel.getCast()) {
+            expect(dataModel.getTaskForPerson(person.getName())).toBe('rest');
+        }
+        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+    });
+
+    test('firstday: decide tomorrow - branches: wood first, nobody works', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
+
+        pick(dialog, 'Decide tomorrow');
+        pick(dialog, 'Gather the deadfall branches: wood first');
+
+        // §72 ending: +2 wood, +1 food, bounty reduced by the food scavenged
+        expect(dialog.getCurrentChoices().length).toBe(0);
+        expect(dataModel.get('wood')).toBe(2);
+        expect(dataModel.get('food')).toBe(11);
+        expect(dataModel.getBounty()).toBe(9);
+        for (const person of dataModel.getCast()) {
+            expect(dataModel.getTaskForPerson(person.getName())).toBe('rest');
+        }
         expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
     });
 
