@@ -1,4 +1,4 @@
-successfully downloaded text file (SHA: 300d6e7ca3cdec0b1d90ee64c1d4763c1e0db077)// text/firstday.txt
+successfully downloaded text file (SHA: 0ed47e27b822bd283fa00c9c16c45f2362d2040a)successfully downloaded text file (SHA: 300d6e7ca3cdec0b1d90ee64c1d4763c1e0db077)// text/firstday.txt
 // The first day ashore, after the shipwreck.
 // Event prerequisites: none; firstday is a scheduled event, fired by
 // [event firstday 1] at the end of text/intro.txt, so the first day begins the
@@ -10,7 +10,7 @@ successfully downloaded text file (SHA: 300d6e7ca3cdec0b1d90ee64c1d4763c1e0db077
 // What: The five friends have next to nothing; the player must get them through the first day and divide the work.
 // How: Search the beach, ask the other families for help, or make do with what they have; then focus the work on the short or the long term.
 // But: Nobody shares without payment, wood is scarce, food is scarce, and every hand spent on one thing is missing from another.
-// Who: The five friends, including the player. The friends cannot agree, so the player allocates the work; The person with the life trait always forages, so the work is given out around them.
+// Who: The five friends, including the player. The friends cannot agree, so the player allocates the work. The person with the life trait always forages, so the work is given out around them.
 // Finally: The day's work is divided; the first exploration trip is planned (workinprogress/foraging, next day).
 //
 // Stage 2 - Structure:
