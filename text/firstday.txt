@@ -1,1 +1,213 @@
-<<FIRSTDAY>>
+// text/firstday.txt
+// The first day ashore, after the shipwreck.
+// Event prerequisites: none; firstday is a scheduled event, fired by
+// [event firstday 1] at the end of text/intro.txt, so the first day begins the
+// next morning, after the daily update.
+//
+// Stage 1 - Outline:
+// When: The morning after the night ashore, after the wreck of the boat on the reef.
+// Why: Establish the resource management and worker allocation mechanics of the game. Strategy over story.
+// What: The five friends have next to nothing; the player must get them through the first day and divide the work.
+// How: Search the beach, ask the other families for help, or make do with what they have; then focus the work on the short or the long term.
+// But: Nobody shares without payment, wood is scarce, food is scarce, and every hand spent on one thing is missing from another.
+// Who: The five friends, including the player. The friends cannot agree, so the player allocates the work. The person with the life trait always forages, so the work is given out around them.
+// Finally: The day's work is divided; the first exploration trip is planned (workinprogress/foraging, next day).
+//
+// Stage 2 - Structure:
+// Main path: §1 -> §40 the work focus -> §50 or §60 -> the ending sections.
+// Main decision in §1: search the beach, ask the other families for help, or make do.
+// §10 search the beach (+1 wood). §20 ask for help: refused, but planks for silver; §21 buy the planks (needs silver). §30 make do.
+// Work focus in §40: short term (§50) or long term (§60, needs wood).
+// Short term: B, C and D forage; with wood, A builds (§51); with no wood, A cuts wood (§58) or forages too (§59).
+// Long term: A builds; choose the building (§60), then B's work (§61 -> §62 build / §63 cut wood), then D's work (cut wood or forage); endings §64-§67. C always forages.
+// Endings: choiceless sections end the dialog.
+
+*A: divinity
+*B: magic
+*C: life
+*D: harmony
+
+§1
+// Sunrise over the reef and the wreck; the five friends gather and count what they have; main decision.
+The sun rises out of the sea, red through the last of the rain.
+The reef shows dark under the breaking water, and the boat lies on it, broken open, and every wave takes something more off her.
+Along the shore the other families are already up, mending, carrying, keeping to their own.
+You call your friends together: <A>, <B>, <C> and <D>.
+The counting takes no time at all: <food> food, <weapons> weapons, <wood> wood, <silver> silver, a box of tools, two blankets.
+Five people, and next to nothing.
+The talk starts at once: what is here, what can be got, and who will do what today.
+#10 Search the beach for something useful
+#20 Ask the other families for help
+#30 Make do with what we have
+
+§10
+// The beach search: a few hours at the tide line; one stack of usable wood.
+[var wood 1]
+You walk the tide line for a few hours, picking over what the storm has left.
+Most of it is ruin: boards soaked soft, rope gone to weed, things that belonged to somebody.
+But there is wood too, planks and ribs heavy enough to dry and use, and you drag one stack of it above the tide line.
+The sea has given what it will give.
+Back at the camp the talk turns to the work of the day.
+#40 How should the work focus today?
+
+§20
+// Asking for help: no food is shared, but planks are for sale; no begging or yelling changes anything.
+You walk the camps and ask for help, from family to family.
+The answer is the same everywhere: no food to spare, nothing given without payment.
+One woman, older than the rest, names a price: two stacks of wooden planks, salvaged from the boat in the night, for one silver coin.
+No begging moves anyone. No shouting moves anyone. On this beach, silver speaks, and nothing else does.
+#21 Buy the planks (silver 1?)
+#30 Make do with what we have
+
+§21
+// Buying the planks: silver for wood; the deal is done.
+[var silver -1]
+[var wood 2]
+The coin leaves your hand and does not come back.
+The planks are sound wood, cut and stacked in the night, worth more than the price to people with nothing.
+You carry them back above the tide line, and the woman goes back to her family.
+Back at the camp the talk turns to the work of the day.
+#40 How should the work focus today?
+
+§30
+// Making do: no help asked for, nothing searched for; the work of the day waits.
+You look at what you have and decide it will have to be enough.
+Nobody here is coming to save you, and nothing on this beach is free.
+The friends sit close around the box of tools, and the talk turns to the work of the day.
+#40 How should the work focus today?
+
+§40
+// The work focus: the main strategic decision of the day.
+The friends do not agree on what the day is for.
+<C> wants food found today, before hunger starts taking its toll.
+<B> wants something built that lasts, before the weather turns again.
+They look to you; they will go where the day is sent.
+#50 Focus on the short term: three forage, one builds
+#60 (wood 1?) Focus on the long term: building first
+
+§50
+// Short term: B, C and D forage; what of A?
+[set building=choice]
+<B>, <C> and <D> will forage the land for food.
+<A> will build, if there is anything to build with.
+What should it be?
+#51 (wood 1?) Shelter
+#51 (wood 1?) Fence
+#51 (wood 2?) Raft
+#58 (wood 0?) Cut wood instead
+#59 Build nothing yet
+
+§51
+// Short term ending: A builds, B, C and D forage.
+[build <building>]
+[task A build]
+[task B scavenge]
+[task C scavenge]
+[task D scavenge]
+[event workinprogress/foraging 1]
+<A> steps to the build, and the rest scatter into the land to forage.
+The work is set for the day, and the camp is quieter for it.
+Tomorrow you will take a closer look at this new land.
+
+§58
+// Short term ending, no wood: A cuts wood, B, C and D forage.
+[task A woodcutting]
+[task B scavenge]
+[task C scavenge]
+[task D scavenge]
+[event workinprogress/foraging 1]
+There is nothing to build with, so <A> goes to the trees: wood today, building another day.
+The rest scatter into the land to forage.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§59
+// Short term ending: nothing built, all four forage.
+[task A scavenge]
+[task B scavenge]
+[task C scavenge]
+[task D scavenge]
+[event workinprogress/foraging 1]
+Nothing is built today.
+All four friends go into the land to forage, and food comes before everything else.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§60
+// Long term: choose the building; the work is agreed around A's build.
+[set building=choice]
+The friends agree to put the day into something that lasts.
+<A> takes the build, and the day is set out around it.
+What should it be?
+#61 (wood 1?) Shelter
+#61 (wood 1?) Fence
+#61 (wood 2?) Raft
+
+§61
+// Long term: A builds; what of B?
+The building is agreed on, and <A> takes it on.
+<B> looks from the build to the trees, and waits to be told.
+#62 <B> builds too
+#63 <B> cuts wood
+
+§62
+// Long term: A and B build; what of D?
+<A> and <B> take the build between them.
+<D> looks from the trees to the land, and waits to be told.
+#64 <D> cuts wood
+#65 <D> forages
+
+§63
+// Long term: A builds and B cuts wood; what of D?
+<A> holds the build alone, and <B> goes to the trees.
+<D> looks from the trees to the land, and waits to be told.
+#66 <D> cuts wood too
+#67 <D> forages
+
+§64
+// Long term ending: A and B build, D cuts wood, C forages.
+[build <building>]
+[task A build]
+[task B build]
+[task C scavenge]
+[task D woodcutting]
+[event workinprogress/foraging 1]
+Two take the build, one goes to the trees, and <C> walks into the land for food.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§65
+// Long term ending: A and B build, C and D forage.
+[build <building>]
+[task A build]
+[task B build]
+[task C scavenge]
+[task D scavenge]
+[event workinprogress/foraging 1]
+Two take the build, and two walk into the land for food.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§66
+// Long term ending: A builds, B and D cut wood, C forages.
+[build <building>]
+[task A build]
+[task B woodcutting]
+[task C scavenge]
+[task D woodcutting]
+[event workinprogress/foraging 1]
+One holds the build, two go to the trees, and <C> walks into the land for food.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.
+
+§67
+// Long term ending: A builds, B cuts wood, C and D forage.
+[build <building>]
+[task A build]
+[task B woodcutting]
+[task C scavenge]
+[task D scavenge]
+[event workinprogress/foraging 1]
+One holds the build, one goes to the trees, and two walk into the land for food.
+The work is set for the day.
+Tomorrow you will take a closer look at this new land.

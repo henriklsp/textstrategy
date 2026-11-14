@@ -176,7 +176,70 @@ describe('Core loop wiring', () => {
         expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
     });
 
-<<NEWT>>    test('council: order construction, assign a task, and adjourn', () => {
+    test('firstday: long term - A and B build, D cuts wood, C forages', () => {
+        const dataModel = newDataModel();
+        dataModel.set('wood', 2);
+        const scheduled: Scheduled[] = [];
+        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
+
+        pick(dialog, 'Make do with what we have');
+        pick(dialog, 'How should the work focus today?');
+        pick(dialog, 'Focus on the long term: building first');
+        pick(dialog, 'Raft');
+        pick(dialog, dialog.getPersonForRole('B')!.getName() + ' builds too');
+        pick(dialog, dialog.getPersonForRole('D')!.getName() + ' cuts wood');
+
+        // §64 ending: raft under construction (2 wood paid), two builders,
+        // one woodcutter, one forager
+        expect(dialog.getCurrentChoices().length).toBe(0);
+        expect(dataModel.isBuildingUnderConstruction('raft')).toBe(true);
+        expect(dataModel.get('wood')).toBe(0);
+        expect(dataModel.getPersonsForTask('build')).toHaveLength(2);
+        expect(dataModel.getPersonsForTask('woodcutting')).toHaveLength(1);
+        expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(1);
+        expect(dataModel.getPersonsForTask('scavenge'))
+            .toContain(dialog.getPersonForRole('C')!.getName());
+        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+    });
+
+    test('firstday: long term - A builds, B cuts wood, D forages', () => {
+        const dataModel = newDataModel();
+        dataModel.set('wood', 1);
+        const scheduled: Scheduled[] = [];
+        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
+
+        pick(dialog, 'Make do with what we have');
+        pick(dialog, 'How should the work focus today?');
+        pick(dialog, 'Focus on the long term: building first');
+        pick(dialog, 'Shelter');
+        pick(dialog, dialog.getPersonForRole('B')!.getName() + ' cuts wood');
+        pick(dialog, dialog.getPersonForRole('D')!.getName() + ' forages');
+
+        // §67 ending: shelter under construction (1 wood paid), one builder,
+        // one woodcutter, two foragers
+        expect(dialog.getCurrentChoices().length).toBe(0);
+        expect(dataModel.isBuildingUnderConstruction('shelter')).toBe(true);
+        expect(dataModel.get('wood')).toBe(0);
+        expect(dataModel.getPersonsForTask('build')).toHaveLength(1);
+        expect(dataModel.getPersonsForTask('woodcutting')).toHaveLength(1);
+        expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(2);
+        expect(dataModel.getPersonsForTask('scavenge'))
+            .toContain(dialog.getPersonForRole('C')!.getName());
+        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+    });
+
+    test('firstday: the long term focus needs wood', () => {
+        const dataModel = newDataModel();
+        const dialog = startEvent('text/firstday.txt', dataModel, []);
+
+        pick(dialog, 'Make do with what we have');
+        pick(dialog, 'How should the work focus today?');
+        // With no wood there is nothing to build, so only the short term is offered
+        expect(dialog.getCurrentChoices().map(c => c.getText()))
+            .toEqual(['Focus on the short term: three forage, one builds']);
+    });
+
+    test('council: order construction, assign a task, and adjourn', () => {
         const dataModel = newDataModel();
         // The council test needs wood to build with; the game starts with none
         dataModel.set('wood', 5);
