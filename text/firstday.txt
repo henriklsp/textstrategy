@@ -18,9 +18,11 @@
 // Main decision in §1: the friends pull in different directions and look to the
 // player: plan for the long term, focus on immediate needs, or decide nothing.
 // The dilemma: there is no wood and little food; planning comforts, scavenging feeds,
-// and doing nothing wastes a day but keeps everyone rested.
-// Consequences: §10 plan ahead, §20 immediate needs, §60 alternative ending: nothing is decided, the day passes.
-// §60 is the optional alternative ending away from the main path.
+// and putting off the decision still ends with the day spent on food or wood.
+// Consequences: §10 plan ahead, §20 immediate needs, §60 alternative path away
+// from the main path: the friends reject idleness, the group explores the forest,
+// and the day ends at §61 (berries) or §62 (branches).
+// Endings: §40, §61 and §62 end the dialog with no choices.
 
 *A: divinity
 *B: magic
@@ -84,9 +86,36 @@ Tomorrow you will take a closer look at this new land. The others will manage th
 The work of the first day is settled.
 
 §60
-// Alternative ending: nothing is decided today; the day passes; the exploration is still planned.
-[event workinprogress/foraging 1]
+// Alternative path: the friends reject doing nothing; the obvious next step is to
+// explore the new land; in the forest they find berry bushes and fallen branches; a decision.
 You decide nothing today.
-The others drift back to their families and their worries.
-The day passes with the wreck on the reef and the camps quiet along the shore.
-Tomorrow you will take a closer look at this new land.
+The others will not have it.
+"There is nothing to eat," says <C>. "Standing here will not change that."
+"Then we look at what this land will give," says <B>.
+<D> nods and stands up. Even <A> wants to see what lies beyond the dunes.
+You walk inland together, and the beach gives way to grass, and the grass to forest.
+The forest gives: berry bushes heavy with fruit, and branches fallen from the trees, dry enough to burn.
+There is time for one, not both.
+#61 Spend the day gathering berries
+#62 Spend the day gathering branches
+
+§61
+// Ending: the day goes to the berries; food over wood; bounty falls with the food scavenged.
+[var food 2]
+[var wood 1]
+[var bounty -2]
+[event workinprogress/foraging 1]
+You spend the day among the berry bushes with the others, picking into every kind of container anyone can find.
+You eat as you pick, the first meal worth the name since the boat.
+On the way back you each carry a few branches as well, but fewer.
+The camp eats that night, and the bushes will need time to give again.
+
+§62
+// Ending: the day goes to the branches; wood over food; bounty falls with the food scavenged.
+[var wood 2]
+[var food 1]
+[var bounty -1]
+[event workinprogress/foraging 1]
+You spend the day on what the trees have dropped: snapping the fallen branches, dragging them clear, binding them in bundles you can carry.
+You pick berries as you go, and eat more of them than you bring back.
+By evening there is wood stacked beside the camp, a little food for the night, and the bushes will need time to give again.

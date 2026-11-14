@@ -20,6 +20,7 @@ function newDataModel(): DataModel {
     dataModel.set('population', 5);
     dataModel.set('food', 10);
     dataModel.set('wood', 0);
+    dataModel.setBounty(10);
     return dataModel;
 }
 
@@ -129,15 +130,35 @@ describe('Core loop wiring', () => {
         expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
     });
 
-    test('firstday: deciding nothing still ends the day and schedules the trip', () => {
+    test('firstday: indecision sends the group foraging; berries: food over wood', () => {
         const dataModel = newDataModel();
         const scheduled: Scheduled[] = [];
         const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
 
         pick(dialog, 'Decide nothing today');
+        pick(dialog, 'Spend the day gathering berries');
 
-        // §60 is an ending section: no choices left, dialog over
+        // §61 ending: 2 food, 1 wood, and the bounty falls with the food scavenged
         expect(dialog.getCurrentChoices().length).toBe(0);
+        expect(dataModel.get('food')).toBe(12);
+        expect(dataModel.get('wood')).toBe(1);
+        expect(dataModel.getBounty()).toBe(8);
+        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+    });
+
+    test('firstday: indecision sends the group foraging; branches: wood over food', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
+
+        pick(dialog, 'Decide nothing today');
+        pick(dialog, 'Spend the day gathering branches');
+
+        // §62 ending: 2 wood, 1 food, and the bounty falls with the food scavenged
+        expect(dialog.getCurrentChoices().length).toBe(0);
+        expect(dataModel.get('wood')).toBe(2);
+        expect(dataModel.get('food')).toBe(11);
+        expect(dataModel.getBounty()).toBe(9);
         expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
     });
 
