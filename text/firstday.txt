@@ -25,6 +25,8 @@
 // §71 berries = food first (+2 food, +1 wood, bounty -2), §72 deadfall branches = wood first (+2 wood, +1 food, bounty -1).
 // Nobody is assigned to any work; they rest after coming back.
 // Endings: choiceless sections end the dialog.
+//
+// Stage 5 - Prose: all section text rewritten in the final style; effects, choices and structure unchanged.
 
 *A: divinity
 *B: magic
@@ -35,10 +37,11 @@
 // Sunrise over the reef and the wreck; the five friends gather and count what they have; main decision.
 The sun rises out of the sea, red through the last of the rain.
 The reef shows dark under the breaking water, and the boat lies on it, broken open, and every wave takes something more off her.
-Along the shore the other families are already up, mending, carrying, keeping to their own.
+The night gave you the beach, and the morning gives you the same world again in better light: the sky rinsing itself pale over the water, the dunes steaming where the sun reaches them, the wreck patient on the reef, going on with the work of coming apart.
+Along the shore the other families are already up, mending, carrying, keeping to their own. They survived the same sea you did, and they have nothing to spare on anyone else's morning.
 You call your friends together: <A>, <B>, <C> and <D>.
 The counting takes no time at all: <food> food, <weapons> weapons, <wood> wood, <silver> silver, a box of tools, two blankets.
-Five people, and next to nothing.
+Five people, and next to nothing. The tools are good, the blankets are dry, and that is the whole of the good news.
 The talk starts at once: what is here, what can be got, and who will do what today.
 #10 Search the beach for something useful
 #20 Ask the other families for help
@@ -48,18 +51,18 @@ The talk starts at once: what is here, what can be got, and who will do what tod
 §10
 // The beach search: a few hours at the tide line; one stack of usable wood.
 [var wood 1]
-You walk the tide line for a few hours, picking over what the storm has left.
-Most of it is ruin: boards soaked soft, rope gone to weed, things that belonged to somebody.
-But there is wood too, planks and ribs heavy enough to dry and use, and you drag one stack of it above the tide line.
-The sea has given what it will give.
-Back at the camp the talk turns to the work of the day.
+You walk the tide line, and the tide line keeps the morning's ledger.
+Most of what the storm has left is ruin: boards soaked soft, rope gone to weed, a cooking pot with a hole in it, things that belonged to somebody and may yet. You step over them all. Behind you the wreck groans on the reef with every wave, patient in its coming apart.
+But there is wood too: planks and ribs heavy enough to dry and use. You drag one stack of it above the tide line and stand a moment, looking down the beach at all the rest of it, in case the sea means to give more.
+It does not. The sea has given what it will give.
+You come back to the camp with salt on your hands and one stack of wood for your trouble, and the talk turns to the work of the day.
 #40 How should the work focus today?
 
 §20
 // Asking for help: no food is shared, but planks are for sale; no begging or yelling changes anything.
-You walk the camps and ask for help, from family to family.
-The answer is the same everywhere: no food to spare, nothing given without payment.
-One woman, older than the rest, names a price: two stacks of wooden planks, salvaged from the boat in the night, for one silver coin.
+You walk the camps, from family to family, and ask for help.
+The answer is the same everywhere, and it comes without unkindness: no food to spare, nothing given without payment. Everyone here survived the same sea, and everyone counts what is left the same way, every morning, and a beach full of people with nothing cannot afford to be generous.
+One woman, older than the rest, hears you out and names a price: two stacks of wooden planks, salvaged from the boat in the night, for one silver coin. She does not apologize for the price, and the price is not an insult. The planks are hers to sell, and the coin is yours to spend, and that is the whole of the bargain.
 No begging moves anyone. No shouting moves anyone. On this beach, silver speaks, and nothing else does.
 #21 Buy the planks (silver 1?)
 #30 Make do with what we have
@@ -68,25 +71,28 @@ No begging moves anyone. No shouting moves anyone. On this beach, silver speaks,
 // Buying the planks: silver for wood; the deal is done.
 [var silver -1]
 [var wood 2]
-The coin leaves your hand and does not come back.
-The planks are sound wood, cut and stacked in the night, worth more than the price to people with nothing.
-You carry them back above the tide line, and the woman goes back to her family.
+The coin leaves your hand and does not come back, and the planks come to the sand in its place: sound wood, cut and stacked in the night, edges square, worth more than the price to people with nothing.
+The woman counts the coin once, nods once, and goes back to her family without a word wasted. A clean bargain is the one courtesy this beach still knows.
+You carry the planks back above the tide line, two stacks of them, and stand them with your own things. It is strange, how much of a house is already in a pile of wood, waiting.
 Back at the camp the talk turns to the work of the day.
 #40 How should the work focus today?
 
 §30
 // Making do: no help asked for, nothing searched for; the work of the day waits.
 You look at what you have and decide it will have to be enough.
-Nobody here is coming to save you, and nothing on this beach is free.
-The friends sit close around the box of tools, and the talk turns to the work of the day.
+Nobody here is coming to save you. Nobody is waiting to be asked. Nothing on this beach is free, and what is yours is what stands between you and the sea's patience.
+So the friends keep to themselves and make do, and sit close around the box of tools in the lee of the dunes, out of the wind. The tools are good ones, and the hands around them are alive, and the day is still whole, and unwritten.
+The talk turns to the work of the day.
 #40 How should the work focus today?
 
 §40
 // The work focus: the main strategic decision of the day.
 The friends do not agree on what the day is for.
-<C> wants food found today, before hunger starts taking its toll.
-<B> wants something built that lasts, before the weather turns again.
-They look to you; they will go where the day is sent.
+"Food first," says <C>. "Hunger does not wait for walls. There is food out there for anyone who goes looking, and I am going looking."
+"And when the weather turns again?" says <B>. "Tonight, or in ten days, it will turn. We were lucky once, and luck does not keep. Build first. What we raise this morning is what stands between us and the next storm."
+They are both right, and that is the shape of the problem. A day spent foraging is a day nothing grows out of the sand. A day spent building is a day the food does not gather itself. Every hand given to one thing is missing from another.
+<D> stands between the two of them and wants what <D> always wants: the five of you whole, and agreed. But the day will not wait for agreement either.
+They look to you. They will go where the day is sent.
 #50 Focus on the short term: three forage, one builds
 #60 (wood 1?) Focus on the long term: building first
 #68 (not wood 1?) Focus on the long term: building first
@@ -94,8 +100,8 @@ They look to you; they will go where the day is sent.
 §50
 // Short term: B, C and D forage; what of A?
 [set building=choice]
-<B>, <C> and <D> will forage the land for food.
-<A> will build, if there is anything to build with.
+The day goes to food. <B>, <C> and <D> will forage the land for it: the land past the dunes, green and quiet and unread, and the first question of such a land is always what it holds.
+That leaves <A>, and the wood. If there is anything to build with, <A> can raise something from it while the others walk, and every wall anyone ever owned was once one day's work by one pair of hands.
 What should it be?
 #51 (wood 1?) Shelter
 #51 (wood 1?) Fence
@@ -111,8 +117,9 @@ What should it be?
 [task C scavenge]
 [task D scavenge]
 [event workinprogress/foraging 1]
-<A> steps to the build, and the rest scatter into the land to forage.
-The work is set for the day, and the camp is quieter for it.
+The work divides without another word.
+<A> steps to the build, and the tools come out of their box, and the first strokes mark the shape of the thing out of the sand. The rest scatter into the land to forage, three of them spread wide past the dunes, and the camp goes quiet behind them: one builder, three walkers, the sea keeping its own time.
+The day is spent on both, the food and the future.
 Tomorrow you will take a closer look at this new land.
 
 §58
@@ -122,9 +129,9 @@ Tomorrow you will take a closer look at this new land.
 [task C scavenge]
 [task D scavenge]
 [event workinprogress/foraging 1]
-There is nothing to build with, so <A> goes to the trees: wood today, building another day.
-The rest scatter into the land to forage.
-The work is set for the day.
+There is nothing to build with, so the build keeps, and <A> takes the tools and goes to the trees: wood today, building another day. The grove past the dunes will give what the beach would not, and the stack above the tide line will grow while nobody is there to watch it grow.
+The rest scatter into the land to forage, and the camp is left to the sun and the wind.
+The day is spent where it had to be.
 Tomorrow you will take a closer look at this new land.
 
 §59
@@ -134,16 +141,16 @@ Tomorrow you will take a closer look at this new land.
 [task C scavenge]
 [task D scavenge]
 [event workinprogress/foraging 1]
-Nothing is built today.
-All four friends go into the land to forage, and food comes before everything else.
-The work is set for the day.
+Nothing is built today, and nothing is begun. The tools go back in their box, and the box waits in the sand.
+All four friends go into the land to forage, food before everything else, spread out past the dunes where the ground turns green. Behind them the camp stands empty: two blankets, a closed box, everything the five of you own in the world, and the sea keeping its eye on all of it.
+The whole day goes to food.
 Tomorrow you will take a closer look at this new land.
 
 §60
 // Long term: choose the building; the work is agreed around A's build.
 [set building=choice]
-The friends agree to put the day into something that lasts.
-<A> takes the build, and the day is set out around it.
+The friends agree to put the day into something that lasts. Yesterday was for staying alive. This day is for beginning to live, and a house begun is a different thing from a camp made.
+<A> takes the build; that much was never in question, and the wood is already being counted out in <A>'s head. The rest of the day is set out around the work, and the first question is what the day raises.
 What should it be?
 #61 (wood 1?) Shelter
 #61 (wood 1?) Fence
@@ -151,22 +158,24 @@ What should it be?
 
 §61
 // Long term: A builds; what of B?
-The building is agreed on, and <A> takes it on.
-<B> looks from the build to the trees, and waits to be told.
+The building is agreed on, and <A> takes it on and means it: sleeves pushed back already, the tools laid out in a row, the wood counted twice.
+<B> looks from the build to the trees, and waits to be told. One more pair of hands would see it rise sooner. One axe in the grove would see the wood last longer. The day will answer either way.
+Nobody says any of this out loud. It is all there in the pause.
 #62 <B> builds too
 #63 <B> cuts wood
 
 §62
 // Long term: A and B build; what of D?
-<A> and <B> take the build between them.
-<D> looks from the trees to the land, and waits to be told.
+<A> and <B> take the build between them, and the work goes twice as fast as it would alone, or near enough to feel that way. Two builders are a crowd on a small build, but the day is long, and the wood is willing.
+<D> looks from the trees to the land, and waits to be told. Wood for the days after this one; food for the days between.
 #64 <D> cuts wood
 #65 <D> forages
 
 §63
 // Long term: A builds and B cuts wood; what of D?
-<A> holds the build alone, and <B> goes to the trees.
-<D> looks from the trees to the land, and waits to be told.
+<A> holds the build alone, and <B> goes to the trees, and between them the wood and the work both have a keeper.
+<D> looks from the trees to the land, and waits to be told. The day is one build, one axe, one pair of walking feet short of everything it could use.
+Nobody says any of it out loud. It is all there in the pause.
 #66 <D> cuts wood too
 #67 <D> forages
 
@@ -178,8 +187,8 @@ The building is agreed on, and <A> takes it on.
 [task C scavenge]
 [task D woodcutting]
 [event workinprogress/foraging 1]
-Two take the build, one goes to the trees, and <C> walks into the land for food.
-The work is set for the day.
+Two take the build, and the day settles around it: <A> and <B> at the wood, <D> gone to the trees for more of it, and <C> walking into the land for food, the way <C> always does, nose to the green.
+By evening the beginning of it will be here, out of sand and rope and wood, a thing that did not exist at sunrise. Beginnings are what the five of you came to this coast to make.
 Tomorrow you will take a closer look at this new land.
 
 §65
@@ -190,8 +199,8 @@ Tomorrow you will take a closer look at this new land.
 [task C scavenge]
 [task D scavenge]
 [event workinprogress/foraging 1]
-Two take the build, and two walk into the land for food.
-The work is set for the day.
+Two take the build, and two walk into the land for food, and the camp is in both places at once: the sounds of the work behind, the quiet of the walkers going.
+Whatever the land gives them today will come back to hands that are busy making a place to keep it in, and that is the whole of the plan, and a good one.
 Tomorrow you will take a closer look at this new land.
 
 §66
@@ -202,8 +211,8 @@ Tomorrow you will take a closer look at this new land.
 [task C scavenge]
 [task D woodcutting]
 [event workinprogress/foraging 1]
-One holds the build, two go to the trees, and <C> walks into the land for food.
-The work is set for the day.
+One holds the build, two go to the trees, and <C> walks into the land for food, alone in the green, which suits <C> well enough.
+The stack above the tide line will grow all day, the build will go as fast as one pair of hands can take it, and tomorrow the wood and the work will find each other.
 Tomorrow you will take a closer look at this new land.
 
 §67
@@ -214,8 +223,8 @@ Tomorrow you will take a closer look at this new land.
 [task C scavenge]
 [task D scavenge]
 [event workinprogress/foraging 1]
-One holds the build, one goes to the trees, and two walk into the land for food.
-The work is set for the day.
+One holds the build, one goes to the trees, and two walk into the land for food: the day cut four ways, and every piece of it spent where it was most wanted.
+The stack rises on one side, the build on the other, and the land gives what it gives to the two in the green.
 Tomorrow you will take a closer look at this new land.
 
 §68
@@ -226,17 +235,17 @@ Tomorrow you will take a closer look at this new land.
 [task D scavenge]
 [event workinprogress/foraging 1]
 There is no wood to build with, so the long day begins at the trees.
-<A> and <B> cut wood, planning ahead to start building tomorrow, and the stack above the tide line grows.
-<C> and <D> walk into the land for food.
-The work is set for the day.
+<A> and <B> cut wood, and the plan in it is plain: wood today, building tomorrow. The long term is begun the only way it can be, with what the grove gives, and the stack above the tide line will grow all day and become a build by the next morning.
+<C> and <D> walk into the land for food, because the long term is hungry too.
+The day is spent on what is coming.
 Tomorrow you will take a closer look at this new land.
 
 §70
 // The alternate ending: the work decision is put off; the friends explore the new land, the forest beyond the dunes.
 Not today.
-The friends cannot agree on the work of the day, and you let the question stand: tomorrow, with clearer heads.
-But they will not sit on the beach and wait, and neither will you, so you go together to look at the new land.
-Past the dunes the ground turns to forest, and the forest is not empty: berry bushes heavy with dark fruit, and fallen deadfall branches, dry enough to burn, unlike the beach.
+The friends cannot agree on the work of the day, and you let the question stand: tomorrow, with clearer heads, and a day's worth of knowing the land behind the argument.
+But they will not sit on the beach and wait, and neither will you, so the five of you go together to look at the new land. Past the dunes the sand gives way to grass, the grass to brush, and the brush to forest: green standing dark and quiet under the morning, the first real trees any of you have seen in weeks, and the sound of them is wind, and birds, and nothing else.
+The forest is not empty. Berry bushes stand in the clearings, heavy with dark fruit. Fallen deadfall branches lie under the trees, dry enough to burn, which nothing on this beach has been since you landed.
 Two things are worth carrying back, and there are hands enough for either.
 #71 Pick the berries: food first
 #72 Gather the deadfall branches: wood first
@@ -247,8 +256,9 @@ Two things are worth carrying back, and there are hands enough for either.
 [var wood 1]
 [var bounty -2]
 [event workinprogress/foraging 1]
-The berries fill everything you can carry, sweet and dark, and a few dry branches go on top of the load.
-Back at the camp nobody is assigned to anything: the friends eat a little and rest after the walk, and the question of the day sleeps until tomorrow.
+The berries fill everything you can carry: dark, sweet, bursting easy in the hands. <C> leads from bush to bush and does not have to say why. A few dry branches go on top of the load, wood taken where it was free.
+Back at the camp nobody is assigned to anything. The friends eat a little and rest after the walk, and the question of the day sleeps until tomorrow.
+The land gave, and nobody had to decide anything, and that is a kind of answer too.
 Tomorrow you will take a closer look at this new land.
 
 §72
@@ -257,6 +267,7 @@ Tomorrow you will take a closer look at this new land.
 [var food 1]
 [var bounty -1]
 [event workinprogress/foraging 1]
-The deadfall branches make a heavy stack, and you strip the fullest of the berry bushes on the way back.
-Back at the camp nobody is assigned to anything: the friends eat a little and rest after the walk, and the question of the day sleeps until tomorrow.
+The deadfall branches make a heavy stack, armful after armful, dry wood that will burn, when there is a way to light it. On the way back you strip the fullest of the berry bushes, and the fruit rides on top of the wood, a small sweet cargo nobody planned.
+Back at the camp nobody is assigned to anything. The friends eat a little and rest after the walk, and the question of the day sleeps until tomorrow.
+Wood and food both, and no decision spent on either. There are worse ways to meet a new land.
 Tomorrow you will take a closer look at this new land.
