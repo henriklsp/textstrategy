@@ -15,6 +15,13 @@ describe('Pool manifest parsing', () => {
         await gameLoop.loadPoolManifest('test/no_such_manifest.txt');
         expect(gameLoop.getPool()).toEqual([]);
     });
+
+    test('the game pool manifest registers the foraging trip at the lowest priority', async () => {
+        const gameLoop = new GameLoop({ show: () => {} });
+        await gameLoop.loadPoolManifest('text/pool.txt');
+        // Listed without a priority header: lowest priority, fired on an idle day
+        expect(gameLoop.getPool()).toEqual(['workinprogress/foraging']);
+    });
 });
 
 describe('Pool events: GameLoop firing', () => {

@@ -3,7 +3,8 @@
 // The player ("you") and one companion (role A, selected as the best scavenger) leave
 // camp, discover local plants and wildlife, and find signs that the land is inhabited.
 // Depending on choices the player may gain food, wood or abandoned weapons.
-// Event name: workinprogress/foraging - trigger with [event workinprogress/foraging 1].
+// Event name: workinprogress/foraging - registered in the low-priority pool (text/pool.txt);
+// fires on a day with no scheduled events due, once per registration.
 // Syntax showcase (see dialogparsing.txt): task-based role selection, section text on
 // the section line, choice prerequisites (person trait, numeric, can task), effects
 // (var, bool, event, set task=choice, task with <task>), text substitution (random,

@@ -262,9 +262,12 @@ The core loop is wired through the event files:
   (B, C and D forage; A builds, cuts wood if wood is 0, or forages) or long term (with
   wood: A builds, B builds or cuts wood, D cuts wood or forages, C always forages; without
   wood: A and B cut wood to build tomorrow, C and D forage). Building options: shelter
-  (1 wood), fence (1 wood), raft (2 wood). Work is given out with [task role tasktype];
-  every ending schedules [event workinprogress/foraging 1] -> the exploration trip on day 2
-- text/workinprogress/foraging.txt ends with [event workinprogress/council 3] -> first council
+  (1 wood), fence (1 wood), raft (2 wood). Work is given out with [task role tasktype].
+  The endings schedule no event: day 2 most likely plays the finished construction of
+  whatever the player decided to build (started with [build <building>])
+- text/workinprogress/foraging.txt is registered in the pool manifest (text/pool.txt) as a
+  low-priority pool event: it fires once, on a day with no scheduled events due, and
+  ends with [event workinprogress/council 3] -> first council
 - text/workinprogress/council.txt: reports, construction orders ([build <building>]) and task
   assignment ([task <person> <task>]); every adjournment schedules
   [event workinprogress/council 10] -> the council recurs every 10 days

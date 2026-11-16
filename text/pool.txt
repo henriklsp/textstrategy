@@ -7,6 +7,7 @@
 // per registration). Scheduled events (not in this file) only fire when an
 // [event x n] effect queues them. Events can also be registered from code with
 // GameLoop.registerPoolEvent(name, tier?).
+workinprogress/foraging
 // Example:
 //foraging
 //priority 1:

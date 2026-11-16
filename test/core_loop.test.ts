@@ -144,7 +144,7 @@ describe('Core loop wiring', () => {
         pick(dialog, 'Shelter');
 
         // §51 ending: shelter under construction and paid for, one builder,
-        // three foragers, the trip planned, no choices left
+        // three foragers, no choices left and no event scheduled
         expect(dialog.getCurrentChoices().length).toBe(0);
         expect(dataModel.isBuildingUnderConstruction('shelter')).toBe(true);
         expect(dataModel.get('wood')).toBe(0);
@@ -153,7 +153,7 @@ describe('Core loop wiring', () => {
         // The life-trait friend always forages
         expect(dataModel.getPersonsForTask('scavenge'))
             .toContain(dialog.getPersonForRole('C')!.getName());
-        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+        expect(scheduled).toHaveLength(0);
     });
 
     test('firstday: short term without wood - one cuts wood instead', () => {
@@ -173,7 +173,7 @@ describe('Core loop wiring', () => {
         expect(dialog.getCurrentChoices().length).toBe(0);
         expect(dataModel.getPersonsForTask('woodcutting')).toHaveLength(1);
         expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(3);
-        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+        expect(scheduled).toHaveLength(0);
     });
 
     test('firstday: long term - A and B build, D cuts wood, C forages', () => {
@@ -199,7 +199,7 @@ describe('Core loop wiring', () => {
         expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(1);
         expect(dataModel.getPersonsForTask('scavenge'))
             .toContain(dialog.getPersonForRole('C')!.getName());
-        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+        expect(scheduled).toHaveLength(0);
     });
 
     test('firstday: long term - A builds, B cuts wood, D forages', () => {
@@ -225,7 +225,7 @@ describe('Core loop wiring', () => {
         expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(2);
         expect(dataModel.getPersonsForTask('scavenge'))
             .toContain(dialog.getPersonForRole('C')!.getName());
-        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+        expect(scheduled).toHaveLength(0);
     });
 
     test('firstday: long term without wood - two cut wood, two forage', () => {
@@ -244,7 +244,7 @@ describe('Core loop wiring', () => {
         expect(dataModel.getPersonsForTask('scavenge')).toHaveLength(2);
         expect(dataModel.getPersonsForTask('scavenge'))
             .toContain(dialog.getPersonForRole('C')!.getName());
-        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+        expect(scheduled).toHaveLength(0);
     });
 
     test('firstday: decide tomorrow - berries: food first, nobody works', () => {
@@ -265,7 +265,7 @@ describe('Core loop wiring', () => {
         for (const person of dataModel.getCast()) {
             expect(dataModel.getTaskForPerson(person.getName())).toBe('rest');
         }
-        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+        expect(scheduled).toHaveLength(0);
     });
 
     test('firstday: decide tomorrow - branches: wood first, nobody works', () => {
@@ -284,7 +284,7 @@ describe('Core loop wiring', () => {
         for (const person of dataModel.getCast()) {
             expect(dataModel.getTaskForPerson(person.getName())).toBe('rest');
         }
-        expect(scheduled).toContainEqual({ name: 'workinprogress/foraging', delay: 1 });
+        expect(scheduled).toHaveLength(0);
     });
 
     test('council: order construction, assign a task, and adjourn', () => {
