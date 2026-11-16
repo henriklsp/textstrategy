@@ -16,6 +16,7 @@ Your own turn at the oars is over, and <A>'s turn has ended too. <He> is exhaust
 
 §5
 You stand at the side and watch the evening come on. The water is dark and immense, lifting the boat and setting it down again in long, unhurried swells. <?Somewhere below the hull a great fish turns, and the water shivers.;A long rope of weed drifts past, going where the sea goes.> Far off, lightning flickers inside the clouds: silent, slow, a light from a storm that has not reached you yet. You search the horizon and find nothing. No sail, no shore, no bird. Only the sea, and the last of the evening, and the wind on your face carrying the smell of coming rain.
+The boat has its own sounds at this hour: the creak of the oarlocks, water running off the stem, someone aft humming to a child who will not sleep. You stand in them, and let them stand in for company, and the evening is not as empty as it looks.
 #6 Count the remaining food
 #10 Wait for <A>
 #25 Go to the bow
@@ -23,6 +24,7 @@ You stand at the side and watch the evening come on. The water is dark and immen
 
 §6
 You check the food sacks, untying and tying them again, counting what should not need counting. Nothing from home is left in them; the bread went weeks ago. There is only the morning's catch of small fish, still wet from the lines, the shared food of everyone aboard, one small meal apiece, if everyone eats little and no one eats first. You tie the sacks down carefully, and your hands stay a moment on the knots. This is what stands between these people and the sea's patience.
+A week ago there were four sacks. The arithmetic aboard only goes one way, and everyone aboard can do it, so nobody does it aloud. You tie the last knot and set the sacks where the spray cannot reach them, and the boat rows on.
 #7 Check the water barrel
 #10 Wait for <A>
 #25 Go to the bow
@@ -30,6 +32,7 @@ You check the food sacks, untying and tying them again, counting what should not
 
 §7
 You look into the water barrel and see the bottom looking back at you. What is left is rain water, the one mercy of the week, and the clouds are gathering again tonight, heavy and dark. They may give water. They may give nothing. You have learned to take what falls and be glad.
+You dip the ladle, drink your share, and hand it on without being asked. Behind you the queue forms on its own, quiet and orderly, the shape thirst has taught it. The barrel will need the rain tonight. Everyone knows it, so nobody says it, and the quiet around the barrel is the loudest thing on the boat.
 #10 Wait for <A>
 #25 Go to the bow
 #39 Get some rest
@@ -47,6 +50,7 @@ What do you say?
 §11
 <A> nods, and <his> eyes take light. "The storm took our sail, but it did not take us. Nothing out here is stronger than we are."
 Behind you the rowing goes on, and the boat moves west through the darkening water, and for a moment the sea is not a prison. It is a road.
+<A -harmony?"And when we get there," <A he> goes on, "there will be fighting. Over the good ground there is always fighting. I do not say it to frighten you. I say it the way you would mention an old friend coming to visit.";><A -magic?<A he> says no more than that. <A He> takes an oar from the next bench instead, and rows, plainly and well, until the stroke comes right, and gives it back with a nod. Some of <A his> certainty lives in <A his> hands.;>
 [person A attitude +5]
 #20 Sit in silence
 #14 "Do you think the gods sent us out here?"
@@ -55,6 +59,7 @@ Behind you the rowing goes on, and the boat moves west through the darkening wat
 §12
 <A> is quiet for a moment, weighing it. Then <he> nods slowly. "Then we plan. First we land. Then we find water and food. Then we build. One thing at a time, until the stories can begin."
 It is not glory yet. But it is a road that leads there.
+<A he> does not say the word land any louder than the rest, but the boat hears it anyway. Behind you the rowers have caught the change in <A his> voice, and stroke by stroke the boat has begun to believe it. Certainty, like doubt, rows as well as any oar, and costs less to carry.
 [person A attitude +3]
 #20 Sit in silence
 #14 "Do you think the gods sent us out here?"
@@ -62,19 +67,23 @@ It is not glory yet. But it is a road that leads there.
 
 §13
 You say nothing, and let <A him> talk: the land ahead, the future, the glory that waits for you all. <A He> speaks of it quietly, and then louder, and the words carry along the benches, and people listen who did not mean to. When the watch changes <A he> seems calmer. The hope <A he> gave away has left room for more.
+The glory is a long way off yet. But a long way is still a way, and the rowers have it now, passing it along the benches stroke by stroke, and nobody asks whether it is true. Some things are true because the boat moves better with them in it.
 #20 Sit in silence
 #14 "Do you think the gods sent us out here?"
 #39 Get some rest
 
 §14
-<A> is quiet. The oars fill the silence with their patient rhythm.
+<A> is quiet. The oars fill the silence with their patient rhythm. The mast creaks with each lean of the boat, and somewhere under the sail cloth a child asks whether the sea is angry, and is told no, and believes it, the way children do.
 "I think they opened a door and pushed us through it," <he> says. "What we do on the other side is ours. That is the whole point of us."
+<A -harmony?"As for the storm, I have no quarrel with the gods," <A he> adds. "My quarrels have all been with men, and I have won most of them.";><A -magic?<A he> shrugs, once, and lets the shrug be the whole of the theology, and takes the bailer out of a tired hand and works with it instead.;>
 #15 "And the storm that took the sail - did the gods send that too?"
 #20 Let it rest
 
 §15
 "Maybe it was a test," says <A>. "Or a slap, to wake us up. The gods do not hand out destinies to people who sleep through them."
 <He> grins, and the grin has no doubt in it, and some of it reaches you before you can stop it.
+It is a poor sort of armor, other people's certainty, but at this hour you wear anything that fits, and it fits better than most.
+<A -harmony?"A slap only stings if you are still standing close enough to matter," <A he> says. "We are standing close.";><A -magic?<A he> does not argue it further. <A He> rolls <A his> shoulders once, the way a man does before work, and the matter is settled the way work settles things.;>
 [person A attitude +3]
 #20 Let it rest
 #25 Go to the bow
@@ -115,6 +124,7 @@ You sit close and say nothing. <B> does not talk the way <A> talks; words cost <
 §24
 "Rest," says <B>. "Real rest. Not this half-sleep with an oar in my hands." <He> looks down the crowded deck, at the sleeping families, at all the people the voyage has not yet finished with. "And for them to get there. That is all I need now."
 It is the longest thing <he> has said all day, and you promise yourself to remember it.
+Around <him> the deck is full of small proofs that rest is owed: an old man asleep sitting up, a child asleep in the middle of a word, a woman asleep with her hand still on the rope she was hauling. The boat goes on carrying all of them, and him, and you.
 [person B attitude +3]
 #30 Sit in silence
 #26 Go to the bow
@@ -158,6 +168,7 @@ What do you say?
 §31
 Around you the rowers have gone quiet, listening. <C> nods. "Maybe. The sky is closing, and I cannot see much tonight. But yes. Maybe."
 <He> lifts <his> face to the wind and closes <his> eyes, weighing what only <he> can read in it. The word maybe travels from bench to bench, and gathers weight wherever it lands. It is not a promise. But tonight the boat is full of people rowing a little straighter.
+Hope does that here. It is the one thing aboard in fair supply, if nobody looks too hard at it. You look anyway, and take your turn at the oars, and the maybe keeps its weight.
 [person C attitude +5]
 #40 Sit in silence
 #34 "How can you tell?"
@@ -179,11 +190,13 @@ You say nothing. <C> goes on talking quietly: the weed, the gulls, the stars, th
 §34
 "I count the days, and I watch the wind," says <C>. "We have had the wind against us fewer days than it feels. And the sea is different near land: the weed, the birds. I have sailed before. The signs are small, but they are there."
 <He> says it plainly, and does not make the signs larger than they are.
+That is why they carry. A boat can tell when it is being told the truth, and this one better than most. It has been lied to enough for one crossing. The rowers settle as <C he> speaks, the way they would not for a bigger promise.
 #35 "What if you are wrong?"
 #40 Let it rest
 
 §35
 "Then we keep rowing," says <C>. "The signs can be wrong. That is why they are signs and not promises. But today I would take a wrong sign over none."
+The wind lifts the words and hands them aft, and you let it go. A maybe is a hard thing to steer by, but a maybe that says its own name plainly is better company than a promise that cannot. You have steered by worse, and so has everyone aboard.
 <He> looks at the clouds coming in from the west, and the eyes that count stars are, for a moment, only tired.
 [person C attitude +3]
 #40 Let it rest
@@ -193,6 +206,7 @@ You say nothing. <C> goes on talking quietly: the weed, the gulls, the stars, th
 <C> is quiet for a moment. Behind you, the oars keep their rhythm.
 "The storm took the Wave Dancer," <he> says then. "The Emperor's warship took the Dawn Chaser. Her people are on this boat with us." <He> looks out over the water. "We are all that is left. So we have to get there."
 The names go out over the sea. The sea keeps what it is given.
+The oars do not slow for the names, and that is right. Grief keeps its own watch. Rowing is its own kind of prayer, if you make it one, and tonight the whole boat is making it.
 #40 Sit in silence
 #35 "What if you are wrong?"
 
@@ -212,6 +226,7 @@ Then the wind changes. It hardens, the boat leans, and a rope somewhere slaps th
 
 §40
 The wind picks up, and the night closes in. The clouds swallow the stars, one by one, and the sky goes black. The oars bite harder, and the boat begins to pitch and lean. The families wake and hold their children. Someone says they see lightning, far out at sea, and no one answers, because there is nothing to answer.
+A tarp comes loose aft, and two men fight it back down, and lose, and fight it again, and this time it holds. The boat is doing what it was built to do, which is to outlive weather. So far, it is winning.
 You look at <C>. <He> is not watching the stars any longer. <He> is listening to the wind.
 #50 Take your place at the oars
 #41 Help bail the water out
@@ -219,11 +234,13 @@ You look at <C>. <He> is not watching the stars any longer. <He> is listening to
 
 §41
 You take a bucket and get in line with the bailers. The sea comes over the side faster than tired arms can throw it back. The deck grows slick, and the bundles strain at their ropes. <?The lightning shows the work in white flashes: bent backs, flying water.;The rain drives sideways, stinging the eyes of the people working beside you.> You bail, and bail, and the ocean waits beyond all patience for you to stop. Your arms burn, and then they go beyond burning.
+The bucket goes hand to hand down the line, full out and empty back, a chain of tired people pretending to be a pump. You have one place in the chain, and the chain needs it, and that is the whole of the argument.
 #42 Check on <D> and the families
 #50 Take your place at the oars
 
 §42
-You make your way along the crowded deck, between sleeping families and wakeful ones, which are often the same. The children lie pressed close beneath the tarps, small warm weights in the dark. <?A child murmurs a name from a village that no longer exists.;An old man props himself against the mast, awake, watching the water, past the age of fear.> When you touch the tarp, <D> stirs, half-wakes, holds the smallest child tighter, and sleeps again. <D life?It is the sleep of the strong, too deep for storms to reach.;It is the sleep of the worn, taken where it finds them.> There is nothing you can do here that sleep is not already doing. You move on.
+You make your way along the crowded deck, between sleeping families and wakeful ones, which are often the same. The children lie pressed close beneath the tarps, small warm weights in the dark. <?A child murmurs a name from a village that no longer exists.;An old man props himself against the mast, awake, watching the water, past the age of fear.> When you touch the tarp, <D> stirs, half-wakes, holds the smallest child tighter, and sleeps again. <D life?It is the sleep of the strong, too deep for storms to reach.;It is the sleep of the worn, taken where it finds them.> You take the edge of the tarp and pull it straight over them, a small thing, and a hand comes out of the dark and squeezes yours once, and goes back in. Small things are the currency here. You are learning to spend them.
+There is nothing you can do here that sleep is not already doing. You move on.
 #50 Take your place at the oars
 #45 Go to the bow as lookout
 
@@ -278,7 +295,7 @@ Somewhere in the black water <he> finds breath enough to spend on you. "Stubborn
 #59 Continue to the shore
 
 §53
-You reach for <C>. <He> clings to a floating plank with one arm and to you with the other, and laughs, wild and desperate, the sound of a mind that refuses to drown politely. "Weed and gulls!" <he> shouts into the rain. "I said there was land!" Proof, after a fashion. <rested?There is still a bottom to your strength, and you find it with every kick.;The plank does half your swimming for you, and you are glad of the debt.> You swim for the shore together, the plank between you.
+You reach for <C>. <He> clings to a floating plank with one arm and to you with the other, and laughs, wild and desperate, the sound of a mind that refuses to drown politely. "Weed and gulls!" <he> shouts into the rain. "I said there was land!" Proof, after a fashion. <rested?There is still a bottom to your strength, and you find it with every kick.;The plank does half your swimming for you, and you are glad of the debt.> You swim for the shore together, the plank between you. The sea keeps trying to take the plank, and <C he> keeps taking it back, and the whole way in <C he> is laughing at the argument, and the laugh does more for you than the plank does. It is hard to drown while you are busy laughing with someone.
 [person C attitude +3]
 #54 Shout to the others to hold together
 #59 Continue to the shore
@@ -287,6 +304,7 @@ You reach for <C>. <He> clings to a floating plank with one arm and to you with 
 "TOGETHER!" you roar into the storm, until your voice breaks. "HOLD TOGETHER!"
 <rested?Sleep stands behind your voice, and the roar comes from somewhere solid.;You have not slept, and the roar wears thin fast, but it is a roar.>
 And the dark answers. Voice answers voice, closer and closer, until all four of them are near enough to touch, <D> swimming strongly among them, rested, of all of you. The five of you close up in the black water, and hold. The storm spends itself on the reef, wave after breaking wave, and every wave tries to pull the five of you apart on the rocks, and every wave fails, while one arm in the knot still refuses.
+It is yours. Somewhere past the reef the storm is already losing interest, and you mean to outlast it, all five together, the way you began.
 #59 Continue to the shore
 
 §59
@@ -316,7 +334,8 @@ Between the two of you, the food disappears: buried, covered, unremarkable, wait
 
 §62
 [var silver 2]
-You pull the bundle from the rocks: a heavy bundle of silver coins, all that remains of your family's fortune. Everything your family owned went to the voyage, or to the sea, or to the fire of the uprising, and this is what is left. Metal in wet cloth, held in your two hands. Silver will not fill a stomach. But if there are people on these lands, it might buy what you need. You carry it up the beach. <rested?The silver is heavy, but your arms are still yours to command.;The silver is heavy, and your arms answer slowly, and you ask them more than once.>
+You pull the bundle from the rocks: a heavy bundle of silver coins, all that remains of your family's fortune. Everything your family owned went to the voyage, or to the sea, or to the fire of the uprising, and this is what is left. Metal in wet cloth, held in your two hands. Silver will not fill a stomach. But if there are people on these lands, it might buy what you need. The cloth around it is your mother's weave, saved from the fire because it was always meant for carrying exactly this. Fortune and memory in one bundle. You are glad of the dark for the first time tonight.
+You carry it up the beach. <rested?The silver is heavy, but your arms are still yours to command.;The silver is heavy, and your arms answer slowly, and you ask them more than once.>
 #64 Look after the others
 #68 (rested) Wade back to the wreck a second time
 #70 Let the night come
@@ -324,7 +343,8 @@ You pull the bundle from the rocks: a heavy bundle of silver coins, all that rem
 §63
 [var weapons 2]
 [bool broughtweapons true]
-You pull the axe free from the rocks: your great-grandfather's axe, its haft strong, its head old and true. Three generations it has outlived, and it means to outlive a fourth. Your family's name may be all that is left of your family's lands, and this is the shape of that name: iron, worn smooth by honest work. With it you can cut wood, build, and defend what you build. You carry it up the beach. <rested?The axe rides light on your shoulder, and the shore comes to meet you.;The axe rides your shoulder heavily, and every step up the beach is bargained for.>
+You pull the axe free from the rocks: your great-grandfather's axe, its haft strong, its head old and true. Three generations it has outlived, and it means to outlive a fourth. Your family's name may be all that is left of your family's lands, and this is the shape of that name: iron, worn smooth by honest work. With it you can cut wood, build, and defend what you build. Your hand fits the haft the way your father's hand did, and his father's before him, which is the whole of the inheritance. It is not a weapon first. It is an edge, and an edge is a beginning.
+You carry it up the beach. <rested?The axe rides light on your shoulder, and the shore comes to meet you.;The axe rides your shoulder heavily, and every step up the beach is bargained for.>
 #64 Look after the others
 #68 (rested) Wade back to the wreck a second time
 #70 Let the night come
@@ -341,17 +361,19 @@ There is still work to be done before anyone can sleep: the wounded to watch ove
 
 §65
 You kneel by the hurt refugee. The leg is broken by the rocks, the bone near the skin, but the bleeding has stopped. An old woman binds it with strips of sail cloth, her hands steady, the hands of someone who has done this before, and in worse places. "The leg will mend, if it is allowed to rest," she says. "The rest of us were lucky." She does not say lucky for how long.
+You steady the leg while she sets the splints, and the man grips your wrist and does not let go until it is done, and says nothing at all. The unhurriedness of her hands is half the medicine. The other half is the warmth, wherever the huddle touches.
 #66 See to the children and families
 #70 Let the night come
 
 §66
 You walk among the families. The children are wrapped in blankets, wet but whole, watching you with wide eyes. A mother touches your hand as you pass, and says nothing, and does not need to. <?A small boy has gathered a heap of wet shells, proud of them already.;<food 2?Someone presses a blanket into your hand and will not take it back.;Someone presses your hand between both of theirs, and will not let go until the shaking stops.>> Nobody says much; the day has taken all the words. But the huddle of people grows warmer wherever you go.
+Somebody's baby has begun to laugh at the rain, a sound so far out of place that it travels the whole huddle, and every face that hears it turns toward it first, and then away again, to keep it safe. Wet blankets steam faintly where the wind drops.
 #70 Sit with the families
 #71 Go to sleep among them
 
 §67
 [var weapons 1]
-You search the surf with numb hands, feeling in the shallows where the wreckage washes. The sea gives up a length of broken oar: its last gift, and a poor one. You wade ashore with it and stand it in the sand above the tide line. A poor weapon, but a weapon.
+You search the surf with numb hands, feeling in the shallows where the wreckage washes. The sea gives up a length of broken oar: its last gift, and a poor one. You wade ashore with it and stand it in the sand above the tide line. You test the swing of it once, standing, and it answers like an oar, heavy at the wrong end. But the night is full of worse ideas than wood in a hand, and you keep it near, and the beach feels a little smaller to defend with a defense in hand. A poor weapon, but a weapon.
 #66 See to the children and families
 #70 Let the night come
 
