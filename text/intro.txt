@@ -233,8 +233,8 @@ You look at <C>. <He> is not watching the stars any longer. <He> is listening to
 #45 Go to the bow as lookout
 
 §41
-You take a bucket and get in line with the bailers. The sea comes over the side faster than tired arms can throw it back. The deck grows slick, and the bundles strain at their ropes. <?The lightning shows the work in white flashes: bent backs, flying water.;The rain drives sideways, stinging the eyes of the people working beside you.> You bail, and bail, and the ocean waits beyond all patience for you to stop. Your arms burn, and then they go beyond burning.
-The bucket goes hand to hand down the line, full out and empty back, a chain of tired people pretending to be a pump. You have one place in the chain, and the chain needs it, and that is the whole of the argument.
+You take a bucket and kneel among the bailers, where the water lies deepest, aft of the mast. There is no line here and no taking of turns; there is only need, and everyone kneels where the need is. The sea comes over the side faster than tired arms can throw it back. You scoop, swing, and throw, and scoop again, and the deck grows slick under your knees, and the bundles strain at their ropes. <?The lightning shows the work in white flashes: bent backs, flying water.;The rain drives sideways, stinging the eyes of the people working beside you.> A man beside you falters, and the nearest hands take his bucket without a word, and the work closes over the gap and goes on.
+It is work with no progress in it. The boat will not be emptier for your scooping; she will only not be fuller, and tonight that is the whole of what is asked. You give it, scoop after scoop, and the ocean waits beyond all patience for you to stop. Your arms burn, and then they go beyond burning.
 #42 Check on <D> and the families
 #50 Take your place at the oars
 
