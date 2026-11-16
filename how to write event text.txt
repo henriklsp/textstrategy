@@ -55,7 +55,7 @@ Avoid similes with "like" and "as".
 Ethical and moral themes revolve around human emotions, quirks and vices such as temptation, pride, courage, folly and hope and the dream of freedom.
 The story is always told from the player's perspective. The player as the main character is referred to as 'you'. The reader only knows what the main character can see, hear and feel and remember. The player's character is mostly a silent protagonist, rarely described, but always present. 
 Be careful not to describe facts, which may contradict the actual game state. Check designdocument backstory section to keep facts consistent. Keep descriptions of person physical traits to a minimum, but focus on their behaviour, actions, speech, and mood. Use role traits as guidelines for personalities.
-In dialog, be sure to check what each character knows. When giving information to the player that they players character ('you') already knows they will talk accordingly.
+In dialog, be sure to check what each character knows. When giving information to the player that they players character ('you') already knows they will talk accordingly. Never describe dialog, ie. "He says that...", "They discuss whether...", but write each character's speech explicitly.
 On rare occasions, characters may mention past game events by using the <x?a;b> syntax where x is a tag that may or may not have been set in earlier events with [bool x true]. If x happened then they say 'a', if it didn't they say 'b'.
 Always write in the present tense, except in dialog when characters may speak in past, present or future tense.
 See style-examples.txt for approved examples and anti-examples.
