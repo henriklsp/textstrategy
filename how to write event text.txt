@@ -48,7 +48,7 @@ Add some choices with prerequisites. Some examples:
 Choices can be made mutually exclusive with the 'not' operator, if results should depend on whether a prerequisite is met or not.
 
 5: Final draft - prose text
-Rewrite all basic text in prose form.
+Expand and rewrite all basic text in prose form.
 Aim for a mythical style inspired by fantasy authors, such as J.R.R. Tolkien, U.K. Le Guin, N.K. Jemisin. Include sensory detail and vivid impressions of scenery, atmosphere, and nature, and objects. Use scenic descriptions inspired by David Attenborough, especially for passages setting the scene or depictions of nature, invoking a sense of wonder.
 The goal is to make the reader feel that they are experiencing extraordinary places and events first hand, and that their deeds and adventures will become legendary.
 Avoid similes with "like" and "as".
@@ -58,8 +58,9 @@ Be careful not to describe facts, which may contradict the actual game state. Ch
 In dialog, be sure to check what each character knows. When giving information to the player that they players character ('you') already knows they will talk accordingly. Never describe dialog, ie. "He says that...", "They discuss whether...", but write each character's speech explicitly.
 On rare occasions, characters may mention past game events by using the <x?a;b> syntax where x is a tag that may or may not have been set in earlier events with [bool x true]. If x happened then they say 'a', if it didn't they say 'b'.
 Always write in the present tense, except in dialog when characters may speak in past, present or future tense.
+Dialog must always be explicit speech in quotes - never summarised or described. 
 See style-examples.txt for approved examples and anti-examples.
-Aim for 100 to 500 words per section.
+Each section must grow to at least double length and contain at least 100 words and no more than 500 words.
 Dialog choices should be written as something the player character could say. 
 Verify that nothing important was lost in the rewrite from the fourth draft.
 
@@ -73,8 +74,9 @@ Replace all gender pronouns with <A He> <him> <his> etc.
 Finally, read the whole event text for syntax validation and correctness and logical consistency.
 All facts are consistent throughout.
 Things happen in a meaningful order for any path through the sections.
+Check that all characters present are consistent (not present in one section and mysteriously absent in the next) and their actions described. 
 Character behavior makes sense in the context given their traits. Even irrational behaviour can be explained. 
-Writing matches style guide.
+Writing matches style guide. All text is good prose, and no basic text in the style of the third draft remains.
 All character names are in <A> <B> tags.
 All gendered pronouns are in <he> <her> tags.
 Once again, check that all established rules from phase 1 to 6 are still fulfilled. 
