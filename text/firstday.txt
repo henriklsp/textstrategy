@@ -119,9 +119,9 @@ They look to you. They will go where the day is sent.
 The day goes to food. That much is settled, and the three of them are already turned toward the dunes: <B>, <C> and <D> will forage the land for it, the land past the dunes, green and quiet and unread, and the first question of such a land is always what it holds.
 "That leaves the wood and the building to us," says <A>, looking at what there is to build with. "If there is anything to raise, one pair of hands can raise the first of it while the rest walk. Everything anyone ever built was once one day's work by one pair of hands."
 What should it be?
-#51 (wood 1?) Shelter
-#51 (wood 1?) Fence
-#51 (wood 2?) Raft
+#51 (canbuild shelter?) Shelter
+#51 (canbuild fence?) Fence
+#51 (canbuild raft?) Raft
 #58 (wood 0?) Cut wood instead
 #59 Build nothing yet
 
@@ -166,9 +166,9 @@ The friends agree to put the day into something that lasts. Yesterday was for st
 "Then say what," says <A>, already moving the wood toward the tide line. "The morning is going while we stand here admiring our own decision. A building wants a whole day and every hand I can talk out of the others."
 The rest of the day is set out around the build, and the first question is what the day raises.
 What should it be?
-#61 (wood 1?) Shelter
-#61 (wood 1?) Fence
-#61 (wood 2?) Raft
+#61 (canbuild shelter?) Shelter
+#61 (canbuild fence?) Fence
+#61 (canbuild raft?) Raft
 
 §61
 // Long term: A builds; what of B?
