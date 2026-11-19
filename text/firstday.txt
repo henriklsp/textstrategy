@@ -145,7 +145,7 @@ By dark there will be something here that was not here at sunrise, and something
 [task D scavenge]
 There is nothing to build with, so the build keeps, and <A> takes the tools and turns toward the grove past the dunes instead.
 "Wood today," <A> says. "Building tomorrow. The grove will give what the beach would not, and the stack will grow while nobody stands over it."
-"Our first house is growing in a stand of trees," says <B>, "waiting for the axe to find it." And the three of them go off into the land to forage, and the camp is left to you, the sun, and the wind.
+"Our first house is growing in a stand of trees," says <B>, "waiting for the small hatchet to find it." And the three of them go off into the land to forage, and the camp is left to you, the sun, and the wind.
 By evening there will be a stack of wood that was not there in the morning, and food in whatever the foragers carry back, and that is a day nobody spent wrongly.
 
 §59
@@ -190,9 +190,9 @@ The work goes twice as fast as it would alone, or near enough to feel that way. 
 
 §63
 // Long term: A builds and B cuts wood; what of D?
-"A build and a woodpile both want keeping," says <B>, and takes the axe toward the grove without waiting to be walked there. "Yours is the house. Mine is the grove end of it. Neither of us starves if <C> does <C>'s part."
-So <A> holds the <building> alone, marks and pegs and first timbers going into the sand, and from the dunes comes the sound of the axe, patient and far off, and between them the wood and the work both have a keeper.
-<D> looks from the trees to the land, and waits to be told. The day is one build, one axe, one pair of walking feet short of everything it could use.
+"A build and a woodpile both want keeping," says <B>, and takes the small hatchet toward the grove without waiting to be walked there. "Yours is the house. Mine is the grove end of it. Neither of us starves if <C> does <C>'s part."
+So <A> holds the <building> alone, marks and pegs and first timbers going into the sand, and from the dunes comes the sound of the hatchet, patient and far off, and between them the wood and the work both have a keeper.
+<D> looks from the trees to the land, and waits to be told. The day is one build, one hatchet, one pair of walking feet short of everything it could use.
 #66 <D> cuts wood too
 #67 <D> forages
 
@@ -205,7 +205,7 @@ So <A> holds the <building> alone, marks and pegs and first timbers going into t
 [task D woodcutting]
 Two take the build, and the day settles around it: <A> and <B> at the wood, passing tools without looking up, <D> gone to the trees for more of it, and <C> walking into the land for food, the way <C> always does, nose to the green.
 "By dark," <A> calls after the woodcutter, "bring enough for tomorrow too. Tomorrow I build all day again."
-From the grove comes the far-off sound of the axe, which is answer enough, and from the green <C> is already too far to hear.
+From the grove comes the far-off sound of the hatchet, which is answer enough, and from the green <C> is already too far to hear.
 By evening the beginning of the <building> will be here, out of sand and wood and home-twisted cord, a thing that did not exist at sunrise, and the stack at the dune will have grown behind everyone's backs. Beginnings are what the five of you came to this coast to make.
 
 §65
@@ -227,9 +227,9 @@ Whatever the land gives them today will come back to hands that are busy making 
 [task C scavenge]
 [task D woodcutting]
 One holds the <building>, two go to the trees, and <C> walks into the land for food, alone in the green, which suits <C> well enough.
-"Two axes in the box, then," says <B> at the dune line. "We race."
+"Two small hatchets in the box, then," says <B> at the dune line. "We race."
 "Do not," says <A>, without turning around. "A finger is worth more than a tree's head start."
-<D> says nothing, only takes the second axe down from where it leans against the box, and the two of them go up into the trees together, and the sound that comes back down is doubled, two far-off axes ringing at once out of the green.
+<D> says nothing, only takes the second hatchet down from where it leans against the box, and the two of them go up into the trees together, and the sound that comes back down is doubled, two far-off hatchets ringing at once out of the green.
 The camp goes small and quiet behind them. The stack above the tide line will grow all day, the build will go as fast as one pair of hands can take it, and tomorrow the wood and the work will find each other.
 
 §67
@@ -250,7 +250,7 @@ The build rises on one side of the day and the woodpile on the other, and the la
 [task C scavenge]
 [task D scavenge]
 There is no wood to build with, so the long day begins at the trees.
-"Wood today, building tomorrow," says <A>, and takes the tools toward the grove, and <B> goes too, both axes into the green.
+"Wood today, building tomorrow," says <A>, and takes the tools toward the grove, and <B> goes too, both hatchets into the green.
 "Think of it this way," says <B> on the way. "Today we cut the house out of where it grows. Tomorrow we only have to put it together."
 <C> and <D> walk the other way, into the land for food, because the long term is hungry too.
 By dark the stack above the tide line will have grown all day, and tomorrow the wood will be a build. The future is begun the only way it can be begun, with what the grove gives.
