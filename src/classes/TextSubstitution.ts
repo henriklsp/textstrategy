@@ -5,6 +5,7 @@ import { PrerequisiteParser } from './PrerequisiteParser.ts';
 import { normalizeTaskName } from './DataModel.ts';
 import { TaskPhrases } from './TaskPhrases.ts';
 import { WorkerReport } from './WorkerReport.ts';
+import { AmountPhrases } from './AmountPhrases.ts';
 
 // What the substitution needs from the Dialog: game state, role assignments,
 // random picks, and captured choice variables.
@@ -33,6 +34,8 @@ export interface TextSubstitutionContext extends PrerequisiteContext {
 //   <can fish?a;b>      a if fishing can be performed, else b (any prerequisite type works)
 //   <A life?a;b>        a if the person in role A has positive trait life, else b
 //   <A -magic?a;b>      a if the person in role A has negative trait magic
+//   <food amount>       natural-language quantity of a resource ("no food",
+//                       "one basket of food", "2 stacks of wood"; see AmountPhrases)
 //   <working fish>      "Ada and Bea are fishing." - who is doing the task
 //                       (empty if nobody; task name fuzzy-matched like fish->fishing).
 //                       The current role's person becomes first person: "I am fishing."
@@ -102,6 +105,20 @@ export class TextSubstitution {
                 if (pronounResult !== null) {
                     this.currentRole = roleName; // Update current role
                     return pronounResult;
+                }
+            }
+
+            // <food amount>: natural-language quantity phrase for a resource
+            if (spaceIndex > 0) {
+                const amountName = trimmed.substring(0, spaceIndex).trim();
+                const amountWord = trimmed.substring(spaceIndex + 1).trim();
+                if (amountWord === 'amount') {
+                    const value = this.numericValue(amountName);
+                    if (value !== undefined && AmountPhrases.supports(amountName)) {
+                        return AmountPhrases.phrase(amountName, value);
+                    }
+                    // Not a numeric resource: keep the tag visible so the mistake is easy to spot
+                    return `<${inner}>`;
                 }
             }
 

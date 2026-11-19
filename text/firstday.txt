@@ -43,7 +43,7 @@ One by one the four friends wake as well, stiff from the cold ground, shaking th
 Along the shore the other families are up too, digging their things out of the sand, mending what the sea left mendable, calling their children in from the water. They survived the same sea you did, and they have nothing to spare on anyone else's morning.
 You call your friends together: <A>, <B>, <C> and <D>.
 "Everything on the sand," says <A>. "Whatever the five of us own, we look at it together, and then we stop standing still."
-So you lay it out in a ring between the blankets, and there is not much to lay out: <food> food, <weapons> weapons, <wood> wood, <silver> silver, a box of tools, two blankets. <B> reads each item out once, in a flat voice. <D> turns one of the blankets over, feeling for dry cloth, and does not find any.
+So you lay it out in a ring between the blankets, and there is not much to lay out: <food amount>, <weapons amount>, <wood amount>, <silver amount>, a box of tools, two blankets. <B> reads each item out once, in a flat voice. <D> turns one of the blankets over, feeling for dry cloth, and does not find any.
 "And that is everything," says <C>. "That is what the sea decided we were worth."
 "The tools are good ones," says <B>. "There. I have said the one good thing. May it hold the day together."
 Five people, and what lies on the sand is all there is between you and this coast. The talk starts at once, because there is no reason to wait: what is here, what can be got, and who will do what today.

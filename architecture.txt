@@ -68,6 +68,9 @@ src/browser.ts (browser) or src/index.ts (Node)
       (cond?) groups may precede the text: the choice is shown only when ALL are met
     - `<A>` -> text substitution: name of person in role A
     - `<variable>` -> text substitution: value of numeric variable
+    - `<resource amount>` -> text substitution: natural-language quantity phrase
+      (e.g., `<food amount>` -> "no food", "one basket of food", "2 baskets of food";
+      AmountPhrases.ts defines the unit of every resource)
     - `<variable?>` -> text substitution: display value of variable
     - `<variable op value?a;b>` -> text substitution: conditional (e.g., `<food 2?a;b>`)
     - `<?a;b;c>` -> text substitution: random pick
@@ -92,6 +95,8 @@ src/browser.ts (browser) or src/index.ts (Node)
   Supports nested tags (e.g., `<x?<?a;b>;c>`). Handles:
   - Role references: `<A>`, `<B>` -> person name
   - Numeric variables: `<food>` -> current value as string
+  - Amount phrases: `<food amount>` -> "no food" / "one basket of food" / "2 baskets of food"
+    (one is spelled out, every other amount is digits)
   - Boolean checks: `<hasDoneIt?>` -> "true"/"false"
   - Conditional logic: `<food 2?a;b>` -> a if food >= 2, else b
   - Random selection: `<?a;b;c>` -> randomly pick one option (once per section visit)
