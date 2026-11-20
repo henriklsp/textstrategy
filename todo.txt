@@ -6,6 +6,7 @@
 - Randomly generated characters
 - Data model: Buildings. Building task slots, efficiency bonus and other building effects.
 - Buildings: shelter, tent, shed, hut, house, raft, boat, pier, dock, storage, chicken coop, field, (other farming related buildings?), fence, stockade, watchtower, copper mine, iron mine, smithy, (other mining related buildings)
+- engine-triggered events. eg. construction complete
 - starvation or low health triggers events
 - character death
 - game over trigger and text
