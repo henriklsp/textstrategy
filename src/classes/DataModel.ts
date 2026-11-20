@@ -129,6 +129,7 @@ export interface SerializedDataModel {
     taskAssignments: TaskAssignment[];
     buildingsUnderConstruction: BuildingConstruction[];
     completedBuildings: BuildingType[];
+    formerBuilders: string[];
 }
 
 export class DataModel {
@@ -138,6 +139,9 @@ export class DataModel {
     private taskAssignments: TaskAssignment[];
     private buildingsUnderConstruction: BuildingConstruction[];
     private completedBuildings: Set<BuildingType>;
+    // Builders the forced-rest fallback moved to rest when a construction finished:
+    // they auto-resume the build task when the next construction starts.
+    private formerBuilders: string[];
 
     constructor() {
         this.numericData = new Map<string, number>();
@@ -146,6 +150,7 @@ export class DataModel {
         this.taskAssignments = [];
         this.buildingsUnderConstruction = [];
         this.completedBuildings = new Set<BuildingType>();
+        this.formerBuilders = [];
     }
 
     // Add a Person to the cast of available characters
@@ -327,6 +332,20 @@ export class DataModel {
             startDay: this.getCurrentDay(),
             daysToBuild: baseDaysToBuild
         });
+
+        // Auto-resume: builders the forced-rest fallback benched when the previous
+        // construction finished return to the new site. Only builders still resting
+        // are resumed: a player assignment to other work wins over the memory.
+        const stillBenched: string[] = [];
+        for (const name of this.formerBuilders) {
+            if (this.getTaskForPerson(name) !== 'rest') continue;
+            if (this.canPersonPerformTask(name, 'build')) {
+                this.assignPersonToTask(name, 'build');
+            } else {
+                stillBenched.push(name); // too unhealthy to build: stays benched
+            }
+        }
+        this.formerBuilders = stillBenched;
         return true;
     }
 
@@ -407,10 +426,15 @@ export class DataModel {
 
             const spent = this.get('mandaysspent') + builderEffort;
             if (spent >= building.daysToBuild) {
-                // Excess labour stays in mandaysspent for the next construction,
-                // but never more than one building's worth
-                this.set('mandaysspent', Math.min(building.daysToBuild, spent - building.daysToBuild));
-                this.completeBuilding(building.buildingType);
+                if (builderEffort > 0) {
+                    // Excess labour stays in mandaysspent for the next construction,
+                    // but never more than one building's worth
+                    this.set('mandaysspent', Math.min(building.daysToBuild, spent - building.daysToBuild));
+                    this.completeBuilding(building.buildingType);
+                } else {
+                    // Nobody is building today: banked man-days cannot finish the site
+                    this.set('mandaysspent', spent);
+                }
             } else {
                 this.set('mandaysspent', spent);
             }
@@ -639,6 +663,14 @@ export class DataModel {
         for (const assignment of [...this.taskAssignments]) {
             if (assignment.taskType === 'rest') continue;
             if (!this.canPersonPerformTask(assignment.personName, assignment.taskType)) {
+                // A healthy builder benched because there is nothing to build is
+                // remembered, so the next construction can resume them automatically
+                const person = this.getPersonByName(assignment.personName);
+                if (assignment.taskType === 'build' && person !== null
+                    && this.canPerformTask('build') === false
+                    && !this.formerBuilders.includes(assignment.personName)) {
+                    this.formerBuilders.push(assignment.personName);
+                }
                 this.assignPersonToTask(assignment.personName, 'rest');
             }
         }
@@ -730,7 +762,8 @@ export class DataModel {
             cast: this.castOfCharacters.map(p => p.toJSON()),
             taskAssignments: this.taskAssignments.map(a => ({ ...a })),
             buildingsUnderConstruction: this.buildingsUnderConstruction.map(b => ({ ...b })),
-            completedBuildings: Array.from(this.completedBuildings)
+            completedBuildings: Array.from(this.completedBuildings),
+            formerBuilders: [...this.formerBuilders]
         };
     }
 
@@ -754,6 +787,9 @@ export class DataModel {
         }
         for (const buildingType of data.completedBuildings) {
             model.completedBuildings.add(buildingType);
+        }
+        for (const name of data.formerBuilders ?? []) {
+            model.formerBuilders.push(name);
         }
         return model;
     }

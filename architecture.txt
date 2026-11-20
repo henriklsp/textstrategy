@@ -264,8 +264,9 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
 7. **Construction**: Buildings require resources, take time to build, and enable new capabilities.
    Construction is paid in man-days: the mandaysspent variable accumulates the builders' total
    work effort each day (each builder counts as their work efficiency, so low health slows them,
-   and days with nobody assigned to build make no progress). A building completes when
-   daysToBuild man-days have been spent on it; on completion the excess stays in the same
+   and days with nobody assigned to build make no progress, and banked man-days never finish
+   a site without a builder that day). A building completes when daysToBuild man-days have been
+   spent on it, on a day someone is actually building; on completion the excess stays in the same
    mandaysspent variable, capped at the finished building's daysToBuild, and counts toward
    the next construction. mandaysspent is a normal numeric variable, readable in text
    conditions and substitutions like any other.
@@ -297,7 +298,9 @@ The core loop is wired through the event files:
 - The rest task produces nothing but heals +3/day (healing is deliberately slower than starving); healing is clamped at maxHealth
 - Characters below their work penalty threshold (default 50% of maxHealth) work at proportionally reduced
   efficiency (floor 0.1) on every task except rest, including the build task (construction progress)
-- Characters at or below their forced rest threshold (default 25%) are moved to the rest task at the start of the daily update
+- Characters at or below their forced rest threshold (default 25%) are moved to the rest task at the start of the daily update;
+  healthy builders benched because nothing is under construction are remembered in formerBuilders
+  and auto-resume the build task when the next construction starts (player-assigned other work wins)
 - Trait modifiers: positive life heals 1.5x, negative life heals 0.5x; positive divinity keeps working down to 30% health
   and is only forced to rest at 15%, negative divinity gives up earlier (75% / 37.5%) and takes 1.25x starvation damage;
   positive harmony loses half attitude from starvation, negative harmony loses double

@@ -249,4 +249,86 @@ describe('Man-day construction (mandaysspent)', () => {
         expect(dm.isBuildingCompleted('shelter')).toBe(true);
         expect(dm.get('mandaysspent')).toBe(1);
     });
+
+    test('banked man-days do not finish a site while nobody is building', () => {
+        const dm = makeModel('Mason');
+        dm.startBuildingConstruction('fence', 1);
+        dm.set('mandaysspent', 1); // a man-day banked from an earlier construction
+        // With nobody assigned to build the fence does not complete,
+        // even though its man-days are fully paid
+        dm.updateDailyResources();
+        expect(dm.isBuildingCompleted('fence')).toBe(false);
+        expect(dm.get('mandaysspent')).toBe(1);
+
+        // One builder on the next day finishes it
+        dm.assignPersonToTask('Mason', 'build');
+        dm.updateDailyResources();
+        expect(dm.isBuildingCompleted('fence')).toBe(true);
+    });
+});
+
+describe('Idle builders: forced rest and auto-resume', () => {
+    const makeModel = (names: string[]): DataModel => {
+        const dm = new DataModel();
+        for (const name of names) {
+            dm.addPerson(new Person(name, 'life', 'magic', 'harmony'));
+        }
+        dm.set('wood', 20);
+        return dm;
+    };
+
+    test('a builder benched with nothing to build is remembered and auto-resumes', () => {
+        const dm = makeModel(['Mason']);
+        dm.assignPersonToTask('Mason', 'build');
+        // The next daily update: the build task is unperformable, Mason is benched
+        dm.updateDailyResources();
+        expect(dm.getTaskForPerson('Mason')).toBe('rest');
+
+        // When the next construction starts, Mason returns to the site
+        dm.startBuildingConstruction('shelter', 1);
+        expect(dm.getTaskForPerson('Mason')).toBe('build');
+    });
+
+    test('player-given other work wins over the auto-resume memory', () => {
+        const dm = makeModel(['Mason']);
+        dm.assignPersonToTask('Mason', 'build');
+        dm.updateDailyResources(); // benched, resting
+        dm.assignPersonToTask('Mason', 'woodcutting');
+        dm.startBuildingConstruction('shelter', 1);
+        expect(dm.getTaskForPerson('Mason')).toBe('woodcutting');
+    });
+
+    test('a benched builder who got hurt stays benched until healthy again', () => {
+        const dm = makeModel(['Mason', 'Tess']);
+        dm.assignPersonToTask('Mason', 'build');
+        dm.updateDailyResources(); // Mason benched, remembered
+        dm.getCast()[0].setHealth(10); // too hurt to build
+
+        dm.startBuildingConstruction('shelter', 1);
+        expect(dm.getTaskForPerson('Mason')).toBe('rest'); // too hurt: stays benched
+
+        // Tess finishes the shelter instead
+        dm.assignPersonToTask('Tess', 'build');
+        dm.updateDailyResources();
+        expect(dm.isBuildingCompleted('shelter')).toBe(true);
+
+        dm.getCast()[0].setHealth(100);
+        dm.updateDailyResources(); // Tess benched too (nothing to build)
+        dm.startBuildingConstruction('fence', 1);
+        // A healthy Mason resumes, and Tess from the finished site too
+        expect(dm.getTaskForPerson('Mason')).toBe('build');
+        expect(dm.getTaskForPerson('Tess')).toBe('build');
+    });
+
+    test('the benched list survives save and restore', () => {
+        const dm = makeModel(['Mason']);
+        dm.assignPersonToTask('Mason', 'build');
+        dm.updateDailyResources(); // benched, remembered
+
+        const restored = DataModel.fromJSON(dm.toJSON());
+        expect(restored.getTaskForPerson('Mason')).toBe('rest');
+        restored.set('wood', 20);
+        restored.startBuildingConstruction('shelter', 1);
+        expect(restored.getTaskForPerson('Mason')).toBe('build');
+    });
 });
