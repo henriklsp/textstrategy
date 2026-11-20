@@ -301,20 +301,18 @@ Wood and food both, and no decision spent on either. There are worse ways to mee
 Tomorrow you will take a closer look at this new land.
 
 §73
-// The rest-day ending: the day is given over, A and C go out anyway and pay for it in temper, and supper closes the first day ashore.
+// The rest-day ending: an ordinary argument between friends, the first fire on the coast, and a cooked supper.
 [task A woodcutting]
 [task C scavenge]
 [person A attitude -3]
 [person C attitude -3]
-Rest wins the day, and not everyone consents to it.
-"Then sit," says <A>, already lifting the tools out of the box. "I did not come ashore to watch the first day of it go by idle. The grove owes us wood, and I am going to collect." And <A> goes, the small hatchet on shoulder, up over the dunes without another word.
-<C> follows without a word either, out past the dunes, into the green where the food grows wild.
-"A whole day, told to rest," says <B>, pulling a blanket around shoulders and settling out of the wind. "I intend to take it seriously."
-"Rest is also work," says <D>, lying back. "It is the work of being alive the day after. Somebody has to set the example."
-The three of you let the morning go where it wants. The talk is the slow kind there was never room for on the boat: home, its remembered rooms, the small unimportant things that turn out to be the important ones.
-"When there is a hall," says <D> into the sky, "I want a bench in it. A long one. Everything else can wait its turn for me."
-"First a roof," says <B>. "Then we can argue about the furniture."
-The sun climbs and turns, the shadows of the dunes swing across the camp, and the sea keeps its patient sound, and nobody counts anything.
-They come back inside the evening, <A> first with a stack of wood across both shoulders, and <C> behind with the day's findings folded into a blanket.
-Supper is <D>'s to make, and <D> makes it with the knife and the pot: <food 3?the voyage's last catch, dug out of its cool sand above the tide line where it kept all day, cut small and shared raw with salt, what <C> found in the green heaped beside it.;what <C> found in the green, cleaned and cut and heaped into shares, and it is enough, which is the whole of what a meal has to be.>
-The five of you eat together in the last of the light, sitting in a ring by the blankets, and the first day ashore ends without anything built and without anything decided, with wood at the dune and a meal in everyone, and that is not nothing.
+"That I will argue for," says <B>, settling back out of the wind. "We are alive, the weather is with us, and the boat never gave us an empty day to spend properly. Rested bodies, dry clothes, and a fire tonight: that is a haul too, only gathered sitting down. I say we take the day."
+"Agreed on my part, and gladly," says <D>. "A whole day, all of us in one place, with nothing wanted until evening."
+<A> hears the case out, and does not sit down. "Then rest, all three of you," <A> says. "But the grove is up there, the day is fair, and wood does not walk down to the camp on its own. I will be back at dark with a stack." And <A> goes, the small hatchet on shoulder, up over the dunes.
+"Supper does not walk into the pot either," says <C>, already turned for the green. "I will go and find ours. Someone else can see to this promised fire."
+The sun does its part all morning, and dry is in the world again: leaves caught thick in the bushes where the rain never got behind them, dead twigs in the lee of the dunes. You and <D> gather lapfuls while <B> sorts the pile.
+The fire is the day's one work, and it takes the day. <B> splits a straight dead branch into a drill and a hearth, and tells the old trick out loud while <D> spins it. "Do not stop when it smokes. Stop when it smokes properly." You take your turns at the spinning with the talk going on above: home, and its remembered rooms. The smoke builds, and late in the day a small flame stands up out of the dry leaves, wobbles, and holds. The first fire on this coast.
+They come back inside the evening: <A> first with a stack of wood across both shoulders, and <C> behind with the day's findings folded into a blanket. Both of them stop at the edge of the light.
+"A wall of a different shape," says <A>, looking at the fire, and sets the stack down. "I take the point."
+Supper is <D>'s to make, and tonight it is cooking in earnest: the pot over the flames, the spoon going round. <food 3?The voyage's last catch, dug out of its cool sand above the tide line where it kept all day, goes into the pot with what <C> found in the green, and the smell of it cooking is a day's pay by itself.;What <C> found in the green goes into the pot, and there is enough of it, cooked, which is more than a meal has to be.>
+The five of you eat together in the firelight, sitting in a ring by the blankets, and the first day ashore ends without anything built, with wood at the dune, a fire in the sand, a cooked meal in everyone, and that is not nothing.
