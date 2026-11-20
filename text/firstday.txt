@@ -30,7 +30,7 @@
 // Redone per the amended guide: scenes and quoted dialogue instead of summary, at least 100 words per section.
 // Stage 6 - State: the intro's grab choices echo here. §1 names what was saved (axe / oar / silver / buried catch),
 // §10 knows the salvaged deck planks (planks bool, with [var wood 1] from intro §69), §20 knows the silver,
-// and the forage endings know the buried catch (§58, §59, §64-§67, §68). Everything else stays state-neutral.
+// and the forage endings know the buried catch (§58, §59, §64-§68). Everything else stays state-neutral.
 
 *A: divinity
 *B: magic
@@ -166,7 +166,7 @@ The whole day goes to food. A narrow choice, and a safe one, and the pot will be
 §60
 // Long term: choose the building; the work is agreed around A's build.
 [set building=choice]
-The friends agree to put the day into something that lasts. Yesterday was for staying alive. This day is for beginning to live, and a house begun is a different thing from a camp made.
+The friends agree to put the day into something that lasts. Last night was for staying alive. This day is for beginning to live, and a house begun is a different thing from a camp made.
 "Then say what," says <A>, already moving the wood toward the tide line. "The morning is going while we stand here admiring our own decision. A building wants a whole day and every hand I can talk out of the others."
 The rest of the day is set out around the build, and the first question is what the day raises.
 What should it be?
@@ -257,7 +257,7 @@ There is no wood to build with, so the long day begins at the trees.
 "Wood today, building tomorrow," says <A>, and takes the tools toward the grove, and <B> goes too, both hatchets into the green.
 "Think of it this way," says <B> on the way. "Today we cut the house out of where it grows. Tomorrow we only have to put it together."
 <C> and <D> walk the other way, into the land for food, because the long term is hungry too.
-By dark the stack above the tide line will have grown all day, and tomorrow the wood will be a build. The future is begun the only way it can be begun, with what the grove gives. <food 3?And while the day is spent on trees, the buried catch holds supper still, up past the tide line in the cool sand.;>
+By dark the stack above the tide line will have grown all day, and tomorrow the wood will be a build. The future is begun the only way it can be begun, with what the grove gives. <food 3?And while the day is spent on trees, the buried catch holds supper still, cool in the sand past the tide line.;>
 
 §70
 // The alternate ending: the work decision is put off; the friends explore the new land, the grove beyond the dunes.
