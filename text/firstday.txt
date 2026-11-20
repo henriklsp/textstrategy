@@ -210,7 +210,7 @@ So <A> holds the <building> alone, marks and pegs and first timbers going into t
 Two take the build, and the day settles around it: <A> and <B> at the wood, passing tools without looking up, <D> gone to the trees for more of it, and <C> walking into the land for food, the way <C> always does, nose to the green.
 "By dark," <A> calls after the woodcutter, "bring enough for tomorrow too. Tomorrow I build all day again."
 From the grove comes the far-off sound of the hatchet, which is answer enough, and from the green <C> is already too far to hear.
-By evening the beginning of the <building> will be here, out of sand and wood and home-twisted cord, a thing that did not exist at sunrise, and the stack at the dune will have grown behind everyone's backs. Beginnings are what the five of you came to this coast to make.
+By evening the beginning of the <building> will be here, out of sand and wood and home-twisted cord, a thing that did not exist at sunrise, and the stack at the dune will have grown behind everyone's backs. Beginnings are what the five of you came to this coast to make. <food 3?And one beginning is already made: the catch lies buried up past the tide line, supper waiting in the ground.;>
 
 §65
 // Long term ending: A and B build, C and D forage.
