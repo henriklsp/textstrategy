@@ -41,8 +41,8 @@ export class DebugFormatter {
         // Buildings
         const { under, completed } = dataModel.getBuildingsForDebug();
         for (const building of under) {
-            const daysLeft = building.daysToBuild - (dataModel.getCurrentDay() - building.startDay);
-            lines.push(`building: ${building.buildingType} (${daysLeft} days left)`);
+            const spent = dataModel.get('mandaysspent');
+            lines.push(`building: ${building.buildingType} (${spent} of ${building.daysToBuild} man-days)`);
         }
         for (const building of completed) {
             lines.push(`building: ${building} (complete)`);
