@@ -30,8 +30,8 @@ export class StartConstructionEffect implements Effect {
             if (!buildingText) {
                 throw new Error(`Choice variable '${varName}' was never set`);
             }
-            const normalized = buildingText.trim().toLowerCase();
-            if (!BuildingDefinitions.isValidBuildingType(normalized)) {
+            const normalized = BuildingDefinitions.normalizeType(buildingText);
+            if (!normalized) {
                 throw new Error(`Invalid building type '${buildingText}' (expected one of ${BuildingDefinitions.getTypes().join(', ')})`);
             }
             buildingType = normalized;

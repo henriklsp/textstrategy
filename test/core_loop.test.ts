@@ -129,7 +129,7 @@ describe('Core loop wiring', () => {
         expect(dataModel.get('wood')).toBe(2);
 
         // The flow continues to the work focus
-        pick(dialog, 'How should the work focus today?');
+        pick(dialog, 'Get to work');
     });
 
     test('firstday: short term with wood - one builds, three forage', () => {
@@ -139,9 +139,9 @@ describe('Core loop wiring', () => {
         const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
 
         pick(dialog, 'Make do with what we have');
-        pick(dialog, 'How should the work focus today?');
+        pick(dialog, 'Get to work');
         pick(dialog, 'Focus on the short term: three forage, one builds');
-        pick(dialog, 'Shelter');
+        pick(dialog, 'Build a shelter');
 
         // §51 ending: shelter under construction and paid for, one builder,
         // three foragers, no choices left and no event scheduled
@@ -162,13 +162,13 @@ describe('Core loop wiring', () => {
         const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
 
         pick(dialog, 'Make do with what we have');
-        pick(dialog, 'How should the work focus today?');
+        pick(dialog, 'Get to work');
         pick(dialog, 'Focus on the short term: three forage, one builds');
         // No wood: nothing to build with, only cutting wood or nothing
         const labels = dialog.getCurrentChoices().map(c => c.getText());
-        expect(labels).not.toContain('Shelter');
-        expect(labels).toContain('Cut wood instead');
-        pick(dialog, 'Cut wood instead');
+        expect(labels).not.toContain('Build a shelter');
+        expect(labels).toContain('Cut wood first, build later');
+        pick(dialog, 'Cut wood first, build later');
 
         expect(dialog.getCurrentChoices().length).toBe(0);
         expect(dataModel.getPersonsForTask('woodcutting')).toHaveLength(1);
@@ -183,9 +183,9 @@ describe('Core loop wiring', () => {
         const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
 
         pick(dialog, 'Make do with what we have');
-        pick(dialog, 'How should the work focus today?');
+        pick(dialog, 'Get to work');
         pick(dialog, 'Focus on the long term: building first');
-        pick(dialog, 'Raft');
+        pick(dialog, 'Build a raft');
         pick(dialog, dialog.getPersonForRole('B')!.getName() + ' builds too');
         pick(dialog, dialog.getPersonForRole('D')!.getName() + ' cuts wood');
 
@@ -209,9 +209,9 @@ describe('Core loop wiring', () => {
         const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
 
         pick(dialog, 'Make do with what we have');
-        pick(dialog, 'How should the work focus today?');
+        pick(dialog, 'Get to work');
         pick(dialog, 'Focus on the long term: building first');
-        pick(dialog, 'Shelter');
+        pick(dialog, 'Build a shelter');
         pick(dialog, dialog.getPersonForRole('B')!.getName() + ' cuts wood');
         pick(dialog, dialog.getPersonForRole('D')!.getName() + ' forages');
 
@@ -234,7 +234,7 @@ describe('Core loop wiring', () => {
         const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
 
         pick(dialog, 'Make do with what we have');
-        pick(dialog, 'How should the work focus today?');
+        pick(dialog, 'Get to work');
         // With no wood the long term still stands: wood today, building tomorrow
         pick(dialog, 'Focus on the long term: building first');
 
@@ -363,6 +363,23 @@ describe('[build <building>] choice variable', () => {
         };
         effect.takeEffect(dataModel, context);
         expect(dataModel.isBuildingUnderConstruction('shelter')).toBe(true);
+    });
+
+    test('a prose choice label still names the building: "Build a fence" builds the fence', () => {
+        const parser = new EventParser();
+        const event = parser.parseText(
+            '§1\n[set building=choice]\nWhat shall we build?\n#2 Build a fence\n§2\n[build <building>]\nSo be it.'
+        );
+        expect(parser.getIssues()).toEqual([]);
+
+        const dataModel = newDataModel();
+        dataModel.set('wood', 5);
+        const dialog = new Dialog(event, dataModel, noop);
+        dialog.start();
+        pick(dialog, 'Build a fence');
+
+        expect(dataModel.isBuildingUnderConstruction('fence')).toBe(true);
+        expect(dataModel.get('wood')).toBe(4);
     });
 
     test('literals still work and invalid building types are rejected', () => {

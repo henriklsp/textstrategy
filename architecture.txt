@@ -146,6 +146,10 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   completed or under construction, and resources must be available. Resolves building reference from:
   - Literal building type (shelter, fence, raft, hall, workshop, farm, mine, dock, storage)
   - Choice variable reference (<building>) via context.getChoiceVariable(), case-insensitive
+    BuildingDefinitions.normalizeType() maps a prose choice label to the building type:
+    the exact name, or the first building named inside the label ("Build a shelter" -> shelter).
+    The <building> text substitution renders the same canonical type, so
+    choice labels may be full phrases.
 - **SetChoiceEffect.ts**: Captures next player choice. Uses context.setPendingChoiceCapture()
   to set up capture, Dialog stores choice text in choiceVariables map.
 - **EffectFactory.ts**: Central factory for parsing effect strings into Effect objects.

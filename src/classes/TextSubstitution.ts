@@ -6,6 +6,7 @@ import { normalizeTaskName } from './DataModel.ts';
 import { TaskPhrases } from './TaskPhrases.ts';
 import { WorkerReport } from './WorkerReport.ts';
 import { AmountPhrases } from './AmountPhrases.ts';
+import { BuildingDefinitions } from './BuildingDefinitions.ts';
 
 // What the substitution needs from the Dialog: game state, role assignments,
 // random picks, and captured choice variables.
@@ -174,6 +175,12 @@ export class TextSubstitution {
                         } catch {
                             // Not a task label: keep the captured value
                         }
+                    }
+                    // <building>: render the canonical building type, so a prose
+                    // choice label ("Build a shelter") reads as "shelter" in text
+                    if (name === 'building') {
+                        const buildingType = BuildingDefinitions.normalizeType(choiceVar);
+                        if (buildingType) return buildingType;
                     }
                     return choiceVar;
                 }

@@ -101,6 +101,17 @@ export class BuildingDefinitions {
         return type in BUILDINGS;
     }
 
+    // Map a choice label to a building type: exact name first, otherwise the
+    // first recognized building named inside the text ("Build a shelter" -> shelter)
+    static normalizeType(text: string): BuildingType | null {
+        const t = text.trim().toLowerCase();
+        if (this.isValidBuildingType(t)) return t as BuildingType;
+        for (const type of this.getTypes()) {
+            if (new RegExp(`\\b${type}\\b`).test(t)) return type;
+        }
+        return null;
+    }
+
     // Get the construction time for a building
     static getDaysToBuild(buildingType: BuildingType): number {
         return BUILDINGS[buildingType].daysToBuild;

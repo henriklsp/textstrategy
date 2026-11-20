@@ -94,7 +94,7 @@ The old woman bites it, and nods, and her sons stack the planks at your feet wit
 You carry the planks up together, two stacks of them, and stand them with your own things, and when you look back the woman has already gone back to her own business.
 It is strange, how much of a house is already in a pile of wood, waiting.
 <D> pats the stack once with a flat hand. "There," <D> says. "We own something again. I had begun to forget how that felt."
-#40 How should the work focus today?
+#40 Get to work
 
 §30
 // Making do: no help asked for, nothing searched for; the work of the day waits.
@@ -104,7 +104,7 @@ So the five of you keep to yourselves and make do, and sit close around the box 
 "Every day on that boat I planned for land," says <B>. "It turns out land is also a thing one plans for. A man could sit here a week and the work would still be standing there, waiting to be chosen."
 <C> is watching the green line past the dunes, away from the sea for the first time in weeks. "There is food out there," <C> says. "Growing wild, the way food grows when nobody is watching it. We have tools, hands, and a whole day. We do not own enough for despair."
 "Then let us decide how to spend it," says <A>. "The day will not wait for us to feel ready."
-#40 How should the work focus today?
+#40 Get to work
 
 §40
 // The work focus: the main strategic decision of the day.
@@ -125,11 +125,11 @@ They look to you. They will go where the day is sent.
 The day goes to food. That much is settled, and the three of them are already turned toward the dunes: <B>, <C> and <D> will forage the land for it, the land past the dunes, green and quiet and unread, and the first question of such a land is always what it holds.
 "That leaves the wood and the building to us," says <A>, looking at what there is to build with. "If there is anything to raise, one pair of hands can raise the first of it while the rest walk. Everything anyone ever built was once one day's work by one pair of hands."
 What should it be?
-#51 (canbuild shelter?) Shelter
-#51 (canbuild fence?) Fence
-#51 (canbuild raft?) Raft
-#58 (wood 0?) Cut wood instead
-#59 Build nothing yet
+#51 (canbuild shelter?) Build a shelter
+#51 (canbuild fence?) Build a fence
+#51 (canbuild raft?) Build a raft
+#58 (wood 0?) Cut wood first, build later
+#59 Build nothing: all four forage
 
 §51
 // Short term ending: A builds, B, C and D forage.
@@ -172,9 +172,9 @@ The friends agree to put the day into something that lasts. Last night was for s
 "Then say what," says <A>, already moving the wood toward the tide line. "The morning is going while we stand here admiring our own decision. A building wants a whole day and every hand I can talk out of the others."
 The rest of the day is set out around the build, and the first question is what the day raises.
 What should it be?
-#61 (canbuild shelter?) Shelter
-#61 (canbuild fence?) Fence
-#61 (canbuild raft?) Raft
+#61 (canbuild shelter?) Build a shelter
+#61 (canbuild fence?) Build a fence
+#61 (canbuild raft?) Build a raft
 
 §61
 // Long term: A builds; what of B?
