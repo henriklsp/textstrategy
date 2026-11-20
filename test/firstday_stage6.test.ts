@@ -42,7 +42,7 @@ function expectClean(text: string): void {
     expect(text).not.toMatch(/<[A-Za-z!?]/);
 }
 
-describe('Stage 6: the intro's choices echo in firstday', () => {
+describe("Stage 6: the intro's choices echo in firstday", () => {
     beforeEach(() => {
         jest.spyOn(console, 'log').mockImplementation(() => {});
         jest.spyOn(console, 'warn').mockImplementation(() => {});
@@ -77,7 +77,7 @@ describe('Stage 6: the intro's choices echo in firstday', () => {
         expect(new Set(texts).size).toBe(3);
     });
 
-    test('§20 knows whether you can meet the plank woman's price', () => {
+    test("§20 knows whether you can meet the plank woman's price", () => {
         const texts: string[] = [];
         for (const silver of [0, 2]) {
             const dataModel = newDataModel();
