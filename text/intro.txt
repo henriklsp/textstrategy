@@ -385,6 +385,7 @@ You wade back in, and the wreck is still on the reef, groaning with every wave, 
 §69
 You work the planks loose one by one, and the sea fights you for each of them, pulling at the wood with the whole weight of the storm behind it. You stack them against your chest and body, plank after plank of good wood, heavier in your arms than it looked in the water, and you make the crossing to the shore slowly, on your feet, then knee-deep, then hardly at all. Your legs give out on the wet sand, and you go down with the wood still clutched to you, and you do not get up again tonight. The wreck can break on the reef until it is done. The wood is ashore.
 [bool planks true]
+[var wood 1]
 The night closes over the beach, and you sleep where you fell, on the planks, under the rain, too tired to be glad of them yet. The first day ashore waits for morning.
 [event firstday 1]
 
