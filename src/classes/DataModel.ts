@@ -14,9 +14,9 @@ export const RESOURCES = ['food', 'gold', 'silver', 'weapons', 'population', 'ir
 export type Resource = typeof RESOURCES[number];
 const RESOURCE_VARIABLES = new Set<string>(RESOURCES);
 
-// mandaysspent: man-days of work accumulated on the building under construction
-// carryovermandays: excess labour from a finished construction, spent on the next one
-const KNOWN_VARIABLES = new Set<string>([...RESOURCES, 'currentDay', 'mandaysspent', 'carryovermandays']);
+// mandaysspent: man-days of work available for construction. Excess labour from a
+// finished building stays in the same variable and counts toward the next one.
+const KNOWN_VARIABLES = new Set<string>([...RESOURCES, 'currentDay', 'mandaysspent']);
 
 // Bounty system for scavenging
 const MAX_BOUNTY = 10;
@@ -303,7 +303,8 @@ export class DataModel {
     // construction, or if the resources are not available.
     // daysToBuild is stored as the base value: the man-days of work needed to finish the
     // building. The mandaysspent variable accumulates the builders' effort each day; the
-    // building completes when mandaysspent reaches daysToBuild.
+    // building completes when daysToBuild man-days have been spent on it. Excess labour
+    // on completion stays in mandaysspent (capped at daysToBuild) for the next one.
     public startBuildingConstruction(buildingType: BuildingType, daysToBuild?: number): boolean {
         if (!this.canStartConstruction(buildingType)) {
             console.warn(`Cannot start construction of '${buildingType}'`);
@@ -319,11 +320,7 @@ export class DataModel {
             ? daysToBuild
             : BuildingDefinitions.getDaysToBuild(buildingType);
 
-        // Any excess labour carried over from the previous construction is spent here,
-        // but never more than the new building's size
-        const seeded = Math.min(this.get('carryovermandays'), baseDaysToBuild);
-        this.set('carryovermandays', 0);
-        this.set('mandaysspent', seeded);
+        // Any excess labour in mandaysspent carries over to the new construction as is
 
         this.buildingsUnderConstruction.push({
             buildingType,
@@ -410,10 +407,9 @@ export class DataModel {
 
             const spent = this.get('mandaysspent') + builderEffort;
             if (spent >= building.daysToBuild) {
-                // Excess labour is stored for the next construction,
+                // Excess labour stays in mandaysspent for the next construction,
                 // but never more than one building's worth
-                this.set('carryovermandays', Math.min(building.daysToBuild, spent - building.daysToBuild));
-                this.set('mandaysspent', 0);
+                this.set('mandaysspent', Math.min(building.daysToBuild, spent - building.daysToBuild));
                 this.completeBuilding(building.buildingType);
             } else {
                 this.set('mandaysspent', spent);

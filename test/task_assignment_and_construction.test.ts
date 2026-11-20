@@ -166,7 +166,7 @@ describe('Task Assignment and Construction', () => {
     });
 });
 
-describe('Man-day construction (mandaysspent and carryovermandays)', () => {
+describe('Man-day construction (mandaysspent)', () => {
     const makeModel = (name: string): DataModel => {
         const dm = new DataModel();
         dm.addPerson(new Person(name, 'life', 'magic', 'harmony'));
@@ -174,10 +174,9 @@ describe('Man-day construction (mandaysspent and carryovermandays)', () => {
         return dm;
     };
 
-    test('the variables default to 0 and are readable like any other variable', () => {
+    test('mandaysspent defaults to 0 and is readable like any other variable', () => {
         const dm = new DataModel();
         expect(dm.get('mandaysspent')).toBe(0);
-        expect(dm.get('carryovermandays')).toBe(0);
     });
 
     test('progress is man-days of work, not elapsed days', () => {
@@ -201,7 +200,7 @@ describe('Man-day construction (mandaysspent and carryovermandays)', () => {
         expect(dm.isBuildingCompleted('raft')).toBe(true);
     });
 
-    test('two builders on a one-man-day building finish in one day and bank the excess', () => {
+    test('two builders on a one-man-day building finish in one day; the excess stays in mandaysspent', () => {
         const dm = new DataModel();
         dm.addPerson(new Person('Una', 'life', 'magic', 'harmony'));
         dm.addPerson(new Person('Dua', 'life', 'magic', 'harmony'));
@@ -211,47 +210,43 @@ describe('Man-day construction (mandaysspent and carryovermandays)', () => {
         dm.assignPersonToTask('Dua', 'build');
         dm.updateDailyResources();
         expect(dm.isBuildingCompleted('shelter')).toBe(true);
-        // 2 man-days of work on a 1 man-day building: 1 excess, stored
-        expect(dm.get('mandaysspent')).toBe(0);
-        expect(dm.get('carryovermandays')).toBe(1);
+        // 2 man-days of work on a 1 man-day building: 1 excess stays in the same variable
+        expect(dm.get('mandaysspent')).toBe(1);
     });
 
-    test('the stored excess seeds the next construction, capped at its size', () => {
+    test('the excess in mandaysspent counts toward the next construction', () => {
         const dm = new DataModel();
         dm.addPerson(new Person('Una', 'life', 'magic', 'harmony'));
-        dm.addPerson(new Person('Dua', 'life', 'magic', 'harmony'));
         dm.set('wood', 20);
-        dm.startBuildingConstruction('shelter', 1);
-        dm.assignPersonToTask('Una', 'build');
-        dm.assignPersonToTask('Dua', 'build');
-        dm.updateDailyResources(); // completes with 1 excess man-day stored
+        dm.startBuildingConstruction('fence', 4);
+        dm.set('mandaysspent', 3); // 3 man-days banked from an earlier construction
+        expect(dm.isBuildingCompleted('fence')).toBe(false);
 
-        dm.startBuildingConstruction('fence', 1);
-        // The fence starts with the stored man-day already spent on it
-        expect(dm.get('mandaysspent')).toBe(1);
-        expect(dm.get('carryovermandays')).toBe(0);
-        // So it completes on the next daily update even with nobody building
-        dm.assignPersonToTask('Una', 'rest');
-        dm.assignPersonToTask('Dua', 'rest');
+        // A day without builders: the banked man-days stand, but nothing is added,
+        // so the site does not complete
+        dm.updateDailyResources();
+        expect(dm.get('mandaysspent')).toBe(3);
+        expect(dm.isBuildingCompleted('fence')).toBe(false);
+
+        // One builder-day on top of the 3 banked completes the 4-man-day fence
+        dm.assignPersonToTask('Una', 'build');
         dm.updateDailyResources();
         expect(dm.isBuildingCompleted('fence')).toBe(true);
-        expect(dm.get('carryovermandays')).toBe(0);
+        expect(dm.get('mandaysspent')).toBe(0); // 4 spent, no excess
     });
 
-    test('the carry-over can never exceed the finished or the new building\'s man-days', () => {
+    test('the excess can never exceed the finished building\'s man-days', () => {
         const dm = new DataModel();
         for (const name of ['Una', 'Dua', 'Tria']) {
             dm.addPerson(new Person(name, 'life', 'magic', 'harmony'));
         }
-        dm.set('wood', 50);
-        dm.startBuildingConstruction('raft', 2);
+        dm.set('wood', 20);
+        dm.startBuildingConstruction('shelter', 1);
         for (const name of ['Una', 'Dua', 'Tria']) {
             dm.assignPersonToTask(name, 'build');
         }
-        dm.updateDailyResources(); // 3 effort on a 2 man-day building: excess 1, capped at 2
-        expect(dm.get('carryovermandays')).toBe(1);
-
-        dm.startBuildingConstruction('shelter', 1); // smaller than the stored excess
-        expect(dm.get('mandaysspent')).toBe(1); // capped at the new building's size
+        dm.updateDailyResources(); // 3 effort on a 1 man-day building: excess 2, capped at 1
+        expect(dm.isBuildingCompleted('shelter')).toBe(true);
+        expect(dm.get('mandaysspent')).toBe(1);
     });
 });

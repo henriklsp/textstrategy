@@ -36,8 +36,9 @@ src/browser.ts (browser) or src/index.ts (Node)
   - Daily updates: resource production from tasks, resource consumption, building construction progress
   - Buildings are built by man-days: the mandaysspent variable accumulates the builders'
     total work effort each day (each builder weighted by work efficiency, so low health slows
-    construction; days with nobody building make no progress) and the building completes when
-    mandaysspent reaches daysToBuild
+    construction; days with nobody building make no progress); a building completes when
+    daysToBuild man-days have been spent on it, and the excess stays in mandaysspent
+    (capped at daysToBuild) and counts toward the next construction
 - **UI.ts**: All presentation decisions. Paragraph layout (blank line = new paragraph, single line
   breaks become spaces), "Continue" option for sections without choices, output to index.html
   (window.updateStory callback) or console. Implements IGameUI interface for decoupling from GameLoop.
@@ -263,11 +264,11 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
 7. **Construction**: Buildings require resources, take time to build, and enable new capabilities.
    Construction is paid in man-days: the mandaysspent variable accumulates the builders' total
    work effort each day (each builder counts as their work efficiency, so low health slows them,
-   and days with nobody assigned to build make no progress) and the building completes when
-   mandaysspent reaches daysToBuild. Excess labour on completion is not lost: it is stored in
-   carryovermandays, capped at daysToBuild (of the finished building, and again when seeding the
-   next construction), and spent on the next construction. Both are normal numeric variables,
-   readable in text conditions and substitutions like any other variable.
+   and days with nobody assigned to build make no progress). A building completes when
+   daysToBuild man-days have been spent on it; on completion the excess stays in the same
+   mandaysspent variable, capped at the finished building's daysToBuild, and counts toward
+   the next construction. mandaysspent is a normal numeric variable, readable in text
+   conditions and substitutions like any other.
 
 ## CORE LOOP WIRING
 The core loop is wired through the event files:
