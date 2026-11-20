@@ -17,6 +17,7 @@
 // Main path: §1 -> §40 the work focus -> §50 or §60 -> the ending sections.
 // Main decision in §1: search the beach, ask the other families for help, make do, or decide tomorrow (§70).
 // §10 search the beach (+1 wood). §20 ask for help: refused, but planks for silver; §21 buy the planks (needs silver). §30 make do.
+// §10 can also give the day to rest: §73 (A cuts wood and C forages anyway at an attitude cost; B and D rest; supper ends the day).
 // Work focus in §40: short term (§50) or long term (§60 with wood / §68 without wood).
 // Short term: B, C and D forage; with wood, A builds (§51); with no wood, A cuts wood (§58) or forages too (§59).
 // Long term: A builds; choose the building (§60), then B's work (§61 -> §62 build / §63 cut wood), then D's work (cut wood or forage); endings §64-§67. C always forages.
@@ -67,7 +68,8 @@ The best of it is planks, torn off the boat by the night's waves and washed in s
 <D> carries what the others pile up, back and forth to the camp, saying nothing about the cold of the water or the weight of the wood, and <A> walks the whole line from end to end, twice, so that nothing is passed over.
 The sun has climbed well clear of the sea before you give the beach up, and all that five pairs of hands have gathered between them stands above the tide line: one stack of wood, driftwood and planks. <planks?Not the day's first property, not quite: you slept on that one.;The day's first property.>
 "It is a beginning," says <A>, looking at the stack. "Now the question is what we do with the day that is left of it."
-#40 How should the work focus today?
+#40 Let's get to work
+#73 We should rest today
 
 §20
 // Asking for help: <D> comes with you; no food is shared, but planks are for sale; no begging or yelling changes anything.
@@ -297,3 +299,22 @@ On the way back you strip the fullest of the berry bushes, and the fruit rides o
 Back at the camp nobody is assigned to anything. The friends eat a little and rest after the walk, and the question of the day sleeps until tomorrow.
 Wood and food both, and no decision spent on either. There are worse ways to meet a new land.
 Tomorrow you will take a closer look at this new land.
+
+§73
+// The rest-day ending: the day is given over, A and C go out anyway and pay for it in temper, and supper closes the first day ashore.
+[task A woodcutting]
+[task C scavenge]
+[person A attitude -3]
+[person C attitude -3]
+Rest wins the day, and not everyone consents to it.
+"Then sit," says <A>, already lifting the tools out of the box. "I did not come ashore to watch the first day of it go by idle. The grove owes us wood, and I am going to collect." And <A> goes, the small hatchet on shoulder, up over the dunes without another word.
+<C> follows without a word either, out past the dunes, into the green where the food grows wild.
+"A whole day, told to rest," says <B>, pulling a blanket around shoulders and settling out of the wind. "I intend to take it seriously."
+"Rest is also work," says <D>, lying back. "It is the work of being alive the day after. Somebody has to set the example."
+The three of you let the morning go where it wants. The talk is the slow kind there was never room for on the boat: home, its remembered rooms, the small unimportant things that turn out to be the important ones.
+"When there is a hall," says <D> into the sky, "I want a bench in it. A long one. Everything else can wait its turn for me."
+"First a roof," says <B>. "Then we can argue about the furniture."
+The sun climbs and turns, the shadows of the dunes swing across the camp, and the sea keeps its patient sound, and nobody counts anything.
+They come back inside the evening, <A> first with a stack of wood across both shoulders, and <C> behind with the day's findings folded into a blanket.
+Supper is <D>'s to make, and <D> makes it with the knife and the pot: <food 3?the voyage's last catch, dug out of its cool sand above the tide line where it kept all day, cut small and shared raw with salt, what <C> found in the green heaped beside it.;what <C> found in the green, cleaned and cut and heaped into shares, and it is enough, which is the whole of what a meal has to be.>
+The five of you eat together in the last of the light, sitting in a ring by the blankets, and the first day ashore ends without anything built and without anything decided, with wood at the dune and a meal in everyone, and that is not nothing.

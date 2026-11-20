@@ -102,7 +102,7 @@ describe('Core loop wiring', () => {
         expect(dataModel.get('wood')).toBe(1);
 
         // The flow continues to the work focus
-        pick(dialog, 'How should the work focus today?');
+        pick(dialog, "Let's get to work");
         expect(dialog.getCurrentChoices().map(c => c.getText()))
             .toEqual(['Focus on the short term: three forage, one builds', 'Focus on the long term: building first']);
     });

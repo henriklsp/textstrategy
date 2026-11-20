@@ -123,3 +123,30 @@ describe("Stage 6: the intro's choices echo in firstday", () => {
         expect(texts[0]).not.toBe(texts[1]);
     });
 });
+
+describe('§10: the day can be given to rest', () => {
+    beforeEach(() => {
+        jest.spyOn(console, 'log').mockImplementation(() => {});
+        jest.spyOn(console, 'warn').mockImplementation(() => {});
+    });
+    afterEach(() => jest.restoreAllMocks());
+
+    test('the rest choice reaches §73: A woodcutting and C scavenging at an attitude cost, B and D resting, choiceless ending', () => {
+        const dataModel = newDataModel();
+        const scheduled: Scheduled[] = [];
+        const dialog = startEvent('text/firstday.txt', dataModel, scheduled);
+        pickTo(dialog, 10); // search the beach
+        pickTo(dialog, 73); // we should rest today
+        expectClean(dialog.getCurrentText());
+        expect(dialog.getCurrentChoices().length).toBe(0); // the ending closes the day
+        expect(dialog.getPersonForRole('A')!.getAttitude()).toBe(47); // overruled and out working anyway
+        expect(dialog.getPersonForRole('C')!.getAttitude()).toBe(47);
+        expect(dialog.getPersonForRole('B')!.getAttitude()).toBe(50); // content resters
+        expect(dialog.getPersonForRole('D')!.getAttitude()).toBe(50);
+        expect(dataModel.getTaskForPerson(dialog.getPersonForRole('A')!.getName())).toBe('woodcutting');
+        expect(dataModel.getTaskForPerson(dialog.getPersonForRole('C')!.getName())).toBe('scavenge');
+        expect(dataModel.getTaskForPerson(dialog.getPersonForRole('B')!.getName())).toBe('rest');
+        expect(dataModel.getTaskForPerson(dialog.getPersonForRole('D')!.getName())).toBe('rest');
+        expect(scheduled).toHaveLength(0); // no event scheduled, like the other endings
+    });
+});
