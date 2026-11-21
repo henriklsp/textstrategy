@@ -108,7 +108,7 @@ So the five of you keep to yourselves and make do, and sit close around the box 
 
 §40
 // The work focus: the main strategic decision of the day.
-The friends do not agree on what the day is for, and the disagreement arrives at once.
+You have hardly finished saying it before the answer comes twice at once, over itself: <C>'s face turned to the green land, <B>'s to the grey water, and neither at the other.
 "Food first," says <C>. "Hunger does not wait for anything we can raise. There is food out there for anyone who goes looking, and I am going looking."
 "And when the weather turns again?" says <B>. "Tonight, or in ten days, it will turn. We were lucky once, and luck does not keep. Build first. What we raise this morning is what stands between us and the next storm."
 "Food is also what stands between us and the next storm," says <C>. "The shorter one."
@@ -122,7 +122,7 @@ They look to you. They will go where the day is sent.
 §50
 // Short term: B, C and D forage; what of A?
 [set building=choice]
-The day goes to food. That much is settled, and the three of them are already turned toward the dunes: <B>, <C> and <D> will forage the land for it, the land past the dunes, green and quiet and unread, and the first question of such a land is always what it holds.
+The last word is still going out of you when the three of them rise together, shoulders already toward the dunes: <B>, <C> and <D> off to forage the land beyond them, green and quiet and unread, and <C> walking like one who already knows what it holds.
 "That leaves the wood and the building to us," says <A>, looking at what there is to build with. "If there is anything to raise, one pair of hands can raise the first of it while the rest walk. Everything anyone ever built was once one day's work by one pair of hands."
 What should it be?
 #51 (canbuild shelter?) Build a shelter
@@ -138,7 +138,7 @@ What should it be?
 [task B scavenge]
 [task C scavenge]
 [task D scavenge]
-The work divides without another word.
+Nobody says it twice: the three are away toward the dunes before their footprints fall in line, and the beach above the tide line belongs to <A>.
 <A> takes the tools to the chosen ground above the tide line, and the first marks of the <building> go down in the sand: crooked, maybe, but honest, planks to be cut and laid and tied, a beginning. "Leave me the small wood, and the brush you strip on the way," <A> calls after the others. "Bark twisted green makes cord enough to tie a rough build together. Go. If I shout, come running."
 The three of them go, spread wide past the dunes, and the camp goes quiet behind them: one builder bent to the work, the sea keeping its own time, and the day spent on both the food and the future at once.
 By dark there will be something here that was not here at sunrise, and something in the pot as well, and the five of you will be a little less guests on this coast.
@@ -163,14 +163,14 @@ By evening there will be a stack of wood that was not there in the morning, and 
 Nothing is built today, and nothing is begun. The tools go back in their box, and the box waits in the sand.
 "Even <A> eats," says <B>, and <A> goes with the rest, without another word about it. All four friends walk into the land to forage, and you walk with them, food before everything else, spread out past the dunes where the ground turns green.
 Behind you the camp stands empty: two blankets, a closed box, everything the five of you own in the world, and the sea keeping its eye on all of it.
-The whole day goes to food. A narrow choice, and a safe one, and the pot will be fuller tonight than the woodpile. <food 3?And the pot starts ahead of the day: the catch is already in the ground, and only needs digging out.;>
+All day it is walking and picking and bending, the green giving slow small answers, and by dark the pot will be the fuller for it and the woodpile no poorer than it was. <food 3?And the pot starts ahead of the day: the catch is already in the ground, and only needs digging out.;>
 
 §60
 // Long term: choose the building; the work is agreed around A's build.
 [set building=choice]
-The friends agree to put the day into something that lasts. Last night was for staying alive. This day is for beginning to live, and a house begun is a different thing from a camp made.
+At the word 'building' the four of them come round together, the weight of the whole day swinging onto it at once. Last night was for staying alive. This day is for beginning to live, and a house begun is a different thing from a camp made.
 "Then say what," says <A>, already moving the wood toward the tide line. "The morning is going while we stand here admiring our own decision. A building wants a whole day and every hand I can talk out of the others."
-The rest of the day is set out around the build, and the first question is what the day raises.
+Every hand is spoken for already, every hour promised twice, and all that is missing is the name of the thing.
 What should it be?
 #61 (canbuild shelter?) Build a shelter
 #61 (canbuild fence?) Build a fence
@@ -198,7 +198,7 @@ The work goes twice as fast as it would alone, or near enough to feel that way. 
 // Long term: A builds and B cuts wood; what of D?
 "A build and a woodpile both want keeping," says <B>, and takes the small hatchet toward the grove without waiting to be walked there. "Yours is the house. Mine is the grove end of it. Neither of us starves if <C> does <C>'s part."
 So <A> holds the <building> alone, marks and pegs and first timbers going into the sand, and from the dunes comes the sound of the hatchet, patient and far off, and between them the wood and the work both have a keeper.
-<D> looks from the trees to the land, and waits to be told. The day is one build, one hatchet, one pair of walking feet short of everything it could use.
+<D> looks from the trees to the land, and waits to be told. The day wants a fourth pair of hands somewhere in it, and <D>'s are the free ones.
 #66 <D> cuts wood too
 #67 <D> forages
 
@@ -209,7 +209,7 @@ So <A> holds the <building> alone, marks and pegs and first timbers going into t
 [task B build]
 [task C scavenge]
 [task D woodcutting]
-Two take the build, and the day settles around it: <A> and <B> at the wood, passing tools without looking up, <D> gone to the trees for more of it, and <C> walking into the land for food, the way <C> always does, nose to the green.
+From the first cut the site makes its own small world: <A> and <B> at the wood, passing tools without looking up, <D> gone to the trees for more of it, and <C> walking into the land for food, the way <C> always does, nose to the green.
 "By dark," <A> calls after the woodcutter, "bring enough for tomorrow too. Tomorrow I build all day again."
 From the grove comes the far-off sound of the hatchet, which is answer enough, and from the green <C> is already too far to hear.
 By evening the beginning of the <building> will be here, out of sand and wood and home-twisted cord, a thing that did not exist at sunrise, and the stack at the dune will have grown behind everyone's backs. Beginnings are what the five of you came to this coast to make. <food 3?And one beginning is already made: the catch lies buried up past the tide line, supper waiting in the ground.;>
@@ -264,7 +264,7 @@ By dark the stack above the tide line will have grown all day, and tomorrow the 
 §70
 // The alternate ending: the work decision is put off; the friends explore the new land, the grove beyond the dunes.
 Not today.
-The friends cannot agree on the work of the day, and you let the question stand: tomorrow, with clearer heads, and a day's worth of knowing the land behind the argument.
+Nobody gives ground and nobody forces the point, the day standing on both feet at once; you let it stand that way: tomorrow, with clearer heads, and a day's worth of knowing the land behind the argument.
 "Agreed," says <D> quickly, before anyone can reopen it. "Tomorrow we decide everything. Today we look at where we live."
 But none of you will sit on the beach and wait, so the five of you go together over the dunes to look at the new land. Past the dunes the sand gives way to grass, the grass to brush, and the brush to the grove you have all been watching from the beach since sunrise: green standing dark and quiet under the morning, the first real trees any of you have stood under in weeks, and the sound of them is wind, and birds, and nothing else.
 <C> stops at the first tree and puts a hand on the bark, and stands there a moment at the threshold. "It lives," <C> says. "All of it. The whole green thing, alive from root to crown. After three weeks of salt and grey, I had half forgotten what alive looks like."

@@ -1,4 +1,5 @@
 import * as path from 'path';
+import * as fs from 'fs';
 import { EventParser } from '../src/classes/EventParser.ts';
 import { Dialog } from '../src/classes/Dialog.ts';
 import { DataModel } from '../src/classes/DataModel.ts';
@@ -148,5 +149,34 @@ describe('§10: the day can be given to rest', () => {
         expect(dataModel.getTaskForPerson(dialog.getPersonForRole('B')!.getName())).toBe('rest');
         expect(dataModel.getTaskForPerson(dialog.getPersonForRole('D')!.getName())).toBe('rest');
         expect(scheduled).toHaveLength(0); // no event scheduled, like the other endings
+    });
+});
+
+// Style lint: stage-3 narrator's-ledger sentences must not survive into the prose.
+// 'The friends agree', 'the day goes to food' and friends narrate the day's
+// outcome from nowhere: they are summaries for the author, not things 'you'
+// can see or hear on the beach. Scan only narration: no comments, no quoted
+// speech (characters may say these things).
+describe('firstday style: no narrator\'s ledger', () => {
+    test('no summary sentences about agreement or the day dividing itself', () => {
+        const raw = fs.readFileSync(path.join(__dirname, '..', 'text/firstday.txt'), 'utf8');
+        const narration = raw
+            .split('\n')
+            .filter(line => !line.trimStart().startsWith('//'))
+            .join('\n')
+            .replace(/"[^"]*"/g, '');
+        const ledgerPatterns = [
+            'The friends do not agree',
+            'The friends agree',
+            'The friends cannot agree',
+            'The day goes to',
+            'The whole day goes',
+            'The work divides',
+            'The rest of the day is set out',
+            'the day settles around'
+        ];
+        for (const pattern of ledgerPatterns) {
+            expect(narration.includes(pattern)).toBe(false);
+        }
     });
 });
