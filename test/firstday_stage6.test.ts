@@ -180,3 +180,42 @@ describe('firstday style: no narrator\'s ledger', () => {
         }
     });
 });
+
+// Final pass (guide phase 7; amended guide: phase-3 basic text goes once the
+// prose is finished): the per-section description comments are gone, phase-6
+// variation and trait-personality tags are present, and every section sits
+// within the 100-500 word bounds. Word counts strip choices, effects and
+// comments; both variation branches count towards the cap.
+describe('firstday final: finished text', () => {
+    const raw = fs.readFileSync(path.join(__dirname, '..', 'text/firstday.txt'), 'utf8');
+
+    test('phase-3 basic-text descriptions are removed from all sections', () => {
+        const firstSection = raw.indexOf('\n§');
+        expect(firstSection).toBeGreaterThan(0);
+        expect(/^[ \t]*\/\//m.test(raw.slice(firstSection))).toBe(false);
+    });
+
+    test('phase-6 variation and trait-personality tags are present', () => {
+        expect(raw.includes('<?')).toBe(true);
+        expect(/<[A-D] -[a-z]+\?/.test(raw)).toBe(true);
+    });
+
+    test('every section is within the 100-500 word bounds', () => {
+        const bodies = raw
+            .slice(raw.indexOf('\n§'))
+            .split(/\n(?=§)/)
+            .map(s => s.replace(/^§\d+\n?/, ''))
+            .filter(s => s.trim().length > 0);
+        for (const body of bodies) {
+            const count = body
+                .replace(/^\/\/.*$/gm, '')
+                .replace(/#[^\n]*/g, '')
+                .replace(/\[[^\]]*\]/g, '')
+                .trim()
+                .split(/\s+/)
+                .filter(w => w.length > 0).length;
+            expect(count).toBeGreaterThanOrEqual(100);
+            expect(count).toBeLessThanOrEqual(500);
+        }
+    });
+});
