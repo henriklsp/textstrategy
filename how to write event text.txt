@@ -19,14 +19,16 @@ Consequences: The main decision must have 2 or 3 choices. Add the sections with 
 Optional alternative ending. One of the main choices may lead away from the main path to its own ending of the event. 
 End: section(s) with no choices end the dialog. 
 
-3: Third draft: Basic text
+3: Third draft: Basic plot descrption
 Add roles before the first section.
 *A: trait(s) 
 - Pick divinity trait for a proactive role who drives the narrative forward, magic trait for one who delivers information, life trait for a touch of nature, harmony for collaboration - or their opposites... (See gamedesign#characters for details)
+
 Write the §1 introduction in simple concise matter-of-fact prose.
 Set the scene. Where and when. what is going on. Who is present apart from the player.
 Fill the other sections with basic story text similarly.
 Write all sections as plain just-the-facts text: what happens, what is visible, who says and does what — nothing more. No similes, no metaphors, no atmosphere, no descriptions or details. This text will be replaced in stage 5, so do not polish it.
+The text must be preceded by // comment syntax.
 Use gendered pronouns arbitrarily - they will be replaced later to match each person's actual gender.
 All person names must be in tags <A>, <B> etc.
 Add effects to sections as appropriate. Examples of typical effects could be: 
@@ -63,6 +65,7 @@ See style-examples.txt for approved examples and anti-examples.
 Each section must grow to at least double length and contain at least 100 words and no more than 500 words.
 Dialog choices should be written as something the player character could say. 
 Verify that nothing important was lost in the rewrite from the fourth draft.
+When the prose text is finished, remove the plot description basic text from phase 3.
 
 6: Complete text - final version
 Add variable text substitution.
