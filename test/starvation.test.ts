@@ -205,4 +205,35 @@ describe('Starvation, health and rest', () => {
         dm.updateDailyResources();
         expect(dm.get('food')).toBeCloseTo(10 - 0.2);
     });
+
+    test('one dedicated forager sustains five people indefinitely (design economy)', () => {
+        // Design rule (Henrik): one person foraging produces 1 basket per day,
+        // which feeds 5 people at 0.2 each. As long as the player keeps that
+        // person assigned, there is enough food forever: the bounty sits at
+        // its equilibrium (daily replenishment offsets the scavenged food)
+        // so production stays at 1.0/day. A month must pass with nobody
+        // eating into starvation damage.
+        const people = [
+            new Person('A', 'life', 'magic', 'harmony'),
+            new Person('B', 'divinity', 'magic', 'life'),
+            new Person('C', 'magic', 'divinity', 'harmony'),
+            new Person('D', 'harmony', 'magic', 'life'),
+            new Person('E', 'life', 'harmony', 'magic')
+        ];
+        const dm = makeModel(people, 0);
+        dm.setBounty(10);
+        const healthBefore = people.map(p => p.getHealth());
+        dm.assignPersonToTask('A', 'scavenge');
+
+        for (let day = 0; day < 30; day++) {
+            dm.nextDay();
+            dm.updateDailyResources();
+            expect(dm.get('food')).toBeGreaterThanOrEqual(0);
+        }
+
+        expect(dm.get('food')).toBeGreaterThanOrEqual(0);
+        expect(dm.getBounty()).toBeGreaterThanOrEqual(9);
+        expect(dm.getTaskAssignments()).toHaveLength(1);
+        expect(people.map(p => p.getHealth())).toEqual(healthBefore);
+    });
 });
