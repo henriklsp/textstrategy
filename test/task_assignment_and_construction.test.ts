@@ -3,6 +3,7 @@ import { GameLoop } from '../src/classes/GameLoop.ts';
 import { DataModel } from '../src/classes/DataModel.ts';
 import { Dialog } from '../src/classes/Dialog.ts';
 import { Person } from '../src/classes/Person.ts';
+import { createDefaultCharacters } from '../src/classes/DefaultCharacters.ts';
 
 describe('Task Assignment and Construction', () => {
     let parser: EventParser;
@@ -52,7 +53,7 @@ describe('Task Assignment and Construction', () => {
         expect(assignments.map(a => a.taskType)).toContain('build');
     });
 
-    test('should assign all persons to tasks (explicit or default)', () => {
+    test('should assign the explicit tasks from the event effects', () => {
         gameLoop.next();
 
         const allPersons = dataModel.getCast();
@@ -74,27 +75,50 @@ describe('Task Assignment and Construction', () => {
         expect(dataModel.isBuildingUnderConstruction('shelter')).toBe(true);
 
         // Manually advance day to trigger construction completion
+        // (unassigned people rest; only the assigned builder progresses the site)
         dataModel.nextDay();
-        dataModel.assignUnassignedToDefaultTask();
         dataModel.updateDailyResources();
 
         // Verify construction completed (1 builder, base 1 day, so 1/1 = 1 day)
         expect(dataModel.isBuildingCompleted('shelter')).toBe(true);
     });
 
-    test('should produce food from scavenging', () => {
+    test('production comes from explicit assignments only', () => {
         gameLoop.next();
 
         const foodBefore = dataModel.get('food');
 
-        // Manually advance day
+        // Manually advance day: only the explicitly assigned scavenger produces.
+        // The unassigned cast member rests and produces nothing.
         dataModel.nextDay();
-        dataModel.assignUnassignedToDefaultTask();
         dataModel.updateDailyResources();
 
-        // Food should have changed (production from scavenging, consumption from population)
         const foodAfter = dataModel.get('food');
-        expect(typeof foodAfter).toBe('number');
+        expect(foodAfter).toBeGreaterThan(foodBefore);
+    });
+
+    test('a day advance with unassigned cast rests them, never scavenges (phantom-food regression)', () => {
+        // The intro-night scenario from the seed-2 e2e run: the friends are
+        // ashore, nobody has been assigned anything, food is at 1. The day
+        // advance used to auto-scanvenge all of them into 5 baskets of food
+        // that nobody gathered. Unassigned people rest: 1 food minus the
+        // day's eating of exactly 1, and no free food.
+        const dm = new DataModel();
+        for (const person of createDefaultCharacters()) {
+            dm.addPerson(person);
+        }
+        dm.setCurrentDay(1);
+        dm.set('population', 5);
+        dm.set('food', 1);
+        dm.set('wood', 0);
+        dm.setBounty(10);
+
+        dm.nextDay();
+        dm.updateDailyResources();
+
+        expect(dm.getTaskAssignments().length).toBe(0);
+        expect(dm.get('food')).toBe(0);
+        expect(dm.getBounty()).toBe(10);
     });
 
     test('should handle choice capture end-to-end (Hunt task assignment)', () => {

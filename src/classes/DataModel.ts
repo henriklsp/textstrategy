@@ -112,9 +112,6 @@ const TASK_REQUIRES: Partial<Record<TaskType, string>> = {
     craft: 'enables_crafting'
 };
 
-// Default task when person is unassigned
-export const DEFAULT_TASK: TaskType = 'scavenge';
-
 // Information about a task assignment
 interface TaskAssignment {
     personName: string;
@@ -291,16 +288,6 @@ export class DataModel {
         return this.taskAssignments
             .filter(a => a.taskType === taskType)
             .map(a => a.personName);
-    }
-
-    // Assign all unassigned people to the default task
-    public assignUnassignedToDefaultTask(): void {
-        const assignedNames = new Set(this.taskAssignments.map(a => a.personName));
-        for (const person of this.castOfCharacters) {
-            if (!assignedNames.has(person.getName())) {
-                this.assignPersonToTask(person.getName(), DEFAULT_TASK);
-            }
-        }
     }
 
     // Start construction of a building. Pays the building's resource costs.

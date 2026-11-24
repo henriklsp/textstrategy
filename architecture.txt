@@ -216,7 +216,11 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
     PersonCanTaskPrerequisite ("D can fish" choice conditions)
   - Role selection for tasks: PersonSelection task-based scoring disqualifies people
     already doing the task or too unhealthy to work, and prefers free (resting), healthy people
-  - Default task assignment: assignUnassignedToDefaultTask() assigns to 'scavenge'
+  - No default task assignment: the engine never assigns work on its own. Unassigned cast
+    members rest by default (getTaskForPerson returns 'rest'; getPersonsForTask('rest')
+    includes them), producing nothing. Only explicit [task] effects (event text or council)
+    assign work. (Removed 2026-11-24: the old auto-scanvenge on day advance created phantom
+    food nobody gathered, e.g. 5 baskets after the intro night in e2e seed 2.)
   
   Resource types: food, gold, silver, weapons, population, iron, copper, wood
   Task types: scavenge, hunting, fishing, farming, woodcutting, mining, build, craft, storage, rest

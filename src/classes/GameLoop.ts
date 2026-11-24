@@ -365,8 +365,8 @@ export class GameLoop implements DialogCallback {
     private advanceDay(): void {
         try {
             this.dataModel.nextDay();
-            // Assign unassigned people to default task before processing
-            this.dataModel.assignUnassignedToDefaultTask();
+            // Unassigned cast members rest by default (DataModel read-side
+            // default); the engine never assigns work on its own.
 
             // Perform daily resource updates
             this.dataModel.updateDailyResources();
