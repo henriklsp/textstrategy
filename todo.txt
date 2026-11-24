@@ -5,7 +5,7 @@
 - Write more events
 - Randomly generated characters
 - Data model: Buildings. Building task slots, efficiency bonus and other building effects.
-- Buildings: shelter, tent, shed, hut, house, raft, boat, pier, dock, storage, chicken coop, field, (other farming related buildings?), fence, stockade, watchtower, copper mine, iron mine, smithy, (other mining related buildings)
+- Buildings: shelter, tent, shed, hut, house, raft, boat, pier, dock, storage, chicken coop, field, (other farming related buildings?), fence, stockade, watchtower, copper mine, iron mine, smithy, (other mining related buildings), every task must have a building which allows assignment to the task. 
 - engine-triggered events. eg. construction complete
 - starvation or low health triggers events
 - character death
@@ -22,6 +22,7 @@
 - Starvation events: trigger a story event when a character's health falls below a threshold, so the crisis appears in prose
 - Feast: let the council spend surplus food to raise health and attitude above their baseline
 - Building "tech tree" and prerequisites
+- UI: front page, new day page
 - Events to add more people/characters, someone wants to join your group. Population should grow by 1 person within 5 days and to 10 within 20 days, and 20 people within a month. population beyond 20 need not be named characters.
 - events: the boat that was thought lost in a storm arrives. Empire ship arrives and demands subjugation. Skaelings want to trade. Skaeling raid. Exploration. Find chickens, required for chicken coop.
 - Combat system
