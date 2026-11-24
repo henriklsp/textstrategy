@@ -22,7 +22,7 @@
 - Starvation events: trigger a story event when a character's health falls below a threshold, so the crisis appears in prose
 - Feast: let the council spend surplus food to raise health and attitude above their baseline
 - Building "tech tree" and prerequisites
-- Events to add more people/characters, someone wants to join your group. 
+- Events to add more people/characters, someone wants to join your group. Population should grow by 1 person within 5 days and to 10 within 20 days, and 20 people within a month. population beyond 20 need not be named characters.
 - events: the boat that was thought lost in a storm arrives. Empire ship arrives and demands subjugation. Skaelings want to trade. Skaeling raid. Exploration. Find chickens, required for chicken coop.
 - Combat system
 
