@@ -193,14 +193,16 @@ Symbol: Sun
 Role: A follower dedicates themselves to perfecting their calling and becoming the best, unsurpassed in their skill.
 
 +divinity -life
-God of Darkness and Death.
+Darkness and Death.
 Symbol: Moon.
-Role: Perform funeral rites. Night time occupations. Guard, raider, spy, scout, monk. Fight under cover of darkness.
+Role: Night time occupations. Guard, raider, spy, scout, monk. Fight under cover of darkness.
+Bonus: Guarding skill
 
 +divinity -harmony 
-God of War
+War
 Symbol: Lightning
 Role: soldier.
+Bonus: combat skill
 
 +magic -divinity
 Learning, wisdom and cunning. 
@@ -210,13 +212,13 @@ Bonus: magical luck
 
 +magic -life
 Artifacts
-Symbol:
-Role: crafts, smiths, builders, alchemists
+Symbol: Snowflake
+Role: crafts, smith, metalworking
 Bonus: able to craft magic items
 
 +magic -harmony 
 Chaos.
-Symbol: Fire
+Symbol: Flame
 Role: magicians, occultists
 Bonus: alchemy and fire magic.
 
@@ -235,24 +237,24 @@ Bonus: double health regeneration speed
 Wild Untamed Nature
 Symbol: Wave
 Role: hunter, fishing, sailor, mountaineer, explorer, scout
-Bonus: hunting and foraging skill
+Bonus: fishing, hunting and foraging skill
 
 +harmony -divinity
 Family
 Symbol: Dove
 Role: diplomat, mediator, Promotes harmony in the clan and in families
-Bonus: ?
+Bonus: Negotiation and trade
 
 +harmony -magic
 Tradition
 Symbol: Stone tablet
 Role: Dutiful and loyal workers who know their place and keep things in their proper place.
-Bonus: ?
+Bonus: Construction and stonework
 
 +harmony -life
 Ancestors
 Symbol: Skull
-Role: diviner, scribe, any profession handed down through generations
+Role: diviner, scribe, storage, any profession handed down through generations
 Bonus: ?
 
 # Magic
