@@ -230,7 +230,7 @@ Bonus: Farming skill
 
 +life -magic
 Health
-Role: Manual labor, athlete, runner, healer
+Role: Manual labor, athlete, runner, miner, woodcutter
 Bonus: double health regeneration speed
 
 +life -harmony 
