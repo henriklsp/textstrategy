@@ -59,21 +59,21 @@ Behind you the rowing goes on, and the boat moves west through the darkening wat
 §12
 <A> is quiet for a moment, weighing it. Then <he> nods slowly. "Then we plan. First we land. Then we find water and food. Then we build. One thing at a time, until the stories can begin."
 It is not glory yet. But it is a road that leads there.
-<A he> does not say the word land any louder than the rest, but the boat hears it anyway. Behind you the rowers have caught the change in <A his> voice, and stroke by stroke the boat has begun to believe it. Certainty, like doubt, rows as well as any oar, and costs less to carry.
+<A he> does not say the word land any louder than the rest, but the boat hears it anyway. Behind you the rowers have caught the change in <A his> voice, and stroke by stroke the boat has begun to believe it. Certainty rows as well as any oar, and it costs less to carry than most cargo.
 [person A attitude +3]
 #20 Sit in silence
 #14 "Do you think the gods sent us out here?"
 #39 Get some rest
 
 §13
-You say nothing, and let <A him> talk: the land ahead, the future, the glory that waits for you all. <A He> speaks of it quietly, and then louder, and the words carry along the benches, and people listen who did not mean to. When the watch changes <A he> seems calmer. The hope <A he> gave away has left room for more.
+You say nothing, and let <A him> talk. "Land ahead," <A he> says quietly, and then louder: "The future. The glory that waits for us all." The words carry along the benches, and people listen who did not mean to. When the watch changes <A he> seems calmer. The hope <A he> gave away has left room for more.
 The glory is a long way off yet. But a long way is still a way, and the rowers have it now, passing it along the benches stroke by stroke, and nobody asks whether it is true. Some things are true because the boat moves better with them in it.
 #20 Sit in silence
 #14 "Do you think the gods sent us out here?"
 #39 Get some rest
 
 §14
-<A> is quiet. The oars fill the silence with their patient rhythm. The mast creaks with each lean of the boat, and somewhere under the sail cloth a child asks whether the sea is angry, and is told no, and believes it, the way children do.
+<A> is quiet. The oars fill the silence with their patient rhythm. The mast creaks with each lean of the boat, and somewhere under the sail cloth a child asks whether the sea is angry, and is told no, and asks no more.
 "I think they opened a door and pushed us through it," <he> says. "What we do on the other side is ours. That is the whole point of us."
 <A -harmony?"As for the storm, I have no quarrel with the gods," <A he> adds. "My quarrels have all been with men, and I have won most of them.";><A -magic?<A he> shrugs, once, and lets the shrug be the whole of the theology, and takes the bailer out of a tired hand and works with it instead.;>
 #15 "And the storm that took the sail - did the gods send that too?"
@@ -182,7 +182,7 @@ The plan is set. Now the sea must cooperate, and the sea has never read a plan.
 #34 "How can you tell?"
 
 §33
-You say nothing. <C> goes on talking quietly: the weed, the gulls, the stars, the days behind you and the days ahead. The talking keeps the fear at arm's length, a small lamp against the dark. You listen until the clouds cover the last of the stars, and <his> voice goes on a while anyway, out of habit, or out of courage.
+You say nothing. "Weed in the water," <C> goes on, quietly. "Gulls at noon. The stars, the days behind us, and the days ahead." The talking keeps the fear at arm's length, a small lamp against the dark. You listen until the clouds cover the last of the stars, and <his> voice goes on a while anyway, out of habit, or out of courage.
 <C -divinity?At some point the talking changes. <C he> is not telling you things anymore, <C he> is telling the boat. "Stroke," says <C he>, softly, and the oars begin to find each other. "Steady," says <C he>, and the sea sounds further off than it did. Whether it is magic, or only a trick of a voice that refuses to hurry, the rowing comes easier after that, and the fear remembers its place.;><C -harmony?Then, at last, <C he> brings out a tiny pot, no bigger than a fist, saved for a special occasion, and sprinkles a pinch of powder into it. A flame stands up out of the pot, thin and merry, steady in the wind, and warm. A child sees it first and cries "Magic!" The grown ones nod, approving, the way one nods at good work, and the boat rows a little easier in the small light. "Salt and fire-stuff," says <C he>. "The old chemistry. Through the rebellion, and the march, and three weeks of open water, I have kept this dry." <C he> looks at the flame with the satisfaction of a craftsman. "I told you tonight was worth saving it for.";>
 #40 Sit in silence
 #34 "How can you tell?"
@@ -373,7 +373,7 @@ Somebody's baby has begun to laugh at the rain, a sound so far out of place that
 
 §67
 [var weapons 1]
-You search the surf with numb hands, feeling in the shallows where the wreckage washes. The sea gives up a length of broken oar: its last gift, and a poor one. You wade ashore with it and stand it in the sand above the tide line. You test the swing of it once, standing, and it answers like an oar, heavy at the wrong end. But the night is full of worse ideas than wood in a hand, and you keep it near, and the beach feels a little smaller to defend with a defense in hand. A poor weapon, but a weapon.
+You search the surf with numb hands, feeling in the shallows where the wreckage washes. The sea gives up a length of broken oar: its last gift, and a poor one. You wade ashore with it and stand it in the sand above the tide line. You test the swing of it once, standing, and it answers, oar-heavy, all the weight at the wrong end. But the night is full of worse ideas than wood in a hand, and you keep it near, and the beach feels a little smaller to defend with a defense in hand. A poor weapon, but a weapon.
 #66 See to the children and families
 #70 Let the night come
 
