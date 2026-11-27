@@ -1,7 +1,6 @@
 
 - More roles than Person characters? How to handle?
 - Person skill and skill progression and natural aptitude
-- Event queue is ordered by due date. Only run events for current day.
 - Write more events
 - Randomly generated characters
 - Data model: Buildings. Building task slots, efficiency bonus and other building effects.
