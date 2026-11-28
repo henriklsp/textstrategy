@@ -361,8 +361,10 @@ export class GameLoop implements DialogCallback {
         }
     }
 
-    // Advance to the next day and perform daily updates
-    private advanceDay(): void {
+    // Advance to the next day and perform daily updates.
+    // Public so tests and future callers can drive the day-advance semantics
+    // directly: day tick, daily resource update, then engine-triggered events.
+    public advanceDay(): void {
         try {
             this.dataModel.nextDay();
             // Unassigned cast members rest by default (DataModel read-side
@@ -370,6 +372,16 @@ export class GameLoop implements DialogCallback {
 
             // Perform daily resource updates
             this.dataModel.updateDailyResources();
+
+            // Engine-triggered events produced by the daily update, e.g. a
+            // construction completed this morning, play today: delay 0 puts
+            // them on today's queue, after anything already scheduled for
+            // today. An event name without an event file is recorded and
+            // skipped by scheduleEventByName's unknown-event handling, so a
+            // building type without a completion event cannot wedge the loop.
+            for (const trigger of this.dataModel.consumePendingTriggers()) {
+                this.scheduleEventByName(trigger.eventName, 0);
+            }
         } catch (error) {
             this.recordError(error as Error);
         }

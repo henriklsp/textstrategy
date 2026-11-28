@@ -1,0 +1,21 @@
+// text/workinprogress/completedfence.txt
+// Engine-triggered: scheduled by the game itself (GameLoop + DataModel's
+// construction-complete trigger), not by an [event] effect, on the morning a
+// fence construction completes during the daily update.
+// One event per building type: fence, so the same scene is never
+// re-triggered by another building finishing.
+// Placeholder event text - we will polish it later.
+
+§1
+Morning comes up over the camp, and the fence stands finished, a rough line of stakes and cross-tied planks between you and the treeline. It will not stop anything that truly wants through, and everyone knows it, and still the camp looks different from inside it. You walk the length of it once, testing each stake with a hand. The others come out to see, and nobody says anything for a while, because there it is: the first thing on this coast that you have built rather than salvaged or buried.
+"So," one of them says at last, looking along the fence and then out at the treeline. "Now what?"
+That is the question of the day, and it is yours to answer.
+#2 Call the others together about the next build
+#3 Leave the deciding for later
+
+§2
+You call them together there inside the new fence, and the talk starts at once: what to raise next, and who should decide it. Before long the talk has made itself a council, the way talks do, and you sit down to it properly.
+[event workinprogress/council 0]
+
+§3
+There is no hurry in the morning, and you let it stay that way. The work of the day sorts itself out the way it always does, and the deciding can wait for a day when deciding is needed. The fence is up. The rest is not going anywhere.

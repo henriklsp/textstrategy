@@ -1,0 +1,21 @@
+// text/workinprogress/completedshelter.txt
+// Engine-triggered: scheduled by the game itself (GameLoop + DataModel's
+// construction-complete trigger), not by an [event] effect, on the morning a
+// shelter construction completes during the daily update.
+// One event per building type: shelter, so the same scene is never
+// re-triggered by another building finishing.
+// Placeholder event text - we will polish it later.
+
+§1
+Morning comes up over the camp, and the shelter stands finished at the edge of the dunes. Rough planks, home-twisted cord, a low roof of sail cloth and branches: crude, exactly as crude as it was meant to be, and whole. You walk around it once with your hand on the wood. The others drift over one by one, and nobody says anything for a while, because there it is: the first thing on this coast that you have built rather than salvaged or buried.
+"So," one of them says at last, looking at the shelter and then out at the treeline. "Now what?"
+That is the question of the day, and it is yours to answer.
+#2 Call the others together about the next build
+#3 Leave the deciding for later
+
+§2
+You call them together there in the shade of the new shelter, and the talk starts at once: what to raise next, and who should decide it. Before long the talk has made itself a council, the way talks do, and you sit down to it properly.
+[event workinprogress/council 0]
+
+§3
+There is no hurry in the morning, and you let it stay that way. The work of the day sorts itself out the way it always does, and the deciding can wait for a day when deciding is needed. The shelter is up. The rest is not going anywhere.

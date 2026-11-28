@@ -34,6 +34,11 @@ src/browser.ts (browser) or src/index.ts (Node)
   - Event queue is kept sorted by day; same-day events maintain insertion order
   - Async loading of event files in browser environment
   - Daily updates: resource production from tasks, resource consumption, building construction progress
+  - Engine-triggered events: after each day's updateDailyResources(), GameLoop consumes the
+    triggers the update produced (see ENGINE-TRIGGERED EVENTS below) and schedules each as a
+    named event due that same day (delay 0). An event name without an event file is recorded
+    and skipped, so a missing event file never wedges the day loop. advanceDay() is public:
+    it owns the day-advance semantics (day tick, daily update, engine triggers)
   - Buildings are built by man-days: the mandaysspent variable accumulates the builders'
     total work effort each day (each builder weighted by work efficiency, so low health slows
     construction; days with nobody building make no progress); a building completes when
@@ -197,7 +202,8 @@ Context (EffectContext) provides role resolution, choice variable access, and ev
   - Known variables (RESOURCES, currentDay) default to 0 if not set
   - Resource variables are clamped to non-negative values
   - Tracks: numericData, booleanData, castOfCharacters, taskAssignments,
-    buildingsUnderConstruction, completedBuildings
+    buildingsUnderConstruction, completedBuildings, formerBuilders,
+    pendingTriggers (transient engine triggers, see ENGINE-TRIGGERED EVENTS)
   
   Key functionality:
   - Resource management: get(), set(), adjust(), clamp()
@@ -295,6 +301,22 @@ The core loop is wired through the event files:
   [event workinprogress/council 10] -> the council recurs every 10 days
 - Between events, GameLoop advances day by day, running the economy
   (production, consumption, construction progress) for every day that passes
+
+## ENGINE-TRIGGERED EVENTS
+Some story events are scheduled by the engine itself, not by an [event] text effect:
+the daily update (DataModel.updateDailyResources) knows things the event text cannot,
+such as a construction finishing. The mechanism is generic, so future triggers
+(e.g. starvation) can reuse it without redesign:
+- DataModel keeps a transient pendingTriggers list (never serialized: triggers are
+  consumed the same day they are produced). completeBuilding() queues a trigger for
+  workinprogress/completed<buildingType> - one event file per building type
+  (completedshelter/completedfence/completedraft, placeholder quality), so the same
+  event is never re-triggered by a different building finishing. The name mapping
+  lives in one place next to the trigger code: adding a building means adding its
+  event file, nothing else. consumePendingTriggers() hands the triggers out once.
+- GameLoop.advanceDay() consumes the triggers after the daily update and schedules
+  each as a named event due that same morning (delay 0), after anything already
+  scheduled for the day. Missing event files hit the existing unknown-event skip.
 
 ## STARVATION, HEALTH AND REST
 - One unit of food is a basket that feeds a family for a day: each day the settlement eats 0.2 food per character

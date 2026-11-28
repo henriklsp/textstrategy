@@ -118,6 +118,11 @@ interface TaskAssignment {
     taskType: TaskType;
 }
 
+// An engine-triggered story event waiting to be scheduled by GameLoop.
+export interface EngineTrigger {
+    eventName: string;
+}
+
 // Serializable representation of the full data model state
 export interface SerializedDataModel {
     numericData: [string, number][];
@@ -139,6 +144,12 @@ export class DataModel {
     // Builders the forced-rest fallback moved to rest when a construction finished:
     // they auto-resume the build task when the next construction starts.
     private formerBuilders: string[];
+    // Engine-triggered story events waiting to be scheduled: produced by the
+    // daily update when the engine itself (not an event effect) makes something
+    // happen, e.g. a construction completed. GameLoop consumes them right after
+    // the update and schedules each as an event due that same day. Transient by
+    // design: triggers never survive a save, they are consumed the same day.
+    private pendingTriggers: EngineTrigger[];
 
     constructor() {
         this.numericData = new Map<string, number>();
@@ -148,6 +159,7 @@ export class DataModel {
         this.buildingsUnderConstruction = [];
         this.completedBuildings = new Set<BuildingType>();
         this.formerBuilders = [];
+        this.pendingTriggers = [];
     }
 
     // Add a Person to the cast of available characters
@@ -378,6 +390,28 @@ export class DataModel {
         this.buildingsUnderConstruction = this.buildingsUnderConstruction.filter(
             b => b.buildingType !== buildingType
         );
+        // The engine itself announces the completion: queue a trigger for
+        // GameLoop to schedule the building's completion event this same day.
+        this.pendingTriggers.push({ eventName: DataModel.constructionCompleteEventName(buildingType) });
+    }
+
+    // Story event for the completion of a building: workinprogress/completed<type>.
+    // One event file per building type, so each building gets its own scene and
+    // the same event is never re-triggered by another building. The single place
+    // that maps a building type to its completion event: adding a building means
+    // adding its event file, nothing else. A building type without an event file
+    // is handled by GameLoop's unknown-event skip.
+    private static constructionCompleteEventName(buildingType: BuildingType): string {
+        return `workinprogress/completed${buildingType}`;
+    }
+
+    // Hand out (and clear) the engine triggers produced by the daily update.
+    // Each trigger is delivered exactly once; callers schedule them as events
+    // due the day the update ran.
+    public consumePendingTriggers(): EngineTrigger[] {
+        const triggers = this.pendingTriggers;
+        this.pendingTriggers = [];
+        return triggers;
     }
 
     // Check if a building is under construction
